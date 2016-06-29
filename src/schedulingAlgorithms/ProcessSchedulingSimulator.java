@@ -25,7 +25,7 @@ public class ProcessSchedulingSimulator {
         /* added by John Kennedy 28jun16
          * modifying the main() to allow for batch interaction. 
         */
-        int option = 1;                // has to be initialized to something...
+        int option = 0;                // has to be initialized to something...
         boolean is_batch = false;       // assume interactive 
         if(args.length > 0)
         {
@@ -54,9 +54,10 @@ public class ProcessSchedulingSimulator {
         
         if(!is_batch)
         {
-            while(option >= 1 && option <= 6)
+            while(option >= 0 && option <= 6)
             {
                 runSim(pss,option);
+                pss.printMenuOptions();
                 option = input.nextInt();
             }
         }else {
@@ -67,7 +68,7 @@ public class ProcessSchedulingSimulator {
     }
     
     private static void runSim(ProcessSchedulingSimulator pss, int option) {
-            pss.printMenuOptions();
+            //pss.printMenuOptions();
             ProcessQueue processQueue = new ProcessQueue(QUANTA_MAX, RUNTIME_MAX, PRIORITY_MAX, NUM_OF_TASKS);
             switch(option) 
             {
