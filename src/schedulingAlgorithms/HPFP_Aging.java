@@ -13,8 +13,7 @@ import java.util.*;
  * @author lord_tyler
  *
  */
-public class HPFP_Aging
-{
+public class HPFP_Aging {
     private ProcessQueue processQueue;
     private int finalTasksDone;
     private float finalTime;
@@ -26,10 +25,9 @@ public class HPFP_Aging
      * Constructor method.
      *
      * @param processQueue (ProcessQueue) : A specialized Queue used for
-     *     generating and sorting organized simulated processes.
+     *                     generating and sorting organized simulated processes.
      */
-    public HPFP_Aging(ProcessQueue processQueue)
-    {   
+    public HPFP_Aging(ProcessQueue processQueue) {
         this.processQueue = processQueue;
         this.finalTasksDone = 0;
         this.finalTime = 0.0f;
@@ -38,22 +36,19 @@ public class HPFP_Aging
         this.finalResponseTime = 0.0f;
     }
 
-    public void priorityBump(ArrayList<PriorityQueue<Task>> readyQueue, HashMap<Task, Integer> bumpThese)
-    {
+    public void priorityBump(ArrayList<PriorityQueue<Task>> readyQueue, HashMap<Task, Integer> bumpThese) {
         Integer maxPriority = 1;
         Integer currentPriority;
 
         // iterate through the HashMap<Task, Integer>
-        for (Map.Entry<Task, Integer> taskInt : bumpThese.entrySet())
-        {
+        for (Map.Entry<Task, Integer> taskInt : bumpThese.entrySet()) {
             // get the currentPriority of the Task as listed in the HashMap (not the original priority
             // via task.getPriority() )
             currentPriority = taskInt.getValue();
 
             // If the Task increased tomaxPriority, then aging algo is finished with it. Remove from the tracking
             // HashMap
-            if (currentPriority == maxPriority)
-            {
+            if (currentPriority == maxPriority) {
                 bumpThese.remove(taskInt);
             }
 
@@ -62,26 +57,24 @@ public class HPFP_Aging
             // priority queue, then you must use the -2 index in readyQueue
             // to remove a Task that was just bumped from its original priority queue, the index is -1
 
-            else
-            {
+            else {
                 readyQueue.get(currentPriority - 2).add(taskInt.getKey());
                 readyQueue.get(currentPriority - 1).remove(taskInt.getKey());
                 taskInt.setValue(taskInt.getValue() + 1);
             }
         }
     }
+
     /**
      * Runs a Highest Priority First (preemptive) with Aging algorithm g
      */
-    public void runHPFP_Aging()
-    {
+    public void runHPFP_Aging() {
 
 //        - Integer maxPriority = 1;
 //        - Integer currentPriority;
 //        - Integer bump = 1;
 //        -
-        for (int i = 1; i <= 5; i++) 
-        {
+        for (int i = 1; i <= 5; i++) {
             // Variables needed for tracking progress of each run
             int clock = 0;
             int tasksDone = 0;
@@ -121,7 +114,7 @@ public class HPFP_Aging
                 tickQueue.add(0, tick);
                 tickQueueCounter -= 1;
             }
-            
+
             // For each of 5 runs create a new process queue
             Task[] tasks = processQueue.generateProcesses(i);
             // Sort task list by arrival time initially
@@ -130,20 +123,17 @@ public class HPFP_Aging
             Queue<Task> taskList = new LinkedList<Task>(Arrays.asList(tasks));
 
 
-            while(!taskList.isEmpty() || !readyQueue.isEmpty(readyQueue))
-            {
-                for (Object entry : tickQueue)
-                {
+            while (!taskList.isEmpty() || !readyQueue.isEmpty(readyQueue)) {
+                for (Object entry : tickQueue) {
 
                 }
 
 
                 //Add processes that have arrived to the ready queue
-                while(!taskList.isEmpty() && taskList.peek().getArrivalTime() <= clock)
-                {
+                while (!taskList.isEmpty() && taskList.peek().getArrivalTime() <= clock) {
                     Task t = taskList.poll();
                     readyQueue.addTask(readyQueue, t);
-                    tickQueue.get(0).add(t);
+                    //tickQueue.get(0).add(t);
                 }
 
                 //Variables for statistics for this round only
@@ -155,25 +145,21 @@ public class HPFP_Aging
 
                 Task t;
 
-                if(!readyQueue.isEmpty(readyQueue))
-                {
+                if (!readyQueue.isEmpty(readyQueue)) {
                     t = readyQueue.poll(readyQueue);
                     // t = readyQueuePoll();
-                    if (t.getStartTime() == 0)
-                    {
+                    if (t.getStartTime() == 0) {
                         t.setStartTime(Math.max((int) Math.ceil(t.getArrivalTime()), clock));
                     }
 
                     //Update if this is the first time seeing this process
-                    if (!remainingRunTimes.containsKey(t.getName()))
-                    {
-                        if(t.getStartTime() > 99) break;
+                    if (!remainingRunTimes.containsKey(t.getName())) {
+                        if (t.getStartTime() > 99) break;
                         responseTime = t.getStartTime() - t.getArrivalTime();
                         remainingTime = t.getRunTime() - 1;
-                        
+
                         //If process finishes in this time slice
-                        if(remainingTime <= 0)
-                        {
+                        if (remainingTime <= 0) {
                             // changed to t.getStartTime()
                             completionTime = t.getStartTime() + t.getRunTime();
                             t.setCompletionTime(completionTime);
@@ -184,8 +170,7 @@ public class HPFP_Aging
                             waitTime = remainingRunTimes.size() * t.getRunTime();
                         }
                         //Process did not finish yet but ran in this time slice
-                        else 
-                        {
+                        else {
                             //Add 1 quanta for all processes that have started but did not run in this slice
                             waitTime = remainingRunTimes.size();
                             //Add this process to remainingRunTimes and update remaining time
@@ -196,12 +181,10 @@ public class HPFP_Aging
 
                     }
                     //Update if the process has previously been started
-                    else 
-                    {
+                    else {
                         remainingTime = remainingRunTimes.get(t.getName()) - 1;
                         //If process finishes in this time slice
-                        if(remainingTime <= 0)
-                        {
+                        if (remainingTime <= 0) {
                             completionTime = t.getStartTime() + remainingRunTimes.get(t.getName());
                             t.setCompletionTime(completionTime);
                             tasksDone++;
@@ -212,10 +195,9 @@ public class HPFP_Aging
                             waitTime = remainingRunTimes.size() * (completionTime - t.getStartTime());
                         }
                         //Process did not finish yet but ran in this time slice
-                        else
-                        {
+                        else {
                             //Add 1 quanta for all processes that have started but did not run in this slice
-                            waitTime = remainingRunTimes.size() -1; //Subtract 1 for the running process
+                            waitTime = remainingRunTimes.size() - 1; //Subtract 1 for the running process
                             //Update remaining time
                             remainingRunTimes.put(t.getName(), remainingTime);
                             //Put back into queue at end of line
@@ -224,37 +206,30 @@ public class HPFP_Aging
                     }
                 }
                 //There were no processes available to run in this slice
-                else
-                {
+                else {
                     clock++;
-                    if(completionTime >= 99)
-                    {
+                    if (completionTime >= 99) {
                         totalTime = completionTime; //time until last process is complete
-                    }
-                    else
-                    {
+                    } else {
                         totalTime = 99;
                     }
                     continue;
                 }
-                
+
                 //Update the running schedule
                 Task scheduled = (Task) t.clone();
                 scheduled.setRunTime(1);
                 scheduledTasks.add(scheduled);
-                
+
                 //Update totals at end of each run
                 totalTurnaroundTime = totalTurnaroundTime + turnaroundTime;
                 totalWaitTime = totalWaitTime + waitTime;
                 totalResponseTime = totalResponseTime + responseTime;
                 totalTasksDone = tasksDone;
                 clock = t.getStartTime() + 1;
-                if(completionTime >= 99)
-                {
+                if (completionTime >= 99) {
                     totalTime = completionTime; //time until last process is complete
-                }
-                else
-                {
+                } else {
                     totalTime = 99;
                 }
             }
@@ -271,43 +246,94 @@ public class HPFP_Aging
         }
         printFinalBenchmark();
     }
+
     /**
      * Prints out the stats for all completed tasks
      */
-    public void printCompletedTasks(ArrayList<Task> scheduledTasks, int run)
-    {
+    public void printCompletedTasks(ArrayList<Task> scheduledTasks, int run) {
         System.out.println("\n########################################################################################");
         System.out.println("############ The following processes were completed for HPFP - Aging run " + run + " #####################");
         System.out.println("########################################################################################");
-        while(!scheduledTasks.isEmpty()) 
-        {
+        while (!scheduledTasks.isEmpty()) {
             Task t = scheduledTasks.remove(0);
             System.out.println(t);
         }
     }
-    
 
-    public void printTimeChart(ArrayList<Task> tasksChart, int run)
-    {
+
+    public void printTimeChart(ArrayList<Task> tasksChart, int run) {
         System.out.println("\n############################################################");
         System.out.println("############ HPF Preemptive Time Chart for run " + run + " #####################");
         System.out.println("############################################################");
         new GanttChart(tasksChart);
     }
-    
+
     /**
      * Prints out all calculated averages and throughput for
-     *     a completed FirstComeFirstServe simulation.
+     * a completed FirstComeFirstServe simulation.
      */
-    public void printFinalBenchmark()
-    {
+    public void printFinalBenchmark() {
         System.out.println("\n#######################################################################################");
         System.out.println("############ Final calculated averages and calculated throughput for HPFPd - Aging #############");
         System.out.println("#######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime/finalTasksDone);
-        System.out.println("Average Wait Time = " + finalWaitTime/finalTasksDone);
-        System.out.println("Average Response Time = " + finalResponseTime/finalTasksDone);
-        System.out.println("Throughput = " + finalTasksDone/finalTime);
+        System.out.println("Average Turnaround Time = " + finalTurnaroundTime / finalTasksDone);
+        System.out.println("Average Wait Time = " + finalWaitTime / finalTasksDone);
+        System.out.println("Average Response Time = " + finalResponseTime / finalTasksDone);
+        System.out.println("Throughput = " + finalTasksDone / finalTime);
         System.out.println();
+    }
+
+    public void agingCheck() {
+        Integer tickQueueCounter = 5;
+        ArrayList<Object> tickQueue = new ArrayList();
+        String testString = "testing";
+        Integer tickQueueSize = 12;
+        int tickCount = 0; // 100 Quanta
+
+
+        while (tickQueueCounter >= 0) {
+
+            //System.out.println("Counter number: " + tickQueueCounter);
+            //ArrayList<HashMap<String name, int value>> processes = new ArrayList<>(5);
+            ArrayList<HashMap<String, Integer>> processes = new ArrayList<>(5);
+            HashMap<String, Integer> nameAndPriority = new HashMap<>();
+            for (int i = 5; i > 0; i -= 1) {
+                nameAndPriority.put(testString, 0); //Replace with Name and original priority
+                processes.add(nameAndPriority);
+            }
+
+            Integer tick = tickQueueCounter;
+            tickQueue.add(0, processes);
+            tickQueue.add(0, tick);
+            tickQueueCounter -= 1;
+
+        }
+
+
+        for (Object tick : tickQueue) {
+            Integer currentIndex = tickQueue.indexOf(tick);
+            if (tick instanceof Integer) {
+                if ((Integer) tick == 5) {
+                    //priorityBump(readyqueue, arraylist.getIndexOf(currentIndex + 1)
+                    tickQueue.set(currentIndex, 0);
+                } else {
+                    tickQueue.set(currentIndex, currentIndex + 1);
+                }
+
+
+            }
+        }
+    }
+
+    public void addToAgingQueue(Task t, ArrayList tickQueue) {
+
+        for (Object tick : tickQueue) {
+            if (tick instanceof Integer) {
+                if ((Integer) tick == 0) {
+                    Integer currentIndex = tickQueue.indexOf(tick);
+                    tickQueue.add(currentIndex + 1, t);
+                }
+            }
+        }
     }
 }
