@@ -37,13 +37,50 @@ public class HPFP_Aging
         this.finalWaitTime = 0.0f;
         this.finalResponseTime = 0.0f;
     }
-    
+
+    public void priorityBump(ArrayList<PriorityQueue<Task>> readyQueue, HashMap<Task, Integer> bumpThese)
+    {
+        Integer maxPriority = 1;
+        Integer currentPriority;
+
+        // iterate through the HashMap<Task, Integer>
+        for (Map.Entry<Task, Integer> taskInt : bumpThese.entrySet())
+        {
+            // get the currentPriority of the Task as listed in the HashMap (not the original priority
+            // via task.getPriority() )
+            currentPriority = taskInt.getValue();
+
+            // If the Task increased tomaxPriority, then aging algo is finished with it. Remove from the tracking
+            // HashMap
+            if (currentPriority == maxPriority)
+            {
+                bumpThese.remove(taskInt);
+            }
+
+            // first, increment the priority counter for that Task in the HashMap
+            // now, the readyQueue ArrayList is zero-indexed; if you want to add the task to the next-highest
+            // priority queue, then you must use the -2 index in readyQueue
+            // to remove a Task that was just bumped from its original priority queue, the index is -1
+
+            else
+            {
+                taskInt.setValue(taskInt.getValue() + 1);
+                readyQueue.get(currentPriority - 2).add(taskInt.getKey());
+                readyQueue.get(currentPriority - 1).remove(taskInt.getKey());
+            }
+        }
+    }
     /**
      * Runs a preemptive RoundRobin algorithm for
      *     process simulation.
      */
     public void runHPFP_Aging()
     {
+
+//        - Integer maxPriority = 1;
+//        - Integer currentPriority;
+//        - Integer bump = 1;
+//        -
         for (int i = 1; i <= 5; i++) 
         {
             // Variables needed for tracking progress of each run
@@ -75,6 +112,8 @@ public class HPFP_Aging
             /* This while loop makes the tickQueue; odd cell numbers have an Integer which is tracking the tick,
             and even cells have the ArrayList<Task> associated with that tick
              */
+
+
             while (tickQueueCounter >= 0) {
                 ArrayList<Task> processes = new ArrayList<>();
                 Integer tick = tickQueueCounter;
@@ -220,7 +259,7 @@ public class HPFP_Aging
                     totalTime = 99;
                 }
             }
-            
+
             // Update final numbers needed for averages
             finalTurnaroundTime += totalTurnaroundTime;
             finalWaitTime += totalWaitTime;
