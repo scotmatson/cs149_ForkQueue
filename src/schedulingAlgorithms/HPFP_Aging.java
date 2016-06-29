@@ -51,7 +51,7 @@ public class HPFP_Aging
             currentPriority = taskInt.getValue();
 
             // If the Task increased tomaxPriority, then aging algo is finished with it. Remove from the tracking
-            // HashMap repush
+            // HashMap
             if (currentPriority == maxPriority)
             {
                 bumpThese.remove(taskInt);
@@ -64,15 +64,14 @@ public class HPFP_Aging
 
             else
             {
-                taskInt.setValue(taskInt.getValue() + 1);
                 readyQueue.get(currentPriority - 2).add(taskInt.getKey());
                 readyQueue.get(currentPriority - 1).remove(taskInt.getKey());
+                taskInt.setValue(taskInt.getValue() + 1);
             }
         }
     }
     /**
-     * Runs a preemptive RoundRobin algorithm for
-     *     process simulation.
+     * Runs a Highest Priority First (preemptive) with Aging algorithm
      */
     public void runHPFP_Aging()
     {
