@@ -1,0 +1,3039 @@
+Please choose the number of the process scheduling algorithm you would like to run:
+(1) First Come First Served
+(2) Shortest Job First
+(3) Shortest Remaining Time
+(4) Round Robin
+(5) Highest Priority First (non-preemptive)
+(6) Highest Priority First with Ageing (non-preemptive)
+(7) Highest Priority First (Preemptive)
+(8) Highest Priority First with Aging (Preemptive)
+(9) Exit
+7
+
+########################################################################################
+############ The following processes were completed for RR run 1 #####################
+########################################################################################
+Process: p15
+	Arrival Time = 0
+	Expected Run Time = 7.190202
+	Priority = 1
+	Start Time = 1
+	Completion Time = 1.1902022
+Process: p12
+	Arrival Time = 0
+	Expected Run Time = 3.70501
+	Priority = 2
+	Start Time = 2
+	Completion Time = 2.70501
+Process: p24
+	Arrival Time = 1
+	Expected Run Time = 7.962215
+	Priority = 2
+	Start Time = 3
+	Completion Time = 3.962215
+Process: p51
+	Arrival Time = 2
+	Expected Run Time = 3.154975
+	Priority = 2
+	Start Time = 4
+	Completion Time = 4.154975
+Process: p85
+	Arrival Time = 5
+	Expected Run Time = 4.0410433
+	Priority = 2
+	Start Time = 5
+	Completion Time = 5.0410433
+Process: p79
+	Arrival Time = 6
+	Expected Run Time = 4.5270357
+	Priority = 2
+	Start Time = 6
+	Completion Time = 6.5270357
+Process: p71
+	Arrival Time = 8
+	Expected Run Time = 6.6437116
+	Priority = 1
+	Start Time = 8
+	Completion Time = 8.643711
+Process: p47
+	Arrival Time = 2
+	Expected Run Time = 2.0634491
+	Priority = 3
+	Start Time = 7
+	Completion Time = 7.063449
+Process: p27
+	Arrival Time = 3
+	Expected Run Time = 8.18354
+	Priority = 3
+	Start Time = 8
+	Completion Time = 8.18354
+Process: p99
+	Arrival Time = 10
+	Expected Run Time = 5.796942
+	Priority = 2
+	Start Time = 10
+	Completion Time = 10.796942
+Process: p69
+	Arrival Time = 5
+	Expected Run Time = 3.8242939
+	Priority = 3
+	Start Time = 9
+	Completion Time = 9.824294
+Process: p70
+	Arrival Time = 6
+	Expected Run Time = 9.915886
+	Priority = 3
+	Start Time = 10
+	Completion Time = 10.915886
+Process: p30
+	Arrival Time = 8
+	Expected Run Time = 1.1368304
+	Priority = 3
+	Start Time = 11
+	Completion Time = 11.13683
+Process: p63
+	Arrival Time = 9
+	Expected Run Time = 9.9974
+	Priority = 3
+	Start Time = 12
+	Completion Time = 12.9974
+Process: p08
+	Arrival Time = 0
+	Expected Run Time = 4.0422983
+	Priority = 4
+	Start Time = 13
+	Completion Time = 13.042298
+Process: p18
+	Arrival Time = 15
+	Expected Run Time = 3.1302087
+	Priority = 1
+	Start Time = 16
+	Completion Time = 16.130209
+Process: p10
+	Arrival Time = 15
+	Expected Run Time = 8.450218
+	Priority = 1
+	Start Time = 15
+	Completion Time = 15.450218
+Process: p31
+	Arrival Time = 16
+	Expected Run Time = 2.4946194
+	Priority = 1
+	Start Time = 16
+	Completion Time = 16.49462
+Process: p52
+	Arrival Time = 18
+	Expected Run Time = 5.5634775
+	Priority = 1
+	Start Time = 18
+	Completion Time = 18.563477
+Process: p94
+	Arrival Time = 15
+	Expected Run Time = 8.39247
+	Priority = 2
+	Start Time = 17
+	Completion Time = 17.392471
+Process: p03
+	Arrival Time = 17
+	Expected Run Time = 3.159578
+	Priority = 3
+	Start Time = 18
+	Completion Time = 18.159578
+Process: p92
+	Arrival Time = 5
+	Expected Run Time = 10.17086
+	Priority = 4
+	Start Time = 14
+	Completion Time = 14.17086
+Process: p86
+	Arrival Time = 10
+	Expected Run Time = 7.2678976
+	Priority = 4
+	Start Time = 15
+	Completion Time = 15.267898
+Process: p80
+	Arrival Time = 16
+	Expected Run Time = 9.860497
+	Priority = 4
+	Start Time = 16
+	Completion Time = 16.860497
+Process: p68
+	Arrival Time = 20
+	Expected Run Time = 4.131068
+	Priority = 1
+	Start Time = 20
+	Completion Time = 20.13107
+Process: p95
+	Arrival Time = 21
+	Expected Run Time = 4.045004
+	Priority = 3
+	Start Time = 21
+	Completion Time = 21.045004
+Process: p38
+	Arrival Time = 23
+	Expected Run Time = 2.7389588
+	Priority = 1
+	Start Time = 23
+	Completion Time = 23.738958
+Process: p78
+	Arrival Time = 29
+	Expected Run Time = 4.2923203
+	Priority = 4
+	Start Time = 29
+	Completion Time = 29.29232
+Process: p57
+	Arrival Time = 31
+	Expected Run Time = 7.4364347
+	Priority = 2
+	Start Time = 31
+	Completion Time = 31.436436
+Process: p32
+	Arrival Time = 34
+	Expected Run Time = 9.3589945
+	Priority = 1
+	Start Time = 34
+	Completion Time = 34.358994
+Process: p98
+	Arrival Time = 34
+	Expected Run Time = 5.486557
+	Priority = 2
+	Start Time = 35
+	Completion Time = 35.486557
+Process: p07
+	Arrival Time = 37
+	Expected Run Time = 6.5392594
+	Priority = 3
+	Start Time = 37
+	Completion Time = 37.53926
+Process: p59
+	Arrival Time = 39
+	Expected Run Time = 5.557856
+	Priority = 2
+	Start Time = 39
+	Completion Time = 39.557858
+Process: p48
+	Arrival Time = 38
+	Expected Run Time = 6.284009
+	Priority = 3
+	Start Time = 38
+	Completion Time = 38.284008
+Process: p45
+	Arrival Time = 40
+	Expected Run Time = 6.509387
+	Priority = 3
+	Start Time = 40
+	Completion Time = 40.509388
+Process: p43
+	Arrival Time = 42
+	Expected Run Time = 7.055122
+	Priority = 1
+	Start Time = 42
+	Completion Time = 42.055122
+Process: p72
+	Arrival Time = 36
+	Expected Run Time = 2.5463738
+	Priority = 4
+	Start Time = 41
+	Completion Time = 41.546375
+Process: p53
+	Arrival Time = 36
+	Expected Run Time = 9.0180025
+	Priority = 4
+	Start Time = 36
+	Completion Time = 36.018
+Process: p56
+	Arrival Time = 40
+	Expected Run Time = 1.7908512
+	Priority = 4
+	Start Time = 40
+	Completion Time = 40.79085
+Process: p60
+	Arrival Time = 41
+	Expected Run Time = 9.596687
+	Priority = 4
+	Start Time = 41
+	Completion Time = 41.596687
+Process: p77
+	Arrival Time = 44
+	Expected Run Time = 6.049864
+	Priority = 4
+	Start Time = 44
+	Completion Time = 44.049866
+Process: p97
+	Arrival Time = 47
+	Expected Run Time = 8.469735
+	Priority = 2
+	Start Time = 47
+	Completion Time = 47.469734
+Process: p33
+	Arrival Time = 50
+	Expected Run Time = 6.801157
+	Priority = 1
+	Start Time = 51
+	Completion Time = 51.801155
+Process: p58
+	Arrival Time = 50
+	Expected Run Time = 7.299126
+	Priority = 1
+	Start Time = 50
+	Completion Time = 50.299126
+Process: p40
+	Arrival Time = 49
+	Expected Run Time = 8.654427
+	Priority = 2
+	Start Time = 49
+	Completion Time = 49.654427
+Process: p28
+	Arrival Time = 51
+	Expected Run Time = 8.277937
+	Priority = 2
+	Start Time = 51
+	Completion Time = 51.27794
+Process: p66
+	Arrival Time = 51
+	Expected Run Time = 9.878876
+	Priority = 4
+	Start Time = 52
+	Completion Time = 52.878876
+Process: p01
+	Arrival Time = 54
+	Expected Run Time = 5.0362353
+	Priority = 3
+	Start Time = 54
+	Completion Time = 54.036236
+Process: p93
+	Arrival Time = 56
+	Expected Run Time = 3.0358949
+	Priority = 2
+	Start Time = 56
+	Completion Time = 56.035896
+Process: p39
+	Arrival Time = 57
+	Expected Run Time = 8.437423
+	Priority = 2
+	Start Time = 57
+	Completion Time = 57.437424
+Process: p82
+	Arrival Time = 59
+	Expected Run Time = 3.547224
+	Priority = 1
+	Start Time = 60
+	Completion Time = 60.547226
+Process: p22
+	Arrival Time = 59
+	Expected Run Time = 8.112821
+	Priority = 1
+	Start Time = 59
+	Completion Time = 59.11282
+Process: p14
+	Arrival Time = 58
+	Expected Run Time = 5.954931
+	Priority = 2
+	Start Time = 58
+	Completion Time = 58.95493
+Process: p55
+	Arrival Time = 54
+	Expected Run Time = 10.970621
+	Priority = 4
+	Start Time = 55
+	Completion Time = 55.97062
+Process: p89
+	Arrival Time = 55
+	Expected Run Time = 10.9657955
+	Priority = 4
+	Start Time = 56
+	Completion Time = 56.965797
+Process: p81
+	Arrival Time = 63
+	Expected Run Time = 10.472345
+	Priority = 1
+	Start Time = 63
+	Completion Time = 63.472343
+Process: p36
+	Arrival Time = 63
+	Expected Run Time = 10.699594
+	Priority = 1
+	Start Time = 64
+	Completion Time = 64.69959
+Process: p65
+	Arrival Time = 65
+	Expected Run Time = 7.777712
+	Priority = 1
+	Start Time = 66
+	Completion Time = 66.77771
+Process: p17
+	Arrival Time = 65
+	Expected Run Time = 10.4875145
+	Priority = 1
+	Start Time = 65
+	Completion Time = 65.48752
+Process: p84
+	Arrival Time = 66
+	Expected Run Time = 1.7886097
+	Priority = 1
+	Start Time = 66
+	Completion Time = 66.78861
+Process: p87
+	Arrival Time = 68
+	Expected Run Time = 4.3736453
+	Priority = 1
+	Start Time = 68
+	Completion Time = 68.37364
+Process: p73
+	Arrival Time = 64
+	Expected Run Time = 7.745302
+	Priority = 2
+	Start Time = 67
+	Completion Time = 67.7453
+Process: p91
+	Arrival Time = 62
+	Expected Run Time = 9.65675
+	Priority = 3
+	Start Time = 62
+	Completion Time = 62.65675
+Process: p88
+	Arrival Time = 63
+	Expected Run Time = 10.771693
+	Priority = 3
+	Start Time = 63
+	Completion Time = 63.771694
+Process: p34
+	Arrival Time = 64
+	Expected Run Time = 7.518787
+	Priority = 3
+	Start Time = 64
+	Completion Time = 64.51878
+Process: p90
+	Arrival Time = 65
+	Expected Run Time = 8.317024
+	Priority = 3
+	Start Time = 65
+	Completion Time = 65.317024
+Process: p76
+	Arrival Time = 67
+	Expected Run Time = 2.4242532
+	Priority = 3
+	Start Time = 67
+	Completion Time = 67.424255
+Process: p64
+	Arrival Time = 61
+	Expected Run Time = 10.87599
+	Priority = 4
+	Start Time = 61
+	Completion Time = 61.87599
+Process: p83
+	Arrival Time = 63
+	Expected Run Time = 10.651145
+	Priority = 4
+	Start Time = 63
+	Completion Time = 63.651146
+Process: p44
+	Arrival Time = 70
+	Expected Run Time = 6.5965786
+	Priority = 4
+	Start Time = 70
+	Completion Time = 70.59658
+Process: p23
+	Arrival Time = 74
+	Expected Run Time = 4.9918823
+	Priority = 3
+	Start Time = 74
+	Completion Time = 74.99188
+Process: p05
+	Arrival Time = 76
+	Expected Run Time = 1.9139628
+	Priority = 1
+	Start Time = 76
+	Completion Time = 76.91396
+Process: p62
+	Arrival Time = 76
+	Expected Run Time = 10.543419
+	Priority = 1
+	Start Time = 77
+	Completion Time = 77.54342
+Process: p11
+	Arrival Time = 77
+	Expected Run Time = 1.8522536
+	Priority = 1
+	Start Time = 78
+	Completion Time = 78.85226
+Process: p29
+	Arrival Time = 77
+	Expected Run Time = 1.2657895
+	Priority = 1
+	Start Time = 79
+	Completion Time = 79.26579
+Process: p02
+	Arrival Time = 78
+	Expected Run Time = 10.710739
+	Priority = 1
+	Start Time = 80
+	Completion Time = 80.71074
+Process: p96
+	Arrival Time = 79
+	Expected Run Time = 10.569081
+	Priority = 2
+	Start Time = 81
+	Completion Time = 81.569084
+Process: p49
+	Arrival Time = 81
+	Expected Run Time = 10.258992
+	Priority = 2
+	Start Time = 82
+	Completion Time = 82.258995
+Process: p41
+	Arrival Time = 83
+	Expected Run Time = 2.910566
+	Priority = 2
+	Start Time = 83
+	Completion Time = 83.91057
+Process: p00
+	Arrival Time = 85
+	Expected Run Time = 8.100473
+	Priority = 2
+	Start Time = 86
+	Completion Time = 86.10047
+Process: p21
+	Arrival Time = 85
+	Expected Run Time = 10.387251
+	Priority = 2
+	Start Time = 85
+	Completion Time = 85.38725
+Process: p13
+	Arrival Time = 76
+	Expected Run Time = 7.075388
+	Priority = 3
+	Start Time = 84
+	Completion Time = 84.075386
+Process: p54
+	Arrival Time = 83
+	Expected Run Time = 5.539762
+	Priority = 3
+	Start Time = 85
+	Completion Time = 85.539764
+Process: p67
+	Arrival Time = 86
+	Expected Run Time = 4.264864
+	Priority = 3
+	Start Time = 86
+	Completion Time = 86.26486
+Process: p35
+	Arrival Time = 88
+	Expected Run Time = 2.360055
+	Priority = 2
+	Start Time = 89
+	Completion Time = 89.360054
+Process: p42
+	Arrival Time = 88
+	Expected Run Time = 8.808241
+	Priority = 2
+	Start Time = 88
+	Completion Time = 88.80824
+Process: p20
+	Arrival Time = 88
+	Expected Run Time = 2.9498398
+	Priority = 3
+	Start Time = 89
+	Completion Time = 89.94984
+Process: p25
+	Arrival Time = 74
+	Expected Run Time = 5.362896
+	Priority = 4
+	Start Time = 75
+	Completion Time = 75.3629
+Process: p06
+	Arrival Time = 74
+	Expected Run Time = 9.369002
+	Priority = 4
+	Start Time = 87
+	Completion Time = 87.369
+Process: p74
+	Arrival Time = 76
+	Expected Run Time = 4.555044
+	Priority = 4
+	Start Time = 88
+	Completion Time = 88.555046
+Process: p09
+	Arrival Time = 89
+	Expected Run Time = 6.6239724
+	Priority = 4
+	Start Time = 89
+	Completion Time = 89.62397
+Process: p75
+	Arrival Time = 94
+	Expected Run Time = 6.2559624
+	Priority = 1
+	Start Time = 95
+	Completion Time = 95.25597
+Process: p26
+	Arrival Time = 94
+	Expected Run Time = 9.290732
+	Priority = 1
+	Start Time = 94
+	Completion Time = 94.29073
+Process: p19
+	Arrival Time = 92
+	Expected Run Time = 2.8456557
+	Priority = 2
+	Start Time = 93
+	Completion Time = 93.84566
+Process: p04
+	Arrival Time = 92
+	Expected Run Time = 7.9109507
+	Priority = 2
+	Start Time = 92
+	Completion Time = 92.91095
+Process: p50
+	Arrival Time = 96
+	Expected Run Time = 4.6423826
+	Priority = 2
+	Start Time = 96
+	Completion Time = 96.64238
+Process: p46
+	Arrival Time = 98
+	Expected Run Time = 9.707768
+	Priority = 2
+	Start Time = 98
+	Completion Time = 98.70777
+Process: p16
+	Arrival Time = 98
+	Expected Run Time = 9.683526
+	Priority = 2
+	Start Time = 99
+	Completion Time = 99.683525
+Process: p61
+	Arrival Time = 97
+	Expected Run Time = 9.630471
+	Priority = 3
+	Start Time = 97
+	Completion Time = 97.63047
+Process: p37
+	Arrival Time = 92
+	Expected Run Time = 5.6995916
+	Priority = 4
+	Start Time = 98
+	Completion Time = 98.69959
+
+############################################################
+############ HPF Preemptive Time Chart for run 1 #####################
+############################################################
+0p15p15p15p15p15p15p15p15p12p12p12p12p24p24p24p24p24p24p24p24p51p51p51p51p85p85p85p85p85p79p79p79p79p79p47p71p71p71p71p71p71p71p47p47p27p27p27p27p27p27p27p27p27p69p99p99p99p99p99p99p69p69p69p70p70p70p70p70p70p70p70p70p70p30p30p63p63p63p63p63p63p63p63p63p63p08p08p08p08p08p92p10p18p10p18p10p18p10p18p10p10p10p10p10p31p31p31p94p52p52p52p52p52p52p94p94p94p94p94p94p94p94p03p03p03p03p92p92p92p92p92p92p92p92p92p92p86p86p86p86p86p86p86p86p80p80p80p80p80p80p80p80p80p80_________p68p68p68p68p68p95p95p95p95p95___p38p38p38_______________p78p78p78p78p78___p57p57p57p57p57p57p57p57______p32p32p32p32p32p32p32p32p32p32p98p98p98p98p98p98p53p07p07p07p07p07p07p07p48p59p59p59p59p59p59p48p48p48p48p48p48___p45p45p45p45p45p45p45p72p43p43p43p43p43p43p43p43p53____________p72p53____________p72p53p53p53p53p53p53p53_________p56p56p60p60p60p60p60p60p60p60p60p60______p77p77p77p77p77p77p77______p97p97p97p97p97p97p97p97p97___p40p58p33p58p33p58p33p58p33p58p33p58p33p58p33p58p40p40p40p40p40p40p40p40___p28p28p28p28p28p28p28p28p28p66p66p66p66p66p66p66p66p66p66___p01p01p01p01p01p01p55p93p93p93p93p39p39p39p39p39p39p39p39p39p14p22p82p22p82p22p82p22p82p22p22p22p22p22p14p14p14p14p14p55p55p55p55p55p55p55p55p55p55p89p89p89p89p89p89p89p89p89p89p89____________p64p91p81p36p81p36p81p36p81p36p81p36p81p36p81p36p81p36p81p36p81p36p81p36p17p65p17p65p17p65p17p65p17p65p17p65p17p65p17p65p17p17p17p84p84p73p87p87p87p87p87p73p73p73p73p73p73p73p91p91p91p91p91p91p91p91p91p88p88p88p88p88p88p88p88p88p88p88p34p34p34p34p34p34p34p34p90p90p90p90p90p90p90p90p90___p76p76p76p64p64p64p64p64p64p64p64p64p64___p83p83p83p83p83p83p83p83p83p83p83__________________p44p44p44p44p44p44p44_________p23p23p23p23p23p25p05p62p05p62p62p62p62p62p62p62p62p62p62p11p29p11p29p02p02p02p02p02p02p02p02p02p02p02p96p96p96p96p96p96p96p96p96p96p96p49p49p49p49p49p49p49p49p49p49p49p41p41p41p13p21p00p21p00p21p00p21p00p21p00p21p00p21p00p21p00p21p00p21p21p13p13p13p13p13p13p13p54p54p54p54p54p54p67p67p67p67p67p06p42p35p42p35p42p35p42p42p42p42p42p42p20p20p20p25_________________________________p06p25_________________________________p06p25_________________________________p06p25_________________________________p06p25_________________________________p06p06p06p06p06p74p74p74p74p74p09p09p09p09p09p09p09______p04p19p26p75p26p75p26p75p26p75p26p75p26p75p26p75p26p26p26p04p19p04p19p04p04p04p04p04_________p50p50p50p50p50p61p46p16p46p16p46p16p46p16p46p16p46p16p46p16p46p16p46p16p46p16p61p61p61p61p61p61p61p61p61p37p37p37p37p37p37
+
+########################################################################################
+############ The following processes were completed for RR run 2 #####################
+########################################################################################
+Process: p71
+	Arrival Time = 0
+	Expected Run Time = 1.7789395
+	Priority = 3
+	Start Time = 2
+	Completion Time = 2.7789395
+Process: p30
+	Arrival Time = 0
+	Expected Run Time = 4.2981896
+	Priority = 3
+	Start Time = 1
+	Completion Time = 1.2981896
+Process: p45
+	Arrival Time = 1
+	Expected Run Time = 6.918586
+	Priority = 3
+	Start Time = 2
+	Completion Time = 2.9185858
+Process: p10
+	Arrival Time = 2
+	Expected Run Time = 9.164267
+	Priority = 3
+	Start Time = 3
+	Completion Time = 3.1642666
+Process: p23
+	Arrival Time = 3
+	Expected Run Time = 4.260562
+	Priority = 3
+	Start Time = 4
+	Completion Time = 4.260562
+Process: p46
+	Arrival Time = 6
+	Expected Run Time = 10.895166
+	Priority = 1
+	Start Time = 6
+	Completion Time = 6.8951664
+Process: p00
+	Arrival Time = 8
+	Expected Run Time = 1.2933764
+	Priority = 1
+	Start Time = 8
+	Completion Time = 8.293377
+Process: p51
+	Arrival Time = 9
+	Expected Run Time = 6.337927
+	Priority = 1
+	Start Time = 9
+	Completion Time = 9.337927
+Process: p08
+	Arrival Time = 7
+	Expected Run Time = 1.6740527
+	Priority = 2
+	Start Time = 7
+	Completion Time = 7.6740527
+Process: p25
+	Arrival Time = 9
+	Expected Run Time = 3.4186862
+	Priority = 2
+	Start Time = 9
+	Completion Time = 9.418686
+Process: p56
+	Arrival Time = 10
+	Expected Run Time = 9.2001505
+	Priority = 2
+	Start Time = 10
+	Completion Time = 10.2001505
+Process: p82
+	Arrival Time = 12
+	Expected Run Time = 6.080796
+	Priority = 2
+	Start Time = 12
+	Completion Time = 12.080795
+Process: p60
+	Arrival Time = 8
+	Expected Run Time = 1.84811
+	Priority = 3
+	Start Time = 11
+	Completion Time = 11.84811
+Process: p15
+	Arrival Time = 14
+	Expected Run Time = 5.540209
+	Priority = 1
+	Start Time = 14
+	Completion Time = 14.540209
+Process: p95
+	Arrival Time = 14
+	Expected Run Time = 3.0277364
+	Priority = 2
+	Start Time = 15
+	Completion Time = 15.027737
+Process: p63
+	Arrival Time = 13
+	Expected Run Time = 7.8452225
+	Priority = 3
+	Start Time = 13
+	Completion Time = 13.845222
+Process: p48
+	Arrival Time = 15
+	Expected Run Time = 8.393086
+	Priority = 3
+	Start Time = 15
+	Completion Time = 15.393086
+Process: p50
+	Arrival Time = 1
+	Expected Run Time = 2.8508208
+	Priority = 4
+	Start Time = 5
+	Completion Time = 5.8508205
+Process: p43
+	Arrival Time = 2
+	Expected Run Time = 5.396275
+	Priority = 4
+	Start Time = 6
+	Completion Time = 6.396275
+Process: p58
+	Arrival Time = 3
+	Expected Run Time = 5.518738
+	Priority = 4
+	Start Time = 7
+	Completion Time = 7.518738
+Process: p83
+	Arrival Time = 3
+	Expected Run Time = 5.595527
+	Priority = 4
+	Start Time = 8
+	Completion Time = 8.595528
+Process: p96
+	Arrival Time = 5
+	Expected Run Time = 7.192762
+	Priority = 4
+	Start Time = 9
+	Completion Time = 9.192762
+Process: p32
+	Arrival Time = 7
+	Expected Run Time = 2.2437134
+	Priority = 4
+	Start Time = 10
+	Completion Time = 10.243713
+Process: p19
+	Arrival Time = 8
+	Expected Run Time = 6.1280627
+	Priority = 4
+	Start Time = 11
+	Completion Time = 11.128063
+Process: p64
+	Arrival Time = 14
+	Expected Run Time = 7.487883
+	Priority = 4
+	Start Time = 14
+	Completion Time = 14.487883
+Process: p77
+	Arrival Time = 20
+	Expected Run Time = 9.585336
+	Priority = 3
+	Start Time = 20
+	Completion Time = 20.585335
+Process: p26
+	Arrival Time = 18
+	Expected Run Time = 5.7225995
+	Priority = 4
+	Start Time = 18
+	Completion Time = 18.722599
+Process: p76
+	Arrival Time = 18
+	Expected Run Time = 9.736662
+	Priority = 4
+	Start Time = 19
+	Completion Time = 19.736662
+Process: p55
+	Arrival Time = 22
+	Expected Run Time = 1.0644281
+	Priority = 1
+	Start Time = 22
+	Completion Time = 22.064428
+Process: p97
+	Arrival Time = 25
+	Expected Run Time = 9.562066
+	Priority = 1
+	Start Time = 25
+	Completion Time = 25.562065
+Process: p35
+	Arrival Time = 24
+	Expected Run Time = 9.406218
+	Priority = 2
+	Start Time = 24
+	Completion Time = 24.406218
+Process: p31
+	Arrival Time = 24
+	Expected Run Time = 10.872217
+	Priority = 4
+	Start Time = 25
+	Completion Time = 25.872217
+Process: p41
+	Arrival Time = 27
+	Expected Run Time = 5.7453294
+	Priority = 4
+	Start Time = 27
+	Completion Time = 27.745329
+Process: p49
+	Arrival Time = 30
+	Expected Run Time = 7.9561644
+	Priority = 1
+	Start Time = 30
+	Completion Time = 30.956165
+Process: p81
+	Arrival Time = 33
+	Expected Run Time = 3.8786426
+	Priority = 1
+	Start Time = 33
+	Completion Time = 33.878643
+Process: p16
+	Arrival Time = 34
+	Expected Run Time = 9.8257675
+	Priority = 1
+	Start Time = 34
+	Completion Time = 34.825768
+Process: p18
+	Arrival Time = 35
+	Expected Run Time = 4.8080945
+	Priority = 1
+	Start Time = 35
+	Completion Time = 35.808094
+Process: p89
+	Arrival Time = 34
+	Expected Run Time = 10.018086
+	Priority = 2
+	Start Time = 36
+	Completion Time = 36.018085
+Process: p20
+	Arrival Time = 31
+	Expected Run Time = 3.3336976
+	Priority = 3
+	Start Time = 31
+	Completion Time = 31.333698
+Process: p93
+	Arrival Time = 31
+	Expected Run Time = 4.3407555
+	Priority = 3
+	Start Time = 32
+	Completion Time = 32.340755
+Process: p12
+	Arrival Time = 36
+	Expected Run Time = 10.6284
+	Priority = 3
+	Start Time = 36
+	Completion Time = 36.6284
+Process: p52
+	Arrival Time = 31
+	Expected Run Time = 6.7435737
+	Priority = 4
+	Start Time = 37
+	Completion Time = 37.743572
+Process: p03
+	Arrival Time = 34
+	Expected Run Time = 5.519951
+	Priority = 4
+	Start Time = 38
+	Completion Time = 38.51995
+Process: p22
+	Arrival Time = 35
+	Expected Run Time = 7.3845696
+	Priority = 4
+	Start Time = 39
+	Completion Time = 39.38457
+Process: p99
+	Arrival Time = 43
+	Expected Run Time = 3.0822592
+	Priority = 1
+	Start Time = 43
+	Completion Time = 43.08226
+Process: p11
+	Arrival Time = 42
+	Expected Run Time = 5.2383285
+	Priority = 3
+	Start Time = 42
+	Completion Time = 42.238327
+Process: p28
+	Arrival Time = 45
+	Expected Run Time = 9.233947
+	Priority = 2
+	Start Time = 45
+	Completion Time = 45.233948
+Process: p21
+	Arrival Time = 46
+	Expected Run Time = 9.360332
+	Priority = 2
+	Start Time = 46
+	Completion Time = 46.360332
+Process: p02
+	Arrival Time = 47
+	Expected Run Time = 5.923125
+	Priority = 2
+	Start Time = 47
+	Completion Time = 47.923126
+Process: p73
+	Arrival Time = 49
+	Expected Run Time = 3.964629
+	Priority = 2
+	Start Time = 49
+	Completion Time = 49.96463
+Process: p90
+	Arrival Time = 49
+	Expected Run Time = 9.00623
+	Priority = 3
+	Start Time = 50
+	Completion Time = 50.00623
+Process: p38
+	Arrival Time = 45
+	Expected Run Time = 1.571613
+	Priority = 4
+	Start Time = 48
+	Completion Time = 48.571613
+Process: p74
+	Arrival Time = 52
+	Expected Run Time = 1.6596987
+	Priority = 2
+	Start Time = 52
+	Completion Time = 52.6597
+Process: p07
+	Arrival Time = 53
+	Expected Run Time = 10.949155
+	Priority = 3
+	Start Time = 53
+	Completion Time = 53.949154
+Process: p59
+	Arrival Time = 51
+	Expected Run Time = 1.9267961
+	Priority = 4
+	Start Time = 51
+	Completion Time = 51.926796
+Process: p92
+	Arrival Time = 52
+	Expected Run Time = 9.688201
+	Priority = 4
+	Start Time = 52
+	Completion Time = 52.6882
+Process: p36
+	Arrival Time = 53
+	Expected Run Time = 6.6102095
+	Priority = 4
+	Start Time = 53
+	Completion Time = 53.61021
+Process: p29
+	Arrival Time = 57
+	Expected Run Time = 8.904857
+	Priority = 1
+	Start Time = 57
+	Completion Time = 57.904858
+Process: p14
+	Arrival Time = 58
+	Expected Run Time = 1.7285208
+	Priority = 1
+	Start Time = 58
+	Completion Time = 58.72852
+Process: p75
+	Arrival Time = 58
+	Expected Run Time = 4.350773
+	Priority = 1
+	Start Time = 59
+	Completion Time = 59.350773
+Process: p54
+	Arrival Time = 59
+	Expected Run Time = 9.630187
+	Priority = 1
+	Start Time = 60
+	Completion Time = 60.630188
+Process: p06
+	Arrival Time = 56
+	Expected Run Time = 3.3775191
+	Priority = 2
+	Start Time = 56
+	Completion Time = 56.377518
+Process: p27
+	Arrival Time = 57
+	Expected Run Time = 7.4678717
+	Priority = 4
+	Start Time = 57
+	Completion Time = 57.467873
+Process: p65
+	Arrival Time = 63
+	Expected Run Time = 1.4754953
+	Priority = 2
+	Start Time = 63
+	Completion Time = 63.475494
+Process: p80
+	Arrival Time = 68
+	Expected Run Time = 2.7322915
+	Priority = 1
+	Start Time = 69
+	Completion Time = 69.73229
+Process: p84
+	Arrival Time = 68
+	Expected Run Time = 10.214471
+	Priority = 1
+	Start Time = 68
+	Completion Time = 68.21447
+Process: p40
+	Arrival Time = 68
+	Expected Run Time = 4.9187236
+	Priority = 2
+	Start Time = 69
+	Completion Time = 69.918724
+Process: p04
+	Arrival Time = 67
+	Expected Run Time = 1.2473445
+	Priority = 3
+	Start Time = 67
+	Completion Time = 67.247345
+Process: p24
+	Arrival Time = 70
+	Expected Run Time = 7.9201245
+	Priority = 3
+	Start Time = 70
+	Completion Time = 70.92013
+Process: p61
+	Arrival Time = 66
+	Expected Run Time = 1.2536745
+	Priority = 4
+	Start Time = 71
+	Completion Time = 71.25368
+Process: p53
+	Arrival Time = 66
+	Expected Run Time = 3.1840768
+	Priority = 4
+	Start Time = 66
+	Completion Time = 66.184074
+Process: p88
+	Arrival Time = 74
+	Expected Run Time = 10.594297
+	Priority = 1
+	Start Time = 74
+	Completion Time = 74.5943
+Process: p44
+	Arrival Time = 77
+	Expected Run Time = 5.9467754
+	Priority = 1
+	Start Time = 77
+	Completion Time = 77.94678
+Process: p87
+	Arrival Time = 78
+	Expected Run Time = 7.1134534
+	Priority = 1
+	Start Time = 78
+	Completion Time = 78.11346
+Process: p79
+	Arrival Time = 75
+	Expected Run Time = 2.338541
+	Priority = 2
+	Start Time = 76
+	Completion Time = 76.33854
+Process: p70
+	Arrival Time = 75
+	Expected Run Time = 5.144244
+	Priority = 2
+	Start Time = 75
+	Completion Time = 75.14424
+Process: p66
+	Arrival Time = 79
+	Expected Run Time = 8.15213
+	Priority = 2
+	Start Time = 79
+	Completion Time = 79.15213
+Process: p37
+	Arrival Time = 75
+	Expected Run Time = 2.6266687
+	Priority = 3
+	Start Time = 80
+	Completion Time = 80.62667
+Process: p05
+	Arrival Time = 78
+	Expected Run Time = 10.110882
+	Priority = 4
+	Start Time = 81
+	Completion Time = 81.110886
+Process: p47
+	Arrival Time = 80
+	Expected Run Time = 10.318918
+	Priority = 4
+	Start Time = 82
+	Completion Time = 82.31892
+Process: p91
+	Arrival Time = 86
+	Expected Run Time = 4.45407
+	Priority = 1
+	Start Time = 86
+	Completion Time = 86.45407
+Process: p67
+	Arrival Time = 88
+	Expected Run Time = 10.710306
+	Priority = 1
+	Start Time = 88
+	Completion Time = 88.710304
+Process: p01
+	Arrival Time = 89
+	Expected Run Time = 7.854681
+	Priority = 1
+	Start Time = 89
+	Completion Time = 89.85468
+Process: p39
+	Arrival Time = 86
+	Expected Run Time = 3.0422745
+	Priority = 2
+	Start Time = 87
+	Completion Time = 87.042274
+Process: p72
+	Arrival Time = 86
+	Expected Run Time = 7.8176126
+	Priority = 3
+	Start Time = 88
+	Completion Time = 88.81761
+Process: p78
+	Arrival Time = 87
+	Expected Run Time = 6.7706895
+	Priority = 3
+	Start Time = 89
+	Completion Time = 89.77069
+Process: p86
+	Arrival Time = 91
+	Expected Run Time = 1.1809708
+	Priority = 1
+	Start Time = 91
+	Completion Time = 91.18097
+Process: p98
+	Arrival Time = 92
+	Expected Run Time = 9.393608
+	Priority = 2
+	Start Time = 92
+	Completion Time = 92.39361
+Process: p69
+	Arrival Time = 89
+	Expected Run Time = 9.13342
+	Priority = 3
+	Start Time = 90
+	Completion Time = 90.13342
+Process: p94
+	Arrival Time = 86
+	Expected Run Time = 7.8938136
+	Priority = 4
+	Start Time = 92
+	Completion Time = 92.893814
+Process: p57
+	Arrival Time = 86
+	Expected Run Time = 8.391195
+	Priority = 4
+	Start Time = 91
+	Completion Time = 91.3912
+Process: p17
+	Arrival Time = 94
+	Expected Run Time = 2.847711
+	Priority = 3
+	Start Time = 94
+	Completion Time = 94.84771
+Process: p42
+	Arrival Time = 93
+	Expected Run Time = 9.844052
+	Priority = 4
+	Start Time = 93
+	Completion Time = 93.844055
+Process: p68
+	Arrival Time = 96
+	Expected Run Time = 10.806938
+	Priority = 1
+	Start Time = 96
+	Completion Time = 96.80694
+Process: p09
+	Arrival Time = 97
+	Expected Run Time = 8.796836
+	Priority = 1
+	Start Time = 97
+	Completion Time = 97.79684
+Process: p13
+	Arrival Time = 98
+	Expected Run Time = 10.026549
+	Priority = 3
+	Start Time = 98
+	Completion Time = 98.02655
+
+############################################################
+############ HPF Preemptive Time Chart for run 2 #####################
+############################################################
+0p71p30p71p30p30p30p30p45p45p45p45p45p45p45p10p10p10p10p10p10p10p10p10p10p23p23p23p23p23p50p46p46p46p46p46p46p46p46p46p46p46p08p00p00p51p51p51p51p51p51p51p08___p25p25p25p25p56p56p56p56p56p56p56p56p56p56p60p82p82p82p82p82p82p82p60___p63p15p15p15p15p15p15p95p95p95p95p63p63p63p63p63p63p63___p48p48p48p48p48p48p48p48p48p50p50p43p43p43p43p43p43p58p83p58p83p58p83p58p83p58p83p58p83p96p96p96p96p96p96p96p96p32p32p32p19p19p19p19p19p19p19______p64p64p64p64p64p64p64p64_________p26p76p77p77p77p77p77p77p77p77p77p77p26p76p26p76p26p76p26p76p26p76p76p76p76p76______p55p55___p35p97p97p97p97p97p97p97p97p97p97p35p35p35p35p35p35p35p35p35p31p31p31p31p31p31p31p31p31p31p31___p41p41p41p41p41p41______p49p49p49p49p49p49p49p49p20p93p81p81p81p81p16p16p16p16p16p16p16p16p16p16p18p18p18p18p18p89p89p89p89p89p89p89p89p89p89p89p20p93p20p93p20p93p93_________p12p12p12p12p12p12p12p12p12p12p12p52p52p52p52p52p52p52p03p03p03p03p03p03p22p22p22p22p22p22p22p22______p11p99p99p99p99p11p11p11p11p11______p28p28p28p28p28p28p28p28p28p28p21p21p21p21p21p21p21p21p21p21p02p02p02p02p02p02p38p73p73p73p73p90p90p90p90p90p90p90p90p90p90p38______p59p74p74p07p07p07p07p07p07p07p07p07p07p07p59p92p92p92p92p92p92p92p92p92p92p36p36p36p36p36p36p36______p06p29p29p29p29p29p29p29p29p29p14p75p14p75p75p75p75p54p54p54p54p54p54p54p54p54p54p06p06p06p27p27p27p27p27p27p27p27_______________p65p65______p53p04p84p80p84p80p84p80p84p84p84p84p84p84p84p84p40p40p40p40p40p04______p24p24p24p24p24p24p24p24p61p53____________p61p53p53_____________________p88p88p88p88p88p88p88p88p88p88p88p70p79p44p44p44p44p44p44p87p87p87p87p87p87p87p87p70p79p70p79p70p70p70_________p66p66p66p66p66p66p66p66p66p37p37p37p05p05p05p05p05p05p05p05p05p05p05p47p47p47p47p47p47p47p47p47p47p47_________p91p91p91p91p91p39p67p67p67p67p67p67p67p67p67p67p67p01p01p01p01p01p01p01p01p39p39p39p72p72p72p72p72p72p72p72p78p78p78p78p78p78p78p69p86p86p98p98p98p98p98p98p98p98p98p98p69p69p69p69p69p69p69p69p69p57p94p57p94p57p94p57p94p57p94p57p94p57p94p57p94p57___p42p17p17p17p42p42p42p42p42p42p42p42p42______p68p68p68p68p68p68p68p68p68p68p68p09p09p09p09p09p09p09p09p09p13p13p13p13p13p13p13p13p13p13p13p34
+
+########################################################################################
+############ The following processes were completed for RR run 3 #####################
+########################################################################################
+Process: p71
+	Arrival Time = 3
+	Expected Run Time = 5.4005303
+	Priority = 1
+	Start Time = 4
+	Completion Time = 4.4005303
+Process: p92
+	Arrival Time = 3
+	Expected Run Time = 8.182421
+	Priority = 1
+	Start Time = 3
+	Completion Time = 3.1824207
+Process: p19
+	Arrival Time = 3
+	Expected Run Time = 1.3672603
+	Priority = 2
+	Start Time = 5
+	Completion Time = 5.3672605
+Process: p70
+	Arrival Time = 3
+	Expected Run Time = 2.4014578
+	Priority = 2
+	Start Time = 4
+	Completion Time = 4.401458
+Process: p58
+	Arrival Time = 2
+	Expected Run Time = 5.445534
+	Priority = 3
+	Start Time = 2
+	Completion Time = 2.4455342
+Process: p14
+	Arrival Time = 7
+	Expected Run Time = 1.1373241
+	Priority = 1
+	Start Time = 7
+	Completion Time = 7.1373243
+Process: p44
+	Arrival Time = 8
+	Expected Run Time = 9.830043
+	Priority = 3
+	Start Time = 8
+	Completion Time = 8.830043
+Process: p74
+	Arrival Time = 11
+	Expected Run Time = 3.958147
+	Priority = 1
+	Start Time = 11
+	Completion Time = 11.958147
+Process: p81
+	Arrival Time = 10
+	Expected Run Time = 2.4098768
+	Priority = 2
+	Start Time = 10
+	Completion Time = 10.409877
+Process: p05
+	Arrival Time = 11
+	Expected Run Time = 6.7119093
+	Priority = 3
+	Start Time = 11
+	Completion Time = 11.711909
+Process: p93
+	Arrival Time = 7
+	Expected Run Time = 7.9058022
+	Priority = 4
+	Start Time = 9
+	Completion Time = 9.905802
+Process: p23
+	Arrival Time = 9
+	Expected Run Time = 10.837668
+	Priority = 4
+	Start Time = 10
+	Completion Time = 10.837668
+Process: p69
+	Arrival Time = 11
+	Expected Run Time = 3.0303779
+	Priority = 4
+	Start Time = 12
+	Completion Time = 12.030378
+Process: p77
+	Arrival Time = 11
+	Expected Run Time = 4.406845
+	Priority = 4
+	Start Time = 11
+	Completion Time = 11.406845
+Process: p24
+	Arrival Time = 14
+	Expected Run Time = 8.9341545
+	Priority = 1
+	Start Time = 14
+	Completion Time = 14.9341545
+Process: p78
+	Arrival Time = 17
+	Expected Run Time = 9.611233
+	Priority = 2
+	Start Time = 17
+	Completion Time = 17.611233
+Process: p62
+	Arrival Time = 25
+	Expected Run Time = 8.538786
+	Priority = 1
+	Start Time = 25
+	Completion Time = 25.538786
+Process: p15
+	Arrival Time = 26
+	Expected Run Time = 6.42354
+	Priority = 2
+	Start Time = 27
+	Completion Time = 27.42354
+Process: p21
+	Arrival Time = 26
+	Expected Run Time = 9.702638
+	Priority = 2
+	Start Time = 26
+	Completion Time = 26.702637
+Process: p12
+	Arrival Time = 24
+	Expected Run Time = 10.320603
+	Priority = 3
+	Start Time = 24
+	Completion Time = 24.320602
+Process: p01
+	Arrival Time = 28
+	Expected Run Time = 10.581865
+	Priority = 3
+	Start Time = 28
+	Completion Time = 28.581865
+Process: p68
+	Arrival Time = 21
+	Expected Run Time = 1.9149814
+	Priority = 4
+	Start Time = 23
+	Completion Time = 23.914982
+Process: p90
+	Arrival Time = 21
+	Expected Run Time = 5.443162
+	Priority = 4
+	Start Time = 21
+	Completion Time = 21.443161
+Process: p46
+	Arrival Time = 21
+	Expected Run Time = 10.832701
+	Priority = 4
+	Start Time = 22
+	Completion Time = 22.8327
+Process: p08
+	Arrival Time = 22
+	Expected Run Time = 3.4634678
+	Priority = 4
+	Start Time = 23
+	Completion Time = 23.463469
+Process: p86
+	Arrival Time = 32
+	Expected Run Time = 6.2099466
+	Priority = 4
+	Start Time = 32
+	Completion Time = 32.209946
+Process: p76
+	Arrival Time = 35
+	Expected Run Time = 6.965859
+	Priority = 1
+	Start Time = 35
+	Completion Time = 35.96586
+Process: p00
+	Arrival Time = 34
+	Expected Run Time = 1.5624087
+	Priority = 4
+	Start Time = 34
+	Completion Time = 34.56241
+Process: p50
+	Arrival Time = 34
+	Expected Run Time = 6.1146746
+	Priority = 4
+	Start Time = 36
+	Completion Time = 36.114674
+Process: p36
+	Arrival Time = 39
+	Expected Run Time = 2.3066707
+	Priority = 1
+	Start Time = 39
+	Completion Time = 39.30667
+Process: p98
+	Arrival Time = 39
+	Expected Run Time = 4.424591
+	Priority = 1
+	Start Time = 40
+	Completion Time = 40.42459
+Process: p53
+	Arrival Time = 40
+	Expected Run Time = 2.4620523
+	Priority = 1
+	Start Time = 41
+	Completion Time = 41.46205
+Process: p34
+	Arrival Time = 38
+	Expected Run Time = 5.617421
+	Priority = 3
+	Start Time = 38
+	Completion Time = 38.61742
+Process: p72
+	Arrival Time = 36
+	Expected Run Time = 9.060534
+	Priority = 4
+	Start Time = 37
+	Completion Time = 37.06053
+Process: p75
+	Arrival Time = 37
+	Expected Run Time = 10.985836
+	Priority = 4
+	Start Time = 38
+	Completion Time = 38.985836
+Process: p83
+	Arrival Time = 39
+	Expected Run Time = 10.280733
+	Priority = 4
+	Start Time = 39
+	Completion Time = 39.28073
+Process: p48
+	Arrival Time = 40
+	Expected Run Time = 1.3567274
+	Priority = 4
+	Start Time = 40
+	Completion Time = 40.356728
+Process: p94
+	Arrival Time = 46
+	Expected Run Time = 2.0600326
+	Priority = 1
+	Start Time = 46
+	Completion Time = 46.06003
+Process: p59
+	Arrival Time = 46
+	Expected Run Time = 8.803816
+	Priority = 1
+	Start Time = 47
+	Completion Time = 47.803818
+Process: p35
+	Arrival Time = 47
+	Expected Run Time = 9.39083
+	Priority = 1
+	Start Time = 48
+	Completion Time = 48.39083
+Process: p29
+	Arrival Time = 48
+	Expected Run Time = 8.6918335
+	Priority = 1
+	Start Time = 49
+	Completion Time = 49.691833
+Process: p57
+	Arrival Time = 50
+	Expected Run Time = 6.072942
+	Priority = 1
+	Start Time = 50
+	Completion Time = 50.07294
+Process: p17
+	Arrival Time = 50
+	Expected Run Time = 6.060979
+	Priority = 1
+	Start Time = 51
+	Completion Time = 51.060978
+Process: p18
+	Arrival Time = 46
+	Expected Run Time = 1.2487993
+	Priority = 2
+	Start Time = 53
+	Completion Time = 53.2488
+Process: p28
+	Arrival Time = 46
+	Expected Run Time = 10.5819435
+	Priority = 2
+	Start Time = 52
+	Completion Time = 52.581944
+Process: p07
+	Arrival Time = 46
+	Expected Run Time = 9.47919
+	Priority = 3
+	Start Time = 53
+	Completion Time = 53.47919
+Process: p38
+	Arrival Time = 55
+	Expected Run Time = 5.960728
+	Priority = 2
+	Start Time = 55
+	Completion Time = 55.960728
+Process: p31
+	Arrival Time = 55
+	Expected Run Time = 7.0796843
+	Priority = 2
+	Start Time = 56
+	Completion Time = 56.079685
+Process: p13
+	Arrival Time = 57
+	Expected Run Time = 10.376162
+	Priority = 2
+	Start Time = 57
+	Completion Time = 57.37616
+Process: p60
+	Arrival Time = 51
+	Expected Run Time = 4.0976357
+	Priority = 3
+	Start Time = 54
+	Completion Time = 54.097637
+Process: p10
+	Arrival Time = 57
+	Expected Run Time = 3.9262505
+	Priority = 3
+	Start Time = 57
+	Completion Time = 57.92625
+Process: p02
+	Arrival Time = 59
+	Expected Run Time = 6.8523297
+	Priority = 2
+	Start Time = 59
+	Completion Time = 59.85233
+Process: p32
+	Arrival Time = 49
+	Expected Run Time = 9.282141
+	Priority = 4
+	Start Time = 58
+	Completion Time = 58.282143
+Process: p79
+	Arrival Time = 52
+	Expected Run Time = 10.734706
+	Priority = 4
+	Start Time = 59
+	Completion Time = 59.734707
+Process: p09
+	Arrival Time = 61
+	Expected Run Time = 4.405882
+	Priority = 1
+	Start Time = 61
+	Completion Time = 61.405884
+Process: p40
+	Arrival Time = 62
+	Expected Run Time = 2.8306243
+	Priority = 1
+	Start Time = 62
+	Completion Time = 62.830624
+Process: p82
+	Arrival Time = 61
+	Expected Run Time = 8.902939
+	Priority = 2
+	Start Time = 63
+	Completion Time = 63.90294
+Process: p45
+	Arrival Time = 65
+	Expected Run Time = 3.1155195
+	Priority = 1
+	Start Time = 65
+	Completion Time = 65.11552
+Process: p95
+	Arrival Time = 67
+	Expected Run Time = 1.0334923
+	Priority = 1
+	Start Time = 68
+	Completion Time = 68.03349
+Process: p84
+	Arrival Time = 67
+	Expected Run Time = 6.072517
+	Priority = 1
+	Start Time = 67
+	Completion Time = 67.07252
+Process: p97
+	Arrival Time = 65
+	Expected Run Time = 6.1979556
+	Priority = 2
+	Start Time = 66
+	Completion Time = 66.19795
+Process: p43
+	Arrival Time = 66
+	Expected Run Time = 6.6158905
+	Priority = 2
+	Start Time = 67
+	Completion Time = 67.61589
+Process: p80
+	Arrival Time = 67
+	Expected Run Time = 5.775027
+	Priority = 2
+	Start Time = 68
+	Completion Time = 68.775024
+Process: p96
+	Arrival Time = 63
+	Expected Run Time = 5.651535
+	Priority = 3
+	Start Time = 64
+	Completion Time = 64.651535
+Process: p99
+	Arrival Time = 66
+	Expected Run Time = 7.320487
+	Priority = 3
+	Start Time = 66
+	Completion Time = 66.32049
+Process: p11
+	Arrival Time = 70
+	Expected Run Time = 9.109636
+	Priority = 1
+	Start Time = 70
+	Completion Time = 70.109634
+Process: p16
+	Arrival Time = 71
+	Expected Run Time = 6.4450207
+	Priority = 1
+	Start Time = 71
+	Completion Time = 71.44502
+Process: p47
+	Arrival Time = 70
+	Expected Run Time = 2.2337623
+	Priority = 2
+	Start Time = 72
+	Completion Time = 72.233765
+Process: p51
+	Arrival Time = 74
+	Expected Run Time = 8.276943
+	Priority = 1
+	Start Time = 74
+	Completion Time = 74.27695
+Process: p56
+	Arrival Time = 71
+	Expected Run Time = 9.397051
+	Priority = 2
+	Start Time = 73
+	Completion Time = 73.39705
+Process: p27
+	Arrival Time = 73
+	Expected Run Time = 4.0397615
+	Priority = 2
+	Start Time = 74
+	Completion Time = 74.039764
+Process: p39
+	Arrival Time = 75
+	Expected Run Time = 1.8406572
+	Priority = 2
+	Start Time = 75
+	Completion Time = 75.84066
+Process: p52
+	Arrival Time = 76
+	Expected Run Time = 5.3502083
+	Priority = 2
+	Start Time = 76
+	Completion Time = 76.350204
+Process: p91
+	Arrival Time = 78
+	Expected Run Time = 4.188297
+	Priority = 1
+	Start Time = 78
+	Completion Time = 78.18829
+Process: p06
+	Arrival Time = 78
+	Expected Run Time = 8.0413475
+	Priority = 1
+	Start Time = 79
+	Completion Time = 79.04135
+Process: p49
+	Arrival Time = 79
+	Expected Run Time = 10.723774
+	Priority = 1
+	Start Time = 80
+	Completion Time = 80.72377
+Process: p37
+	Arrival Time = 79
+	Expected Run Time = 10.317643
+	Priority = 1
+	Start Time = 81
+	Completion Time = 81.31764
+Process: p03
+	Arrival Time = 77
+	Expected Run Time = 2.0664935
+	Priority = 2
+	Start Time = 77
+	Completion Time = 77.06649
+Process: p63
+	Arrival Time = 80
+	Expected Run Time = 4.2292814
+	Priority = 2
+	Start Time = 80
+	Completion Time = 80.22928
+Process: p65
+	Arrival Time = 81
+	Expected Run Time = 3.576234
+	Priority = 2
+	Start Time = 81
+	Completion Time = 81.57623
+Process: p55
+	Arrival Time = 84
+	Expected Run Time = 5.699826
+	Priority = 2
+	Start Time = 84
+	Completion Time = 84.69983
+Process: p54
+	Arrival Time = 83
+	Expected Run Time = 8.600045
+	Priority = 3
+	Start Time = 83
+	Completion Time = 83.600044
+Process: p85
+	Arrival Time = 84
+	Expected Run Time = 5.040304
+	Priority = 3
+	Start Time = 84
+	Completion Time = 84.040306
+Process: p04
+	Arrival Time = 76
+	Expected Run Time = 7.1352134
+	Priority = 4
+	Start Time = 82
+	Completion Time = 82.135216
+Process: p67
+	Arrival Time = 87
+	Expected Run Time = 8.561826
+	Priority = 1
+	Start Time = 87
+	Completion Time = 87.56183
+Process: p30
+	Arrival Time = 86
+	Expected Run Time = 4.244403
+	Priority = 2
+	Start Time = 86
+	Completion Time = 86.2444
+Process: p73
+	Arrival Time = 88
+	Expected Run Time = 4.89152
+	Priority = 3
+	Start Time = 88
+	Completion Time = 88.89152
+Process: p88
+	Arrival Time = 86
+	Expected Run Time = 4.986762
+	Priority = 4
+	Start Time = 89
+	Completion Time = 89.98676
+Process: p66
+	Arrival Time = 87
+	Expected Run Time = 1.0610456
+	Priority = 4
+	Start Time = 90
+	Completion Time = 90.06104
+Process: p89
+	Arrival Time = 92
+	Expected Run Time = 7.333989
+	Priority = 1
+	Start Time = 92
+	Completion Time = 92.33399
+Process: p26
+	Arrival Time = 93
+	Expected Run Time = 2.2453103
+	Priority = 1
+	Start Time = 93
+	Completion Time = 93.24531
+Process: p41
+	Arrival Time = 95
+	Expected Run Time = 5.467075
+	Priority = 1
+	Start Time = 95
+	Completion Time = 95.46707
+Process: p61
+	Arrival Time = 92
+	Expected Run Time = 7.04594
+	Priority = 2
+	Start Time = 94
+	Completion Time = 94.04594
+Process: p42
+	Arrival Time = 93
+	Expected Run Time = 9.832115
+	Priority = 2
+	Start Time = 95
+	Completion Time = 95.832115
+Process: p87
+	Arrival Time = 92
+	Expected Run Time = 9.866851
+	Priority = 3
+	Start Time = 96
+	Completion Time = 96.86685
+Process: p22
+	Arrival Time = 92
+	Expected Run Time = 1.2939867
+	Priority = 4
+	Start Time = 97
+	Completion Time = 97.29398
+Process: p33
+	Arrival Time = 99
+	Expected Run Time = 9.141818
+	Priority = 2
+	Start Time = 99
+	Completion Time = 99.141815
+
+############################################################
+############ HPF Preemptive Time Chart for run 3 #####################
+############################################################
+0______p58p92p71p92p71p92p71p92p71p92p71p92p71p92p92p92p70p19p70p19p70p58p58p58p58p58____________p14p14p44p44p44p44p44p44p44p44p44p44p93p81p74p74p74p74p81p81p05p05p05p05p05p05p05p93p93p93p93p93p93p93p23p23p23p23p23p23p23p23p23p23p23p77p69p77p69p77p69p77p69p77______p24p24p24p24p24p24p24p24p24______p78p78p78p78p78p78p78p78p78p78_________p90p46p68p12p62p62p62p62p62p62p62p62p62p21p15p21p15p21p15p21p15p21p15p21p15p21p15p21p21p21p12p12p12p12p12p12p12p12p12p12_________p01p01p01p01p01p01p01p01p01p01p01p46p68p46p90p46p90p46p90p46p90p46p90p46p46p46p46p08p08p08p08________________________p86p86p86p86p86p86p86___p00p76p76p76p76p76p76p76p50p00___p50p50p50p50p50p50p72p34p36p98p36p98p36p98p98p98p53p53p53p34p34p34p34p34p72p72p72p72p72p72p72p72p72p75p75p75p75p75p75p75p75p75p75p75p83p83p83p83p83p83p83p83p83p83p83p48p48_______________p94p59p94p59p94p59p59p59p59p59p59p59p35p35p35p35p35p35p35p35p35p35p29p29p29p29p29p29p29p29p29p57p17p57p17p57p17p57p17p57p17p57p17p57p17p28p18p28p18p28p28p28p28p28p28p28p28p28p07p07p07p07p07p07p07p07p07p07p60p38p31p38p31p38p31p38p31p38p31p38p31p31p31p13p13p13p13p13p13p13p13p13p13p13p60p60p60p60______p10p10p10p10p32p02p02p02p02p02p02p02p32p32p32p32p32p32p32p32p32p79p79p79p79p79p79p79p79p79p79p79___p09p09p09p09p09p40p40p40p82p82p82p82p82p82p82p82p82p96p45p45p45p45p97p84p95p84p95p84p84p84p84p84p97p97p97p97p97p97p43p43p43p43p43p43p43p80p80p80p80p80p80p96p96p96p96p96___p99p99p99p99p99p99p99p99_________p11p11p11p11p11p11p11p11p11p11p16p16p16p16p16p16p16p47p47p47p56p51p51p51p51p51p51p51p51p51p56p56p56p56p56p56p56p56p56p27p27p27p27p27p39p39p52p52p52p52p52p52p03p91p06p91p06p91p06p91p06p91p06p06p06p06p06p49p37p49p37p49p37p49p37p49p37p49p37p49p37p49p37p49p37p49p37p49p37p03p03______p63p63p63p63p63p65p65p65p65p04p54p55p55p55p55p55p55p54p54p54p54p54p54p54p54p85p85p85p85p85p85p04p04p04p04p04p04p04_________p30p67p67p67p67p67p67p67p67p67p30p30p30p30___p73p73p73p73p73p88p88p88p88p88p66p66___p89p89p89p89p89p89p89p89p26p26p26p61p41p41p41p41p41p41p61p61p61p61p61p61p61p42p42p42p42p42p42p42p42p42p42p87p87p87p87p87p87p87p87p87p87p22p22p64p33p33p33p33p33p33p33p33p33p33
+
+########################################################################################
+############ The following processes were completed for RR run 4 #####################
+########################################################################################
+Process: p96
+	Arrival Time = 1
+	Expected Run Time = 3.945401
+	Priority = 1
+	Start Time = 1
+	Completion Time = 1.945401
+Process: p33
+	Arrival Time = 3
+	Expected Run Time = 6.790165
+	Priority = 2
+	Start Time = 3
+	Completion Time = 3.790165
+Process: p52
+	Arrival Time = 4
+	Expected Run Time = 3.383381
+	Priority = 3
+	Start Time = 4
+	Completion Time = 4.383381
+Process: p31
+	Arrival Time = 8
+	Expected Run Time = 7.117022
+	Priority = 1
+	Start Time = 8
+	Completion Time = 8.117022
+Process: p87
+	Arrival Time = 9
+	Expected Run Time = 4.6338377
+	Priority = 1
+	Start Time = 9
+	Completion Time = 9.633838
+Process: p37
+	Arrival Time = 8
+	Expected Run Time = 10.772514
+	Priority = 2
+	Start Time = 10
+	Completion Time = 10.772514
+Process: p48
+	Arrival Time = 9
+	Expected Run Time = 5.1749315
+	Priority = 2
+	Start Time = 11
+	Completion Time = 11.174932
+Process: p28
+	Arrival Time = 10
+	Expected Run Time = 9.321928
+	Priority = 2
+	Start Time = 12
+	Completion Time = 12.321928
+Process: p32
+	Arrival Time = 9
+	Expected Run Time = 7.474276
+	Priority = 3
+	Start Time = 13
+	Completion Time = 13.474276
+Process: p71
+	Arrival Time = 16
+	Expected Run Time = 3.5084836
+	Priority = 2
+	Start Time = 16
+	Completion Time = 16.508484
+Process: p30
+	Arrival Time = 16
+	Expected Run Time = 7.9754715
+	Priority = 2
+	Start Time = 17
+	Completion Time = 17.975471
+Process: p64
+	Arrival Time = 9
+	Expected Run Time = 4.264097
+	Priority = 4
+	Start Time = 15
+	Completion Time = 15.264097
+Process: p16
+	Arrival Time = 9
+	Expected Run Time = 8.541285
+	Priority = 4
+	Start Time = 14
+	Completion Time = 14.541285
+Process: p44
+	Arrival Time = 12
+	Expected Run Time = 10.246382
+	Priority = 4
+	Start Time = 15
+	Completion Time = 15.246382
+Process: p36
+	Arrival Time = 20
+	Expected Run Time = 6.7889786
+	Priority = 2
+	Start Time = 20
+	Completion Time = 20.788979
+Process: p97
+	Arrival Time = 20
+	Expected Run Time = 7.377404
+	Priority = 3
+	Start Time = 21
+	Completion Time = 21.377403
+Process: p99
+	Arrival Time = 25
+	Expected Run Time = 9.511625
+	Priority = 2
+	Start Time = 25
+	Completion Time = 25.511625
+Process: p57
+	Arrival Time = 24
+	Expected Run Time = 4.4816737
+	Priority = 3
+	Start Time = 24
+	Completion Time = 24.481674
+Process: p78
+	Arrival Time = 24
+	Expected Run Time = 10.813951
+	Priority = 4
+	Start Time = 25
+	Completion Time = 25.81395
+Process: p95
+	Arrival Time = 27
+	Expected Run Time = 3.062272
+	Priority = 1
+	Start Time = 27
+	Completion Time = 27.062271
+Process: p89
+	Arrival Time = 27
+	Expected Run Time = 1.9135041
+	Priority = 2
+	Start Time = 28
+	Completion Time = 28.913504
+Process: p39
+	Arrival Time = 28
+	Expected Run Time = 4.8325706
+	Priority = 2
+	Start Time = 30
+	Completion Time = 30.832571
+Process: p10
+	Arrival Time = 28
+	Expected Run Time = 6.73617
+	Priority = 2
+	Start Time = 29
+	Completion Time = 29.73617
+Process: p34
+	Arrival Time = 29
+	Expected Run Time = 4.370836
+	Priority = 2
+	Start Time = 31
+	Completion Time = 31.370836
+Process: p75
+	Arrival Time = 29
+	Expected Run Time = 10.161152
+	Priority = 2
+	Start Time = 30
+	Completion Time = 30.161152
+Process: p98
+	Arrival Time = 27
+	Expected Run Time = 2.579506
+	Priority = 3
+	Start Time = 31
+	Completion Time = 31.579506
+Process: p59
+	Arrival Time = 27
+	Expected Run Time = 9.188916
+	Priority = 3
+	Start Time = 32
+	Completion Time = 32.188915
+Process: p55
+	Arrival Time = 33
+	Expected Run Time = 7.876815
+	Priority = 3
+	Start Time = 33
+	Completion Time = 33.876816
+Process: p17
+	Arrival Time = 36
+	Expected Run Time = 8.127319
+	Priority = 3
+	Start Time = 36
+	Completion Time = 36.12732
+Process: p79
+	Arrival Time = 37
+	Expected Run Time = 5.715531
+	Priority = 3
+	Start Time = 37
+	Completion Time = 37.71553
+Process: p45
+	Arrival Time = 32
+	Expected Run Time = 3.100188
+	Priority = 4
+	Start Time = 35
+	Completion Time = 35.10019
+Process: p67
+	Arrival Time = 32
+	Expected Run Time = 9.819422
+	Priority = 4
+	Start Time = 34
+	Completion Time = 34.81942
+Process: p06
+	Arrival Time = 39
+	Expected Run Time = 4.360486
+	Priority = 2
+	Start Time = 39
+	Completion Time = 39.360485
+Process: p20
+	Arrival Time = 45
+	Expected Run Time = 2.565982
+	Priority = 2
+	Start Time = 45
+	Completion Time = 45.565983
+Process: p68
+	Arrival Time = 44
+	Expected Run Time = 8.455198
+	Priority = 4
+	Start Time = 44
+	Completion Time = 44.4552
+Process: p18
+	Arrival Time = 47
+	Expected Run Time = 10.452323
+	Priority = 2
+	Start Time = 47
+	Completion Time = 47.452324
+Process: p58
+	Arrival Time = 49
+	Expected Run Time = 1.0795145
+	Priority = 1
+	Start Time = 49
+	Completion Time = 49.079514
+Process: p27
+	Arrival Time = 49
+	Expected Run Time = 10.899208
+	Priority = 2
+	Start Time = 50
+	Completion Time = 50.899208
+Process: p38
+	Arrival Time = 52
+	Expected Run Time = 6.906305
+	Priority = 1
+	Start Time = 52
+	Completion Time = 52.906303
+Process: p03
+	Arrival Time = 52
+	Expected Run Time = 3.7992048
+	Priority = 2
+	Start Time = 53
+	Completion Time = 53.799206
+Process: p35
+	Arrival Time = 52
+	Expected Run Time = 4.3138914
+	Priority = 2
+	Start Time = 54
+	Completion Time = 54.313892
+Process: p13
+	Arrival Time = 53
+	Expected Run Time = 4.1242266
+	Priority = 2
+	Start Time = 55
+	Completion Time = 55.124226
+Process: p88
+	Arrival Time = 51
+	Expected Run Time = 2.949089
+	Priority = 4
+	Start Time = 51
+	Completion Time = 51.94909
+Process: p53
+	Arrival Time = 53
+	Expected Run Time = 6.8519287
+	Priority = 4
+	Start Time = 53
+	Completion Time = 53.85193
+Process: p62
+	Arrival Time = 53
+	Expected Run Time = 8.050369
+	Priority = 4
+	Start Time = 54
+	Completion Time = 54.05037
+Process: p85
+	Arrival Time = 59
+	Expected Run Time = 2.0421512
+	Priority = 1
+	Start Time = 59
+	Completion Time = 59.042152
+Process: p54
+	Arrival Time = 59
+	Expected Run Time = 2.4493365
+	Priority = 2
+	Start Time = 60
+	Completion Time = 60.449337
+Process: p11
+	Arrival Time = 61
+	Expected Run Time = 7.466179
+	Priority = 2
+	Start Time = 61
+	Completion Time = 61.46618
+Process: p14
+	Arrival Time = 58
+	Expected Run Time = 7.1813407
+	Priority = 3
+	Start Time = 58
+	Completion Time = 58.18134
+Process: p63
+	Arrival Time = 57
+	Expected Run Time = 1.1495773
+	Priority = 4
+	Start Time = 57
+	Completion Time = 57.14958
+Process: p92
+	Arrival Time = 58
+	Expected Run Time = 4.653521
+	Priority = 4
+	Start Time = 58
+	Completion Time = 58.653522
+Process: p82
+	Arrival Time = 58
+	Expected Run Time = 9.013653
+	Priority = 4
+	Start Time = 59
+	Completion Time = 59.013653
+Process: p84
+	Arrival Time = 64
+	Expected Run Time = 3.3627489
+	Priority = 1
+	Start Time = 64
+	Completion Time = 64.36275
+Process: p76
+	Arrival Time = 64
+	Expected Run Time = 4.1118445
+	Priority = 2
+	Start Time = 65
+	Completion Time = 65.11185
+Process: p77
+	Arrival Time = 67
+	Expected Run Time = 6.5143924
+	Priority = 1
+	Start Time = 67
+	Completion Time = 67.51439
+Process: p01
+	Arrival Time = 67
+	Expected Run Time = 2.21779
+	Priority = 2
+	Start Time = 68
+	Completion Time = 68.21779
+Process: p04
+	Arrival Time = 69
+	Expected Run Time = 3.5745564
+	Priority = 2
+	Start Time = 69
+	Completion Time = 69.574554
+Process: p56
+	Arrival Time = 71
+	Expected Run Time = 6.381552
+	Priority = 1
+	Start Time = 71
+	Completion Time = 71.38155
+Process: p26
+	Arrival Time = 70
+	Expected Run Time = 4.858865
+	Priority = 2
+	Start Time = 70
+	Completion Time = 70.858864
+Process: p47
+	Arrival Time = 71
+	Expected Run Time = 4.8079796
+	Priority = 2
+	Start Time = 71
+	Completion Time = 71.80798
+Process: p66
+	Arrival Time = 72
+	Expected Run Time = 8.605622
+	Priority = 2
+	Start Time = 72
+	Completion Time = 72.60562
+Process: p80
+	Arrival Time = 65
+	Expected Run Time = 6.988703
+	Priority = 3
+	Start Time = 66
+	Completion Time = 66.9887
+Process: p07
+	Arrival Time = 69
+	Expected Run Time = 3.129364
+	Priority = 3
+	Start Time = 69
+	Completion Time = 69.129364
+Process: p60
+	Arrival Time = 74
+	Expected Run Time = 9.3452635
+	Priority = 2
+	Start Time = 74
+	Completion Time = 74.34526
+Process: p69
+	Arrival Time = 73
+	Expected Run Time = 8.515168
+	Priority = 3
+	Start Time = 73
+	Completion Time = 73.51517
+Process: p21
+	Arrival Time = 76
+	Expected Run Time = 9.414169
+	Priority = 1
+	Start Time = 76
+	Completion Time = 76.41417
+Process: p61
+	Arrival Time = 77
+	Expected Run Time = 7.007268
+	Priority = 1
+	Start Time = 77
+	Completion Time = 77.00727
+Process: p40
+	Arrival Time = 77
+	Expected Run Time = 2.3901286
+	Priority = 2
+	Start Time = 78
+	Completion Time = 78.39013
+Process: p93
+	Arrival Time = 80
+	Expected Run Time = 2.731034
+	Priority = 1
+	Start Time = 80
+	Completion Time = 80.73103
+Process: p73
+	Arrival Time = 78
+	Expected Run Time = 3.525975
+	Priority = 2
+	Start Time = 79
+	Completion Time = 79.52598
+Process: p05
+	Arrival Time = 75
+	Expected Run Time = 3.7170436
+	Priority = 3
+	Start Time = 75
+	Completion Time = 75.71704
+Process: p86
+	Arrival Time = 76
+	Expected Run Time = 4.354825
+	Priority = 3
+	Start Time = 76
+	Completion Time = 76.35483
+Process: p49
+	Arrival Time = 80
+	Expected Run Time = 10.561819
+	Priority = 3
+	Start Time = 80
+	Completion Time = 80.56182
+Process: p02
+	Arrival Time = 62
+	Expected Run Time = 3.4983547
+	Priority = 4
+	Start Time = 63
+	Completion Time = 63.498356
+Process: p00
+	Arrival Time = 62
+	Expected Run Time = 4.90757
+	Priority = 4
+	Start Time = 62
+	Completion Time = 62.90757
+Process: p12
+	Arrival Time = 64
+	Expected Run Time = 5.78162
+	Priority = 4
+	Start Time = 64
+	Completion Time = 64.78162
+Process: p65
+	Arrival Time = 67
+	Expected Run Time = 2.079928
+	Priority = 4
+	Start Time = 67
+	Completion Time = 67.079926
+Process: p83
+	Arrival Time = 75
+	Expected Run Time = 6.706762
+	Priority = 4
+	Start Time = 76
+	Completion Time = 76.706764
+Process: p19
+	Arrival Time = 75
+	Expected Run Time = 9.563249
+	Priority = 4
+	Start Time = 75
+	Completion Time = 75.56325
+Process: p43
+	Arrival Time = 83
+	Expected Run Time = 1.7139683
+	Priority = 2
+	Start Time = 83
+	Completion Time = 83.71397
+Process: p22
+	Arrival Time = 82
+	Expected Run Time = 2.8410718
+	Priority = 3
+	Start Time = 84
+	Completion Time = 84.84107
+Process: p09
+	Arrival Time = 82
+	Expected Run Time = 5.451109
+	Priority = 3
+	Start Time = 82
+	Completion Time = 82.45111
+Process: p90
+	Arrival Time = 81
+	Expected Run Time = 8.627819
+	Priority = 4
+	Start Time = 81
+	Completion Time = 81.62782
+Process: p42
+	Arrival Time = 83
+	Expected Run Time = 7.772429
+	Priority = 4
+	Start Time = 83
+	Completion Time = 83.77243
+Process: p24
+	Arrival Time = 84
+	Expected Run Time = 4.004305
+	Priority = 4
+	Start Time = 84
+	Completion Time = 84.0043
+Process: p91
+	Arrival Time = 86
+	Expected Run Time = 2.8594296
+	Priority = 1
+	Start Time = 86
+	Completion Time = 86.85943
+Process: p25
+	Arrival Time = 86
+	Expected Run Time = 7.3071055
+	Priority = 2
+	Start Time = 87
+	Completion Time = 87.307106
+Process: p70
+	Arrival Time = 89
+	Expected Run Time = 4.6875267
+	Priority = 1
+	Start Time = 89
+	Completion Time = 89.68753
+Process: p46
+	Arrival Time = 90
+	Expected Run Time = 8.52037
+	Priority = 2
+	Start Time = 90
+	Completion Time = 90.52037
+Process: p41
+	Arrival Time = 88
+	Expected Run Time = 10.075803
+	Priority = 3
+	Start Time = 88
+	Completion Time = 88.075806
+Process: p72
+	Arrival Time = 85
+	Expected Run Time = 8.275135
+	Priority = 4
+	Start Time = 85
+	Completion Time = 85.27513
+Process: p15
+	Arrival Time = 86
+	Expected Run Time = 7.840195
+	Priority = 4
+	Start Time = 86
+	Completion Time = 86.840195
+Process: p50
+	Arrival Time = 90
+	Expected Run Time = 3.4339437
+	Priority = 4
+	Start Time = 90
+	Completion Time = 90.433945
+Process: p81
+	Arrival Time = 93
+	Expected Run Time = 7.066047
+	Priority = 1
+	Start Time = 93
+	Completion Time = 93.06605
+Process: p08
+	Arrival Time = 94
+	Expected Run Time = 6.410544
+	Priority = 1
+	Start Time = 94
+	Completion Time = 94.410545
+Process: p23
+	Arrival Time = 94
+	Expected Run Time = 4.7232018
+	Priority = 3
+	Start Time = 95
+	Completion Time = 95.723206
+Process: p29
+	Arrival Time = 97
+	Expected Run Time = 4.6267223
+	Priority = 1
+	Start Time = 97
+	Completion Time = 97.626724
+Process: p51
+	Arrival Time = 95
+	Expected Run Time = 2.972023
+	Priority = 3
+	Start Time = 96
+	Completion Time = 96.97202
+Process: p94
+	Arrival Time = 95
+	Expected Run Time = 10.891128
+	Priority = 4
+	Start Time = 97
+	Completion Time = 97.89113
+Process: p74
+	Arrival Time = 99
+	Expected Run Time = 10.450389
+	Priority = 2
+	Start Time = 99
+	Completion Time = 99.450386
+
+############################################################
+############ HPF Preemptive Time Chart for run 4 #####################
+############################################################
+0___p96p96p96p96___p33p33p33p33p33p33p33p52p52p52p52_________p31p31p31p31p31p31p31p31p87p87p87p87p87p37p37p37p37p37p37p37p37p37p37p37p48p48p48p48p48p48p28p28p28p28p28p28p28p28p28p28p32p32p32p32p32p32p32p32p16p64p71p30p71p30p71p30p71p30p30p30p30p30p16p64p16p64p16p64p16p64p16p16p16p16p44p44p44p44p44p44p44p44p44p44p44____________p36p36p36p36p36p36p36p97p97p97p97p97p97p97p97______p57p99p99p99p99p99p99p99p99p99p99p57p57p57p57p78p78p78p78p78p78p78p78p78p78p78___p95p95p95p95p89p89p10p39p10p39p10p39p10p39p10p39p10p10p75p34p75p34p75p34p75p34p75p34p75p75p75p75p75p75p98p59p98p59p98p59p59p59p59p59p59p59p59p55p55p55p55p55p55p55p55p67p45p17p17p17p17p17p17p17p17p17p79p79p79p79p79p79p67p45p67p45p67p45p67p67p67p67p67p67____________p06p06p06p06p06____________p68p20p20p20p68p68p68p68p68p68p68p68______p18p18p18p18p18p18p18p18p18p18p18___p58p58p27p27p27p27p27p27p27p27p27p27p27p88p38p38p38p38p38p38p38p03p35p03p35p03p35p03p35p35p13p13p13p13p13p88p88___p53p62p53p62p53p62p53p62p53p62p53p62p53p62p62p62______p63p14p85p85p85p54p54p54p11p11p11p11p11p11p11p11p14p14p14p14p14p14p14p63p92p82p92p82p92p82p92p82p92p82p82p82p82p82p82______p00p02p84p84p84p84p76p76p76p76p76p80p77p77p77p77p77p77p77p01p01p01p04p04p04p04p26p56p56p56p56p56p56p56p26p26p26p26p47p47p47p47p47p66p66p66p66p66p66p66p66p66p80p80p80p80p80p80______p07p07p07p07_________p69p60p60p60p60p60p60p60p60p60p60p69p69p69p69p69p69p69p69___p05p21p21p21p21p21p21p21p21p21p21p61p61p61p61p61p61p61p61p40p40p40p73p93p93p93p73p73p73p05p05p05p86p86p86p86p86_________p49p49p49p49p49p49p49p49p49p49p49p00p02p00p02p00p02p00___p12p12p12p12p12p12______p65p65p65_____________________p19p83p19p83p19p83p19p83p19p83p19p83p19p83p19p19p19_______________p90p09p43p43p22p09___p22p09___p22p09p09p09p90p90p90p90p90p90p90p90___p42p42p42p42p42p42p42p42p24p24p24p24p24p72p91p91p91p25p25p25p25p25p25p25p25p41p70p70p70p70p70p46p46p46p46p46p46p46p46p46p41p41p41p41p41p41p41p41p41p41p72p72p72p72p72p72p72p72p15p15p15p15p15p15p15p15_________p50p50p50p50______p81p81p81p81p81p81p81p81p08p08p08p08p08p08p08p23p23p23p23p23p51p29p29p29p29p29p51p51p94p94p94p94p94p94p94p94p94p94p94___p74p74p74p74p74p74p74p74p74p74p74
+
+########################################################################################
+############ The following processes were completed for RR run 5 #####################
+########################################################################################
+Process: p23
+	Arrival Time = 0
+	Expected Run Time = 1.3003087
+	Priority = 4
+	Start Time = 1
+	Completion Time = 1.3003087
+Process: p46
+	Arrival Time = 5
+	Expected Run Time = 6.457904
+	Priority = 1
+	Start Time = 5
+	Completion Time = 5.457904
+Process: p93
+	Arrival Time = 4
+	Expected Run Time = 4.2960806
+	Priority = 2
+	Start Time = 4
+	Completion Time = 4.2960806
+Process: p36
+	Arrival Time = 6
+	Expected Run Time = 10.48544
+	Priority = 2
+	Start Time = 6
+	Completion Time = 6.4854403
+Process: p75
+	Arrival Time = 8
+	Expected Run Time = 6.7962155
+	Priority = 1
+	Start Time = 8
+	Completion Time = 8.796215
+Process: p05
+	Arrival Time = 8
+	Expected Run Time = 9.31807
+	Priority = 2
+	Start Time = 9
+	Completion Time = 9.31807
+Process: p92
+	Arrival Time = 9
+	Expected Run Time = 4.1477413
+	Priority = 2
+	Start Time = 10
+	Completion Time = 10.147741
+Process: p33
+	Arrival Time = 5
+	Expected Run Time = 9.119834
+	Priority = 3
+	Start Time = 7
+	Completion Time = 7.119834
+Process: p82
+	Arrival Time = 7
+	Expected Run Time = 1.8357952
+	Priority = 3
+	Start Time = 8
+	Completion Time = 8.835795
+Process: p61
+	Arrival Time = 3
+	Expected Run Time = 3.7995334
+	Priority = 4
+	Start Time = 3
+	Completion Time = 3.7995334
+Process: p01
+	Arrival Time = 6
+	Expected Run Time = 5.9449744
+	Priority = 4
+	Start Time = 6
+	Completion Time = 6.9449744
+Process: p13
+	Arrival Time = 12
+	Expected Run Time = 4.4738398
+	Priority = 1
+	Start Time = 12
+	Completion Time = 12.47384
+Process: p79
+	Arrival Time = 14
+	Expected Run Time = 2.1116958
+	Priority = 2
+	Start Time = 14
+	Completion Time = 14.111696
+Process: p84
+	Arrival Time = 16
+	Expected Run Time = 2.2207952
+	Priority = 1
+	Start Time = 16
+	Completion Time = 16.220795
+Process: p34
+	Arrival Time = 16
+	Expected Run Time = 6.3215184
+	Priority = 2
+	Start Time = 17
+	Completion Time = 17.321518
+Process: p39
+	Arrival Time = 17
+	Expected Run Time = 3.6309533
+	Priority = 2
+	Start Time = 19
+	Completion Time = 19.630953
+Process: p86
+	Arrival Time = 17
+	Expected Run Time = 9.3838005
+	Priority = 2
+	Start Time = 18
+	Completion Time = 18.3838
+Process: p81
+	Arrival Time = 17
+	Expected Run Time = 5.5972815
+	Priority = 2
+	Start Time = 19
+	Completion Time = 19.597282
+Process: p07
+	Arrival Time = 15
+	Expected Run Time = 10.659399
+	Priority = 3
+	Start Time = 15
+	Completion Time = 15.659399
+Process: p73
+	Arrival Time = 16
+	Expected Run Time = 6.452866
+	Priority = 3
+	Start Time = 16
+	Completion Time = 16.452866
+Process: p71
+	Arrival Time = 18
+	Expected Run Time = 7.1300745
+	Priority = 4
+	Start Time = 18
+	Completion Time = 18.130074
+Process: p40
+	Arrival Time = 19
+	Expected Run Time = 10.30203
+	Priority = 4
+	Start Time = 19
+	Completion Time = 19.302029
+Process: p59
+	Arrival Time = 22
+	Expected Run Time = 8.065935
+	Priority = 3
+	Start Time = 22
+	Completion Time = 22.065935
+Process: p02
+	Arrival Time = 22
+	Expected Run Time = 2.4275596
+	Priority = 4
+	Start Time = 23
+	Completion Time = 23.427559
+Process: p53
+	Arrival Time = 27
+	Expected Run Time = 5.1299043
+	Priority = 1
+	Start Time = 27
+	Completion Time = 27.129904
+Process: p24
+	Arrival Time = 27
+	Expected Run Time = 5.0183353
+	Priority = 3
+	Start Time = 28
+	Completion Time = 28.018335
+Process: p89
+	Arrival Time = 32
+	Expected Run Time = 10.229407
+	Priority = 1
+	Start Time = 32
+	Completion Time = 32.22941
+Process: p67
+	Arrival Time = 31
+	Expected Run Time = 8.67094
+	Priority = 3
+	Start Time = 31
+	Completion Time = 31.67094
+Process: p56
+	Arrival Time = 32
+	Expected Run Time = 8.578453
+	Priority = 4
+	Start Time = 32
+	Completion Time = 32.578453
+Process: p65
+	Arrival Time = 33
+	Expected Run Time = 4.180667
+	Priority = 4
+	Start Time = 33
+	Completion Time = 33.180668
+Process: p72
+	Arrival Time = 35
+	Expected Run Time = 9.518055
+	Priority = 4
+	Start Time = 35
+	Completion Time = 35.518055
+Process: p31
+	Arrival Time = 38
+	Expected Run Time = 4.3244896
+	Priority = 2
+	Start Time = 38
+	Completion Time = 38.32449
+Process: p11
+	Arrival Time = 41
+	Expected Run Time = 3.3374872
+	Priority = 4
+	Start Time = 41
+	Completion Time = 41.337486
+Process: p44
+	Arrival Time = 43
+	Expected Run Time = 3.1296499
+	Priority = 3
+	Start Time = 43
+	Completion Time = 43.12965
+Process: p09
+	Arrival Time = 46
+	Expected Run Time = 10.060154
+	Priority = 2
+	Start Time = 46
+	Completion Time = 46.060154
+Process: p43
+	Arrival Time = 47
+	Expected Run Time = 2.9335837
+	Priority = 3
+	Start Time = 47
+	Completion Time = 47.933582
+Process: p26
+	Arrival Time = 44
+	Expected Run Time = 4.381576
+	Priority = 4
+	Start Time = 45
+	Completion Time = 45.381577
+Process: p17
+	Arrival Time = 44
+	Expected Run Time = 10.340587
+	Priority = 4
+	Start Time = 44
+	Completion Time = 44.340588
+Process: p85
+	Arrival Time = 45
+	Expected Run Time = 1.0425205
+	Priority = 4
+	Start Time = 45
+	Completion Time = 45.04252
+Process: p52
+	Arrival Time = 49
+	Expected Run Time = 3.9900153
+	Priority = 1
+	Start Time = 49
+	Completion Time = 49.990017
+Process: p99
+	Arrival Time = 47
+	Expected Run Time = 3.7498534
+	Priority = 4
+	Start Time = 48
+	Completion Time = 48.749855
+Process: p58
+	Arrival Time = 47
+	Expected Run Time = 1.0063105
+	Priority = 4
+	Start Time = 48
+	Completion Time = 48.00631
+Process: p03
+	Arrival Time = 47
+	Expected Run Time = 9.345747
+	Priority = 4
+	Start Time = 47
+	Completion Time = 47.34575
+Process: p30
+	Arrival Time = 53
+	Expected Run Time = 5.921685
+	Priority = 1
+	Start Time = 53
+	Completion Time = 53.921684
+Process: p90
+	Arrival Time = 52
+	Expected Run Time = 4.064751
+	Priority = 2
+	Start Time = 52
+	Completion Time = 52.06475
+Process: p12
+	Arrival Time = 53
+	Expected Run Time = 6.473823
+	Priority = 3
+	Start Time = 53
+	Completion Time = 53.473824
+Process: p94
+	Arrival Time = 55
+	Expected Run Time = 3.057346
+	Priority = 1
+	Start Time = 55
+	Completion Time = 55.057346
+Process: p21
+	Arrival Time = 56
+	Expected Run Time = 9.756475
+	Priority = 1
+	Start Time = 56
+	Completion Time = 56.756477
+Process: p74
+	Arrival Time = 57
+	Expected Run Time = 10.748837
+	Priority = 1
+	Start Time = 57
+	Completion Time = 57.748837
+Process: p78
+	Arrival Time = 54
+	Expected Run Time = 2.6544938
+	Priority = 3
+	Start Time = 54
+	Completion Time = 54.654495
+Process: p41
+	Arrival Time = 56
+	Expected Run Time = 9.797548
+	Priority = 3
+	Start Time = 56
+	Completion Time = 56.797546
+Process: p08
+	Arrival Time = 57
+	Expected Run Time = 8.199959
+	Priority = 3
+	Start Time = 57
+	Completion Time = 57.19996
+Process: p77
+	Arrival Time = 58
+	Expected Run Time = 1.3359017
+	Priority = 3
+	Start Time = 58
+	Completion Time = 58.335903
+Process: p47
+	Arrival Time = 61
+	Expected Run Time = 4.722823
+	Priority = 1
+	Start Time = 61
+	Completion Time = 61.722824
+Process: p06
+	Arrival Time = 61
+	Expected Run Time = 1.0243137
+	Priority = 2
+	Start Time = 62
+	Completion Time = 62.024315
+Process: p27
+	Arrival Time = 64
+	Expected Run Time = 7.471098
+	Priority = 1
+	Start Time = 64
+	Completion Time = 64.4711
+Process: p28
+	Arrival Time = 63
+	Expected Run Time = 9.669925
+	Priority = 2
+	Start Time = 63
+	Completion Time = 63.669926
+Process: p70
+	Arrival Time = 65
+	Expected Run Time = 4.9447403
+	Priority = 2
+	Start Time = 66
+	Completion Time = 66.94474
+Process: p20
+	Arrival Time = 65
+	Expected Run Time = 5.771363
+	Priority = 2
+	Start Time = 65
+	Completion Time = 65.77136
+Process: p51
+	Arrival Time = 59
+	Expected Run Time = 4.9110394
+	Priority = 3
+	Start Time = 60
+	Completion Time = 60.91104
+Process: p14
+	Arrival Time = 59
+	Expected Run Time = 8.590144
+	Priority = 3
+	Start Time = 59
+	Completion Time = 59.590145
+Process: p38
+	Arrival Time = 62
+	Expected Run Time = 10.29542
+	Priority = 3
+	Start Time = 62
+	Completion Time = 62.295418
+Process: p37
+	Arrival Time = 64
+	Expected Run Time = 8.463489
+	Priority = 3
+	Start Time = 64
+	Completion Time = 64.463486
+Process: p32
+	Arrival Time = 51
+	Expected Run Time = 7.512703
+	Priority = 4
+	Start Time = 51
+	Completion Time = 51.512703
+Process: p18
+	Arrival Time = 58
+	Expected Run Time = 6.8930273
+	Priority = 4
+	Start Time = 58
+	Completion Time = 58.89303
+Process: p96
+	Arrival Time = 59
+	Expected Run Time = 10.404174
+	Priority = 4
+	Start Time = 59
+	Completion Time = 59.404175
+Process: p97
+	Arrival Time = 61
+	Expected Run Time = 3.0132942
+	Priority = 4
+	Start Time = 61
+	Completion Time = 61.013294
+Process: p83
+	Arrival Time = 63
+	Expected Run Time = 2.3919678
+	Priority = 4
+	Start Time = 64
+	Completion Time = 64.39197
+Process: p88
+	Arrival Time = 63
+	Expected Run Time = 4.3415546
+	Priority = 4
+	Start Time = 63
+	Completion Time = 63.341553
+Process: p80
+	Arrival Time = 63
+	Expected Run Time = 9.031438
+	Priority = 4
+	Start Time = 64
+	Completion Time = 64.03144
+Process: p60
+	Arrival Time = 69
+	Expected Run Time = 4.5947895
+	Priority = 2
+	Start Time = 69
+	Completion Time = 69.59479
+Process: p19
+	Arrival Time = 69
+	Expected Run Time = 4.8024464
+	Priority = 2
+	Start Time = 70
+	Completion Time = 70.802444
+Process: p63
+	Arrival Time = 72
+	Expected Run Time = 7.533636
+	Priority = 2
+	Start Time = 72
+	Completion Time = 72.53364
+Process: p35
+	Arrival Time = 74
+	Expected Run Time = 4.298504
+	Priority = 1
+	Start Time = 74
+	Completion Time = 74.29851
+Process: p98
+	Arrival Time = 75
+	Expected Run Time = 7.610489
+	Priority = 2
+	Start Time = 75
+	Completion Time = 75.61049
+Process: p87
+	Arrival Time = 70
+	Expected Run Time = 8.387235
+	Priority = 3
+	Start Time = 73
+	Completion Time = 73.38724
+Process: p68
+	Arrival Time = 70
+	Expected Run Time = 9.563242
+	Priority = 3
+	Start Time = 71
+	Completion Time = 71.56324
+Process: p50
+	Arrival Time = 71
+	Expected Run Time = 7.697798
+	Priority = 3
+	Start Time = 72
+	Completion Time = 72.6978
+Process: p25
+	Arrival Time = 75
+	Expected Run Time = 1.6218424
+	Priority = 4
+	Start Time = 75
+	Completion Time = 75.62184
+Process: p62
+	Arrival Time = 79
+	Expected Run Time = 6.5526857
+	Priority = 2
+	Start Time = 79
+	Completion Time = 79.55269
+Process: p04
+	Arrival Time = 78
+	Expected Run Time = 8.462425
+	Priority = 3
+	Start Time = 78
+	Completion Time = 78.462425
+Process: p76
+	Arrival Time = 80
+	Expected Run Time = 4.3410416
+	Priority = 3
+	Start Time = 80
+	Completion Time = 80.34104
+Process: p49
+	Arrival Time = 81
+	Expected Run Time = 5.3294287
+	Priority = 3
+	Start Time = 81
+	Completion Time = 81.32943
+Process: p42
+	Arrival Time = 83
+	Expected Run Time = 7.760492
+	Priority = 2
+	Start Time = 83
+	Completion Time = 83.76049
+Process: p10
+	Arrival Time = 84
+	Expected Run Time = 1.4981539
+	Priority = 3
+	Start Time = 84
+	Completion Time = 84.49815
+Process: p91
+	Arrival Time = 78
+	Expected Run Time = 9.593657
+	Priority = 4
+	Start Time = 82
+	Completion Time = 82.59366
+Process: p95
+	Arrival Time = 80
+	Expected Run Time = 1.0680279
+	Priority = 4
+	Start Time = 83
+	Completion Time = 83.06803
+Process: p66
+	Arrival Time = 80
+	Expected Run Time = 2.5145376
+	Priority = 4
+	Start Time = 84
+	Completion Time = 84.514534
+Process: p48
+	Arrival Time = 82
+	Expected Run Time = 7.1385727
+	Priority = 4
+	Start Time = 85
+	Completion Time = 85.13857
+Process: p29
+	Arrival Time = 88
+	Expected Run Time = 4.4137
+	Priority = 1
+	Start Time = 88
+	Completion Time = 88.4137
+Process: p00
+	Arrival Time = 87
+	Expected Run Time = 5.176602
+	Priority = 3
+	Start Time = 87
+	Completion Time = 87.176605
+Process: p54
+	Arrival Time = 83
+	Expected Run Time = 1.4191948
+	Priority = 4
+	Start Time = 86
+	Completion Time = 86.4192
+Process: p57
+	Arrival Time = 88
+	Expected Run Time = 1.1634202
+	Priority = 4
+	Start Time = 88
+	Completion Time = 88.16342
+Process: p64
+	Arrival Time = 90
+	Expected Run Time = 9.726799
+	Priority = 4
+	Start Time = 90
+	Completion Time = 90.7268
+Process: p22
+	Arrival Time = 91
+	Expected Run Time = 4.750489
+	Priority = 4
+	Start Time = 91
+	Completion Time = 91.75049
+Process: p45
+	Arrival Time = 96
+	Expected Run Time = 9.297122
+	Priority = 3
+	Start Time = 96
+	Completion Time = 96.29712
+Process: p69
+	Arrival Time = 94
+	Expected Run Time = 3.4121263
+	Priority = 4
+	Start Time = 94
+	Completion Time = 94.412125
+Process: p55
+	Arrival Time = 94
+	Expected Run Time = 9.512213
+	Priority = 4
+	Start Time = 95
+	Completion Time = 95.512215
+Process: p15
+	Arrival Time = 99
+	Expected Run Time = 8.723526
+	Priority = 2
+	Start Time = 99
+	Completion Time = 99.723526
+Process: p16
+	Arrival Time = 98
+	Expected Run Time = 4.160538
+	Priority = 4
+	Start Time = 98
+	Completion Time = 98.16054
+
+############################################################
+############ HPF Preemptive Time Chart for run 5 #####################
+############################################################
+0p23p23___p61p93p46p46p46p46p46p46p46p93p93p93p93___p36p36p36p36p36p36p36p36p36p36p36p33p75p75p75p75p75p75p75p05p05p05p05p05p05p05p05p05p05p92p92p92p92p92p33p33p33p33p33p33p33p33p33p82p82p61p61p61______p01p01p01p01p01p01_______________p13p13p13p13p13___p79p79p79p07p84p84p84p34p34p34p34p34p34p34p86p39p86p39p86p39p86p39p86p81p86p81p86p81p86p81p86p81p86p81p07p07p07p07p07p07p07p07p07p07p73p73p73p73p73p73p73___p71p71p71p71p71p71p71p71p40p40p40p40p40p40p40p40p40p40p40______p59p59p59p59p59p59p59p59p59p02p02p02_________p53p53p53p53p53p53p24p24p24p24p24p24______p67p89p89p89p89p89p89p89p89p89p89p89p67p67p67p67p67p67p67p67p56p56p56p56p56p56p56p56p56p65p65p65p65p65___p72p72p72p72p72p72p72p72p72p72______p31p31p31p31p31______p11p11p11p11___p44p44p44p44p17p26p09p09p09p09p09p09p09p09p09p09p09p43p43p43p17p26p17p26p17p26p17p26p17p17p17p17p17p17p85p85___p03p99p52p52p52p52p03p99p03p99p03p99p03p58p03p58p03p03p03p03_________p32p90p30p30p30p30p30p30p90p90p90p90p12p12p12p12p12p12p12p78p94p94p94p94p21p21p21p21p21p21p21p21p21p21p74p74p74p74p74p74p74p74p74p74p74p78p78___p41p41p41p41p41p41p41p41p41p41p08p08p08p08p08p08p08p08p08p77p77p14p51p47p47p47p47p47p06p06p28p27p27p27p27p27p27p27p27p28p28p28p28p28p28p28p28p28___p20p70p20p70p20p70p20p70p20p70p20p14p51p14p51p14p51p14p51p14p14p14p14______p38p38p38p38p38p38p38p38p38p38p38___p37p37p37p37p37p37p37p37p37p32p32p32p32p32p32p32__________________p18p18p18p18p18p18p18p96p96p96p96p96p96p96p96p96p96p96___p97p97p97p97___p88p83p88p83p88p83p88p80p88p80p80p80p80p80p80p80p80p80____________p60p19p60p19p60p19p60p19p60p19p68p63p63p63p63p63p63p63p63p87p35p35p35p35p35p98p98p98p98p98p98p98p98p68___p87p68___p87p68___p87p68___p87p68___p87p68___p87p68___p87p68___p87p68p50p50p50p50p50p50p50p50______p25p25______p04p62p62p62p62p62p62p62p04p04p04p04p04p04p04p04___p76p76p76p76p76p49p49p49p49p49p49p91p42p42p42p42p42p42p42p42p10p10p91p91p91p91p91p91p91p91p91p95p66p95p66p66p48p48p48p48p48p48p48p48p54p00p29p29p29p29p29p00p00p00p00p00p54___p57p57___p64p64p64p64p64p64p64p64p64p64p22p22p22p22p22______p69p55p45p45p45p45p45p45p45p45p45p45p69p55p69p55p69p55p55p55p55p55p55p55______p16p15p15p15p15p15p15p15p15p15p16p16p16p16
+
+#######################################################################################
+############ Final calculated averages and calculated throughput for HPF Preemptive #############
+#######################################################################################
+Average Turnaround Time = 1.4050694
+Average Wait Time = 5.324791
+Average Response Time = 0.9168357
+Throughput = 0.9947695
+
+priorityTotalTasks: 493.0	118
+Priority Stats:
+		P1:  0.23935091
+		P2:  0.27586207
+		P3:  0.22109534
+		P4:  0.2636917
+Please choose the number of the process scheduling algorithm you would like to run:
+(1) First Come First Served
+(2) Shortest Job First
+(3) Shortest Remaining Time
+(4) Round Robin
+(5) Highest Priority First (non-preemptive)
+(6) Highest Priority First with Ageing (non-preemptive)
+(7) Highest Priority First (Preemptive)
+(8) Highest Priority First with Aging (Preemptive)
+(9) Exit

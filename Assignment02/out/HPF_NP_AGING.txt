@@ -1,0 +1,603 @@
+Please choose the number of the process scheduling algorithm you would like to run:
+(1) First Come First Served
+(2) Shortest Job First
+(3) Shortest Remaining Time
+(4) Round Robin
+(5) Highest Priority First (non-preemptive)
+(6) Highest Priority First with Ageing (non-preemptive)
+(7) Highest Priority First (Preemptive)
+(8) Highest Priority First with Aging (Preemptive)
+(9) Exit
+6
+
+#######################################################################################
+############ The following processes were completed for HPF-NP run 1 #####################
+#######################################################################################
+Process: p15
+	Arrival Time = 0
+	Expected Run Time = 7.190202
+	Priority = 1
+	Start Time = 0
+	Completion Time = 7.190202
+Process: p71
+	Arrival Time = 8
+	Expected Run Time = 6.6437116
+	Priority = 1
+	Start Time = 8
+	Completion Time = 14.643711
+Process: p12
+	Arrival Time = 0
+	Expected Run Time = 3.70501
+	Priority = 2
+	Start Time = 15
+	Completion Time = 18.70501
+Process: p08
+	Arrival Time = 0
+	Expected Run Time = 4.0422983
+	Priority = 4
+	Start Time = 19
+	Completion Time = 23.042297
+Process: p24
+	Arrival Time = 1
+	Expected Run Time = 7.962215
+	Priority = 2
+	Start Time = 24
+	Completion Time = 31.962215
+Process: p47
+	Arrival Time = 2
+	Expected Run Time = 2.0634491
+	Priority = 3
+	Start Time = 32
+	Completion Time = 34.06345
+Process: p51
+	Arrival Time = 2
+	Expected Run Time = 3.154975
+	Priority = 2
+	Start Time = 35
+	Completion Time = 38.154976
+Process: p27
+	Arrival Time = 3
+	Expected Run Time = 8.18354
+	Priority = 3
+	Start Time = 39
+	Completion Time = 47.18354
+Process: p69
+	Arrival Time = 5
+	Expected Run Time = 3.8242939
+	Priority = 3
+	Start Time = 48
+	Completion Time = 51.824295
+Process: p85
+	Arrival Time = 5
+	Expected Run Time = 4.0410433
+	Priority = 2
+	Start Time = 52
+	Completion Time = 56.041042
+Process: p92
+	Arrival Time = 5
+	Expected Run Time = 10.17086
+	Priority = 4
+	Start Time = 57
+	Completion Time = 67.17086
+Process: p79
+	Arrival Time = 6
+	Expected Run Time = 4.5270357
+	Priority = 2
+	Start Time = 68
+	Completion Time = 72.52704
+Process: p70
+	Arrival Time = 6
+	Expected Run Time = 9.915886
+	Priority = 3
+	Start Time = 73
+	Completion Time = 82.915886
+Process: p30
+	Arrival Time = 8
+	Expected Run Time = 1.1368304
+	Priority = 3
+	Start Time = 83
+	Completion Time = 84.13683
+Process: p63
+	Arrival Time = 9
+	Expected Run Time = 9.9974
+	Priority = 3
+	Start Time = 85
+	Completion Time = 94.9974
+Process: p99
+	Arrival Time = 10
+	Expected Run Time = 5.796942
+	Priority = 2
+	Start Time = 95
+	Completion Time = 100.79694
+
+###########################################################
+############ HPF-NP Time Chart for run 1 #####################
+###########################################################
+0p15p15p15p15p15p15p15p15p71p71p71p71p71p71p71p12p12p12p12p08p08p08p08p08p24p24p24p24p24p24p24p24p47p47p47p51p51p51p51p27p27p27p27p27p27p27p27p27p69p69p69p69p85p85p85p85p85p92p92p92p92p92p92p92p92p92p92p92p79p79p79p79p79p70p70p70p70p70p70p70p70p70p70p30p30p63p63p63p63p63p63p63p63p63p63p99p99p99p99p99p99
+
+#######################################################################################
+############ The following processes were completed for HPF-NP run 2 #####################
+#######################################################################################
+Process: p71
+	Arrival Time = 0
+	Expected Run Time = 1.7789395
+	Priority = 3
+	Start Time = 0
+	Completion Time = 1.7789395
+Process: p30
+	Arrival Time = 0
+	Expected Run Time = 4.2981896
+	Priority = 3
+	Start Time = 2
+	Completion Time = 6.2981896
+Process: p46
+	Arrival Time = 6
+	Expected Run Time = 10.895166
+	Priority = 1
+	Start Time = 7
+	Completion Time = 17.895166
+Process: p50
+	Arrival Time = 1
+	Expected Run Time = 2.8508208
+	Priority = 4
+	Start Time = 18
+	Completion Time = 20.85082
+Process: p45
+	Arrival Time = 1
+	Expected Run Time = 6.918586
+	Priority = 3
+	Start Time = 21
+	Completion Time = 27.918587
+Process: p43
+	Arrival Time = 2
+	Expected Run Time = 5.396275
+	Priority = 4
+	Start Time = 28
+	Completion Time = 33.396275
+Process: p10
+	Arrival Time = 2
+	Expected Run Time = 9.164267
+	Priority = 3
+	Start Time = 34
+	Completion Time = 43.16427
+Process: p23
+	Arrival Time = 3
+	Expected Run Time = 4.260562
+	Priority = 3
+	Start Time = 44
+	Completion Time = 48.260563
+Process: p58
+	Arrival Time = 3
+	Expected Run Time = 5.518738
+	Priority = 4
+	Start Time = 49
+	Completion Time = 54.518738
+Process: p83
+	Arrival Time = 3
+	Expected Run Time = 5.595527
+	Priority = 4
+	Start Time = 55
+	Completion Time = 60.595528
+Process: p96
+	Arrival Time = 5
+	Expected Run Time = 7.192762
+	Priority = 4
+	Start Time = 61
+	Completion Time = 68.192764
+Process: p08
+	Arrival Time = 7
+	Expected Run Time = 1.6740527
+	Priority = 2
+	Start Time = 69
+	Completion Time = 70.67405
+Process: p32
+	Arrival Time = 7
+	Expected Run Time = 2.2437134
+	Priority = 4
+	Start Time = 71
+	Completion Time = 73.24371
+Process: p00
+	Arrival Time = 8
+	Expected Run Time = 1.2933764
+	Priority = 1
+	Start Time = 74
+	Completion Time = 75.29337
+Process: p60
+	Arrival Time = 8
+	Expected Run Time = 1.84811
+	Priority = 3
+	Start Time = 76
+	Completion Time = 77.84811
+Process: p19
+	Arrival Time = 8
+	Expected Run Time = 6.1280627
+	Priority = 4
+	Start Time = 78
+	Completion Time = 84.12806
+Process: p25
+	Arrival Time = 9
+	Expected Run Time = 3.4186862
+	Priority = 2
+	Start Time = 85
+	Completion Time = 88.418686
+Process: p51
+	Arrival Time = 9
+	Expected Run Time = 6.337927
+	Priority = 1
+	Start Time = 89
+	Completion Time = 95.33793
+Process: p56
+	Arrival Time = 10
+	Expected Run Time = 9.2001505
+	Priority = 2
+	Start Time = 96
+	Completion Time = 105.20015
+
+###########################################################
+############ HPF-NP Time Chart for run 2 #####################
+###########################################################
+0p71p71p30p30p30p30p30p46p46p46p46p46p46p46p46p46p46p46p50p50p50p45p45p45p45p45p45p45p43p43p43p43p43p43p10p10p10p10p10p10p10p10p10p10p23p23p23p23p23p58p58p58p58p58p58p83p83p83p83p83p83p96p96p96p96p96p96p96p96p08p08p32p32p32p00p00p60p60p19p19p19p19p19p19p19p25p25p25p25p51p51p51p51p51p51p51p56p56p56p56p56p56p56p56p56p56
+
+#######################################################################################
+############ The following processes were completed for HPF-NP run 3 #####################
+#######################################################################################
+Process: p58
+	Arrival Time = 2
+	Expected Run Time = 5.445534
+	Priority = 3
+	Start Time = 2
+	Completion Time = 7.445534
+Process: p71
+	Arrival Time = 3
+	Expected Run Time = 5.4005303
+	Priority = 1
+	Start Time = 8
+	Completion Time = 13.40053
+Process: p19
+	Arrival Time = 3
+	Expected Run Time = 1.3672603
+	Priority = 2
+	Start Time = 14
+	Completion Time = 15.36726
+Process: p70
+	Arrival Time = 3
+	Expected Run Time = 2.4014578
+	Priority = 2
+	Start Time = 16
+	Completion Time = 18.401459
+Process: p92
+	Arrival Time = 3
+	Expected Run Time = 8.182421
+	Priority = 1
+	Start Time = 19
+	Completion Time = 27.18242
+Process: p14
+	Arrival Time = 7
+	Expected Run Time = 1.1373241
+	Priority = 1
+	Start Time = 28
+	Completion Time = 29.137323
+Process: p93
+	Arrival Time = 7
+	Expected Run Time = 7.9058022
+	Priority = 4
+	Start Time = 30
+	Completion Time = 37.905804
+Process: p44
+	Arrival Time = 8
+	Expected Run Time = 9.830043
+	Priority = 3
+	Start Time = 38
+	Completion Time = 47.830044
+Process: p23
+	Arrival Time = 9
+	Expected Run Time = 10.837668
+	Priority = 4
+	Start Time = 48
+	Completion Time = 58.83767
+Process: p81
+	Arrival Time = 10
+	Expected Run Time = 2.4098768
+	Priority = 2
+	Start Time = 59
+	Completion Time = 61.409878
+Process: p69
+	Arrival Time = 11
+	Expected Run Time = 3.0303779
+	Priority = 4
+	Start Time = 62
+	Completion Time = 65.03038
+Process: p74
+	Arrival Time = 11
+	Expected Run Time = 3.958147
+	Priority = 1
+	Start Time = 66
+	Completion Time = 69.958145
+Process: p77
+	Arrival Time = 11
+	Expected Run Time = 4.406845
+	Priority = 4
+	Start Time = 70
+	Completion Time = 74.406845
+Process: p05
+	Arrival Time = 11
+	Expected Run Time = 6.7119093
+	Priority = 3
+	Start Time = 75
+	Completion Time = 81.71191
+Process: p24
+	Arrival Time = 14
+	Expected Run Time = 8.9341545
+	Priority = 1
+	Start Time = 82
+	Completion Time = 90.93416
+Process: p78
+	Arrival Time = 17
+	Expected Run Time = 9.611233
+	Priority = 2
+	Start Time = 91
+	Completion Time = 100.61124
+
+###########################################################
+############ HPF-NP Time Chart for run 3 #####################
+###########################################################
+0______p58p58p58p58p58p58p71p71p71p71p71p71p19p19p70p70p70p92p92p92p92p92p92p92p92p92p14p14p93p93p93p93p93p93p93p93p44p44p44p44p44p44p44p44p44p44p23p23p23p23p23p23p23p23p23p23p23p81p81p81p69p69p69p69p74p74p74p74p77p77p77p77p77p05p05p05p05p05p05p05p24p24p24p24p24p24p24p24p24p78p78p78p78p78p78p78p78p78p78
+
+#######################################################################################
+############ The following processes were completed for HPF-NP run 4 #####################
+#######################################################################################
+Process: p96
+	Arrival Time = 1
+	Expected Run Time = 3.945401
+	Priority = 1
+	Start Time = 1
+	Completion Time = 4.945401
+Process: p33
+	Arrival Time = 3
+	Expected Run Time = 6.790165
+	Priority = 2
+	Start Time = 5
+	Completion Time = 11.790165
+Process: p31
+	Arrival Time = 8
+	Expected Run Time = 7.117022
+	Priority = 1
+	Start Time = 12
+	Completion Time = 19.117022
+Process: p52
+	Arrival Time = 4
+	Expected Run Time = 3.383381
+	Priority = 3
+	Start Time = 20
+	Completion Time = 23.38338
+Process: p37
+	Arrival Time = 8
+	Expected Run Time = 10.772514
+	Priority = 2
+	Start Time = 24
+	Completion Time = 34.772514
+Process: p64
+	Arrival Time = 9
+	Expected Run Time = 4.264097
+	Priority = 4
+	Start Time = 35
+	Completion Time = 39.2641
+Process: p87
+	Arrival Time = 9
+	Expected Run Time = 4.6338377
+	Priority = 1
+	Start Time = 40
+	Completion Time = 44.63384
+Process: p48
+	Arrival Time = 9
+	Expected Run Time = 5.1749315
+	Priority = 2
+	Start Time = 45
+	Completion Time = 50.17493
+Process: p32
+	Arrival Time = 9
+	Expected Run Time = 7.474276
+	Priority = 3
+	Start Time = 51
+	Completion Time = 58.474277
+Process: p16
+	Arrival Time = 9
+	Expected Run Time = 8.541285
+	Priority = 4
+	Start Time = 59
+	Completion Time = 67.54128
+Process: p28
+	Arrival Time = 10
+	Expected Run Time = 9.321928
+	Priority = 2
+	Start Time = 68
+	Completion Time = 77.32193
+Process: p44
+	Arrival Time = 12
+	Expected Run Time = 10.246382
+	Priority = 4
+	Start Time = 78
+	Completion Time = 88.24638
+Process: p71
+	Arrival Time = 16
+	Expected Run Time = 3.5084836
+	Priority = 2
+	Start Time = 89
+	Completion Time = 92.508484
+Process: p30
+	Arrival Time = 16
+	Expected Run Time = 7.9754715
+	Priority = 2
+	Start Time = 93
+	Completion Time = 100.97547
+
+###########################################################
+############ HPF-NP Time Chart for run 4 #####################
+###########################################################
+0___p96p96p96p96p33p33p33p33p33p33p33p31p31p31p31p31p31p31p31p52p52p52p52p37p37p37p37p37p37p37p37p37p37p37p64p64p64p64p64p87p87p87p87p87p48p48p48p48p48p48p32p32p32p32p32p32p32p32p16p16p16p16p16p16p16p16p16p28p28p28p28p28p28p28p28p28p28p44p44p44p44p44p44p44p44p44p44p44p71p71p71p71p30p30p30p30p30p30p30p30
+
+#######################################################################################
+############ The following processes were completed for HPF-NP run 5 #####################
+#######################################################################################
+Process: p23
+	Arrival Time = 0
+	Expected Run Time = 1.3003087
+	Priority = 4
+	Start Time = 0
+	Completion Time = 1.3003087
+Process: p61
+	Arrival Time = 3
+	Expected Run Time = 3.7995334
+	Priority = 4
+	Start Time = 3
+	Completion Time = 6.7995334
+Process: p46
+	Arrival Time = 5
+	Expected Run Time = 6.457904
+	Priority = 1
+	Start Time = 7
+	Completion Time = 13.457904
+Process: p75
+	Arrival Time = 8
+	Expected Run Time = 6.7962155
+	Priority = 1
+	Start Time = 14
+	Completion Time = 20.796215
+Process: p93
+	Arrival Time = 4
+	Expected Run Time = 4.2960806
+	Priority = 2
+	Start Time = 21
+	Completion Time = 25.296082
+Process: p33
+	Arrival Time = 5
+	Expected Run Time = 9.119834
+	Priority = 3
+	Start Time = 26
+	Completion Time = 35.119835
+Process: p01
+	Arrival Time = 6
+	Expected Run Time = 5.9449744
+	Priority = 4
+	Start Time = 36
+	Completion Time = 41.944973
+Process: p36
+	Arrival Time = 6
+	Expected Run Time = 10.48544
+	Priority = 2
+	Start Time = 42
+	Completion Time = 52.48544
+Process: p82
+	Arrival Time = 7
+	Expected Run Time = 1.8357952
+	Priority = 3
+	Start Time = 53
+	Completion Time = 54.835796
+Process: p05
+	Arrival Time = 8
+	Expected Run Time = 9.31807
+	Priority = 2
+	Start Time = 55
+	Completion Time = 64.31807
+Process: p92
+	Arrival Time = 9
+	Expected Run Time = 4.1477413
+	Priority = 2
+	Start Time = 65
+	Completion Time = 69.14774
+Process: p13
+	Arrival Time = 12
+	Expected Run Time = 4.4738398
+	Priority = 1
+	Start Time = 70
+	Completion Time = 74.47384
+Process: p79
+	Arrival Time = 14
+	Expected Run Time = 2.1116958
+	Priority = 2
+	Start Time = 75
+	Completion Time = 77.111694
+Process: p07
+	Arrival Time = 15
+	Expected Run Time = 10.659399
+	Priority = 3
+	Start Time = 78
+	Completion Time = 88.6594
+Process: p84
+	Arrival Time = 16
+	Expected Run Time = 2.2207952
+	Priority = 1
+	Start Time = 89
+	Completion Time = 91.220795
+Process: p34
+	Arrival Time = 16
+	Expected Run Time = 6.3215184
+	Priority = 2
+	Start Time = 92
+	Completion Time = 98.32152
+Process: p73
+	Arrival Time = 16
+	Expected Run Time = 6.452866
+	Priority = 3
+	Start Time = 99
+	Completion Time = 105.452866
+
+###########################################################
+############ HPF-NP Time Chart for run 5 #####################
+###########################################################
+0p23p23___p61p61p61p61p46p46p46p46p46p46p46p75p75p75p75p75p75p75p93p93p93p93p93p33p33p33p33p33p33p33p33p33p33p01p01p01p01p01p01p36p36p36p36p36p36p36p36p36p36p36p82p82p05p05p05p05p05p05p05p05p05p05p92p92p92p92p92p13p13p13p13p13p79p79p79p07p07p07p07p07p07p07p07p07p07p07p84p84p84p34p34p34p34p34p34p34p73p73p73p73p73p73p73
+
+######################################################################################
+####### Final calculated averages and calculated throughput for HPF-NP PRIORITY1 ########
+######################################################################################
+Average Turnaround Time = 34.212822
+Average Wait Time = 28.588236
+Average Response Time = 28.588236
+Throughput = 0.033136033
+
+
+######################################################################################
+####### Final calculated averages and calculated throughput for HPF-NP PRIORITY2 ########
+######################################################################################
+Average Turnaround Time = 53.219757
+Average Wait Time = 47.64
+Average Response Time = 47.64
+Throughput = 0.04872946
+
+
+######################################################################################
+####### Final calculated averages and calculated throughput for HPF-NP PRIORITY3 ########
+######################################################################################
+Average Turnaround Time = 46.63348
+Average Wait Time = 40.714287
+Average Response Time = 40.714287
+Throughput = 0.040932745
+
+
+######################################################################################
+####### Final calculated averages and calculated throughput for HPF-NP PRIORITY4 ########
+######################################################################################
+Average Turnaround Time = 45.02191
+Average Wait Time = 39.263157
+Average Response Time = 39.263157
+Throughput = 0.03703439
+
+
+######################################################################################
+##### Final calculated averages and calculated throughput for HPF-NP ALL PROCESSES ######
+######################################################################################
+Average Turnaround Time = 45.69306
+Average Wait Time = 39.97561
+Average Response Time = 39.97561
+Throughput = 0.15983263
+
+Please choose the number of the process scheduling algorithm you would like to run:
+(1) First Come First Served
+(2) Shortest Job First
+(3) Shortest Remaining Time
+(4) Round Robin
+(5) Highest Priority First (non-preemptive)
+(6) Highest Priority First with Ageing (non-preemptive)
+(7) Highest Priority First (Preemptive)
+(8) Highest Priority First with Aging (Preemptive)
+(9) Exit
