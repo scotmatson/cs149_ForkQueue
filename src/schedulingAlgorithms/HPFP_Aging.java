@@ -264,7 +264,7 @@ public class HPFP_Aging {
             if (tick instanceof Integer)
             {
                 if ((Integer) tick == 5) {
-                    priorityBump(readyQueue, agingQueue.get(currentIndex + 1));
+                    priorityBump(readyQueue, (HashMap<Task, Integer>)agingQueue.get(currentIndex + 1));
                     agingQueue.set(currentIndex, 0);
                 }
                 else
