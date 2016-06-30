@@ -12,8 +12,13 @@ public class ProcessSchedulingSimulator {
     private final static int QUANTA_MAX = 100;
     private final static int RUNTIME_MAX = 10;
     private final static int PRIORITY_MAX = 4;
+<<<<<<< HEAD
     private final static int NUM_OF_TASKS = 30;
 
+=======
+    private final static int NUM_OF_TASKS = 100;
+    private final static int NUM_OF_TEST_TYPES = 6;
+>>>>>>> master
     /**
      * The main method. The entry point for the application.
      * 
@@ -22,10 +27,58 @@ public class ProcessSchedulingSimulator {
     public static void main(String[] args) {
         ProcessSchedulingSimulator pss = new ProcessSchedulingSimulator();
         Scanner input = new Scanner(System.in);
+<<<<<<< HEAD
         int option = 1;
         while(option >= 1 && option <= 7) {
             pss.printMenuOptions();
             option = input.nextInt();
+=======
+        /* added by John Kennedy 28jun16
+         * modifying the main() to allow for batch interaction. 
+        */
+        int option = 0;                // has to be initialized to something...
+        boolean is_batch = false;       // assume interactive 
+        if(args.length > 0)
+        {
+            // there must be an argument on the command line.
+            try 
+            {
+                option = Integer.parseInt(args[0]);
+                if(option > NUM_OF_TEST_TYPES)
+                {
+                    System.err.println("Option " + String.valueOf(option) + " not available");
+                }
+                
+                // if we got this far, it must be batch 
+                is_batch = true; 
+            }
+            catch(NumberFormatException e)
+            {
+                // not a number on the command line. Die. 
+                System.err.println("Input error on command line " + args[0] + "not a number");
+                return; 
+                
+            }
+           
+            
+        }
+        
+        if(!is_batch)
+        {
+            while(option >= 0 && option <= NUM_OF_TEST_TYPES)
+            {
+                runSim(pss,option);
+                pss.printMenuOptions();
+                option = input.nextInt();
+            }
+        }else {
+            runSim(pss,option);
+            
+        }
+    }
+    
+    private static void runSim(ProcessSchedulingSimulator pss, int option) {
+>>>>>>> master
             ProcessQueue processQueue = new ProcessQueue(QUANTA_MAX, RUNTIME_MAX, PRIORITY_MAX, NUM_OF_TASKS);
             switch(option) 
             {
@@ -42,22 +95,24 @@ public class ProcessSchedulingSimulator {
                     new RoundRobin(processQueue).runPreemptive();
                 	break;
                 case 5:
-                	new HighestPriorityFirst(processQueue).runNonPreemptive();
+                	new HighestPriorityFirst_nonpreemptive(processQueue).runNonPreemptive();
                 	break;
                 case 6:
                 	new HighestPriorityFirst_preemptive(processQueue).runPreemptive();
                 	break;
+<<<<<<< HEAD
                 case 7:
                     new HPFP_Aging(processQueue).runHPFP_Aging();
                     break;
                 default: 
                 	option = 8;
+=======
+                default:
+>>>>>>> master
                 	break;
             }
         }
-        input.close();
-    }
-    
+      
     /**
      * A helper method which prints out a console-based
      * user-interface.
@@ -65,7 +120,7 @@ public class ProcessSchedulingSimulator {
     private void printMenuOptions()
     {
     	System.out.println(
-    			"Please choose the number of the " +
+    	        "Please choose the number of the " +
                 "process scheduling algorithm you would like to run:\n" +
                 "(1) First Come First Served\n" + 
                 "(2) Shortest Job First\n" +

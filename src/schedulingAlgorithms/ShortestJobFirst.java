@@ -7,6 +7,12 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+/**
+ *    The ShortestJobFirst scheduler algorithm.
+ *    Similar to the FirstComeFirstServe algorithm,
+ *    however a priority queue manages incoming
+ *    processes and orders by arrival time. 
+ */
 public class ShortestJobFirst {
 	
 	private ProcessQueue processQueue;
@@ -53,12 +59,11 @@ public class ShortestJobFirst {
 
             // For each of 5 runs create a new process queue
             Task[] tasks = processQueue.generateProcesses(i);
-            // Sort task list by arrival time initially
-            processQueue.sortByArrivalTime(tasks);
-            // Place task list into a queue for processing with SJF
+
+            // Place task list into a queue for easier processing with SJF
             Queue<Task> taskList = new LinkedList<Task>(Arrays.asList(tasks));
-            
-            // Queue for ready processes ordered by run time with ties broken by arrival time
+
+            // Create Queue for ready processes ordered by run time with ties broken by arrival time
             PriorityQueue<Task> readyQueue = new PriorityQueue<>(10, new Comparator<Task>()
             {
                 public int compare(Task t1, Task t2)
@@ -72,15 +77,16 @@ public class ShortestJobFirst {
                 }
             });
 
+            // This is the beginning of the scheduler algorithm.
             while (!taskList.isEmpty() || !readyQueue.isEmpty()) 
             {
                 // Get the correct process to be scheduled
                 Task t;
-                if (readyQueue.isEmpty()) 
+                if (readyQueue.isEmpty())
                 {
                     t = taskList.poll();
                 } 
-                else 
+                else
                 {
                     t = readyQueue.poll();
                 }
@@ -99,7 +105,7 @@ public class ShortestJobFirst {
 
                 // Add processes to the ready queue that have arrived by this time
                 while (taskList.peek() != null && taskList.peek().getArrivalTime() <= clock) 
-                {
+                {              		
                     readyQueue.add(taskList.poll());
                 }
 
