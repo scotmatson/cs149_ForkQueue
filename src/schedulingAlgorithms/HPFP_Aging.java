@@ -20,6 +20,7 @@ public class HPFP_Aging {
     private float finalTurnaroundTime;
     private float finalWaitTime;
     private float finalResponseTime;
+    private float priorityTotalTasks;
 
     /**
      * Constructor method.
@@ -69,6 +70,10 @@ public class HPFP_Aging {
      * Runs a Highest Priority First (preemptive) with Aging algorithm g
      */
     public void runHPFP_Aging() {
+        Integer priority1Tasks = 0;
+        Integer priority2Tasks = 0;
+        Integer priority3Tasks = 0;
+        Integer priority4Tasks = 0;
 
         for (int i = 1; i <= 5; i++) {
             // Variables needed for tracking progress of each run
@@ -105,9 +110,11 @@ public class HPFP_Aging {
                 //Add processes that have arrived to the ready queue
                 while (!taskList.isEmpty() && taskList.peek().getArrivalTime() <= clock) {
                     Task t = taskList.poll();
+
                     readyQueue.addTask(readyQueue, t);
                     addToAgingQueue(t, agingQueue);
                 }
+
 
                 //Variables for statistics for this round only
                 // changed sliceStartTime to startTime
@@ -162,6 +169,21 @@ public class HPFP_Aging {
                             t.setCompletionTime(completionTime);
                             tasksDone++;
                             completedTasks.add(t);
+                            priorityTotalTasks += 1;
+                            if (t.getPriority() == 4)
+                            {
+                                priority4Tasks += 1;
+                            }
+                            else if (t.getPriority() == 3) {
+                                priority3Tasks += 1;
+                            }
+                            else if (t.getPriority() == 2) {
+                                priority2Tasks += 1;
+                            }
+                            else
+                            {
+                                priority1Tasks += 1;
+                            }
                             turnaroundTime = completionTime - t.getArrivalTime();
                             remainingRunTimes.remove(t.getName());
                             //Add wait time for all processes that have started but did not run in this slice
@@ -218,8 +240,22 @@ public class HPFP_Aging {
             printTimeChart(scheduledTasks, i);
         }
         printFinalBenchmark();
+        System.out.println("priorityTotalTasks: " + priorityTotalTasks + "\t" + priority1Tasks);
+        printPriorityStats(priority1Tasks, priority2Tasks, priority3Tasks, priority4Tasks, priorityTotalTasks);
     }
 
+    public void printPriorityStats(Integer p1, Integer p2, Integer p3, Integer p4, float totalTasks) {
+        float s1 = p1 / totalTasks;
+        float s2 = p2 / totalTasks;
+        float s3 = p3 / totalTasks;
+        float s4 = p4 / totalTasks;
+
+        System.out.println("Priority Stats:\n"
+            + "\t\tP1:  " + s1
+            + "\n\t\tP2:  " + s2
+            + "\n\t\tP3:  " + s3
+            + "\n\t\tP4:  " + s4);
+    }
     /**
      * Prints out the stats for all completed tasks
      */
@@ -253,7 +289,6 @@ public class HPFP_Aging {
         System.out.println("Average Wait Time = " + finalWaitTime / finalTasksDone);
         System.out.println("Average Response Time = " + finalResponseTime / finalTasksDone);
         System.out.println("Throughput = " + finalTasksDone / finalTime);
-        System.out.println();
     }
 
     public void agingCheck(ArrayList<PriorityQueue<Task>> readyQueue, ArrayList<Object> agingQueue) {
@@ -263,28 +298,35 @@ public class HPFP_Aging {
 
             if (tick instanceof Integer)
             {
-                if ((Integer) tick == 5) {
-                    priorityBump(readyQueue, (HashMap<Task, Integer>)agingQueue.get(currentIndex + 1));
-                    agingQueue.set(currentIndex, 0);
+                try {
+                    if ((Integer) tick == 5)
+                    {
+                        priorityBump(readyQueue, (HashMap<Task, Integer>) agingQueue.get(currentIndex + 1));
+                        agingQueue.set(currentIndex, 0);
+                    }
+                    else
+                    {
+                        agingQueue.set(currentIndex, currentIndex + 1);
+                    }
                 }
-                else
-                {
-                    agingQueue.set(currentIndex, currentIndex + 1);
-                }
+                catch (ClassCastException e){}
             }
         }
     }
 
     public void addToAgingQueue(Task t, ArrayList<Object> agingQueue)
     {
-        for (Object tick : agingQueue) {
-            if (tick instanceof Integer) {
-                if ((Integer) tick == 0) {
-                    Integer currentIndex = agingQueue.indexOf(tick);
-                    agingQueue.add(currentIndex + 1, t);
+        try {
+            for (Object tick : agingQueue) {
+                if (tick instanceof Integer) {
+                    if ((Integer) tick == 0) {
+                        Integer currentIndex = agingQueue.indexOf(tick);
+                        agingQueue.add(currentIndex + 1, t);
+                    }
                 }
             }
         }
+        catch (ConcurrentModificationException e) {}
     }
 
     public ArrayList<Object> createAgingQueue(Integer tickQueueCounter){

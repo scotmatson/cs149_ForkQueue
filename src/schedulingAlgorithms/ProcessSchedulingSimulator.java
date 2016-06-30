@@ -12,7 +12,7 @@ public class ProcessSchedulingSimulator {
     private final static int QUANTA_MAX = 100;
     private final static int RUNTIME_MAX = 10;
     private final static int PRIORITY_MAX = 4;
-    private final static int NUM_OF_TASKS = 100;
+    private final static int NUM_OF_TASKS = 1000;
 
     /**
      * The main method. The entry point for the application.
@@ -23,7 +23,7 @@ public class ProcessSchedulingSimulator {
         ProcessSchedulingSimulator pss = new ProcessSchedulingSimulator();
         Scanner input = new Scanner(System.in);
         int option = 1;
-        while(option >= 1 && option <= 6) {
+        while(option >= 1 && option <= 7) {
             pss.printMenuOptions();
             option = input.nextInt();
             ProcessQueue processQueue = new ProcessQueue(QUANTA_MAX, RUNTIME_MAX, PRIORITY_MAX, NUM_OF_TASKS);

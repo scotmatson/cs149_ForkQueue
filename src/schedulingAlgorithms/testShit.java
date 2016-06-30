@@ -42,20 +42,20 @@
 //            tickQueueCounter = 0;
 //
 //            //while (tickCount <= 100){
+////
+//            for (Object tick : tickQueue) {
+//                Integer currentIndex = tickQueue.indexOf(tick);
+//                if (tick instanceof Integer) {
+//                    if ((Integer) tick == 5) {
+//                        //priorityBump(readyqueue, arraylist.getIndexOf(currentIndex + 1)
+//                        tickQueue.set(currentIndex, 0);
+//                    } else {
+//                        tickQueue.set(currentIndex, currentIndex + 1);
+//                    }
 //
-            for (Object tick : tickQueue) {
-                Integer currentIndex = tickQueue.indexOf(tick);
-                if (tick instanceof Integer) {
-                    if ((Integer) tick == 5) {
-                        //priorityBump(readyqueue, arraylist.getIndexOf(currentIndex + 1)
-                        tickQueue.set(currentIndex, 0);
-                    } else {
-                        tickQueue.set(currentIndex, currentIndex + 1);
-                    }
-
-
-                }
-//            }
+//
+//                }
+////            }
 //        }
 //
 //        public void addToAgingQueue(Task t, ArrayList tickQueue){
