@@ -85,6 +85,9 @@ public class HPFP_Aging {
             float totalWaitTime = 0.0f;
             float totalResponseTime = 0.0f;
             int priorityQueueCount = 4;
+            int agingInterval = 5;
+
+            ArrayList<Object> agingQueue = createAgingQueue(agingInterval);
 
             ArrayList<Task> scheduledTasks = new ArrayList<>();
             ArrayList<Task> completedTasks = new ArrayList<>();
@@ -124,9 +127,6 @@ public class HPFP_Aging {
 
 
             while (!taskList.isEmpty() || !readyQueue.isEmpty(readyQueue)) {
-                for (Object entry : tickQueue) {
-
-                }
 
 
                 //Add processes that have arrived to the ready queue
@@ -335,5 +335,23 @@ public class HPFP_Aging {
                 }
             }
         }
+    }
+
+    public ArrayList<Object> createAgingQueue(Integer tickQueueCounter){
+        Integer tickQueueSize = (tickQueueCounter * 2) + 2;
+        ArrayList<Object> agingQueue = new ArrayList();
+
+        while (tickQueueCounter >= 0) {
+
+            //System.out.println("Counter number: " + tickQueueCounter);
+            //ArrayList<HashMap<String name, int value>> processes = new ArrayList<>(5);
+            HashMap<Task, Integer> taskInt = new HashMap<>();
+            Integer tick = tickQueueCounter;
+            agingQueue.add(0, taskInt);
+            agingQueue.add(0, tick);
+            tickQueueCounter -= 1;
+        }
+
+        return agingQueue;
     }
 }
