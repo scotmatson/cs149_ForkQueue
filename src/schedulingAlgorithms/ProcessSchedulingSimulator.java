@@ -12,13 +12,9 @@ public class ProcessSchedulingSimulator {
     private final static int QUANTA_MAX = 100;
     private final static int RUNTIME_MAX = 10;
     private final static int PRIORITY_MAX = 4;
-<<<<<<< HEAD
-    private final static int NUM_OF_TASKS = 30;
-
-=======
     private final static int NUM_OF_TASKS = 100;
     private final static int NUM_OF_TEST_TYPES = 6;
->>>>>>> master
+
     /**
      * The main method. The entry point for the application.
      * 
@@ -27,16 +23,11 @@ public class ProcessSchedulingSimulator {
     public static void main(String[] args) {
         ProcessSchedulingSimulator pss = new ProcessSchedulingSimulator();
         Scanner input = new Scanner(System.in);
-<<<<<<< HEAD
-        int option = 1;
-        while(option >= 1 && option <= 7) {
-            pss.printMenuOptions();
-            option = input.nextInt();
-=======
+        int option = 0;
+
         /* added by John Kennedy 28jun16
          * modifying the main() to allow for batch interaction. 
         */
-        int option = 0;                // has to be initialized to something...
         boolean is_batch = false;       // assume interactive 
         if(args.length > 0)
         {
@@ -59,8 +50,6 @@ public class ProcessSchedulingSimulator {
                 return; 
                 
             }
-           
-            
         }
         
         if(!is_batch)
@@ -71,14 +60,14 @@ public class ProcessSchedulingSimulator {
                 pss.printMenuOptions();
                 option = input.nextInt();
             }
-        }else {
-            runSim(pss,option);
-            
+        }
+        else 
+        {
+            runSim(pss,option);    
         }
     }
     
     private static void runSim(ProcessSchedulingSimulator pss, int option) {
->>>>>>> master
             ProcessQueue processQueue = new ProcessQueue(QUANTA_MAX, RUNTIME_MAX, PRIORITY_MAX, NUM_OF_TASKS);
             switch(option) 
             {
@@ -100,15 +89,11 @@ public class ProcessSchedulingSimulator {
                 case 6:
                 	new HighestPriorityFirst_preemptive(processQueue).runPreemptive();
                 	break;
-<<<<<<< HEAD
                 case 7:
                     new HPFP_Aging(processQueue).runHPFP_Aging();
                     break;
                 default: 
                 	option = 8;
-=======
-                default:
->>>>>>> master
                 	break;
             }
         }
