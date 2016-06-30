@@ -13,7 +13,7 @@ public class ProcessSchedulingSimulator {
     private final static int RUNTIME_MAX = 10;
     private final static int PRIORITY_MAX = 4;
     private final static int NUM_OF_TASKS = 100;
-    private final static int NUM_OF_TEST_TYPES = 6;
+    private final static int NUM_OF_TEST_TYPES = 7;
 
     /**
      * The main method. The entry point for the application.
