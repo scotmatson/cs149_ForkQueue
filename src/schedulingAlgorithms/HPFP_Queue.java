@@ -7,9 +7,14 @@ import java.util.PriorityQueue;
 /**
  * Created by danieltam on 6/27/16.
  */
-public class HPFP_Queue extends ArrayList{
+public class HPFP_Queue<E> extends ArrayList<E>
+{
+    /**
+	 * To make Eclipse shut up.
+	 */
+	private static final long serialVersionUID = 1L;
 
-    public HPFP_Queue(int priorityQueueCount){
+	public HPFP_Queue(int priorityQueueCount){
         while (priorityQueueCount > 0) {
             PriorityQueue<Task> priorityQueue = new PriorityQueue<>(10, new Comparator<Task>()
             {
@@ -18,13 +23,15 @@ public class HPFP_Queue extends ArrayList{
                     return t1.compareArrivalTime(t2.getArrivalTime());
                 }
             });
-            this.add(priorityQueue);
+            this.add((E) priorityQueue);
             priorityQueueCount -= 1;
         }
     }
 
-    public void printHPFP_Queue(HPFP_Queue readyQueue){
-        for (PriorityQueue<Task> priorityQueue : readyQueue) {
+    public void printHPFP_Queue(HPFP_Queue<PriorityQueue<Task>> readyQueue)
+    {
+        for (PriorityQueue<Task> priorityQueue : readyQueue)
+        {
             System.out.println("Priority Queue Stats:  \n");
             for (Task t : priorityQueue)
             {
