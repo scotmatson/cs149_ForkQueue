@@ -86,13 +86,14 @@ public class HPFP_Aging {
             float totalWaitTime = 0.0f;
             float totalResponseTime = 0.0f;
             int priorityQueueCount = 4;
+
             int agingInterval = 5;
 
             ArrayList<Object> agingQueue = createAgingQueue(agingInterval);
+            HPFP_Queue readyQueue = new HPFP_Queue(priorityQueueCount);
 
             ArrayList<Task> scheduledTasks = new ArrayList<>();
             ArrayList<Task> completedTasks = new ArrayList<>();
-            HPFP_Queue readyQueue = new HPFP_Queue(priorityQueueCount);
             Map<String, Float> remainingRunTimes = new HashMap<>();
 
             // For each of 5 runs create a new process queue
@@ -113,7 +114,6 @@ public class HPFP_Aging {
                     readyQueue.addTask(readyQueue, t);
                     addToAgingQueue(t, agingQueue);
                 }
-
 
                 //Variables for statistics for this round only
                 // changed sliceStartTime to startTime
@@ -144,6 +144,7 @@ public class HPFP_Aging {
                             t.setCompletionTime(completionTime);
                             tasksDone++;
                             completedTasks.add(t);
+                            // start task priority counting code
                             priorityTotalTasks += 1;
                             if (t.getPriority() == 4)
                             {
@@ -159,6 +160,9 @@ public class HPFP_Aging {
                             {
                                 priority1Tasks += 1;
                             }
+                            // end task priority counting code
+
+
                             turnaroundTime = completionTime - t.getArrivalTime();
                             //Add wait time for all processes that have started but did not run in this slice
                             waitTime = remainingRunTimes.size() * t.getRunTime();
@@ -183,6 +187,7 @@ public class HPFP_Aging {
                             t.setCompletionTime(completionTime);
                             tasksDone++;
                             completedTasks.add(t);
+                            // start task priority counting code
                             priorityTotalTasks += 1;
                             if (t.getPriority() == 4)
                             {
@@ -198,6 +203,8 @@ public class HPFP_Aging {
                             {
                                 priority1Tasks += 1;
                             }
+                            // end task priority counting code
+
                             turnaroundTime = completionTime - t.getArrivalTime();
                             remainingRunTimes.remove(t.getName());
                             //Add wait time for all processes that have started but did not run in this slice
