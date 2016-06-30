@@ -49,32 +49,53 @@ public class HighestPriorityFirst
 
             // Place task list into a queue for easier processing with HPF-NP
             Queue<Task> taskList = new LinkedList<Task>(Arrays.asList(tasks));
-
-            // Queue for ready processes ordered by priority with ties broken by arrival time
-            PriorityQueue<Task> readyQueue = new PriorityQueue<>(10, new Comparator<Task>()
-            {
+            
+            // Comparator for the 4 priority queues.
+            // Priority by arrival time with ties broken by run time
+            Comparator<Task> c = new Comparator<Task>() {
                 public int compare(Task t1, Task t2)
                 {
-                    int difference = t1.comparePriority(t2.getPriority());
+                    int difference = t1.compareArrivalTime(t2.getArrivalTime());
                     if (difference == 0)
                     {
-                        return (t1.compareArrivalTime(t2.getArrivalTime()));
+                        return (t1.compareRunTime(t2.getRunTime()));
                     }
                     return difference;
                 }
-            });
+            };
+            // Create 4 Queues, one for each priority
+            PriorityQueue<Task> readyQueueP1 = new PriorityQueue<>(10, c);
+            PriorityQueue<Task> readyQueueP2 = new PriorityQueue<>(10, c);
+            PriorityQueue<Task> readyQueueP3 = new PriorityQueue<>(10, c);
+            PriorityQueue<Task> readyQueueP4 = new PriorityQueue<>(10, c);
 
-            while (!taskList.isEmpty() || !readyQueue.isEmpty()) 
+            // Run the algorithm for all tasks
+            while (!taskList.isEmpty() || !readyQueueP1.isEmpty() || !readyQueueP2.isEmpty()
+                    || !readyQueueP3.isEmpty() || !readyQueueP4.isEmpty()) 
             {
-                // Get the correct process to be scheduled
+                // Get the correct process to be scheduled based on priority
+                // Tasks in readyQueue's have arrived by this time
                 Task t;
-                if (readyQueue.isEmpty()) 
+                if (!readyQueueP1.isEmpty()) 
                 {
-                    t = taskList.poll();
-                } 
+                    t = readyQueueP1.poll();
+                }
+                else if (!readyQueueP2.isEmpty()) 
+                {
+                    t = readyQueueP2.poll();
+                }
+                else if (!readyQueueP3.isEmpty()) 
+                {
+                    t = readyQueueP3.poll();
+                }
+                else if (!readyQueueP4.isEmpty()) 
+                {
+                    t = readyQueueP4.poll();
+                }
                 else 
                 {
-                    t = readyQueue.poll();
+                    //No tasks have arrived yet so get the next task that has
+                    t = taskList.poll();
                 }
 
                 //Update start and completion times for this process
@@ -92,7 +113,23 @@ public class HighestPriorityFirst
                 // Add processes to the ready queue that have arrived by this time
                 while (taskList.peek() != null && taskList.peek().getArrivalTime() <= clock) 
                 {
-                    readyQueue.add(taskList.poll());
+                    Task next = taskList.poll();
+                    int p = next.getPriority();
+                    switch (p)
+                    {
+                        case 1:
+                            readyQueueP1.add(next);
+                            break;
+                        case 2:
+                            readyQueueP2.add(next);
+                            break;
+                        case 3:
+                            readyQueueP3.add(next);
+                            break;
+                        default:
+                            readyQueueP4.add(next);
+                            break;
+                    }
                 }
 
                 // Variables for statistics for this process only
