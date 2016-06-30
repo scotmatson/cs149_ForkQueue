@@ -57,7 +57,7 @@ public class HighestPriorityFirst_preemptive
 
             ArrayList<Task> scheduledTasks = new ArrayList<>();
             ArrayList<Task> completedTasks = new ArrayList<>();
-            HPFP_Queue readyQueue = new HPFP_Queue(priorityQueueCount);
+            HPFP_Queue<PriorityQueue<Task>> readyQueue = new HPFP_Queue<>(priorityQueueCount);
             Map<String, Float> remainingRunTimes = new HashMap<>();
             
             // For each of 5 runs create a new process queue

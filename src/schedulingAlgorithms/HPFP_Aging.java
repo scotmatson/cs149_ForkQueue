@@ -1,7 +1,5 @@
 package schedulingAlgorithms;
 
-import javafx.util.Pair;
-
 import java.util.*;
 
 /**
@@ -86,7 +84,7 @@ public class HPFP_Aging
             int agingInterval = 5;
 
             ArrayList<Object> agingQueue = createAgingQueue(agingInterval);
-            HPFP_Queue readyQueue = new HPFP_Queue(priorityQueueCount);
+            HPFP_Queue<PriorityQueue<Task>> readyQueue = new HPFP_Queue<>(priorityQueueCount);
 
             ArrayList<Task> scheduledTasks = new ArrayList<>();
             ArrayList<Task> completedTasks = new ArrayList<>();
@@ -349,8 +347,8 @@ public class HPFP_Aging
     }
 
     public ArrayList<Object> createAgingQueue(Integer tickQueueCounter){
-        Integer tickQueueSize = (tickQueueCounter * 2) + 2;
-        ArrayList<Object> agingQueue = new ArrayList();
+        //Integer tickQueueSize = (tickQueueCounter * 2) + 2;
+        ArrayList<Object> agingQueue = new ArrayList<>();
 
         while (tickQueueCounter >= 0) {
 
