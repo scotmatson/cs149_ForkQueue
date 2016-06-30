@@ -22,7 +22,6 @@ public class ProcessSchedulingSimulator {
      */
     public static void main(String[] args) {
         ProcessSchedulingSimulator pss = new ProcessSchedulingSimulator();
-        Scanner input = new Scanner(System.in);
         int option = 0;
 
         /* added by John Kennedy 28jun16
@@ -48,18 +47,20 @@ public class ProcessSchedulingSimulator {
                 // not a number on the command line. Die. 
                 System.err.println("Input error on command line " + args[0] + "not a number");
                 return; 
-                
             }
         }
         
         if(!is_batch)
         {
+            Scanner input = new Scanner(System.in);
+
             while(option >= 0 && option <= NUM_OF_TEST_TYPES)
             {
                 runSim(pss,option);
                 pss.printMenuOptions();
                 option = input.nextInt();
             }
+            input.close();
         }
         else 
         {
