@@ -19,6 +19,8 @@ public class HighestPriorityFirst_preemptive
     private float finalTurnaroundTime;
     private float finalWaitTime;
     private float finalResponseTime;
+    private float priorityTotalTasks;
+
 
     /**
      * Constructor method.
@@ -42,6 +44,10 @@ public class HighestPriorityFirst_preemptive
      */
     public void runPreemptive()
     {
+        Integer priority1Tasks = 0;
+        Integer priority2Tasks = 0;
+        Integer priority3Tasks = 0;
+        Integer priority4Tasks = 0;
         for (int i = 1; i <= 5; i++) 
         {
             // Variables needed for tracking progress of each run

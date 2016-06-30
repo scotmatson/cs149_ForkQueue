@@ -1,5 +1,7 @@
 package schedulingAlgorithms;
+
 import java.util.*;
+
 /**
  *COPYRIGHT (C) 2016 CS149_1 Group forkQueue. All Rights Reserved.
  * The process scheduling simulator uses various algorithms to
@@ -13,7 +15,7 @@ public class ProcessSchedulingSimulator {
     private final static int RUNTIME_MAX = 10;
     private final static int PRIORITY_MAX = 4;
     private final static int NUM_OF_TASKS = 100;
-    private final static int NUM_OF_TEST_TYPES = 7;
+    private final static int NUM_OF_TEST_TYPES = 8;
 
     /**
      * The main method. The entry point for the application.
