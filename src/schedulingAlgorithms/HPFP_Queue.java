@@ -23,6 +23,16 @@ public class HPFP_Queue extends ArrayList{
         }
     }
 
+    public void printHPFP_Queue(HPFP_Queue readyQueue){
+        for (PriorityQueue<Task> priorityQueue : readyQueue) {
+            System.out.println("Priority Queue Stats:  \n");
+            for (Task t : priorityQueue)
+            {
+                t.getPriority();
+            }
+        }
+    }
+
     public boolean isEmpty(ArrayList<PriorityQueue<Task>> readyQueue)
     {
         for (PriorityQueue<Task> priorityQueue : readyQueue)
