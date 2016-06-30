@@ -26,6 +26,7 @@ public class HPFP_Queue<E> extends ArrayList<PriorityQueue<Task>>
             this.add(priorityQueue);
             priorityQueueCount -= 1;
         }
+        System.out.println("SIZE OF ACTUAL READY QUEUE: " + this.size());
     }
 
     public void printHPFP_Queue(HPFP_Queue<PriorityQueue<Task>> readyQueue)
@@ -52,22 +53,47 @@ public class HPFP_Queue<E> extends ArrayList<PriorityQueue<Task>>
         return false;
     }
 
-    public void addTask(ArrayList<PriorityQueue<Task>> priorityQueue, Task t) {
-        priorityQueue.get(t.getPriority() - 1).add(t);
+    public void addTask(ArrayList<PriorityQueue<Task>> readyQueue, Task t)
+    {
+        readyQueue.get(t.getPriority() - 1).add(t);
+        // begin testing code
+        System.out.println("JUST ADDED A TASK: " + t.getName() + " " + t.getPriority());
+        int priorityQueueCounter = 1;
+
+        for (PriorityQueue<Task> priorityQueue : readyQueue)
+        {
+            System.out.println("Priority Queue Number: " + priorityQueueCounter);
+            if (priorityQueue.isEmpty())
+            {
+                System.out.println("EMPTY");
+            }
+            for (Task task : priorityQueue)
+            {
+                System.out.println("Name: " + task.getName() + "\tPriority: " + task.getPriority());
+            }
+            priorityQueueCounter += 1;
+        }
+        // end testing code
     }
 
-    public Task poll(ArrayList<PriorityQueue<Task>> readyQueue){
-        for (PriorityQueue<Task> priorityQueue : readyQueue){
-            if(!priorityQueue.isEmpty()){
-                try {
-                    return priorityQueue.poll();
+    public Task poll(ArrayList<PriorityQueue<Task>> readyQueue)
+    {
+        Task task = null;
+        for (PriorityQueue<Task> priorityQueue : readyQueue)
+        {
+            try
+            {
+                if (!priorityQueue.isEmpty())
+                {
+                    task = priorityQueue.poll();
                 }
-                catch (NullPointerException e){
-
+                else
+                {
+                    task = null;
                 }
             }
+            catch (NullPointerException e) {}
         }
-        return null;
+        return task;
     }
-
 }
