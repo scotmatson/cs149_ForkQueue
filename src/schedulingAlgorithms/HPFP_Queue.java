@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
 /**
  * Created by danieltam on 6/27/16.
  */
-public class HPFP_Queue<E> extends ArrayList<E>
+public class HPFP_Queue<E> extends ArrayList<PriorityQueue<Task>>
 {
     /**
 	 * To make Eclipse shut up.
@@ -23,7 +23,7 @@ public class HPFP_Queue<E> extends ArrayList<E>
                     return t1.compareArrivalTime(t2.getArrivalTime());
                 }
             });
-            this.add((E) priorityQueue);
+            this.add(priorityQueue);
             priorityQueueCount -= 1;
         }
     }
