@@ -88,13 +88,16 @@ public class ProcessSchedulingSimulator {
                 	new HighestPriorityFirst_nonpreemptive(processQueue).runNonPreemptive();
                 	break;
                 case 6:
-                	new HighestPriorityFirst_preemptive(processQueue).runPreemptive();
+                    new HighestPriorityFirst_nonpreemptive_aging(processQueue).runNonPreemptive();
                 	break;
                 case 7:
+                    new HighestPriorityFirst_preemptive(processQueue).runPreemptive();
+                    break;
+                case 8:
                     new HPFP_Aging(processQueue).runHPFP_Aging();
                     break;
                 default: 
-                	option = 8;
+                	option = 9;
                 	break;
             }
         }
@@ -113,9 +116,10 @@ public class ProcessSchedulingSimulator {
                 "(3) Shortest Remaining Time\n" +
                 "(4) Round Robin\n" +
                 "(5) Highest Priority First (non-preemptive)\n" +
-                "(6) Highest Priority First (Preemptive)" + "\n" + 
-                "(7) HPF_Aging(Preemptive)\n" + 
-                "(8) Exit"
+                "(6) Highest Priority First with Ageing (non-preemptive)\n" +
+                "(7) Highest Priority First (Preemptive)\n" + 
+                "(8) Highest Priority First with Aging (Preemptive)\n" + 
+                "(9) Exit"
     	);	
     }
 }
