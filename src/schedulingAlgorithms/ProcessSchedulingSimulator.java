@@ -54,7 +54,7 @@ public class ProcessSchedulingSimulator {
         
         if(!is_batch)
         {
-            while(option >= 0 && option <= 6)
+            while(option >= 0 && option <= NUM_OF_TEST_TYPES)
             {
                 runSim(pss,option);
                 pss.printMenuOptions();
@@ -64,11 +64,9 @@ public class ProcessSchedulingSimulator {
             runSim(pss,option);
             
         }
-         
     }
     
     private static void runSim(ProcessSchedulingSimulator pss, int option) {
-            //pss.printMenuOptions();
             ProcessQueue processQueue = new ProcessQueue(QUANTA_MAX, RUNTIME_MAX, PRIORITY_MAX, NUM_OF_TASKS);
             switch(option) 
             {
@@ -85,13 +83,12 @@ public class ProcessSchedulingSimulator {
                     new RoundRobin(processQueue).runPreemptive();
                 	break;
                 case 5:
-                	new HighestPriorityFirst(processQueue).runNonPreemptive();
+                	new HighestPriorityFirst_nonpreemptive(processQueue).runNonPreemptive();
                 	break;
                 case 6:
                 	new HighestPriorityFirst_preemptive(processQueue).runPreemptive();
                 	break;
                 default:
-
                 	break;
             }
         }
@@ -103,7 +100,7 @@ public class ProcessSchedulingSimulator {
     private void printMenuOptions()
     {
     	System.out.println(
-    			"Please choose the number of the " +
+    	        "Please choose the number of the " +
                 "process scheduling algorithm you would like to run:\n" +
                 "(1) First Come First Served\n" + 
                 "(2) Shortest Job First\n" +

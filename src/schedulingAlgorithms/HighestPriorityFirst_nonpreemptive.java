@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class HighestPriorityFirst 
+public class HighestPriorityFirst_nonpreemptive 
 {
     private ProcessQueue processQueue;
     private int finalTasksDone;
@@ -32,7 +32,7 @@ public class HighestPriorityFirst
     private float finalResponseTimeP4;
     private float finalTime;
     
-    public HighestPriorityFirst(ProcessQueue processQueue)
+    public HighestPriorityFirst_nonpreemptive(ProcessQueue processQueue)
     {
         this.processQueue = processQueue;
         this.finalTasksDone = 0;
@@ -369,12 +369,5 @@ public class HighestPriorityFirst
         System.out.println("Average Response Time = " + finalResponseTime/finalTasksDone);
         System.out.println("Throughput = " + finalTasksDone/finalTime);
         System.out.println();
-    }
-
-    /**
-     * Higest Priority First (preemptive)
-     */
-    public void runPreemptive() {
-        //TODO
     }
 }
