@@ -4,16 +4,12 @@ import javafx.util.Pair;
 
 import java.util.*;
 
-//import HPFP_Queue;
-
 /**
- * RoundRobin
- * This is not working correctly yet, feel free to modify it however you want
- * in order to get it working correctly
- * @author lord_tyler
+ * A version of HPFP that enforces aging.
  *
  */
-public class HPFP_Aging {
+public class HPFP_Aging 
+{
     private ProcessQueue processQueue;
     private int finalTasksDone;
     private float finalTime;
@@ -98,8 +94,10 @@ public class HPFP_Aging {
 
             // For each of 5 runs create a new process queue
             Task[] tasks = processQueue.generateProcesses(i);
+            
             // Sort task list by arrival time initially
             processQueue.sortByArrivalTime(tasks);
+            
             // Place task list into a queue for processing with RR
             Queue<Task> taskList = new LinkedList<Task>(Arrays.asList(tasks));
 
