@@ -115,6 +115,21 @@ public class HighestPriorityFirst_preemptive
                             t.setCompletionTime(completionTime);
                             tasksDone++;
                             completedTasks.add(t);
+                            priorityTotalTasks += 1;
+                            if (t.getPriority() == 4)
+                            {
+                                priority4Tasks += 1;
+                            }
+                            else if (t.getPriority() == 3) {
+                                priority3Tasks += 1;
+                            }
+                            else if (t.getPriority() == 2) {
+                                priority2Tasks += 1;
+                            }
+                            else
+                            {
+                                priority1Tasks += 1;
+                            }
                             turnaroundTime = completionTime - t.getArrivalTime();
                             //Add wait time for all processes that have started but did not run in this slice
                             waitTime = remainingRunTimes.size() * t.getRunTime();
@@ -142,6 +157,21 @@ public class HighestPriorityFirst_preemptive
                             t.setCompletionTime(completionTime);
                             tasksDone++;
                             completedTasks.add(t);
+                            priorityTotalTasks += 1;
+                            if (t.getPriority() == 4)
+                            {
+                                priority4Tasks += 1;
+                            }
+                            else if (t.getPriority() == 3) {
+                                priority3Tasks += 1;
+                            }
+                            else if (t.getPriority() == 2) {
+                                priority2Tasks += 1;
+                            }
+                            else
+                            {
+                                priority1Tasks += 1;
+                            }
                             turnaroundTime = completionTime - t.getArrivalTime();
                             remainingRunTimes.remove(t.getName());
                             //Add wait time for all processes that have started but did not run in this slice
@@ -206,6 +236,21 @@ public class HighestPriorityFirst_preemptive
             printTimeChart(scheduledTasks, i);
         }
         printFinalBenchmark();
+        System.out.println("priorityTotalTasks: " + priorityTotalTasks + "\t" + priority1Tasks);
+        printPriorityStats(priority1Tasks, priority2Tasks, priority3Tasks, priority4Tasks, priorityTotalTasks);
+    }
+
+    public void printPriorityStats(Integer p1, Integer p2, Integer p3, Integer p4, float totalTasks) {
+        float s1 = p1 / totalTasks;
+        float s2 = p2 / totalTasks;
+        float s3 = p3 / totalTasks;
+        float s4 = p4 / totalTasks;
+
+        System.out.println("Priority Stats:\n"
+                + "\t\tP1:  " + s1
+                + "\n\t\tP2:  " + s2
+                + "\n\t\tP3:  " + s3
+                + "\n\t\tP4:  " + s4);
     }
     /**
      * Prints out the stats for all completed tasks

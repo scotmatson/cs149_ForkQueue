@@ -24,7 +24,6 @@ public class HPFP_Queue extends ArrayList
             this.add(priorityQueue);
             priorityQueueCount -= 1;
         }
-        System.out.println("SIZE OF ACTUAL READY QUEUE: " + this.size());
     }
 //
 //    public void printHPFP_Queue(HPFP_Queue readyQueue){
@@ -41,34 +40,35 @@ public class HPFP_Queue extends ArrayList
     {
         for (PriorityQueue<Task> priorityQueue : readyQueue)
         {
-            if (priorityQueue.isEmpty())
+            if (!priorityQueue.isEmpty())
             {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public void addTask(ArrayList<PriorityQueue<Task>> readyQueue, Task t)
     {
         readyQueue.get(t.getPriority() - 1).add(t);
-        // begin testing code
-        System.out.println("JUST ADDED A TASK: " + t.getName() + " " + t.getPriority());
-        int priorityQueueCounter = 1;
-
-        for (PriorityQueue<Task> priorityQueue : readyQueue)
-        {
-            System.out.println("Priority Queue Number: " + priorityQueueCounter);
-            if (priorityQueue.isEmpty())
-            {
-                System.out.println("EMPTY");
-            }
-            for (Task task : priorityQueue)
-            {
-                System.out.println("Name: " + task.getName() + "\tPriority: " + task.getPriority());
-            }
-            priorityQueueCounter += 1;
-        }
+//        // begin testing code
+//        System.out.println("JUST ADDED A TASK: " + t.getName() + "\t"
+//                + "Prio: " + t.getPriority() + "\tRunTime: " + t.getRunTime());
+//        int priorityQueueCounter = 1;
+//
+//        for (PriorityQueue<Task> priorityQueue : readyQueue)
+//        {
+//            System.out.println("Priority Queue Number: " + priorityQueueCounter);
+//            if (priorityQueue.isEmpty())
+//            {
+//                System.out.println("EMPTY");
+//            }
+//            for (Task task : priorityQueue)
+//            {
+//                System.out.println("Name: " + task.getName() + "\tPriority: " + task.getPriority());
+//            }
+//            priorityQueueCounter += 1;
+//        }
         // end testing code
     }
 
@@ -81,11 +81,7 @@ public class HPFP_Queue extends ArrayList
             {
                 if (!priorityQueue.isEmpty())
                 {
-                    task = priorityQueue.poll();
-                }
-                else
-                {
-                    task = null;
+                    return priorityQueue.poll();
                 }
             }
             catch (NullPointerException e) {}
