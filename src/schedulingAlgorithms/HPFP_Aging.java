@@ -6,7 +6,7 @@ import java.util.*;
  * A version of HPFP that enforces aging.
  *
  */
-public class HPFP_Aging 
+public class HPFP_Aging
 {
     private ProcessQueue processQueue;
     private int finalTasksDone;
@@ -52,7 +52,8 @@ public class HPFP_Aging
             // priority queue, then you must use the -2 index in readyQueue
             // to remove a Task that was just bumped from its original priority queue, the index is -1
 
-            else {
+            else
+            {
                 readyQueue.get(currentPriority - 2).add(taskInt.getKey());
                 readyQueue.get(currentPriority - 1).remove(taskInt.getKey());
                 taskInt.setValue(taskInt.getValue() + 1);
@@ -92,10 +93,10 @@ public class HPFP_Aging
 
             // For each of 5 runs create a new process queue
             Task[] tasks = processQueue.generateProcesses(i);
-            
+
             // Sort task list by arrival time initially
             processQueue.sortByArrivalTime(tasks);
-            
+
             // Place task list into a queue for processing with RR
             Queue<Task> taskList = new LinkedList<Task>(Arrays.asList(tasks));
 
@@ -103,6 +104,7 @@ public class HPFP_Aging
             while (!taskList.isEmpty() || !readyQueue.isEmpty(readyQueue)) {
 
                 agingCheck(readyQueue, agingQueue);
+ //               printAgingQueue(agingQueue);
 
                 //Add processes that have arrived to the ready queue
                 while (!taskList.isEmpty() && taskList.peek().getArrivalTime() <= clock) {
@@ -141,21 +143,21 @@ public class HPFP_Aging
                             tasksDone++;
                             completedTasks.add(t);
                             // start task priority counting code
-                            priorityTotalTasks += 1;
-                            if (t.getPriority() == 4)
-                            {
-                                priority4Tasks += 1;
-                            }
-                            else if (t.getPriority() == 3) {
-                                priority3Tasks += 1;
-                            }
-                            else if (t.getPriority() == 2) {
-                                priority2Tasks += 1;
-                            }
-                            else
-                            {
-                                priority1Tasks += 1;
-                            }
+//                            priorityTotalTasks += 1;
+//                            if (t.getPriority() == 4)
+//                            {
+//                                priority4Tasks += 1;
+//                            }
+//                            else if (t.getPriority() == 3) {
+//                                priority3Tasks += 1;
+//                            }
+//                            else if (t.getPriority() == 2) {
+//                                priority2Tasks += 1;
+//                            }
+//                            else
+//                            {
+//                                priority1Tasks += 1;
+//                            }
                             // end task priority counting code
 
 
@@ -184,21 +186,21 @@ public class HPFP_Aging
                             tasksDone++;
                             completedTasks.add(t);
                             // start task priority counting code
-                            priorityTotalTasks += 1;
-                            if (t.getPriority() == 4)
-                            {
-                                priority4Tasks += 1;
-                            }
-                            else if (t.getPriority() == 3) {
-                                priority3Tasks += 1;
-                            }
-                            else if (t.getPriority() == 2) {
-                                priority2Tasks += 1;
-                            }
-                            else
-                            {
-                                priority1Tasks += 1;
-                            }
+//                            priorityTotalTasks += 1;
+//                            if (t.getPriority() == 4)
+//                            {
+//                                priority4Tasks += 1;
+//                            }
+//                            else if (t.getPriority() == 3) {
+//                                priority3Tasks += 1;
+//                            }
+//                            else if (t.getPriority() == 2) {
+//                                priority2Tasks += 1;
+//                            }
+//                            else
+//                            {
+//                                priority1Tasks += 1;
+//                            }
                             // end task priority counting code
 
                             turnaroundTime = completionTime - t.getArrivalTime();
@@ -254,11 +256,11 @@ public class HPFP_Aging
             finalTasksDone += totalTasksDone;
 
             printCompletedTasks(completedTasks, i);
-            printTimeChart(scheduledTasks, i);
+//            printTimeChart(scheduledTasks, i);
         }
         printFinalBenchmark();
-        System.out.println("priorityTotalTasks: " + priorityTotalTasks + "\t" + priority1Tasks);
-        printPriorityStats(priority1Tasks, priority2Tasks, priority3Tasks, priority4Tasks, priorityTotalTasks);
+//        System.out.println("priorityTotalTasks: " + priorityTotalTasks + "\t" + priority1Tasks);
+//        printPriorityStats(priority1Tasks, priority2Tasks, priority3Tasks, priority4Tasks, priorityTotalTasks);
     }
 
     public void printPriorityStats(Integer p1, Integer p2, Integer p3, Integer p4, float totalTasks) {
@@ -318,7 +320,7 @@ public class HPFP_Aging
                 try {
                     if ((Integer) tick == 5)
                     {
-                        priorityBump(readyQueue, (HashMap<Task, Integer>) agingQueue.get(currentIndex + 1));
+                        priorityBump(readyQueue, (HashMap<Task, Integer>)agingQueue.get(currentIndex + 1));
                         agingQueue.set(currentIndex, 0);
                     }
                     else
@@ -334,9 +336,12 @@ public class HPFP_Aging
     public void addToAgingQueue(Task t, ArrayList<Object> agingQueue)
     {
         try {
-            for (Object tick : agingQueue) {
-                if (tick instanceof Integer) {
-                    if ((Integer) tick == 0) {
+            for (Object tick : agingQueue)
+            {
+                if (tick instanceof Integer)
+                {
+                    if ((Integer) tick == 0)
+                    {
                         Integer currentIndex = agingQueue.indexOf(tick);
                         agingQueue.add(currentIndex + 1, t);
                     }
@@ -362,5 +367,27 @@ public class HPFP_Aging
         }
 
         return agingQueue;
+    }
+
+    public void printAgingQueue(ArrayList<Object> agingQueue)
+    {
+        System.out.println("Aging Queue");
+        int priorityQueueCounter = 1;
+        int indexCounter = 0;
+        for (Object taskInt : agingQueue)
+        {
+
+            if (taskInt instanceof Integer)
+            {
+                System.out.println("Tick: " + taskInt);
+                indexCounter++;
+            }
+            else
+            {
+                System.out.println("Task: " + agingQueue.get(indexCounter).toString());
+                indexCounter++;
+            }
+            System.out.println("IndexCounter: " + indexCounter);
+        }
     }
 }
