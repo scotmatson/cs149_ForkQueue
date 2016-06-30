@@ -70,10 +70,6 @@ public class HPFP_Aging {
      */
     public void runHPFP_Aging() {
 
-//        - Integer maxPriority = 1;
-//        - Integer currentPriority;
-//        - Integer bump = 1;
-//        -
         for (int i = 1; i <= 5; i++) {
             // Variables needed for tracking progress of each run
             int clock = 0;
@@ -93,30 +89,6 @@ public class HPFP_Aging {
             ArrayList<Task> completedTasks = new ArrayList<>();
             HPFP_Queue readyQueue = new HPFP_Queue(priorityQueueCount);
             Map<String, Float> remainingRunTimes = new HashMap<>();
-            // how many quanta ticks you want
-            Integer tickQueueCounter = 5;
-            /* What is the size of the actual tickQueue? It will be the specified tickQueueCounter * 2;
-            this is because there needs to be 1 cell for the counter and 1 cell for the arrayList<Tasks> with the
-            processes in it that are at that tick number. then, you have to add 2 more such cells for the 0th pair
-            */
-            Integer tickQueueSize = (tickQueueCounter * 2) + 2;
-
-            // The type must be Object because we will be putting Integers and ArrayList<Task> inside it
-            ArrayList<Object> tickQueue = new ArrayList<Object>();
-
-            /* This while loop makes the tickQueue; odd cell numbers have an Integer which is tracking the tick,
-            and even cells have the ArrayList<Task> associated with that tick
-             */
-
-
-            while (tickQueueCounter >= 0) {
-                ArrayList<Task> processes = new ArrayList<>();
-                Integer tick = tickQueueCounter;
-
-                tickQueue.add(0, processes);
-                tickQueue.add(0, tick);
-                tickQueueCounter -= 1;
-            }
 
             // For each of 5 runs create a new process queue
             Task[] tasks = processQueue.generateProcesses(i);
@@ -128,12 +100,13 @@ public class HPFP_Aging {
 
             while (!taskList.isEmpty() || !readyQueue.isEmpty(readyQueue)) {
 
+                agingCheck(readyQueue, agingQueue);
 
                 //Add processes that have arrived to the ready queue
                 while (!taskList.isEmpty() && taskList.peek().getArrivalTime() <= clock) {
                     Task t = taskList.poll();
                     readyQueue.addTask(readyQueue, t);
-                    //tickQueue.get(0).add(t);
+                    addToAgingQueue(t, agingQueue);
                 }
 
                 //Variables for statistics for this round only
@@ -283,55 +256,32 @@ public class HPFP_Aging {
         System.out.println();
     }
 
-    public void agingCheck() {
-        Integer tickQueueCounter = 5;
-        ArrayList<Object> tickQueue = new ArrayList();
-        String testString = "testing";
-        Integer tickQueueSize = 12;
-        int tickCount = 0; // 100 Quanta
+    public void agingCheck(ArrayList<PriorityQueue<Task>> readyQueue, ArrayList<Object> agingQueue) {
+        for (Object tick : agingQueue)
+        {
+            Integer currentIndex = agingQueue.indexOf(tick);
 
-
-        while (tickQueueCounter >= 0) {
-
-            //System.out.println("Counter number: " + tickQueueCounter);
-            //ArrayList<HashMap<String name, int value>> processes = new ArrayList<>(5);
-            ArrayList<HashMap<String, Integer>> processes = new ArrayList<>(5);
-            HashMap<String, Integer> nameAndPriority = new HashMap<>();
-            for (int i = 5; i > 0; i -= 1) {
-                nameAndPriority.put(testString, 0); //Replace with Name and original priority
-                processes.add(nameAndPriority);
-            }
-
-            Integer tick = tickQueueCounter;
-            tickQueue.add(0, processes);
-            tickQueue.add(0, tick);
-            tickQueueCounter -= 1;
-
-        }
-
-
-        for (Object tick : tickQueue) {
-            Integer currentIndex = tickQueue.indexOf(tick);
-            if (tick instanceof Integer) {
+            if (tick instanceof Integer)
+            {
                 if ((Integer) tick == 5) {
-                    //priorityBump(readyqueue, arraylist.getIndexOf(currentIndex + 1)
-                    tickQueue.set(currentIndex, 0);
-                } else {
-                    tickQueue.set(currentIndex, currentIndex + 1);
+                    priorityBump(readyQueue, agingQueue.get(currentIndex + 1));
+                    agingQueue.set(currentIndex, 0);
                 }
-
-
+                else
+                {
+                    agingQueue.set(currentIndex, currentIndex + 1);
+                }
             }
         }
     }
 
-    public void addToAgingQueue(Task t, ArrayList tickQueue) {
+    public void addToAgingQueue(Task t, ArrayList<Object> agingQueue) {
 
-        for (Object tick : tickQueue) {
+        for (Object tick : agingQueue) {
             if (tick instanceof Integer) {
                 if ((Integer) tick == 0) {
-                    Integer currentIndex = tickQueue.indexOf(tick);
-                    tickQueue.add(currentIndex + 1, t);
+                    Integer currentIndex = agingQueue.indexOf(tick);
+                    agingQueue.add(currentIndex + 1, t);
                 }
             }
         }
