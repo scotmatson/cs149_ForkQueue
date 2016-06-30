@@ -110,7 +110,6 @@ public class HPFP_Aging {
                 //Add processes that have arrived to the ready queue
                 while (!taskList.isEmpty() && taskList.peek().getArrivalTime() <= clock) {
                     Task t = taskList.poll();
-
                     readyQueue.addTask(readyQueue, t);
                     addToAgingQueue(t, agingQueue);
                 }
@@ -145,6 +144,21 @@ public class HPFP_Aging {
                             t.setCompletionTime(completionTime);
                             tasksDone++;
                             completedTasks.add(t);
+                            priorityTotalTasks += 1;
+                            if (t.getPriority() == 4)
+                            {
+                                priority4Tasks += 1;
+                            }
+                            else if (t.getPriority() == 3) {
+                                priority3Tasks += 1;
+                            }
+                            else if (t.getPriority() == 2) {
+                                priority2Tasks += 1;
+                            }
+                            else
+                            {
+                                priority1Tasks += 1;
+                            }
                             turnaroundTime = completionTime - t.getArrivalTime();
                             //Add wait time for all processes that have started but did not run in this slice
                             waitTime = remainingRunTimes.size() * t.getRunTime();
