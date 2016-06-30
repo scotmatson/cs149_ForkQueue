@@ -35,12 +35,11 @@ public class HPFP_Queue extends ArrayList{
         return false;
     }
 
-    public void addTask(ArrayList<PriorityQueue<Task>> priorityQueue, Task t){
+    public void addTask(ArrayList<PriorityQueue<Task>> priorityQueue, Task t) {
         priorityQueue.get(t.getPriority() - 1).add(t);
     }
 
     public Task poll(ArrayList<PriorityQueue<Task>> readyQueue){
-
         for (PriorityQueue<Task> priorityQueue : readyQueue){
             if(!priorityQueue.isEmpty()){
                 try {
