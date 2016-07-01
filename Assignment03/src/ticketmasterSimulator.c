@@ -37,16 +37,16 @@ int main()
     // Create necessary data structures for the simulator.
     // Create buyers list for each seller ticket queue based on the
     // N value within an hour and have them in the seller queue.
+   
     // Create 10 threads representing the 10 sellers.
     seller-type = “H”;
     pthread_create(&tids[i], NULL, sell, &seller-type);
+   
     seller-type = “M”;
-
     for (i = 1; i < 4; i++)
         pthread_create(&tids[i], NULL, sell, &seller-type);
 
     seller-type = “L”;
-
     for (i = 4; i < 10; i++)
         pthread_create(&tids[i], NULL, sell, &seller-type);
 
