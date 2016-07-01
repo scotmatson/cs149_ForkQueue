@@ -21,7 +21,7 @@ public class Printer {
 	public static void completedTasks(String name, List<Task> scheduledTasks, int run)
 	{
         System.out.println("\n########################################################################################");
-        System.out.println("############ The following processes were completed for "+name+" run " + run + " #####################");
+        System.out.println("The following processes were completed for "+name+" run " + run);
         System.out.println("########################################################################################");
         while(!scheduledTasks.isEmpty()) 
         {
@@ -38,7 +38,7 @@ public class Printer {
 	public static void timeChart(String name, ArrayList<Task> tasksChart, int run)
 	{
         System.out.println("\n############################################################");
-        System.out.println("############ "+name+" Time Chart for run " + run + " #####################");
+        System.out.println(name+" Time Chart for run " + run);
         System.out.println("############################################################");
         new GanttChart(tasksChart);
     }
@@ -50,7 +50,7 @@ public class Printer {
 	public static void finalBenchmark(String name, float avgTurnaroundTime, float avgWaitTime, float avgResponseTime, float throughput)
 	{
         System.out.println("\n#######################################################################################");
-        System.out.println("############ Final calculated averages and calculated throughput for "+name+" #############");
+        System.out.println("Final calculated averages and calculated throughput for "+name);
         System.out.println("#######################################################################################");
         System.out.println("Average Turnaround Time = " + avgWaitTime);
         System.out.println("Average Wait Time = " + avgWaitTime);

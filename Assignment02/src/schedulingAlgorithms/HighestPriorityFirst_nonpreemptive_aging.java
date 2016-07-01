@@ -19,6 +19,11 @@ public class HighestPriorityFirst_nonpreemptive_aging {
     private float[] finalResponseTime = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
     private float finalTime = 0.0f;
     
+	private float avgTurnaroundTime;
+	private float avgWaitTime;
+	private float avgResponseTime;
+	private float throughput;
+    
     public HighestPriorityFirst_nonpreemptive_aging(ProcessQueue processQueue) {
         this.processQueue = processQueue;
     }
@@ -242,58 +247,14 @@ public class HighestPriorityFirst_nonpreemptive_aging {
             Printer.timeChart(name, tasksChart, i);
         }
         
-        printFinalBenchmark();
-    }
-    
-    /**
-     * Prints out all calculated averages and throughput for
-     *     a completed HighestPriorityFirst-NP simulation.
-     */
-    public void printFinalBenchmark()
-    {
-        System.out.println("\n######################################################################################");
-        System.out.println("####### Final calculated averages and calculated throughput for HPF-NP PRIORITY1 ########");
-        System.out.println("######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime[1]/finalTasksDone[1]);
-        System.out.println("Average Wait Time = " + finalWaitTime[1]/finalTasksDone[1]);
-        System.out.println("Average Response Time = " + finalResponseTime[1]/finalTasksDone[1]);
-        System.out.println("Throughput = " + finalTasksDone[1]/finalTime);
-        System.out.println();
-        
-        System.out.println("\n######################################################################################");
-        System.out.println("####### Final calculated averages and calculated throughput for HPF-NP PRIORITY2 ########");
-        System.out.println("######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime[2]/finalTasksDone[2]);
-        System.out.println("Average Wait Time = " + finalWaitTime[2]/finalTasksDone[2]);
-        System.out.println("Average Response Time = " + finalResponseTime[2]/finalTasksDone[2]);
-        System.out.println("Throughput = " + finalTasksDone[2]/finalTime);
-        System.out.println();
-        
-        System.out.println("\n######################################################################################");
-        System.out.println("####### Final calculated averages and calculated throughput for HPF-NP PRIORITY3 ########");
-        System.out.println("######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime[2]/finalTasksDone[3]);
-        System.out.println("Average Wait Time = " + finalWaitTime[3]/finalTasksDone[3]);
-        System.out.println("Average Response Time = " + finalResponseTime[3]/finalTasksDone[3]);
-        System.out.println("Throughput = " + finalTasksDone[3]/finalTime);
-        System.out.println();
-        
-        System.out.println("\n######################################################################################");
-        System.out.println("####### Final calculated averages and calculated throughput for HPF-NP PRIORITY4 ########");
-        System.out.println("######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime[4]/finalTasksDone[4]);
-        System.out.println("Average Wait Time = " + finalWaitTime[4]/finalTasksDone[4]);
-        System.out.println("Average Response Time = " + finalResponseTime[4]/finalTasksDone[4]);
-        System.out.println("Throughput = " + finalTasksDone[4]/finalTime);
-        System.out.println();
-        
-        System.out.println("\n######################################################################################");
-        System.out.println("##### Final calculated averages and calculated throughput for HPF-NP ALL PROCESSES ######");
-        System.out.println("######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime[0]/finalTasksDone[0]);
-        System.out.println("Average Wait Time = " + finalWaitTime[0]/finalTasksDone[0]);
-        System.out.println("Average Response Time = " + finalResponseTime[0]/finalTasksDone[0]);
-        System.out.println("Throughput = " + finalTasksDone[0]/finalTime);
-        System.out.println();
+        String[] subname = {"All Processes", "Priority 1", "Priority 2", "Priority 3", "Priority 4"};
+        for (int p = 0; p < 5; p++)
+        {
+        	avgTurnaroundTime = (finalTurnaroundTime[p] / finalTasksDone[p]);
+        	avgWaitTime = (finalWaitTime[p] / finalTasksDone[p]);
+        	avgResponseTime = (finalResponseTime[p] / finalTasksDone[p]);
+        	throughput = (finalTasksDone[p] / finalTime);
+        	Printer.finalBenchmark(name +"-"+ subname[p], avgTurnaroundTime, avgWaitTime, avgResponseTime, throughput);
+        }
     }
 }
