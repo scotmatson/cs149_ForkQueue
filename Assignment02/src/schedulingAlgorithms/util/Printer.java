@@ -2,6 +2,7 @@ package schedulingAlgorithms.util;
 
 import schedulingAlgorithms.Task;
 import java.util.ArrayList;
+import java.util.List;
 
 import schedulingAlgorithms.GanttChart;
 import schedulingAlgorithms.Task;
@@ -15,9 +16,9 @@ public class Printer {
 	
 	
 	/**
-	 * Prints out the stats for all completed tasks
+	 * Prints out the statistics for all completed tasks
 	 */
-	public static void completedTasks(String name, ArrayList<Task> scheduledTasks, int run)
+	public static void completedTasks(String name, List<Task> scheduledTasks, int run)
 	{
         System.out.println("\n########################################################################################");
         System.out.println("############ The following processes were completed for "+name+" run " + run + " #####################");

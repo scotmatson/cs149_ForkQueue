@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -12,95 +13,36 @@ import schedulingAlgorithms.util.Printer;
 public class HighestPriorityFirst_nonpreemptive_aging {
 	private final String name = "Aging HPF-NP";
     private ProcessQueue processQueue;
-    private int finalTasksDone;
-    private int finalTasksDoneP1;
-    private int finalTasksDoneP2;
-    private int finalTasksDoneP3;
-    private int finalTasksDoneP4;
-    private float finalTurnaroundTime;
-    private float finalTurnaroundTimeP1;
-    private float finalTurnaroundTimeP2;
-    private float finalTurnaroundTimeP3;
-    private float finalTurnaroundTimeP4;
-    private float finalWaitTime;
-    private float finalWaitTimeP1;
-    private float finalWaitTimeP2;
-    private float finalWaitTimeP3;
-    private float finalWaitTimeP4;
-    private float finalResponseTime;
-    private float finalResponseTimeP1;
-    private float finalResponseTimeP2;
-    private float finalResponseTimeP3;
-    private float finalResponseTimeP4;
-    private float finalTime;
+    private int[] finalTasksDone = {0, 0, 0, 0, 0};
+    private float[] finalTurnaroundTime = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+    private float[] finalWaitTime = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+    private float[] finalResponseTime = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+    private float finalTime = 0.0f;
     
-    public HighestPriorityFirst_nonpreemptive_aging(ProcessQueue processQueue)
-    {
+    public HighestPriorityFirst_nonpreemptive_aging(ProcessQueue processQueue) {
         this.processQueue = processQueue;
-        this.finalTasksDone = 0;
-        this.finalTasksDoneP1 = 0;
-        this.finalTasksDoneP2 = 0;
-        this.finalTasksDoneP3 = 0;
-        this.finalTasksDoneP4 = 0;
-        this.finalTurnaroundTime = 0.0f;
-        this.finalTurnaroundTimeP1 = 0.0f;
-        this.finalTurnaroundTimeP2 = 0.0f;
-        this.finalTurnaroundTimeP3 = 0.0f;
-        this.finalTurnaroundTimeP4 = 0.0f;
-        this.finalWaitTime = 0.0f;
-        this.finalWaitTimeP1 = 0.0f;
-        this.finalWaitTimeP2 = 0.0f;
-        this.finalWaitTimeP3 = 0.0f;
-        this.finalWaitTimeP4 = 0.0f;
-        this.finalResponseTime = 0.0f;
-        this.finalResponseTimeP1 = 0.0f;
-        this.finalResponseTimeP2 = 0.0f;
-        this.finalResponseTimeP3 = 0.0f;
-        this.finalResponseTimeP4 = 0.0f;
-        this.finalTime = 0.0f;
     }
-
 
     /**
      * Highest Priority First (non-preemptive) with aging
      */
     public void runNonPreemptive() {
-        for(int i = 1; i <= 5; i++) 
-        {
+        for(int i = 1; i <= 5; i++) {
             // Variables needed for tracking progress of each run
             int clock = 0;
-            int tasksDone = 0;
-            int tasksDoneP1 = 0;
-            int tasksDoneP2 = 0;
-            int tasksDoneP3 = 0;
-            int tasksDoneP4 = 0;
-            int totalTasksDone = 0;
-            int totalTasksDoneP1 = 0;
-            int totalTasksDoneP2 = 0;
-            int totalTasksDoneP3 = 0;
-            int totalTasksDoneP4 = 0;
+            int[] tasksDone = {0, 0, 0, 0, 0};
+            int[] totalTasksDone = {0, 0, 0, 0, 0};
             float completionTime = 0.0f;
             float totalTime = 0.0f;
-            float totalTurnaroundTime = 0.0f;
-            float totalTurnaroundTimeP1 = 0.0f;
-            float totalTurnaroundTimeP2 = 0.0f;
-            float totalTurnaroundTimeP3 = 0.0f;
-            float totalTurnaroundTimeP4 = 0.0f;
-            float totalWaitTime = 0.0f;
-            float totalWaitTimeP1 = 0.0f;
-            float totalWaitTimeP2 = 0.0f;
-            float totalWaitTimeP3 = 0.0f;
-            float totalWaitTimeP4 = 0.0f;
-            float totalResponseTime = 0.0f;
-            float totalResponseTimeP1 = 0.0f;
-            float totalResponseTimeP2 = 0.0f;
-            float totalResponseTimeP3 = 0.0f;
-            float totalResponseTimeP4 = 0.0f;
-            ArrayList<Task> scheduledTasks = new ArrayList<>();
-            ArrayList<Task> scheduledTasksP1 = new ArrayList<>();
-            ArrayList<Task> scheduledTasksP2 = new ArrayList<>();
-            ArrayList<Task> scheduledTasksP3 = new ArrayList<>();
-            ArrayList<Task> scheduledTasksP4 = new ArrayList<>();
+            float[] totalTurnaroundTime = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+            float[] totalWaitTime = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+            float[] totalResponseTime = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+            List<List<Task>> scheduledTasks = new ArrayList<List<Task>>(5);
+            scheduledTasks.add(0, new ArrayList<Task>());
+            scheduledTasks.add(1, new ArrayList<Task>()); 
+            scheduledTasks.add(2, new ArrayList<Task>()); 
+            scheduledTasks.add(3, new ArrayList<Task>()); 
+            scheduledTasks.add(4, new ArrayList<Task>());  
 
             // For each of 5 runs create a new process queue
             Task[] tasks = processQueue.generateProcesses(i);
@@ -134,24 +76,19 @@ public class HighestPriorityFirst_nonpreemptive_aging {
                 // Get the correct process to be scheduled based on priority
                 // Tasks in readyQueue's have arrived by this time
                 Task t;
-                if (!readyQueueP1.isEmpty()) 
-                {
+                if (!readyQueueP1.isEmpty()) {
                     t = readyQueueP1.poll();
                 }
-                else if (!readyQueueP2.isEmpty()) 
-                {
+                else if (!readyQueueP2.isEmpty()) {
                     t = readyQueueP2.poll();
                 }
-                else if (!readyQueueP3.isEmpty()) 
-                {
+                else if (!readyQueueP3.isEmpty()) {
                     t = readyQueueP3.poll();
                 }
-                else if (!readyQueueP4.isEmpty()) 
-                {
+                else if (!readyQueueP4.isEmpty()) {
                     t = readyQueueP4.poll();
                 }
-                else 
-                {
+                else {
                     //No tasks have arrived yet so get the next task that has
                     t = taskList.poll();
                 }
@@ -163,60 +100,58 @@ public class HighestPriorityFirst_nonpreemptive_aging {
                 completionTime = startTime + t.getRunTime();
                 t.setCompletionTime(completionTime);
 
-                
                 // Check the age of each priority queue to see if its been waiting for more than 5 quanta
-                int waitP2 = 0;
-                int waitP3 = 0;
-                int waitP4 = 0;
-                do
-                {
+                int[] wait = {0, 0, 0, 0, 0};
+                //int waitP2 = 0;
+                //int waitP3 = 0;
+                //int waitP4 = 0;
+                do {
                     // Only get waitTimes from queues that have processes in them otherwise keep waitTime at 0
-                    waitP2 = (readyQueueP2.peek() != null) ? (startTime - readyQueueP2.peek().getArrivalTime()) : 0;
-                    waitP3 = (readyQueueP3.peek() != null) ? (startTime - readyQueueP3.peek().getArrivalTime()) : 0;
-                    waitP4 = (readyQueueP4.peek() != null) ? (startTime - readyQueueP4.peek().getArrivalTime()) : 0;
+                    wait[2] = (readyQueueP2.peek() != null) ? (startTime - readyQueueP2.peek().getArrivalTime()) : 0;
+                    wait[3] = (readyQueueP3.peek() != null) ? (startTime - readyQueueP3.peek().getArrivalTime()) : 0;
+                    wait[4] = (readyQueueP4.peek() != null) ? (startTime - readyQueueP4.peek().getArrivalTime()) : 0;
 
                     // Upgrade any tasks with waitTimes of more than 5 quanta
-                    if (waitP2 >= 5)
+                    if (wait[2] >= 5)
                     {
                         readyQueueP1.add(readyQueueP2.poll());
                     }
-                    if (waitP3 >= 5)
+                    if (wait[3] >= 5)
                     {
                         readyQueueP2.add(readyQueueP3.poll());
                     }
                     
-                    if (waitP4 >= 5)
+                    if (wait[4] >= 5)
                     {
                         readyQueueP3.add(readyQueueP4.poll());
                     }
-                }
-                while (waitP2 >= 5 || waitP3 >= 5 || waitP3 >= 5);// End do/while loop
+                } while (wait[2] >= 5 || wait[3] >= 5 || wait[4] >= 5);
 
                 // Add in the correct ArrayList for completed tasks
                 int thisP = t.getPriority();
                 switch (thisP)
                 {
                     case 1:
-                        scheduledTasksP1.add(t);
-                        tasksDoneP1++;
+                        scheduledTasks.get(1).add(t);
+                        tasksDone[1]++;
                         break;
                     case 2:
-                        scheduledTasksP2.add(t);
-                        tasksDoneP2++;
+                        scheduledTasks.get(2).add(t);
+                        tasksDone[2]++;
                         break;
                     case 3:
-                        scheduledTasksP3.add(t);
-                        tasksDoneP3++;
+                        scheduledTasks.get(3).add(t);
+                        tasksDone[3]++;
                         break;
                     default:
-                        scheduledTasksP4.add(t);
-                        tasksDoneP4++;
+                        scheduledTasks.get(4).add(t);
+                        tasksDone[4]++;
                         break;
                 }
                 
                 // Update all completed tasks and clock
-                scheduledTasks.add(t);
-                tasksDone++;
+                scheduledTasks.get(0).add(t);
+                tasksDone[0]++;
                 clock = (int)Math.ceil(completionTime);
 
                 // Add processes to the ready queue that have arrived by this time
@@ -251,36 +186,36 @@ public class HighestPriorityFirst_nonpreemptive_aging {
                 switch (thisP)
                 {
                     case 1:
-                        totalTurnaroundTimeP1 += turnaroundTime;
-                        totalWaitTimeP1 += waitTime;
-                        totalResponseTimeP1 += responseTime;
-                        totalTasksDoneP1 = tasksDoneP1;
+                        totalTurnaroundTime[1] += turnaroundTime;
+                        totalWaitTime[1] += waitTime;
+                        totalResponseTime[1] += responseTime;
+                        totalTasksDone[1] = tasksDone[1];
                         break;
                     case 2:
-                        totalTurnaroundTimeP2 += turnaroundTime;
-                        totalWaitTimeP2 += waitTime;
-                        totalResponseTimeP2 += responseTime;
-                        totalTasksDoneP2 = tasksDoneP2;
+                        totalTurnaroundTime[2] += turnaroundTime;
+                        totalWaitTime[2] += waitTime;
+                        totalResponseTime[2] += responseTime;
+                        totalTasksDone[2] = tasksDone[2];
                         break;
                     case 3:
-                        totalTurnaroundTimeP3 += turnaroundTime;
-                        totalWaitTimeP3 += waitTime;
-                        totalResponseTimeP3 += responseTime;
-                        totalTasksDoneP3 = tasksDoneP3;
+                        totalTurnaroundTime[3] += turnaroundTime;
+                        totalWaitTime[3] += waitTime;
+                        totalResponseTime[3] += responseTime;
+                        totalTasksDone[3] = tasksDone[3];
                         break;
                     default:
-                        totalTurnaroundTimeP4 += turnaroundTime;
-                        totalWaitTimeP4 += waitTime;
-                        totalResponseTimeP4 += responseTime;
-                        totalTasksDoneP4 = tasksDoneP4;
+                        totalTurnaroundTime[4] += turnaroundTime;
+                        totalWaitTime[4] += waitTime;
+                        totalResponseTime[4] += responseTime;
+                        totalTasksDone[4] = tasksDone[4];
                         break;
                 }
                 
                 // Update totals at end of each run for all processes
-                totalTurnaroundTime += turnaroundTime;
-                totalWaitTime += waitTime;
-                totalResponseTime += responseTime;
-                totalTasksDone = tasksDone;
+                totalTurnaroundTime[0] += turnaroundTime;
+                totalWaitTime[0] += waitTime;
+                totalResponseTime[0] += responseTime;
+                totalTasksDone[0] = tasksDone[0];
                 
                 if (completionTime >= 99) 
                 {
@@ -293,31 +228,31 @@ public class HighestPriorityFirst_nonpreemptive_aging {
             }
             
             // Update final numbers needed for averages at each of 5 runs
-            finalTurnaroundTime += totalTurnaroundTime;
-            finalTurnaroundTimeP1 += totalTurnaroundTimeP1;
-            finalTurnaroundTimeP2 += totalTurnaroundTimeP2;
-            finalTurnaroundTimeP3 += totalTurnaroundTimeP3;
-            finalTurnaroundTimeP4 += totalTurnaroundTimeP4;
-            finalWaitTime += totalWaitTime;
-            finalWaitTimeP1 += totalWaitTimeP1;
-            finalWaitTimeP2 += totalWaitTimeP2;
-            finalWaitTimeP3 += totalWaitTimeP3;
-            finalWaitTimeP4 += totalWaitTimeP4;
-            finalResponseTime += totalResponseTime;
-            finalResponseTimeP1 += totalResponseTimeP1;
-            finalResponseTimeP2 += totalResponseTimeP2;
-            finalResponseTimeP3 += totalResponseTimeP3;
-            finalResponseTimeP4 += totalResponseTimeP4;
-            finalTasksDone += totalTasksDone;
-            finalTasksDoneP1 += totalTasksDoneP1;
-            finalTasksDoneP2 += totalTasksDoneP2;
-            finalTasksDoneP3 += totalTasksDoneP3;
-            finalTasksDoneP4 += totalTasksDoneP4;
+            finalTurnaroundTime[0] += totalTurnaroundTime[0];
+            finalTurnaroundTime[1] += totalTurnaroundTime[1];
+            finalTurnaroundTime[2] += totalTurnaroundTime[2];
+            finalTurnaroundTime[3] += totalTurnaroundTime[3];
+            finalTurnaroundTime[4] += totalTurnaroundTime[4];
+            finalWaitTime[0] += totalWaitTime[0];
+            finalWaitTime[1] += totalWaitTime[1];
+            finalWaitTime[2] += totalWaitTime[2];
+            finalWaitTime[3] += totalWaitTime[3];
+            finalWaitTime[4] += totalWaitTime[4];
+            finalResponseTime[0] += totalResponseTime[0];
+            finalResponseTime[1] += totalResponseTime[1];
+            finalResponseTime[2] += totalResponseTime[2];
+            finalResponseTime[3] += totalResponseTime[3];
+            finalResponseTime[4] += totalResponseTime[4];
+            finalTasksDone[0] += totalTasksDone[0];
+            finalTasksDone[1] += totalTasksDone[1];
+            finalTasksDone[2] += totalTasksDone[2];
+            finalTasksDone[3] += totalTasksDone[3];
+            finalTasksDone[4] += totalTasksDone[4];
             finalTime += totalTime;
 
             // Make a copy of the completed tasks to use in the time chart
-            ArrayList<Task> tasksChart = new ArrayList<Task>(scheduledTasks);
-            Printer.completedTasks(name, scheduledTasks, i);
+            ArrayList<Task> tasksChart = new ArrayList<Task>(scheduledTasks.get(0));
+            Printer.completedTasks(name, scheduledTasks.get(0), i);
             Printer.timeChart(name, tasksChart, i);
         }
         
@@ -333,46 +268,46 @@ public class HighestPriorityFirst_nonpreemptive_aging {
         System.out.println("\n######################################################################################");
         System.out.println("####### Final calculated averages and calculated throughput for HPF-NP PRIORITY1 ########");
         System.out.println("######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTimeP1/finalTasksDoneP1);
-        System.out.println("Average Wait Time = " + finalWaitTimeP1/finalTasksDoneP1);
-        System.out.println("Average Response Time = " + finalResponseTimeP1/finalTasksDoneP1);
-        System.out.println("Throughput = " + finalTasksDoneP1/finalTime);
+        System.out.println("Average Turnaround Time = " + finalTurnaroundTime[1]/finalTasksDone[1]);
+        System.out.println("Average Wait Time = " + finalWaitTime[1]/finalTasksDone[1]);
+        System.out.println("Average Response Time = " + finalResponseTime[1]/finalTasksDone[1]);
+        System.out.println("Throughput = " + finalTasksDone[1]/finalTime);
         System.out.println();
         
         System.out.println("\n######################################################################################");
         System.out.println("####### Final calculated averages and calculated throughput for HPF-NP PRIORITY2 ########");
         System.out.println("######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTimeP2/finalTasksDoneP2);
-        System.out.println("Average Wait Time = " + finalWaitTimeP2/finalTasksDoneP2);
-        System.out.println("Average Response Time = " + finalResponseTimeP2/finalTasksDoneP2);
-        System.out.println("Throughput = " + finalTasksDoneP2/finalTime);
+        System.out.println("Average Turnaround Time = " + finalTurnaroundTime[2]/finalTasksDone[2]);
+        System.out.println("Average Wait Time = " + finalWaitTime[2]/finalTasksDone[2]);
+        System.out.println("Average Response Time = " + finalResponseTime[2]/finalTasksDone[2]);
+        System.out.println("Throughput = " + finalTasksDone[2]/finalTime);
         System.out.println();
         
         System.out.println("\n######################################################################################");
         System.out.println("####### Final calculated averages and calculated throughput for HPF-NP PRIORITY3 ########");
         System.out.println("######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTimeP3/finalTasksDoneP3);
-        System.out.println("Average Wait Time = " + finalWaitTimeP3/finalTasksDoneP3);
-        System.out.println("Average Response Time = " + finalResponseTimeP3/finalTasksDoneP3);
-        System.out.println("Throughput = " + finalTasksDoneP3/finalTime);
+        System.out.println("Average Turnaround Time = " + finalTurnaroundTime[2]/finalTasksDone[3]);
+        System.out.println("Average Wait Time = " + finalWaitTime[3]/finalTasksDone[3]);
+        System.out.println("Average Response Time = " + finalResponseTime[3]/finalTasksDone[3]);
+        System.out.println("Throughput = " + finalTasksDone[3]/finalTime);
         System.out.println();
         
         System.out.println("\n######################################################################################");
         System.out.println("####### Final calculated averages and calculated throughput for HPF-NP PRIORITY4 ########");
         System.out.println("######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTimeP4/finalTasksDoneP4);
-        System.out.println("Average Wait Time = " + finalWaitTimeP4/finalTasksDoneP4);
-        System.out.println("Average Response Time = " + finalResponseTimeP4/finalTasksDoneP4);
-        System.out.println("Throughput = " + finalTasksDoneP4/finalTime);
+        System.out.println("Average Turnaround Time = " + finalTurnaroundTime[4]/finalTasksDone[4]);
+        System.out.println("Average Wait Time = " + finalWaitTime[4]/finalTasksDone[4]);
+        System.out.println("Average Response Time = " + finalResponseTime[4]/finalTasksDone[4]);
+        System.out.println("Throughput = " + finalTasksDone[4]/finalTime);
         System.out.println();
         
         System.out.println("\n######################################################################################");
         System.out.println("##### Final calculated averages and calculated throughput for HPF-NP ALL PROCESSES ######");
         System.out.println("######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime/finalTasksDone);
-        System.out.println("Average Wait Time = " + finalWaitTime/finalTasksDone);
-        System.out.println("Average Response Time = " + finalResponseTime/finalTasksDone);
-        System.out.println("Throughput = " + finalTasksDone/finalTime);
+        System.out.println("Average Turnaround Time = " + finalTurnaroundTime[0]/finalTasksDone[0]);
+        System.out.println("Average Wait Time = " + finalWaitTime[0]/finalTasksDone[0]);
+        System.out.println("Average Response Time = " + finalResponseTime[0]/finalTasksDone[0]);
+        System.out.println("Throughput = " + finalTasksDone[0]/finalTime);
         System.out.println();
     }
 }
