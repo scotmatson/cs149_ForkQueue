@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <pthread.h>
+#include <stdlib.h>
 
 // Solves CS149 Homework#3
 // @author Tyler Jones, Scot Matson, ______....
@@ -33,25 +34,29 @@ void wakeup_all_seller_threads()
 
 int main(int argc, char * argv[])
 {
+    if (argc != 2) {
+        
+    }
+
     int i;
     pthread_t tids[10];
-    char Seller_type;
+    char sellerType;
 
     // Create necessary data structures for the simulator.
     // Create buyers list for each seller ticket queue based on the
     // N value within an hour and have them in the seller queue.
    
     // Create 10 threads representing the 10 sellers.
-    seller-type = “H”;
-    pthread_create(&tids[i], NULL, sell, &seller-type);
+    sellerType = 'H';
+    pthread_create(&tids[i], NULL, sell, &sellerType);
    
-    seller-type = “M”;
+    sellerType = 'M';
     for (i = 1; i < 4; i++)
-        pthread_create(&tids[i], NULL, sell, &seller-type);
+        pthread_create(&tids[i], NULL, sell, &sellerType);
 
-    seller-type = “L”;
+    sellerType = 'L';
     for (i = 4; i < 10; i++)
-        pthread_create(&tids[i], NULL, sell, &seller-type);
+        pthread_create(&tids[i], NULL, sell, &sellerType);
 
     // wakeup all seller threads
     wakeup_all_seller_threads();
