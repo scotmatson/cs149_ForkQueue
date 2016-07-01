@@ -228,26 +228,12 @@ public class HighestPriorityFirst_nonpreemptive_aging {
             }
             
             // Update final numbers needed for averages at each of 5 runs
-            finalTurnaroundTime[0] += totalTurnaroundTime[0];
-            finalTurnaroundTime[1] += totalTurnaroundTime[1];
-            finalTurnaroundTime[2] += totalTurnaroundTime[2];
-            finalTurnaroundTime[3] += totalTurnaroundTime[3];
-            finalTurnaroundTime[4] += totalTurnaroundTime[4];
-            finalWaitTime[0] += totalWaitTime[0];
-            finalWaitTime[1] += totalWaitTime[1];
-            finalWaitTime[2] += totalWaitTime[2];
-            finalWaitTime[3] += totalWaitTime[3];
-            finalWaitTime[4] += totalWaitTime[4];
-            finalResponseTime[0] += totalResponseTime[0];
-            finalResponseTime[1] += totalResponseTime[1];
-            finalResponseTime[2] += totalResponseTime[2];
-            finalResponseTime[3] += totalResponseTime[3];
-            finalResponseTime[4] += totalResponseTime[4];
-            finalTasksDone[0] += totalTasksDone[0];
-            finalTasksDone[1] += totalTasksDone[1];
-            finalTasksDone[2] += totalTasksDone[2];
-            finalTasksDone[3] += totalTasksDone[3];
-            finalTasksDone[4] += totalTasksDone[4];
+            for (int p = 0; p < 5; p++) {
+                finalTurnaroundTime[p] += totalTurnaroundTime[p];
+                finalWaitTime[p] += totalWaitTime[p];
+                finalResponseTime[p] += totalResponseTime[p];
+                finalTasksDone[p] += totalTasksDone[p];
+            }
             finalTime += totalTime;
 
             // Make a copy of the completed tasks to use in the time chart
