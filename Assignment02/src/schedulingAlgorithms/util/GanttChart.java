@@ -1,6 +1,8 @@
-package schedulingAlgorithms;
+package schedulingAlgorithms.util;
 
 import java.util.ArrayList;
+
+import schedulingAlgorithms.Task;
 
 public class GanttChart {	
 	public GanttChart(ArrayList<Task> tasksChart) {
