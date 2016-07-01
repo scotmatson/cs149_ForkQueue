@@ -4,8 +4,7 @@ import schedulingAlgorithms.util.Printer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FirstComeFirstServe 
-{	
+public class FirstComeFirstServe {	
 	private final String name = "FCFS";
 	private ProcessQueue processQueue;
 	private int finalTasksDone;
@@ -21,12 +20,10 @@ public class FirstComeFirstServe
 	
 	/**
 	 * Constructor method.
-	 * 
 	 * @param processQueue (ProcessQueue) : A specialized Queue used for
 	 *     generating and sorting organized simulated processes.
 	 */
-	public FirstComeFirstServe(ProcessQueue processQueue) 
-	{	
+	public FirstComeFirstServe(ProcessQueue processQueue) {	
 		this.processQueue = processQueue;
         this.finalTasksDone = 0;
         this.finalTime = 0.0f;
@@ -39,10 +36,8 @@ public class FirstComeFirstServe
 	 * Runs a non-preemptive FirstComeFirstServe algorithm for
 	 *     process simulation.
 	 */
-	public void runNonPreemptive()
-	{
-        for (int i = 1; i <= 5; i++) 
-        {
+	public void runNonPreemptive() {
+        for (int i = 1; i <= 5; i++) {
             // Variables needed for tracking progress of each run
             int clock = 0;
             int tasksDone = 0;
@@ -61,8 +56,7 @@ public class FirstComeFirstServe
             ArrayList<Task> taskList = new ArrayList<Task>(Arrays.asList(tasks));
 
             // Schedule tasks until either no more tasks or start time > 99
-            while (!taskList.isEmpty()) 
-            {
+            while (!taskList.isEmpty()) {
                 // Get the correct process to be scheduled
                 Task t = taskList.remove(0);
 
@@ -89,12 +83,10 @@ public class FirstComeFirstServe
                 totalResponseTime += responseTime;
                 totalTasksDone = tasksDone;
                 
-                if (completionTime >= 99) 
-                {
+                if (completionTime >= 99) {
                     totalTime = completionTime; // Time until last process is complete
                 } 
-                else 
-                {
+                else {
                     totalTime = 99;
                 }
             }

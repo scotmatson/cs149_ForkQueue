@@ -1,15 +1,12 @@
 package schedulingAlgorithms;
 
 import java.util.*;
-
 import schedulingAlgorithms.util.Printer;
 
 /**
  * A version of HPFP that enforces aging.
- *
  */
-public class HighestPriorityFirst_preemptive_aging
-{
+public class HighestPriorityFirst_preemptive_aging {
 	private final String name = "Aging HPF-P";
     private ProcessQueue processQueue;
     private int finalTasksDone;
@@ -20,7 +17,6 @@ public class HighestPriorityFirst_preemptive_aging
 
     /**
      * Constructor method.
-     *
      * @param processQueue (ProcessQueue) : A specialized Queue used for
      *                     generating and sorting organized simulated processes.
      */
