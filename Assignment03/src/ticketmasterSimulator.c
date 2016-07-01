@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <pthread.h>
 
-//Solves CS149 Homework#3
-//@author Tyler Jones, Scot Matson, ______....
+// Solves CS149 Homework#3
+// @author Tyler Jones, Scot Matson, ______....
 
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -31,7 +31,7 @@ void wakeup_all_seller_threads()
     pthread_mutex_unlock(&mutex);
 }
 
-int main()
+int main(int argc, char * argv[])
 {
     int i;
     pthread_t tids[10];
