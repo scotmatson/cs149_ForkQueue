@@ -1,16 +1,23 @@
 package schedulingAlgorithms;
 
+import schedulingAlgorithms.util.Printer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FirstComeFirstServe 
 {	
+	private final String name = "FCFS";
 	private ProcessQueue processQueue;
 	private int finalTasksDone;
 	private float finalTime;
 	private float finalTurnaroundTime;
 	private float finalWaitTime;
 	private float finalResponseTime;
+	
+	private float avgTurnaroundTime;
+	private float avgWaitTime;
+	private float avgResponseTime;
+	private float throughput;
 	
 	/**
 	 * Constructor method.
@@ -101,50 +108,13 @@ public class FirstComeFirstServe
 
             // Make a copy of the completed tasks to use in the time chart
             ArrayList<Task> tasksChart = new ArrayList<Task>(scheduledTasks);
-            printCompletedTasks(scheduledTasks, i);
-            printTimeChart(tasksChart, i);
+            Printer.completedTasks(name, scheduledTasks, i);
+            Printer.timeChart(name, tasksChart, i);
         }
-        
-        printFinalBenchmark();
+        avgTurnaroundTime = finalTurnaroundTime/finalTasksDone;
+        avgWaitTime = finalWaitTime/finalTasksDone;
+        avgResponseTime = finalResponseTime/finalTasksDone;
+        throughput = finalTasksDone/finalTime;
+        Printer.finalBenchmark(name, avgTurnaroundTime, avgWaitTime, avgResponseTime, throughput);        
     }
-	
-	/**
-	 * Prints out the stats for all completed tasks
-	 */
-	public void printCompletedTasks(ArrayList<Task> scheduledTasks, int run)
-	{
-        System.out.println("\n########################################################################################");
-        System.out.println("############ The following processes were completed for FCFS run " + run + " #####################");
-        System.out.println("########################################################################################");
-        while(!scheduledTasks.isEmpty()) 
-        {
-            Task t = scheduledTasks.remove(0);
-            System.out.println(t);
-        }
-	}
-	
-
-	public void printTimeChart(ArrayList<Task> tasksChart, int run)
-	{
-        System.out.println("\n############################################################");
-        System.out.println("############ FCFS Time Chart for run " + run + " #####################");
-        System.out.println("############################################################");
-        new GanttChart(tasksChart);
-    }
-	
-	/**
-	 * Prints out all calculated averages and throughput for
-	 *     a completed FirstComeFirstServe simulation.
-	 */
-	public void printFinalBenchmark()
-	{
-        System.out.println("\n#######################################################################################");
-        System.out.println("############ Final calculated averages and calculated throughput for FCFS #############");
-        System.out.println("#######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime/finalTasksDone);
-        System.out.println("Average Wait Time = " + finalWaitTime/finalTasksDone);
-        System.out.println("Average Response Time = " + finalResponseTime/finalTasksDone);
-        System.out.println("Throughput = " + finalTasksDone/finalTime);
-        System.out.println();
-	}
 }

@@ -3,13 +3,14 @@ package schedulingAlgorithms;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+import schedulingAlgorithms.util.Printer;
+
 public class HighestPriorityFirst_nonpreemptive_aging {
+	private final String name = "Aging HPF-NP";
     private ProcessQueue processQueue;
     private int finalTasksDone;
     private int finalTasksDoneP1;
@@ -100,7 +101,6 @@ public class HighestPriorityFirst_nonpreemptive_aging {
             ArrayList<Task> scheduledTasksP2 = new ArrayList<>();
             ArrayList<Task> scheduledTasksP3 = new ArrayList<>();
             ArrayList<Task> scheduledTasksP4 = new ArrayList<>();
-            Map<String, Float> taskWaitTimes = new HashMap<>();
 
             // For each of 5 runs create a new process queue
             Task[] tasks = processQueue.generateProcesses(i);
@@ -317,37 +317,11 @@ public class HighestPriorityFirst_nonpreemptive_aging {
 
             // Make a copy of the completed tasks to use in the time chart
             ArrayList<Task> tasksChart = new ArrayList<Task>(scheduledTasks);
-            printCompletedTasks(scheduledTasks, i);
-            printTimeChart(tasksChart, i);
+            Printer.completedTasks(name, scheduledTasks, i);
+            Printer.timeChart(name, tasksChart, i);
         }
         
         printFinalBenchmark();
-    }
-    
-    /**
-     * Prints time chart of completed run
-     */
-    public void printCompletedTasks(ArrayList<Task> scheduledTasks, int run)
-    {
-        System.out.println("\n#######################################################################################");
-        System.out.println("############ The following processes were completed for HPF-NP run " + run + " #####################");
-        System.out.println("#######################################################################################");
-        while(!scheduledTasks.isEmpty()) {
-            Task t = scheduledTasks.remove(0);
-            System.out.println(t);
-        }   
-    }
-    
-    /**
-     * Prints out all calculated averages and throughput for
-     *     a completed HighestPriorityFirst-NP simulation.
-     */
-    public void printTimeChart(ArrayList<Task> tasksChart, int run)
-    {
-        System.out.println("\n###########################################################");
-        System.out.println("############ HPF-NP Time Chart for run " + run + " #####################");
-        System.out.println("###########################################################");
-        new GanttChart(tasksChart);
     }
     
     /**

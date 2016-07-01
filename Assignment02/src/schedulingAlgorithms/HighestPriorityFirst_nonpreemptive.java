@@ -6,9 +6,11 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import schedulingAlgorithms.util.Printer;
 
 public class HighestPriorityFirst_nonpreemptive 
 {
+	private final String name = "HPF-NP";
     private ProcessQueue processQueue;
     private int finalTasksDone;
     private int finalTasksDoneP1;
@@ -286,37 +288,11 @@ public class HighestPriorityFirst_nonpreemptive
 
             // Make a copy of the completed tasks to use in the time chart
             ArrayList<Task> tasksChart = new ArrayList<Task>(scheduledTasks);
-            printCompletedTasks(scheduledTasks, i);
-            printTimeChart(tasksChart, i);
+            Printer.completedTasks(name, scheduledTasks, i);
+            Printer.timeChart(name, tasksChart, i);
         }
         
         printFinalBenchmark();
-    }
-    
-    /**
-     * Prints time chart of completed run
-     */
-    public void printCompletedTasks(ArrayList<Task> scheduledTasks, int run)
-    {
-        System.out.println("\n#######################################################################################");
-        System.out.println("############ The following processes were completed for HPF-NP run " + run + " #####################");
-        System.out.println("#######################################################################################");
-        while(!scheduledTasks.isEmpty()) {
-            Task t = scheduledTasks.remove(0);
-            System.out.println(t);
-        }   
-    }
-    
-    /**
-     * Prints out all calculated averages and throughput for
-     *     a completed HighestPriorityFirst-NP simulation.
-     */
-    public void printTimeChart(ArrayList<Task> tasksChart, int run)
-    {
-        System.out.println("\n###########################################################");
-        System.out.println("############ HPF-NP Time Chart for run " + run + " #####################");
-        System.out.println("###########################################################");
-        new GanttChart(tasksChart);
     }
     
     /**

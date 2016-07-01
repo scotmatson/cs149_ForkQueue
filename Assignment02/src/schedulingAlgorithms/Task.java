@@ -4,7 +4,7 @@ package schedulingAlgorithms;
  * Task is a helper class for creating task objects. These tasks
  * are simulations of running processes in an operating system
  */
-class Task implements Cloneable, Comparable<Object> {
+public class Task implements Cloneable, Comparable<Object> {
     private String name;
     private int arrivalTime;
     private float runTime; // Burst time

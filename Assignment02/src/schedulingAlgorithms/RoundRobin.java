@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import schedulingAlgorithms.util.Printer;
+
 /**
  * RoundRobin
  * This is not working correctly yet, feel free to modify it however you want
@@ -16,12 +18,18 @@ import java.util.Queue;
  */
 public class RoundRobin
 {   
+	private final String name = "RR";
     private ProcessQueue processQueue;
     private int finalTasksDone;
     private float finalTime;
     private float finalTurnaroundTime;
     private float finalWaitTime;
     private float finalResponseTime;
+    
+	private float avgTurnaroundTime;
+	private float avgWaitTime;
+	private float avgResponseTime;
+	private float throughput;
     
     /**
      * Constructor method.
@@ -193,49 +201,14 @@ public class RoundRobin
             finalResponseTime += totalResponseTime;
             finalTime += totalTime;
             finalTasksDone += totalTasksDone;
-
-            printCompletedTasks(completedTasks, i);
-            printTimeChart(scheduledTasks, i);
+            
+            Printer.completedTasks(name, completedTasks, i);
+            Printer.timeChart(name, scheduledTasks, i);
         }
-        printFinalBenchmark();
-    }
-    /**
-     * Prints out the stats for all completed tasks
-     */
-    public void printCompletedTasks(ArrayList<Task> scheduledTasks, int run)
-    {
-        System.out.println("\n########################################################################################");
-        System.out.println("############ The following processes were completed for RR run " + run + " #####################");
-        System.out.println("########################################################################################");
-        while(!scheduledTasks.isEmpty()) 
-        {
-            Task t = scheduledTasks.remove(0);
-            System.out.println(t);
-        }
-    }
-    
-
-    public void printTimeChart(ArrayList<Task> tasksChart, int run)
-    {
-        System.out.println("\n############################################################");
-        System.out.println("############ RR Time Chart for run " + run + " #####################");
-        System.out.println("############################################################");
-        new GanttChart(tasksChart);
-    }
-    
-    /**
-     * Prints out all calculated averages and throughput for
-     *     a completed FirstComeFirstServe simulation.
-     */
-    public void printFinalBenchmark()
-    {
-        System.out.println("\n#######################################################################################");
-        System.out.println("############ Final calculated averages and calculated throughput for RR #############");
-        System.out.println("#######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime/finalTasksDone);
-        System.out.println("Average Wait Time = " + finalWaitTime/finalTasksDone);
-        System.out.println("Average Response Time = " + finalResponseTime/finalTasksDone);
-        System.out.println("Throughput = " + finalTasksDone/finalTime);
-        System.out.println();
+        avgTurnaroundTime = finalTurnaroundTime/finalTasksDone;
+        avgWaitTime = finalWaitTime/finalTasksDone;
+        avgResponseTime = finalResponseTime/finalTasksDone;
+        throughput = finalTasksDone/finalTime;
+        Printer.finalBenchmark(name, avgTurnaroundTime, avgWaitTime, avgResponseTime, throughput); 
     }
 }

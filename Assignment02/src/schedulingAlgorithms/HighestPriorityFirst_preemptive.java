@@ -3,16 +3,11 @@ package schedulingAlgorithms;
 //import com.apple.concurrent.Dispatch;
 //import HPFP_Queue;
 import java.util.*;
+import schedulingAlgorithms.util.Printer;
 
-/**
- * RoundRobin
- * This is not working correctly yet, feel free to modify it however you want
- * in order to get it working correctly
- * @author lord_tyler
- *
- */
 public class HighestPriorityFirst_preemptive
 {
+	private final String name = "HPF-P";
     private ProcessQueue processQueue;
     private int finalTasksDone;
     private float finalTime;
@@ -20,6 +15,11 @@ public class HighestPriorityFirst_preemptive
     private float finalWaitTime;
     private float finalResponseTime;
     private float priorityTotalTasks;
+    
+	private float avgTurnaroundTime;
+	private float avgWaitTime;
+	private float avgResponseTime;
+	private float throughput;
 
 
     /**
@@ -38,10 +38,6 @@ public class HighestPriorityFirst_preemptive
         this.finalResponseTime = 0.0f;
     }
     
-    /**
-     * Runs a preemptive RoundRobin algorithm for
-     *     process simulation.
-     */
     public void runPreemptive()
     {
         Integer priority1Tasks = 0;
@@ -232,10 +228,15 @@ public class HighestPriorityFirst_preemptive
             finalTime += totalTime;
             finalTasksDone += totalTasksDone;
 
-            printCompletedTasks(completedTasks, i);
-            printTimeChart(scheduledTasks, i);
+            Printer.completedTasks(name, completedTasks, i);
+            Printer.timeChart(name, scheduledTasks, i);
         }
-        printFinalBenchmark();
+        avgTurnaroundTime = finalTurnaroundTime/finalTasksDone;
+        avgWaitTime = finalWaitTime/finalTasksDone;
+        avgResponseTime = finalResponseTime/finalTasksDone;
+        throughput = finalTasksDone/finalTime;
+        Printer.finalBenchmark(name, avgTurnaroundTime, avgWaitTime, avgResponseTime, throughput);    
+        
         System.out.println("priorityTotalTasks: " + priorityTotalTasks + "\t" + priority1Tasks);
         printPriorityStats(priority1Tasks, priority2Tasks, priority3Tasks, priority4Tasks, priorityTotalTasks);
     }
@@ -251,44 +252,5 @@ public class HighestPriorityFirst_preemptive
                 + "\n\t\tP2:  " + s2
                 + "\n\t\tP3:  " + s3
                 + "\n\t\tP4:  " + s4);
-    }
-    /**
-     * Prints out the stats for all completed tasks
-     */
-    public void printCompletedTasks(ArrayList<Task> scheduledTasks, int run)
-    {
-        System.out.println("\n########################################################################################");
-        System.out.println("############ The following processes were completed for RR run " + run + " #####################");
-        System.out.println("########################################################################################");
-        while(!scheduledTasks.isEmpty()) 
-        {
-            Task t = scheduledTasks.remove(0);
-            System.out.println(t);
-        }
-    }
-    
-
-    public void printTimeChart(ArrayList<Task> tasksChart, int run)
-    {
-        System.out.println("\n############################################################");
-        System.out.println("############ HPF Preemptive Time Chart for run " + run + " #####################");
-        System.out.println("############################################################");
-        new GanttChart(tasksChart);
-    }
-    
-    /**
-     * Prints out all calculated averages and throughput for
-     *     a completed FirstComeFirstServe simulation.
-     */
-    public void printFinalBenchmark()
-    {
-        System.out.println("\n#######################################################################################");
-        System.out.println("############ Final calculated averages and calculated throughput for HPF Preemptive #############");
-        System.out.println("#######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime/finalTasksDone);
-        System.out.println("Average Wait Time = " + finalWaitTime/finalTasksDone);
-        System.out.println("Average Response Time = " + finalResponseTime/finalTasksDone);
-        System.out.println("Throughput = " + finalTasksDone/finalTime);
-        System.out.println();
     }
 }
