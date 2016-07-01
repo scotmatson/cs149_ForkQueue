@@ -19,11 +19,6 @@ public class HighestPriorityFirst_nonpreemptive_aging {
     private float[] finalResponseTime = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
     private float finalTime = 0.0f;
     
-	private float avgTurnaroundTime;
-	private float avgWaitTime;
-	private float avgResponseTime;
-	private float throughput;
-    
     public HighestPriorityFirst_nonpreemptive_aging(ProcessQueue processQueue) {
         this.processQueue = processQueue;
     }
@@ -58,16 +53,15 @@ public class HighestPriorityFirst_nonpreemptive_aging {
             // Comparator for the 4 priority queues.
             // Priority by arrival time with ties broken by run time
             Comparator<Task> c = new Comparator<Task>() {
-                public int compare(Task t1, Task t2)
-                {
+                public int compare(Task t1, Task t2) {
                     int difference = t1.compareArrivalTime(t2.getArrivalTime());
-                    if (difference == 0)
-                    {
+                    if (difference == 0) {
                         return (t1.compareRunTime(t2.getRunTime()));
                     }
                     return difference;
                 }
             };
+            
             // Create 4 Queues, one for each priority
             PriorityQueue<Task> readyQueueP1 = new PriorityQueue<>(10, c);
             PriorityQueue<Task> readyQueueP2 = new PriorityQueue<>(10, c);
@@ -76,8 +70,7 @@ public class HighestPriorityFirst_nonpreemptive_aging {
 
             // Run the algorithm for all tasks
             while (!taskList.isEmpty() || !readyQueueP1.isEmpty() || !readyQueueP2.isEmpty()
-                    || !readyQueueP3.isEmpty() || !readyQueueP4.isEmpty()) 
-            {
+                    || !readyQueueP3.isEmpty() || !readyQueueP4.isEmpty()) {
                 // Get the correct process to be scheduled based on priority
                 // Tasks in readyQueue's have arrived by this time
                 Task t;
@@ -134,8 +127,7 @@ public class HighestPriorityFirst_nonpreemptive_aging {
 
                 // Add in the correct ArrayList for completed tasks
                 int thisP = t.getPriority();
-                switch (thisP)
-                {
+                switch (thisP) {
                     case 1:
                         scheduledTasks.get(1).add(t);
                         tasksDone[1]++;
@@ -160,13 +152,11 @@ public class HighestPriorityFirst_nonpreemptive_aging {
                 clock = (int)Math.ceil(completionTime);
 
                 // Add processes to the ready queue that have arrived by this time
-                while (taskList.peek() != null && taskList.peek().getArrivalTime() <= clock) 
-                {
+                while (taskList.peek() != null && taskList.peek().getArrivalTime() <= clock) {
                     Task next = taskList.poll();
                     
                     int nextP = next.getPriority();
-                    switch (nextP)
-                    {
+                    switch (nextP) {
                         case 1:
                             readyQueueP1.add(next);
                             break;
@@ -188,8 +178,7 @@ public class HighestPriorityFirst_nonpreemptive_aging {
                 int responseTime = (startTime - t.getArrivalTime());
 
                 // Update totals at end of each run for each priority queue
-                switch (thisP)
-                {
+                switch (thisP) {
                     case 1:
                         totalTurnaroundTime[1] += turnaroundTime;
                         totalWaitTime[1] += waitTime;
@@ -222,12 +211,10 @@ public class HighestPriorityFirst_nonpreemptive_aging {
                 totalResponseTime[0] += responseTime;
                 totalTasksDone[0] = tasksDone[0];
                 
-                if (completionTime >= 99) 
-                {
+                if (completionTime >= 99) {
                     totalTime = completionTime; //time until last process is complete
                 } 
-                else 
-                {
+                else {
                     totalTime = 99;
                 }
             }
@@ -248,12 +235,11 @@ public class HighestPriorityFirst_nonpreemptive_aging {
         }
         
         String[] subname = {"All Processes", "Priority 1", "Priority 2", "Priority 3", "Priority 4"};
-        for (int p = 0; p < 5; p++)
-        {
-        	avgTurnaroundTime = (finalTurnaroundTime[p] / finalTasksDone[p]);
-        	avgWaitTime = (finalWaitTime[p] / finalTasksDone[p]);
-        	avgResponseTime = (finalResponseTime[p] / finalTasksDone[p]);
-        	throughput = (finalTasksDone[p] / finalTime);
+        for (int p = 0; p < 5; p++) {
+        	float avgTurnaroundTime = (finalTurnaroundTime[p] / finalTasksDone[p]);
+        	float avgWaitTime = (finalWaitTime[p] / finalTasksDone[p]);
+        	float avgResponseTime = (finalResponseTime[p] / finalTasksDone[p]);
+        	float throughput = (finalTasksDone[p] / finalTime);
         	Printer.finalBenchmark(name +"-"+ subname[p], avgTurnaroundTime, avgWaitTime, avgResponseTime, throughput);
         }
     }

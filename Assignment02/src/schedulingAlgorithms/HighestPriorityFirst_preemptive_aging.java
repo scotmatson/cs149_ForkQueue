@@ -1,6 +1,8 @@
 package schedulingAlgorithms;
 
 import java.util.*;
+
+import schedulingAlgorithms.util.GanttChart;
 import schedulingAlgorithms.util.Printer;
 
 /**
