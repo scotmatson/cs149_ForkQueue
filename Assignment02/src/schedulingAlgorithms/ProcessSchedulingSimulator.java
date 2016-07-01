@@ -96,7 +96,7 @@ public class ProcessSchedulingSimulator {
                     new HighestPriorityFirst_preemptive(processQueue).runPreemptive();
                     break;
                 case 8:
-                    new HPFP_Aging(processQueue).runHPFP_Aging();
+                    new HighestPriorityFirst_preemptive_aging(processQueue).runHPFP_Aging();
                     break;
                 default: 
                 	option = 9;

@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+import schedulingAlgorithms.util.Printer;
+
 /**
  *    The ShortestJobFirst scheduler algorithm.
  *    Similar to the FirstComeFirstServe algorithm,
@@ -14,13 +16,18 @@ import java.util.Queue;
  *    processes and orders by arrival time. 
  */
 public class ShortestJobFirst {
-	
+	private final String name = "SJF";
 	private ProcessQueue processQueue;
 	private int finalTasksDone;
 	private float finalTime;
 	private float finalTurnaroundTime;
 	private float finalWaitTime;
 	private float finalResponseTime;
+	
+	private float avgTurnaroundTime;
+	private float avgWaitTime;
+	private float avgResponseTime;
+	private float throughput;
 	
 	/**
 	 * Constructor method.
@@ -139,52 +146,13 @@ public class ShortestJobFirst {
 
             // Make a copy of the completed tasks to use in the time chart
             ArrayList<Task> tasksChart = new ArrayList<Task>(scheduledTasks);
-            printCompletedTasks(scheduledTasks, i);
-            printTimeChart(tasksChart, i);
+            Printer.completedTasks(name, scheduledTasks, i);
+            Printer.timeChart(name, tasksChart, i);
         }
-        
-        printFinalBenchmark();
-    }
-    
-	/**
-	 * Prints time chart of completed run
-	 */
-    public void printCompletedTasks(ArrayList<Task> scheduledTasks, int run)
-    {
-        System.out.println("\n#######################################################################################");
-        System.out.println("############ The following processes were completed for SJF run " + run + " #####################");
-        System.out.println("#######################################################################################");
-        while(!scheduledTasks.isEmpty()) {
-            Task t = scheduledTasks.remove(0);
-            System.out.println(t);
-        }	
-    }
-    
-	/**
-	 * Prints out all calculated averages and throughput for
-	 *     a completed FirstComeFirstServe simulation.
-	 */
-    public void printTimeChart(ArrayList<Task> tasksChart, int run)
-    {
-        System.out.println("\n###########################################################");
-        System.out.println("############ SJF Time Chart for run " + run + " #####################");
-        System.out.println("###########################################################");
-        new GanttChart(tasksChart);
-    }
-    
-	/**
-	 * Prints out all calculated averages and throughput for
-	 *     a completed ShortestJobFirst simulation.
-	 */
-    public void printFinalBenchmark()
-    {
-        System.out.println("\n######################################################################################");
-        System.out.println("############ Final calculated averages and calculated throughput for SJF #############");
-        System.out.println("######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime/finalTasksDone);
-        System.out.println("Average Wait Time = " + finalWaitTime/finalTasksDone);
-        System.out.println("Average Response Time = " + finalResponseTime/finalTasksDone);
-        System.out.println("Throughput = " + finalTasksDone/finalTime);
-        System.out.println();
+        avgTurnaroundTime = finalTurnaroundTime/finalTasksDone;
+        avgWaitTime = finalWaitTime/finalTasksDone;
+        avgResponseTime = finalResponseTime/finalTasksDone;
+        throughput = finalTasksDone/finalTime;
+        Printer.finalBenchmark(name, avgTurnaroundTime, avgWaitTime, avgResponseTime, throughput);       
     }
 }
