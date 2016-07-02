@@ -13,3 +13,5 @@
 
 ## Misc
 * [Everything you've ever wanted to know about seating maps](https://tixato.com/guides/seating-charts)
+* [Thread Safety, this comes up a lot. Good to be familiar with this](https://en.wikipedia.org/wiki/Thread_safety)
+* [Type Safety, also important to understand](https://en.wikipedia.org/wiki/Type_safety)
