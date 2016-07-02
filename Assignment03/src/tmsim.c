@@ -1,41 +1,53 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-// Solves CS149 Homework#3
-// @author Tyler Jones, Scot Matson, ______....
+/*
+ *  Solves CS149 Assignment #3 
+ *
+ *  Authors: 
+ *      Tyler Jones, 
+ *      Scot Matson
+ */
 
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 // seller thread to serve one time slice (1 minute)
-void * sell(char *seller_type)
+void * sell(char * seller_type)
 {
-    While (having more work todo)
-    {
+    while (true) { // Having more work to do...
         pthread_mutex_lock(&mutex);
         pthread_cond_wait(&cond, &mutex);
         pthread_mutex_unlock(&mutex);
 
         // Serve any buyer available in this seller queue that is ready
         // now to buy ticket till done with all relevant buyers in their queue
-        ..................
+        //..................
     }
 
     return NULL; // thread exits
 }
 
-void wakeup_all_seller_threads()
-{
+void wakeup_all_seller_threads() {
     pthread_mutex_lock(&mutex);
     pthread_cond_broadcast(&cond);
     pthread_mutex_unlock(&mutex);
 }
 
-int main(int argc, char * argv[])
-{
+int main(int argc, char * argv[]) {
+
+    // Type check user input and store N if it is a digit
+    int n;
     if (argc != 2) {
-        
+       printf("Something something error.... @$%$#%@#"); 
+       exit(EXIT_FAILURE);
+    }
+    else {
+        if (isdigit(*argv[1])) {
+            n = argv[1];
+        }
     }
 
     int i;
@@ -66,5 +78,5 @@ int main(int argc, char * argv[])
         Pthread_join(&tids[i], NULL);
 
     // Printout simulation results
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
