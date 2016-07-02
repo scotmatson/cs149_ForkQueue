@@ -16,7 +16,7 @@ pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 // seller thread to serve one time slice (1 minute)
-void * sell(char * seller_type)
+void * sell(void * seller_type)
 {
     while (true) { // Having more work to do...
         pthread_mutex_lock(&mutex);
@@ -76,7 +76,7 @@ int main(int argc, char * argv[]) {
 
     // wait for all seller threads to exit
     for (i = 0 ; i < 10 ; i++)
-        Pthread_join(&tids[i], NULL);
+        pthread_join(tids[i], NULL); // This returns 0 on success... probably should catch for error handling
 
     // Printout simulation results
     exit(EXIT_SUCCESS);
