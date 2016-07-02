@@ -1,7 +1,8 @@
 #C Language
 
-## Learn C
+## Tutorials
 * [Learn C the Hard Way](http://c.learncodethehardway.org/book/index.html)
+* [POSIX Thread Programming](https://computing.llnl.gov/tutorials/pthreads/)
 
 ## Docs
 * [pthread_join](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_join.html)
