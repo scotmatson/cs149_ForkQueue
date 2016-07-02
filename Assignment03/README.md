@@ -8,4 +8,4 @@
 
 ## Compilers
 * [gcc](https://gcc.gnu.org/) - Pretty standard
-* [clang](http://clang.llvm.org/) - based on gcc, waaayyyyy more user friendly, and faster
+* [clang](http://clang.llvm.org/) - gcc compatible, waaayyyyy more user friendly, and faster
