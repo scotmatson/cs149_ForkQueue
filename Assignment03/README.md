@@ -7,5 +7,5 @@
 * [pthread_join](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_join.html)
 
 ## Compilers
-* gcc - Pretty standard
-* clang - based on gcc, waaayyyyy more user friendly
+* [gcc](https://gcc.gnu.org/) - Pretty standard
+* [clang](http://clang.llvm.org/) - based on gcc, waaayyyyy more user friendly, and faster
