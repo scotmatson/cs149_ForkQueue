@@ -11,10 +11,18 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+/* Business Logic */
 static const int NUMBER_OF_SELLERS = 10;
+static const int HIGH_PRICE_SELLERS = 1;
+static const int MEDIUM_PRICE_SELLERS = 3;
+static const int LOW_PRICE_SELLERS = 6;
+
+/* Map Visualization */
 static const int NUMBER_OF_ROWS = 10;
 static const int SEATS_PER_ROW = 10;
 static char * const EMPTY_SEAT = "--";
+
+/* Utility */
 static const char NEWLINE = '\n';
 
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
@@ -23,8 +31,7 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 /*
  * seller thread to serve one time slice (1 minute)
  */
-void * sell(void * sellertype)
-{
+void * sell(void * sellertype) {
     char  st;
     st = *((char*) sellertype);
 
@@ -90,9 +97,11 @@ int main(int argc, char * argv[]) {
     // Create 10 threads representing the 10 sellers.
     char sellertype;
     sellertype = 'H';
-    rc = pthread_create(&tids[i], NULL, sell, &sellertype);
-    if (rc) {
-        printf("ERROR; return code from pthread_join is %d\n", rc);
+    for (i = 0; i < 1; i++) {
+        rc = pthread_create(&tids[i], NULL, sell, &sellertype);
+        if (rc) {
+            printf("ERROR; return code from pthread_join is %d\n", rc);
+        }
     }
    
     sellertype = 'M';
