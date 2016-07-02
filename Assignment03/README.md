@@ -10,3 +10,6 @@
 ## Compilers
 * [gcc](https://gcc.gnu.org/) - Pretty standard
 * [clang](http://clang.llvm.org/) - gcc compatible, waaayyyyy more user friendly, and faster
+
+## Misc
+* [Everything you've ever wanted to know about seating maps](https://tixato.com/guides/seating-charts)
