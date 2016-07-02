@@ -10,6 +10,21 @@
 #include <stdlib.h>     
 #include <stdbool.h>
 #include <ctype.h>
+//#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
+
+struct ticket {
+    int ticket_type;
+    int seat_number;
+    char sold_by;
+    bool availability;
+};
+
+struct customer {
+    char priority;
+    char name;
+    char thread;
+}
+
 
 /* Business Logic */
 static const int NUMBER_OF_SELLERS = 10;
@@ -64,6 +79,12 @@ void wakeup_all_seller_threads() {
  * The main method
  */
 int main(int argc, char * argv[]) {
+    
+    struct ticket ticket1;
+
+    ticket1.seat_number = 5;
+
+    printf("%d\n", ticket1.seat_number);
 
     // I/O Handling
     int n; 
@@ -91,7 +112,9 @@ int main(int argc, char * argv[]) {
             seatmap[i][j] = EMPTY_SEAT;
         }
     }
-    
+   
+    char *testchar = "5";
+    seatmap[5][5] = testchar;;
     // Create buyers list for each seller ticket queue based on the
     // N value within an hour and have them in the seller queue.
    
