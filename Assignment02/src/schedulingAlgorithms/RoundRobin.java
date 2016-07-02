@@ -1,8 +1,13 @@
 package schedulingAlgorithms;
 
-//import com.apple.concurrent.Dispatch;
-//import HPFP_Queue;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+
+import schedulingAlgorithms.util.Printer;
 
 /**
  * RoundRobin
@@ -11,24 +16,28 @@ import java.util.*;
  * @author lord_tyler
  *
  */
-public class HighestPriorityFirst_preemptive
-{
+public class RoundRobin
+{   
+	private final String name = "RR";
     private ProcessQueue processQueue;
     private int finalTasksDone;
     private float finalTime;
     private float finalTurnaroundTime;
     private float finalWaitTime;
     private float finalResponseTime;
-    private float priorityTotalTasks;
-
-
+    
+	private float avgTurnaroundTime;
+	private float avgWaitTime;
+	private float avgResponseTime;
+	private float throughput;
+    
     /**
      * Constructor method.
-     *
+     * 
      * @param processQueue (ProcessQueue) : A specialized Queue used for
      *     generating and sorting organized simulated processes.
      */
-    public HighestPriorityFirst_preemptive(ProcessQueue processQueue)
+    public RoundRobin(ProcessQueue processQueue) 
     {   
         this.processQueue = processQueue;
         this.finalTasksDone = 0;
@@ -44,10 +53,6 @@ public class HighestPriorityFirst_preemptive
      */
     public void runPreemptive()
     {
-        Integer priority1Tasks = 0;
-        Integer priority2Tasks = 0;
-        Integer priority3Tasks = 0;
-        Integer priority4Tasks = 0;
         for (int i = 1; i <= 5; i++) 
         {
             // Variables needed for tracking progress of each run
@@ -59,11 +64,9 @@ public class HighestPriorityFirst_preemptive
             float totalTurnaroundTime = 0.0f;
             float totalWaitTime = 0.0f;
             float totalResponseTime = 0.0f;
-            int priorityQueueCount = 4;
-
             ArrayList<Task> scheduledTasks = new ArrayList<>();
             ArrayList<Task> completedTasks = new ArrayList<>();
-            HPFP_Queue readyQueue = new HPFP_Queue(priorityQueueCount);
+            Queue<Task> readyQueue = new LinkedList<>();
             Map<String, Float> remainingRunTimes = new HashMap<>();
             
             // For each of 5 runs create a new process queue
@@ -72,15 +75,13 @@ public class HighestPriorityFirst_preemptive
             processQueue.sortByArrivalTime(tasks);
             // Place task list into a queue for processing with RR
             Queue<Task> taskList = new LinkedList<Task>(Arrays.asList(tasks));
-
-
-            while(!taskList.isEmpty() || !readyQueue.isEmpty(readyQueue))
+            
+            while(!taskList.isEmpty() || !readyQueue.isEmpty())
             {
                 //Add processes that have arrived to the ready queue
                 while(!taskList.isEmpty() && taskList.peek().getArrivalTime() <= clock)
                 {
-                    Task t = taskList.poll();
-                    readyQueue.addTask(readyQueue, t);
+                    readyQueue.add(taskList.poll());
                 }
                 //Variables for statistics for this round only
                 // changed sliceStartTime to startTime
@@ -91,10 +92,9 @@ public class HighestPriorityFirst_preemptive
 
                 Task t;
 
-                if(!readyQueue.isEmpty(readyQueue))
+                if(!readyQueue.isEmpty())
                 {
-                    t = readyQueue.poll(readyQueue);
-                    // t = readyQueuePoll();
+                    t = readyQueue.poll();
                     if (t.getStartTime() == 0)
                     {
                         t.setStartTime(Math.max((int) Math.ceil(t.getArrivalTime()), clock));
@@ -115,21 +115,6 @@ public class HighestPriorityFirst_preemptive
                             t.setCompletionTime(completionTime);
                             tasksDone++;
                             completedTasks.add(t);
-                            priorityTotalTasks += 1;
-                            if (t.getPriority() == 4)
-                            {
-                                priority4Tasks += 1;
-                            }
-                            else if (t.getPriority() == 3) {
-                                priority3Tasks += 1;
-                            }
-                            else if (t.getPriority() == 2) {
-                                priority2Tasks += 1;
-                            }
-                            else
-                            {
-                                priority1Tasks += 1;
-                            }
                             turnaroundTime = completionTime - t.getArrivalTime();
                             //Add wait time for all processes that have started but did not run in this slice
                             waitTime = remainingRunTimes.size() * t.getRunTime();
@@ -142,7 +127,7 @@ public class HighestPriorityFirst_preemptive
                             //Add this process to remainingRunTimes and update remaining time
                             remainingRunTimes.put(t.getName(), remainingTime);
                             //Put back into queue at end of line
-                            readyQueue.addTask(readyQueue, t);
+                            readyQueue.add(t);
                         }
 
                     }
@@ -157,21 +142,6 @@ public class HighestPriorityFirst_preemptive
                             t.setCompletionTime(completionTime);
                             tasksDone++;
                             completedTasks.add(t);
-                            priorityTotalTasks += 1;
-                            if (t.getPriority() == 4)
-                            {
-                                priority4Tasks += 1;
-                            }
-                            else if (t.getPriority() == 3) {
-                                priority3Tasks += 1;
-                            }
-                            else if (t.getPriority() == 2) {
-                                priority2Tasks += 1;
-                            }
-                            else
-                            {
-                                priority1Tasks += 1;
-                            }
                             turnaroundTime = completionTime - t.getArrivalTime();
                             remainingRunTimes.remove(t.getName());
                             //Add wait time for all processes that have started but did not run in this slice
@@ -185,7 +155,7 @@ public class HighestPriorityFirst_preemptive
                             //Update remaining time
                             remainingRunTimes.put(t.getName(), remainingTime);
                             //Put back into queue at end of line
-                            readyQueue.addTask(readyQueue, t);
+                            readyQueue.add(t);
                         }
                     }
                 }
@@ -231,64 +201,14 @@ public class HighestPriorityFirst_preemptive
             finalResponseTime += totalResponseTime;
             finalTime += totalTime;
             finalTasksDone += totalTasksDone;
-
-            printCompletedTasks(completedTasks, i);
-            printTimeChart(scheduledTasks, i);
+            
+            Printer.completedTasks(name, completedTasks, i);
+            Printer.timeChart(name, scheduledTasks, i);
         }
-        printFinalBenchmark();
-        System.out.println("priorityTotalTasks: " + priorityTotalTasks + "\t" + priority1Tasks);
-        printPriorityStats(priority1Tasks, priority2Tasks, priority3Tasks, priority4Tasks, priorityTotalTasks);
-    }
-
-    public void printPriorityStats(Integer p1, Integer p2, Integer p3, Integer p4, float totalTasks) {
-        float s1 = p1 / totalTasks;
-        float s2 = p2 / totalTasks;
-        float s3 = p3 / totalTasks;
-        float s4 = p4 / totalTasks;
-
-        System.out.println("Priority Stats:\n"
-                + "\t\tP1:  " + s1
-                + "\n\t\tP2:  " + s2
-                + "\n\t\tP3:  " + s3
-                + "\n\t\tP4:  " + s4);
-    }
-    /**
-     * Prints out the stats for all completed tasks
-     */
-    public void printCompletedTasks(ArrayList<Task> scheduledTasks, int run)
-    {
-        System.out.println("\n########################################################################################");
-        System.out.println("############ The following processes were completed for RR run " + run + " #####################");
-        System.out.println("########################################################################################");
-        while(!scheduledTasks.isEmpty()) 
-        {
-            Task t = scheduledTasks.remove(0);
-            System.out.println(t);
-        }
-    }
-    
-
-    public void printTimeChart(ArrayList<Task> tasksChart, int run)
-    {
-        System.out.println("\n############################################################");
-        System.out.println("############ HPF Preemptive Time Chart for run " + run + " #####################");
-        System.out.println("############################################################");
-        new GanttChart(tasksChart);
-    }
-    
-    /**
-     * Prints out all calculated averages and throughput for
-     *     a completed FirstComeFirstServe simulation.
-     */
-    public void printFinalBenchmark()
-    {
-        System.out.println("\n#######################################################################################");
-        System.out.println("############ Final calculated averages and calculated throughput for HPF Preemptive #############");
-        System.out.println("#######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime/finalTasksDone);
-        System.out.println("Average Wait Time = " + finalWaitTime/finalTasksDone);
-        System.out.println("Average Response Time = " + finalResponseTime/finalTasksDone);
-        System.out.println("Throughput = " + finalTasksDone/finalTime);
-        System.out.println();
+        avgTurnaroundTime = finalTurnaroundTime/finalTasksDone;
+        avgWaitTime = finalWaitTime/finalTasksDone;
+        avgResponseTime = finalResponseTime/finalTasksDone;
+        throughput = finalTasksDone/finalTime;
+        Printer.finalBenchmark(name, avgTurnaroundTime, avgWaitTime, avgResponseTime, throughput); 
     }
 }

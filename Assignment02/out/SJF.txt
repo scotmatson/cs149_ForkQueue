@@ -1,0 +1,981 @@
+Please choose the number of the process scheduling algorithm you would like to run:
+(1) First Come First Served
+(2) Shortest Job First
+(3) Shortest Remaining Time
+(4) Round Robin
+(5) Highest Priority First (non-preemptive)
+(6) Highest Priority First with Ageing (non-preemptive)
+(7) Highest Priority First (Preemptive)
+(8) Highest Priority First with Aging (Preemptive)
+(9) Exit
+2
+
+#######################################################################################
+############ The following processes were completed for SJF run 1 #####################
+#######################################################################################
+Process: p15
+	Arrival Time = 0
+	Expected Run Time = 7.190202
+	Priority = 1
+	Start Time = 0
+	Completion Time = 7.190202
+Process: p30
+	Arrival Time = 8
+	Expected Run Time = 1.1368304
+	Priority = 3
+	Start Time = 8
+	Completion Time = 9.13683
+Process: p47
+	Arrival Time = 2
+	Expected Run Time = 2.0634491
+	Priority = 3
+	Start Time = 10
+	Completion Time = 12.063449
+Process: p51
+	Arrival Time = 2
+	Expected Run Time = 3.154975
+	Priority = 2
+	Start Time = 13
+	Completion Time = 16.154976
+Process: p31
+	Arrival Time = 16
+	Expected Run Time = 2.4946194
+	Priority = 1
+	Start Time = 17
+	Completion Time = 19.49462
+Process: p18
+	Arrival Time = 15
+	Expected Run Time = 3.1302087
+	Priority = 1
+	Start Time = 20
+	Completion Time = 23.130209
+Process: p38
+	Arrival Time = 23
+	Expected Run Time = 2.7389588
+	Priority = 1
+	Start Time = 24
+	Completion Time = 26.738958
+Process: p03
+	Arrival Time = 17
+	Expected Run Time = 3.159578
+	Priority = 3
+	Start Time = 27
+	Completion Time = 30.159578
+Process: p12
+	Arrival Time = 0
+	Expected Run Time = 3.70501
+	Priority = 2
+	Start Time = 31
+	Completion Time = 34.70501
+Process: p69
+	Arrival Time = 5
+	Expected Run Time = 3.8242939
+	Priority = 3
+	Start Time = 35
+	Completion Time = 38.824295
+Process: p72
+	Arrival Time = 36
+	Expected Run Time = 2.5463738
+	Priority = 4
+	Start Time = 39
+	Completion Time = 41.546375
+Process: p56
+	Arrival Time = 40
+	Expected Run Time = 1.7908512
+	Priority = 4
+	Start Time = 42
+	Completion Time = 43.79085
+Process: p85
+	Arrival Time = 5
+	Expected Run Time = 4.0410433
+	Priority = 2
+	Start Time = 44
+	Completion Time = 48.041042
+Process: p08
+	Arrival Time = 0
+	Expected Run Time = 4.0422983
+	Priority = 4
+	Start Time = 49
+	Completion Time = 53.042297
+Process: p95
+	Arrival Time = 21
+	Expected Run Time = 4.045004
+	Priority = 3
+	Start Time = 54
+	Completion Time = 58.045006
+Process: p93
+	Arrival Time = 56
+	Expected Run Time = 3.0358949
+	Priority = 2
+	Start Time = 59
+	Completion Time = 62.035896
+Process: p82
+	Arrival Time = 59
+	Expected Run Time = 3.547224
+	Priority = 1
+	Start Time = 63
+	Completion Time = 66.547226
+Process: p84
+	Arrival Time = 66
+	Expected Run Time = 1.7886097
+	Priority = 1
+	Start Time = 67
+	Completion Time = 68.78861
+Process: p76
+	Arrival Time = 67
+	Expected Run Time = 2.4242532
+	Priority = 3
+	Start Time = 69
+	Completion Time = 71.424255
+Process: p68
+	Arrival Time = 20
+	Expected Run Time = 4.131068
+	Priority = 1
+	Start Time = 72
+	Completion Time = 76.131065
+Process: p29
+	Arrival Time = 77
+	Expected Run Time = 1.2657895
+	Priority = 1
+	Start Time = 77
+	Completion Time = 78.26579
+Process: p11
+	Arrival Time = 77
+	Expected Run Time = 1.8522536
+	Priority = 1
+	Start Time = 79
+	Completion Time = 80.85226
+Process: p05
+	Arrival Time = 76
+	Expected Run Time = 1.9139628
+	Priority = 1
+	Start Time = 81
+	Completion Time = 82.91396
+Process: p41
+	Arrival Time = 83
+	Expected Run Time = 2.910566
+	Priority = 2
+	Start Time = 83
+	Completion Time = 85.91057
+Process: p67
+	Arrival Time = 86
+	Expected Run Time = 4.264864
+	Priority = 3
+	Start Time = 86
+	Completion Time = 90.26486
+Process: p35
+	Arrival Time = 88
+	Expected Run Time = 2.360055
+	Priority = 2
+	Start Time = 91
+	Completion Time = 93.360054
+Process: p19
+	Arrival Time = 92
+	Expected Run Time = 2.8456557
+	Priority = 2
+	Start Time = 94
+	Completion Time = 96.84566
+Process: p20
+	Arrival Time = 88
+	Expected Run Time = 2.9498398
+	Priority = 3
+	Start Time = 97
+	Completion Time = 99.94984
+
+###########################################################
+############ SJF Time Chart for run 1 #####################
+###########################################################
+0p15p15p15p15p15p15p15p15p30p30p47p47p47p51p51p51p51p31p31p31p18p18p18p18p38p38p38p03p03p03p03p12p12p12p12p69p69p69p69p72p72p72p56p56p85p85p85p85p85p08p08p08p08p08p95p95p95p95p95p93p93p93p93p82p82p82p82p84p84p76p76p76p68p68p68p68p68p29p29p11p11p05p05p41p41p41p67p67p67p67p67p35p35p35p19p19p19p20p20p20
+
+#######################################################################################
+############ The following processes were completed for SJF run 2 #####################
+#######################################################################################
+Process: p71
+	Arrival Time = 0
+	Expected Run Time = 1.7789395
+	Priority = 3
+	Start Time = 0
+	Completion Time = 1.7789395
+Process: p50
+	Arrival Time = 1
+	Expected Run Time = 2.8508208
+	Priority = 4
+	Start Time = 2
+	Completion Time = 4.8508205
+Process: p23
+	Arrival Time = 3
+	Expected Run Time = 4.260562
+	Priority = 3
+	Start Time = 5
+	Completion Time = 9.260562
+Process: p00
+	Arrival Time = 8
+	Expected Run Time = 1.2933764
+	Priority = 1
+	Start Time = 10
+	Completion Time = 11.293377
+Process: p08
+	Arrival Time = 7
+	Expected Run Time = 1.6740527
+	Priority = 2
+	Start Time = 12
+	Completion Time = 13.674053
+Process: p60
+	Arrival Time = 8
+	Expected Run Time = 1.84811
+	Priority = 3
+	Start Time = 14
+	Completion Time = 15.84811
+Process: p32
+	Arrival Time = 7
+	Expected Run Time = 2.2437134
+	Priority = 4
+	Start Time = 16
+	Completion Time = 18.243713
+Process: p95
+	Arrival Time = 14
+	Expected Run Time = 3.0277364
+	Priority = 2
+	Start Time = 19
+	Completion Time = 22.027737
+Process: p55
+	Arrival Time = 22
+	Expected Run Time = 1.0644281
+	Priority = 1
+	Start Time = 23
+	Completion Time = 24.064428
+Process: p25
+	Arrival Time = 9
+	Expected Run Time = 3.4186862
+	Priority = 2
+	Start Time = 25
+	Completion Time = 28.418686
+Process: p30
+	Arrival Time = 0
+	Expected Run Time = 4.2981896
+	Priority = 3
+	Start Time = 29
+	Completion Time = 33.29819
+Process: p20
+	Arrival Time = 31
+	Expected Run Time = 3.3336976
+	Priority = 3
+	Start Time = 34
+	Completion Time = 37.3337
+Process: p81
+	Arrival Time = 33
+	Expected Run Time = 3.8786426
+	Priority = 1
+	Start Time = 38
+	Completion Time = 41.878643
+Process: p93
+	Arrival Time = 31
+	Expected Run Time = 4.3407555
+	Priority = 3
+	Start Time = 42
+	Completion Time = 46.340755
+Process: p38
+	Arrival Time = 45
+	Expected Run Time = 1.571613
+	Priority = 4
+	Start Time = 47
+	Completion Time = 48.571613
+Process: p99
+	Arrival Time = 43
+	Expected Run Time = 3.0822592
+	Priority = 1
+	Start Time = 49
+	Completion Time = 52.08226
+Process: p74
+	Arrival Time = 52
+	Expected Run Time = 1.6596987
+	Priority = 2
+	Start Time = 53
+	Completion Time = 54.6597
+Process: p59
+	Arrival Time = 51
+	Expected Run Time = 1.9267961
+	Priority = 4
+	Start Time = 55
+	Completion Time = 56.926796
+Process: p06
+	Arrival Time = 56
+	Expected Run Time = 3.3775191
+	Priority = 2
+	Start Time = 57
+	Completion Time = 60.377518
+Process: p14
+	Arrival Time = 58
+	Expected Run Time = 1.7285208
+	Priority = 1
+	Start Time = 61
+	Completion Time = 62.72852
+Process: p65
+	Arrival Time = 63
+	Expected Run Time = 1.4754953
+	Priority = 2
+	Start Time = 63
+	Completion Time = 64.475494
+Process: p73
+	Arrival Time = 49
+	Expected Run Time = 3.964629
+	Priority = 2
+	Start Time = 65
+	Completion Time = 68.96463
+Process: p04
+	Arrival Time = 67
+	Expected Run Time = 1.2473445
+	Priority = 3
+	Start Time = 69
+	Completion Time = 70.247345
+Process: p61
+	Arrival Time = 66
+	Expected Run Time = 1.2536745
+	Priority = 4
+	Start Time = 71
+	Completion Time = 72.25368
+Process: p80
+	Arrival Time = 68
+	Expected Run Time = 2.7322915
+	Priority = 1
+	Start Time = 73
+	Completion Time = 75.73229
+Process: p79
+	Arrival Time = 75
+	Expected Run Time = 2.338541
+	Priority = 2
+	Start Time = 76
+	Completion Time = 78.33854
+Process: p37
+	Arrival Time = 75
+	Expected Run Time = 2.6266687
+	Priority = 3
+	Start Time = 79
+	Completion Time = 81.62667
+Process: p53
+	Arrival Time = 66
+	Expected Run Time = 3.1840768
+	Priority = 4
+	Start Time = 82
+	Completion Time = 85.184074
+Process: p39
+	Arrival Time = 86
+	Expected Run Time = 3.0422745
+	Priority = 2
+	Start Time = 86
+	Completion Time = 89.042274
+Process: p75
+	Arrival Time = 58
+	Expected Run Time = 4.350773
+	Priority = 1
+	Start Time = 90
+	Completion Time = 94.35077
+Process: p86
+	Arrival Time = 91
+	Expected Run Time = 1.1809708
+	Priority = 1
+	Start Time = 95
+	Completion Time = 96.18097
+Process: p17
+	Arrival Time = 94
+	Expected Run Time = 2.847711
+	Priority = 3
+	Start Time = 97
+	Completion Time = 99.84771
+
+###########################################################
+############ SJF Time Chart for run 2 #####################
+###########################################################
+0p71p71p50p50p50p23p23p23p23p23p00p00p08p08p60p60p32p32p32p95p95p95p95p55p55p25p25p25p25p30p30p30p30p30p20p20p20p20p81p81p81p81p93p93p93p93p93p38p38p99p99p99p99p74p74p59p59p06p06p06p06p14p14p65p65p73p73p73p73p04p04p61p61p80p80p80p79p79p79p37p37p37p53p53p53p53p39p39p39p39p75p75p75p75p75p86p86p17p17p17
+
+#######################################################################################
+############ The following processes were completed for SJF run 3 #####################
+#######################################################################################
+Process: p58
+	Arrival Time = 2
+	Expected Run Time = 5.445534
+	Priority = 3
+	Start Time = 2
+	Completion Time = 7.445534
+Process: p14
+	Arrival Time = 7
+	Expected Run Time = 1.1373241
+	Priority = 1
+	Start Time = 8
+	Completion Time = 9.137324
+Process: p19
+	Arrival Time = 3
+	Expected Run Time = 1.3672603
+	Priority = 2
+	Start Time = 10
+	Completion Time = 11.36726
+Process: p70
+	Arrival Time = 3
+	Expected Run Time = 2.4014578
+	Priority = 2
+	Start Time = 12
+	Completion Time = 14.401458
+Process: p81
+	Arrival Time = 10
+	Expected Run Time = 2.4098768
+	Priority = 2
+	Start Time = 15
+	Completion Time = 17.409878
+Process: p69
+	Arrival Time = 11
+	Expected Run Time = 3.0303779
+	Priority = 4
+	Start Time = 18
+	Completion Time = 21.030378
+Process: p68
+	Arrival Time = 21
+	Expected Run Time = 1.9149814
+	Priority = 4
+	Start Time = 22
+	Completion Time = 23.914982
+Process: p08
+	Arrival Time = 22
+	Expected Run Time = 3.4634678
+	Priority = 4
+	Start Time = 24
+	Completion Time = 27.463469
+Process: p74
+	Arrival Time = 11
+	Expected Run Time = 3.958147
+	Priority = 1
+	Start Time = 28
+	Completion Time = 31.958147
+Process: p77
+	Arrival Time = 11
+	Expected Run Time = 4.406845
+	Priority = 4
+	Start Time = 32
+	Completion Time = 36.406845
+Process: p00
+	Arrival Time = 34
+	Expected Run Time = 1.5624087
+	Priority = 4
+	Start Time = 37
+	Completion Time = 38.56241
+Process: p36
+	Arrival Time = 39
+	Expected Run Time = 2.3066707
+	Priority = 1
+	Start Time = 39
+	Completion Time = 41.30667
+Process: p48
+	Arrival Time = 40
+	Expected Run Time = 1.3567274
+	Priority = 4
+	Start Time = 42
+	Completion Time = 43.356728
+Process: p53
+	Arrival Time = 40
+	Expected Run Time = 2.4620523
+	Priority = 1
+	Start Time = 44
+	Completion Time = 46.46205
+Process: p18
+	Arrival Time = 46
+	Expected Run Time = 1.2487993
+	Priority = 2
+	Start Time = 47
+	Completion Time = 48.2488
+Process: p94
+	Arrival Time = 46
+	Expected Run Time = 2.0600326
+	Priority = 1
+	Start Time = 49
+	Completion Time = 51.06003
+Process: p60
+	Arrival Time = 51
+	Expected Run Time = 4.0976357
+	Priority = 3
+	Start Time = 52
+	Completion Time = 56.097637
+Process: p10
+	Arrival Time = 57
+	Expected Run Time = 3.9262505
+	Priority = 3
+	Start Time = 57
+	Completion Time = 60.92625
+Process: p09
+	Arrival Time = 61
+	Expected Run Time = 4.405882
+	Priority = 1
+	Start Time = 61
+	Completion Time = 65.40588
+Process: p40
+	Arrival Time = 62
+	Expected Run Time = 2.8306243
+	Priority = 1
+	Start Time = 66
+	Completion Time = 68.83063
+Process: p95
+	Arrival Time = 67
+	Expected Run Time = 1.0334923
+	Priority = 1
+	Start Time = 69
+	Completion Time = 70.03349
+Process: p47
+	Arrival Time = 70
+	Expected Run Time = 2.2337623
+	Priority = 2
+	Start Time = 71
+	Completion Time = 73.233765
+Process: p45
+	Arrival Time = 65
+	Expected Run Time = 3.1155195
+	Priority = 1
+	Start Time = 74
+	Completion Time = 77.11552
+Process: p39
+	Arrival Time = 75
+	Expected Run Time = 1.8406572
+	Priority = 2
+	Start Time = 78
+	Completion Time = 79.84066
+Process: p03
+	Arrival Time = 77
+	Expected Run Time = 2.0664935
+	Priority = 2
+	Start Time = 80
+	Completion Time = 82.06649
+Process: p65
+	Arrival Time = 81
+	Expected Run Time = 3.576234
+	Priority = 2
+	Start Time = 83
+	Completion Time = 86.57623
+Process: p66
+	Arrival Time = 87
+	Expected Run Time = 1.0610456
+	Priority = 4
+	Start Time = 87
+	Completion Time = 88.06104
+Process: p27
+	Arrival Time = 73
+	Expected Run Time = 4.0397615
+	Priority = 2
+	Start Time = 89
+	Completion Time = 93.039764
+Process: p22
+	Arrival Time = 92
+	Expected Run Time = 1.2939867
+	Priority = 4
+	Start Time = 94
+	Completion Time = 95.29398
+Process: p26
+	Arrival Time = 93
+	Expected Run Time = 2.2453103
+	Priority = 1
+	Start Time = 96
+	Completion Time = 98.24531
+Process: p64
+	Arrival Time = 95
+	Expected Run Time = 2.9505856
+	Priority = 4
+	Start Time = 99
+	Completion Time = 101.950584
+
+###########################################################
+############ SJF Time Chart for run 3 #####################
+###########################################################
+0______p58p58p58p58p58p58p14p14p19p19p70p70p70p81p81p81p69p69p69p69p68p68p08p08p08p08p74p74p74p74p77p77p77p77p77p00p00p36p36p36p48p48p53p53p53p18p18p94p94p94p60p60p60p60p60p10p10p10p10p09p09p09p09p09p40p40p40p95p95p47p47p47p45p45p45p45p39p39p03p03p03p65p65p65p65p66p66p27p27p27p27p27p22p22p26p26p26p64p64p64
+
+#######################################################################################
+############ The following processes were completed for SJF run 4 #####################
+#######################################################################################
+Process: p96
+	Arrival Time = 1
+	Expected Run Time = 3.945401
+	Priority = 1
+	Start Time = 1
+	Completion Time = 4.945401
+Process: p52
+	Arrival Time = 4
+	Expected Run Time = 3.383381
+	Priority = 3
+	Start Time = 5
+	Completion Time = 8.383381
+Process: p64
+	Arrival Time = 9
+	Expected Run Time = 4.264097
+	Priority = 4
+	Start Time = 9
+	Completion Time = 13.264097
+Process: p87
+	Arrival Time = 9
+	Expected Run Time = 4.6338377
+	Priority = 1
+	Start Time = 14
+	Completion Time = 18.633839
+Process: p71
+	Arrival Time = 16
+	Expected Run Time = 3.5084836
+	Priority = 2
+	Start Time = 19
+	Completion Time = 22.508484
+Process: p48
+	Arrival Time = 9
+	Expected Run Time = 5.1749315
+	Priority = 2
+	Start Time = 23
+	Completion Time = 28.17493
+Process: p89
+	Arrival Time = 27
+	Expected Run Time = 1.9135041
+	Priority = 2
+	Start Time = 29
+	Completion Time = 30.913504
+Process: p98
+	Arrival Time = 27
+	Expected Run Time = 2.579506
+	Priority = 3
+	Start Time = 31
+	Completion Time = 33.579506
+Process: p95
+	Arrival Time = 27
+	Expected Run Time = 3.062272
+	Priority = 1
+	Start Time = 34
+	Completion Time = 37.06227
+Process: p45
+	Arrival Time = 32
+	Expected Run Time = 3.100188
+	Priority = 4
+	Start Time = 38
+	Completion Time = 41.10019
+Process: p06
+	Arrival Time = 39
+	Expected Run Time = 4.360486
+	Priority = 2
+	Start Time = 42
+	Completion Time = 46.360485
+Process: p20
+	Arrival Time = 45
+	Expected Run Time = 2.565982
+	Priority = 2
+	Start Time = 47
+	Completion Time = 49.565983
+Process: p58
+	Arrival Time = 49
+	Expected Run Time = 1.0795145
+	Priority = 1
+	Start Time = 50
+	Completion Time = 51.079514
+Process: p88
+	Arrival Time = 51
+	Expected Run Time = 2.949089
+	Priority = 4
+	Start Time = 52
+	Completion Time = 54.94909
+Process: p03
+	Arrival Time = 52
+	Expected Run Time = 3.7992048
+	Priority = 2
+	Start Time = 55
+	Completion Time = 58.799206
+Process: p63
+	Arrival Time = 57
+	Expected Run Time = 1.1495773
+	Priority = 4
+	Start Time = 59
+	Completion Time = 60.14958
+Process: p85
+	Arrival Time = 59
+	Expected Run Time = 2.0421512
+	Priority = 1
+	Start Time = 61
+	Completion Time = 63.042152
+Process: p54
+	Arrival Time = 59
+	Expected Run Time = 2.4493365
+	Priority = 2
+	Start Time = 64
+	Completion Time = 66.44933
+Process: p65
+	Arrival Time = 67
+	Expected Run Time = 2.079928
+	Priority = 4
+	Start Time = 67
+	Completion Time = 69.079926
+Process: p01
+	Arrival Time = 67
+	Expected Run Time = 2.21779
+	Priority = 2
+	Start Time = 70
+	Completion Time = 72.21779
+Process: p07
+	Arrival Time = 69
+	Expected Run Time = 3.129364
+	Priority = 3
+	Start Time = 73
+	Completion Time = 76.129364
+Process: p40
+	Arrival Time = 77
+	Expected Run Time = 2.3901286
+	Priority = 2
+	Start Time = 77
+	Completion Time = 79.39013
+Process: p93
+	Arrival Time = 80
+	Expected Run Time = 2.731034
+	Priority = 1
+	Start Time = 80
+	Completion Time = 82.73103
+Process: p43
+	Arrival Time = 83
+	Expected Run Time = 1.7139683
+	Priority = 2
+	Start Time = 83
+	Completion Time = 84.71397
+Process: p22
+	Arrival Time = 82
+	Expected Run Time = 2.8410718
+	Priority = 3
+	Start Time = 85
+	Completion Time = 87.84107
+Process: p91
+	Arrival Time = 86
+	Expected Run Time = 2.8594296
+	Priority = 1
+	Start Time = 88
+	Completion Time = 90.85943
+Process: p84
+	Arrival Time = 64
+	Expected Run Time = 3.3627489
+	Priority = 1
+	Start Time = 91
+	Completion Time = 94.36275
+Process: p51
+	Arrival Time = 95
+	Expected Run Time = 2.972023
+	Priority = 3
+	Start Time = 95
+	Completion Time = 97.97202
+Process: p50
+	Arrival Time = 90
+	Expected Run Time = 3.4339437
+	Priority = 4
+	Start Time = 98
+	Completion Time = 101.433945
+
+###########################################################
+############ SJF Time Chart for run 4 #####################
+###########################################################
+0___p96p96p96p96p52p52p52p52p64p64p64p64p64p87p87p87p87p87p71p71p71p71p48p48p48p48p48p48p89p89p98p98p98p95p95p95p95p45p45p45p45p06p06p06p06p06p20p20p20p58p58p88p88p88p03p03p03p03p63p63p85p85p85p54p54p54p65p65p65p01p01p01p07p07p07p07p40p40p40p93p93p93p43p43p22p22p22p91p91p91p84p84p84p84p51p51p51p50p50p50p50
+
+#######################################################################################
+############ The following processes were completed for SJF run 5 #####################
+#######################################################################################
+Process: p23
+	Arrival Time = 0
+	Expected Run Time = 1.3003087
+	Priority = 4
+	Start Time = 0
+	Completion Time = 1.3003087
+Process: p61
+	Arrival Time = 3
+	Expected Run Time = 3.7995334
+	Priority = 4
+	Start Time = 3
+	Completion Time = 6.7995334
+Process: p82
+	Arrival Time = 7
+	Expected Run Time = 1.8357952
+	Priority = 3
+	Start Time = 7
+	Completion Time = 8.835795
+Process: p92
+	Arrival Time = 9
+	Expected Run Time = 4.1477413
+	Priority = 2
+	Start Time = 9
+	Completion Time = 13.147741
+Process: p79
+	Arrival Time = 14
+	Expected Run Time = 2.1116958
+	Priority = 2
+	Start Time = 14
+	Completion Time = 16.111696
+Process: p84
+	Arrival Time = 16
+	Expected Run Time = 2.2207952
+	Priority = 1
+	Start Time = 17
+	Completion Time = 19.220795
+Process: p39
+	Arrival Time = 17
+	Expected Run Time = 3.6309533
+	Priority = 2
+	Start Time = 20
+	Completion Time = 23.630953
+Process: p02
+	Arrival Time = 22
+	Expected Run Time = 2.4275596
+	Priority = 4
+	Start Time = 24
+	Completion Time = 26.427559
+Process: p93
+	Arrival Time = 4
+	Expected Run Time = 4.2960806
+	Priority = 2
+	Start Time = 27
+	Completion Time = 31.296082
+Process: p13
+	Arrival Time = 12
+	Expected Run Time = 4.4738398
+	Priority = 1
+	Start Time = 32
+	Completion Time = 36.47384
+Process: p65
+	Arrival Time = 33
+	Expected Run Time = 4.180667
+	Priority = 4
+	Start Time = 37
+	Completion Time = 41.180668
+Process: p11
+	Arrival Time = 41
+	Expected Run Time = 3.3374872
+	Priority = 4
+	Start Time = 42
+	Completion Time = 45.337486
+Process: p85
+	Arrival Time = 45
+	Expected Run Time = 1.0425205
+	Priority = 4
+	Start Time = 46
+	Completion Time = 47.04252
+Process: p58
+	Arrival Time = 47
+	Expected Run Time = 1.0063105
+	Priority = 4
+	Start Time = 48
+	Completion Time = 49.00631
+Process: p43
+	Arrival Time = 47
+	Expected Run Time = 2.9335837
+	Priority = 3
+	Start Time = 50
+	Completion Time = 52.933582
+Process: p44
+	Arrival Time = 43
+	Expected Run Time = 3.1296499
+	Priority = 3
+	Start Time = 53
+	Completion Time = 56.12965
+Process: p78
+	Arrival Time = 54
+	Expected Run Time = 2.6544938
+	Priority = 3
+	Start Time = 57
+	Completion Time = 59.654495
+Process: p77
+	Arrival Time = 58
+	Expected Run Time = 1.3359017
+	Priority = 3
+	Start Time = 60
+	Completion Time = 61.335903
+Process: p06
+	Arrival Time = 61
+	Expected Run Time = 1.0243137
+	Priority = 2
+	Start Time = 62
+	Completion Time = 63.024315
+Process: p83
+	Arrival Time = 63
+	Expected Run Time = 2.3919678
+	Priority = 4
+	Start Time = 64
+	Completion Time = 66.39197
+Process: p97
+	Arrival Time = 61
+	Expected Run Time = 3.0132942
+	Priority = 4
+	Start Time = 67
+	Completion Time = 70.01329
+Process: p94
+	Arrival Time = 55
+	Expected Run Time = 3.057346
+	Priority = 1
+	Start Time = 71
+	Completion Time = 74.05734
+Process: p25
+	Arrival Time = 75
+	Expected Run Time = 1.6218424
+	Priority = 4
+	Start Time = 75
+	Completion Time = 76.62184
+Process: p99
+	Arrival Time = 47
+	Expected Run Time = 3.7498534
+	Priority = 4
+	Start Time = 77
+	Completion Time = 80.749855
+Process: p95
+	Arrival Time = 80
+	Expected Run Time = 1.0680279
+	Priority = 4
+	Start Time = 81
+	Completion Time = 82.06803
+Process: p54
+	Arrival Time = 83
+	Expected Run Time = 1.4191948
+	Priority = 4
+	Start Time = 83
+	Completion Time = 84.4192
+Process: p10
+	Arrival Time = 84
+	Expected Run Time = 1.4981539
+	Priority = 3
+	Start Time = 85
+	Completion Time = 86.49815
+Process: p66
+	Arrival Time = 80
+	Expected Run Time = 2.5145376
+	Priority = 4
+	Start Time = 87
+	Completion Time = 89.514534
+Process: p57
+	Arrival Time = 88
+	Expected Run Time = 1.1634202
+	Priority = 4
+	Start Time = 90
+	Completion Time = 91.16342
+Process: p52
+	Arrival Time = 49
+	Expected Run Time = 3.9900153
+	Priority = 1
+	Start Time = 92
+	Completion Time = 95.99001
+Process: p69
+	Arrival Time = 94
+	Expected Run Time = 3.4121263
+	Priority = 4
+	Start Time = 96
+	Completion Time = 99.412125
+
+###########################################################
+############ SJF Time Chart for run 5 #####################
+###########################################################
+0p23p23___p61p61p61p61p82p82p92p92p92p92p92p79p79p79p84p84p84p39p39p39p39p02p02p02p93p93p93p93p93p13p13p13p13p13p65p65p65p65p65p11p11p11p11p85p85p58p58p43p43p43p44p44p44p44p78p78p78p77p77p06p06p83p83p83p97p97p97p97p94p94p94p94p25p25p99p99p99p99p95p95p54p54p10p10p66p66p66p57p57p52p52p52p52p69p69p69p69
+
+######################################################################################
+############ Final calculated averages and calculated throughput for SJF #############
+######################################################################################
+Average Turnaround Time = 8.907197
+Average Wait Time = 6.165563
+Average Response Time = 6.165563
+Throughput = 0.3004412
+
+Please choose the number of the process scheduling algorithm you would like to run:
+(1) First Come First Served
+(2) Shortest Job First
+(3) Shortest Remaining Time
+(4) Round Robin
+(5) Highest Priority First (non-preemptive)
+(6) Highest Priority First with Ageing (non-preemptive)
+(7) Highest Priority First (Preemptive)
+(8) Highest Priority First with Aging (Preemptive)
+(9) Exit

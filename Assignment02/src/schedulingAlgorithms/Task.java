@@ -4,7 +4,7 @@ package schedulingAlgorithms;
  * Task is a helper class for creating task objects. These tasks
  * are simulations of running processes in an operating system
  */
-class Task implements Cloneable, Comparable {
+public class Task implements Cloneable, Comparable<Object> {
     private String name;
     private int arrivalTime;
     private float runTime; // Burst time
@@ -56,49 +56,29 @@ class Task implements Cloneable, Comparable {
     }
 
     public Object clone() {
-        try 
-        {
+        try {
             return super.clone();
         } 
-        catch (Exception e) 
-        {
+        catch (Exception e) {
             return null;
         }
     }
     
-    /**
-     * 
-     * @param otherInt
-     * @return
-     */
-    public int compareArrivalTime(int otherArrivalTime)
-    {
+    public int compareArrivalTime(int otherArrivalTime) {
     	int difference = (this.arrivalTime - otherArrivalTime);
     	if (difference > 0) {return 1;}
     	else if (difference == 0) {return 0;}
     	else {return -1;}
     }
     
-    /**
-     * 
-     * @param otherFloat
-     * @return
-     */
-    public int compareRunTime(Float otherRunTime)
-    {
+    public int compareRunTime(Float otherRunTime) {
     	float difference = (this.runTime - otherRunTime);
     	if (difference > 0) {return 1;}
     	else if (difference == 0) {return 0;}
     	else {return -1;}
     }
     
-    /**
-     * 
-     * @param otherInt
-     * @return
-     */
-    public int comparePriority(int otherPriority)
-    {
+    public int comparePriority(int otherPriority) {
         int difference = (this.priority - otherPriority);
         // Highest priority 1 > 4
         if (difference < 0) {return 1;}
@@ -107,25 +87,21 @@ class Task implements Cloneable, Comparable {
     }
     
     @Override
-    public boolean equals(Object o) 
-    {
-        if (o instanceof Task){
+    public boolean equals(Object o) {
+        if (o instanceof Task) {
             Task otherTask = (Task) o;
             return name.equals(otherTask.getName());
         }
         return false;
     }
+    
     @Override
-    public String toString() 
-    {
+    public String toString() {
         return "Process: " + name + "\n\tArrival Time = " + arrivalTime +
                 "\n\tExpected Run Time = " + runTime + "\n\tPriority = " + priority
                 + "\n\tStart Time = " + startTime + "\n\tCompletion Time = " + completionTime;
     }
 
 	@Override
-	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int compareTo(Object o) {return 0;}
 }

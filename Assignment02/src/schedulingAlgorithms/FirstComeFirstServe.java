@@ -1,10 +1,11 @@
 package schedulingAlgorithms;
-
+//test push
+import schedulingAlgorithms.util.Printer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FirstComeFirstServe 
-{	
+public class FirstComeFirstServe {
+	private final String name = "FCFS";
 	private ProcessQueue processQueue;
 	private int finalTasksDone;
 	private float finalTime;
@@ -12,14 +13,17 @@ public class FirstComeFirstServe
 	private float finalWaitTime;
 	private float finalResponseTime;
 	
+	private float avgTurnaroundTime;
+	private float avgWaitTime;
+	private float avgResponseTime;
+	private float throughput;
+	
 	/**
 	 * Constructor method.
-	 * 
 	 * @param processQueue (ProcessQueue) : A specialized Queue used for
 	 *     generating and sorting organized simulated processes.
 	 */
-	public FirstComeFirstServe(ProcessQueue processQueue) 
-	{	
+	public FirstComeFirstServe(ProcessQueue processQueue) {	
 		this.processQueue = processQueue;
         this.finalTasksDone = 0;
         this.finalTime = 0.0f;
@@ -32,10 +36,8 @@ public class FirstComeFirstServe
 	 * Runs a non-preemptive FirstComeFirstServe algorithm for
 	 *     process simulation.
 	 */
-	public void runNonPreemptive()
-	{
-        for (int i = 1; i <= 5; i++) 
-        {
+	public void runNonPreemptive() {
+        for (int i = 1; i <= 5; i++) {
             // Variables needed for tracking progress of each run
             int clock = 0;
             int tasksDone = 0;
@@ -54,8 +56,7 @@ public class FirstComeFirstServe
             ArrayList<Task> taskList = new ArrayList<Task>(Arrays.asList(tasks));
 
             // Schedule tasks until either no more tasks or start time > 99
-            while (!taskList.isEmpty()) 
-            {
+            while (!taskList.isEmpty()) {
                 // Get the correct process to be scheduled
                 Task t = taskList.remove(0);
 
@@ -82,12 +83,10 @@ public class FirstComeFirstServe
                 totalResponseTime += responseTime;
                 totalTasksDone = tasksDone;
                 
-                if (completionTime >= 99) 
-                {
+                if (completionTime >= 99) {
                     totalTime = completionTime; // Time until last process is complete
                 } 
-                else 
-                {
+                else {
                     totalTime = 99;
                 }
             }
@@ -101,50 +100,13 @@ public class FirstComeFirstServe
 
             // Make a copy of the completed tasks to use in the time chart
             ArrayList<Task> tasksChart = new ArrayList<Task>(scheduledTasks);
-            printCompletedTasks(scheduledTasks, i);
-            printTimeChart(tasksChart, i);
+            Printer.completedTasks(name, scheduledTasks, i);
+            Printer.timeChart(name, tasksChart, i);
         }
-        
-        printFinalBenchmark();
+        avgTurnaroundTime = finalTurnaroundTime/finalTasksDone;
+        avgWaitTime = finalWaitTime/finalTasksDone;
+        avgResponseTime = finalResponseTime/finalTasksDone;
+        throughput = finalTasksDone/finalTime;
+        Printer.finalBenchmark(name, avgTurnaroundTime, avgWaitTime, avgResponseTime, throughput);        
     }
-	
-	/**
-	 * Prints out the stats for all completed tasks
-	 */
-	public void printCompletedTasks(ArrayList<Task> scheduledTasks, int run)
-	{
-        System.out.println("\n########################################################################################");
-        System.out.println("############ The following processes were completed for FCFS run " + run + " #####################");
-        System.out.println("########################################################################################");
-        while(!scheduledTasks.isEmpty()) 
-        {
-            Task t = scheduledTasks.remove(0);
-            System.out.println(t);
-        }
-	}
-	
-
-	public void printTimeChart(ArrayList<Task> tasksChart, int run)
-	{
-        System.out.println("\n############################################################");
-        System.out.println("############ FCFS Time Chart for run " + run + " #####################");
-        System.out.println("############################################################");
-        new GanttChart(tasksChart);
-    }
-	
-	/**
-	 * Prints out all calculated averages and throughput for
-	 *     a completed FirstComeFirstServe simulation.
-	 */
-	public void printFinalBenchmark()
-	{
-        System.out.println("\n#######################################################################################");
-        System.out.println("############ Final calculated averages and calculated throughput for FCFS #############");
-        System.out.println("#######################################################################################");
-        System.out.println("Average Turnaround Time = " + finalTurnaroundTime/finalTasksDone);
-        System.out.println("Average Wait Time = " + finalWaitTime/finalTasksDone);
-        System.out.println("Average Response Time = " + finalResponseTime/finalTasksDone);
-        System.out.println("Throughput = " + finalTasksDone/finalTime);
-        System.out.println();
-	}
 }

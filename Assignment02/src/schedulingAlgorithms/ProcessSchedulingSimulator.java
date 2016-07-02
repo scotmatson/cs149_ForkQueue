@@ -1,5 +1,7 @@
 package schedulingAlgorithms;
+
 import java.util.*;
+
 /**
  *COPYRIGHT (C) 2016 CS149_1 Group forkQueue. All Rights Reserved.
  * The process scheduling simulator uses various algorithms to
@@ -13,7 +15,7 @@ public class ProcessSchedulingSimulator {
     private final static int RUNTIME_MAX = 10;
     private final static int PRIORITY_MAX = 4;
     private final static int NUM_OF_TASKS = 100;
-    private final static int NUM_OF_TEST_TYPES = 7;
+    private final static int NUM_OF_TEST_TYPES = 8;
 
     /**
      * The main method. The entry point for the application.
@@ -22,7 +24,6 @@ public class ProcessSchedulingSimulator {
      */
     public static void main(String[] args) {
         ProcessSchedulingSimulator pss = new ProcessSchedulingSimulator();
-        Scanner input = new Scanner(System.in);
         int option = 0;
 
         /* added by John Kennedy 28jun16
@@ -48,18 +49,20 @@ public class ProcessSchedulingSimulator {
                 // not a number on the command line. Die. 
                 System.err.println("Input error on command line " + args[0] + "not a number");
                 return; 
-                
             }
         }
         
         if(!is_batch)
         {
+            Scanner input = new Scanner(System.in);
+
             while(option >= 0 && option <= NUM_OF_TEST_TYPES)
             {
                 runSim(pss,option);
                 pss.printMenuOptions();
                 option = input.nextInt();
             }
+            input.close();
         }
         else 
         {
@@ -87,13 +90,16 @@ public class ProcessSchedulingSimulator {
                 	new HighestPriorityFirst_nonpreemptive(processQueue).runNonPreemptive();
                 	break;
                 case 6:
-                	new HighestPriorityFirst_preemptive(processQueue).runPreemptive();
+                    new HighestPriorityFirst_nonpreemptive_aging(processQueue).runNonPreemptive();
                 	break;
                 case 7:
-                    new HPFP_Aging(processQueue).runHPFP_Aging();
+                    new HighestPriorityFirst_preemptive(processQueue).runPreemptive();
+                    break;
+                case 8:
+                    new HighestPriorityFirst_preemptive_aging(processQueue).runHPFP_Aging();
                     break;
                 default: 
-                	option = 8;
+                	option = 9;
                 	break;
             }
         }
@@ -112,9 +118,10 @@ public class ProcessSchedulingSimulator {
                 "(3) Shortest Remaining Time\n" +
                 "(4) Round Robin\n" +
                 "(5) Highest Priority First (non-preemptive)\n" +
-                "(6) Highest Priority First (Preemptive)" + "\n" + 
-                "(7) HPF_Aging(Preemptive)\n" + 
-                "(8) Exit"
+                "(6) Highest Priority First with Ageing (non-preemptive)\n" +
+                "(7) Highest Priority First (Preemptive)\n" + 
+                "(8) Highest Priority First with Aging (Preemptive)\n" + 
+                "(9) Exit"
     	);	
     }
 }

@@ -7,13 +7,15 @@ import java.util.PriorityQueue;
 /**
  * Created by danieltam on 6/27/16.
  */
-public class HPFP_Queue extends ArrayList
+public class HPFP_Queue<E> extends ArrayList<PriorityQueue<Task>>
 {
+    /**
+	 * To make Eclipse shut up.
+	 */
+	private static final long serialVersionUID = 1L;
 
-    public HPFP_Queue(int priorityQueueCount)
-    {
-        while (priorityQueueCount > 0)
-        {
+	public HPFP_Queue(int priorityQueueCount){
+        while (priorityQueueCount > 0) {
             PriorityQueue<Task> priorityQueue = new PriorityQueue<>(10, new Comparator<Task>()
             {
                 public int compare(Task t1, Task t2)
@@ -25,16 +27,18 @@ public class HPFP_Queue extends ArrayList
             priorityQueueCount -= 1;
         }
     }
-//
-//    public void printHPFP_Queue(HPFP_Queue readyQueue){
-//        for (PriorityQueue<Task> priorityQueue : readyQueue) {
-//            System.out.println("Priority Queue Stats:  \n");
-//            for (Task t : priorityQueue)
-//            {
-//                t.getPriority();
-//            }
-//        }
-//    }
+
+    public void printHPFP_Queue(HPFP_Queue<PriorityQueue<Task>> readyQueue)
+    {
+        for (PriorityQueue<Task> priorityQueue : readyQueue)
+        {
+            System.out.println("Priority Queue Stats:  \n");
+            for (Task t : priorityQueue)
+            {
+                t.getPriority();
+            }
+        }
+    }
 
     public boolean isEmpty(ArrayList<PriorityQueue<Task>> readyQueue)
     {
@@ -88,7 +92,4 @@ public class HPFP_Queue extends ArrayList
         }
         return task;
     }
-
-
-
 }

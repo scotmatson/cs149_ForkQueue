@@ -1,30 +1,28 @@
 package schedulingAlgorithms;
 
-import javafx.util.Pair;
-
 import java.util.*;
+
+import schedulingAlgorithms.util.GanttChart;
+import schedulingAlgorithms.util.Printer;
 
 /**
  * A version of HPFP that enforces aging.
- *
  */
-public class HPFP_Aging
-{
+public class HighestPriorityFirst_preemptive_aging {
+	private final String name = "Aging HPF-P";
     private ProcessQueue processQueue;
     private int finalTasksDone;
     private float finalTime;
     private float finalTurnaroundTime;
     private float finalWaitTime;
     private float finalResponseTime;
-    private float priorityTotalTasks;
 
     /**
      * Constructor method.
-     *
      * @param processQueue (ProcessQueue) : A specialized Queue used for
      *                     generating and sorting organized simulated processes.
      */
-    public HPFP_Aging(ProcessQueue processQueue) {
+    public HighestPriorityFirst_preemptive_aging(ProcessQueue processQueue) {
         this.processQueue = processQueue;
         this.finalTasksDone = 0;
         this.finalTime = 0.0f;
@@ -67,11 +65,6 @@ public class HPFP_Aging
      * Runs a Highest Priority First (preemptive) with Aging algorithm g
      */
     public void runHPFP_Aging() {
-        Integer priority1Tasks = 0;
-        Integer priority2Tasks = 0;
-        Integer priority3Tasks = 0;
-        Integer priority4Tasks = 0;
-
         for (int i = 1; i <= 5; i++) {
             // Variables needed for tracking progress of each run
             int clock = 0;
@@ -87,7 +80,7 @@ public class HPFP_Aging
             int agingInterval = 5;
 
             ArrayList<Object> agingQueue = createAgingQueue(agingInterval);
-            HPFP_Queue readyQueue = new HPFP_Queue(priorityQueueCount);
+            HPFP_Queue<PriorityQueue<Task>> readyQueue = new HPFP_Queue<>(priorityQueueCount);
 
             ArrayList<Task> scheduledTasks = new ArrayList<>();
             ArrayList<Task> completedTasks = new ArrayList<>();
@@ -187,23 +180,6 @@ public class HPFP_Aging
                             t.setCompletionTime(completionTime);
                             tasksDone++;
                             completedTasks.add(t);
-                            // start task priority counting code
-//                            priorityTotalTasks += 1;
-//                            if (t.getPriority() == 4)
-//                            {
-//                                priority4Tasks += 1;
-//                            }
-//                            else if (t.getPriority() == 3) {
-//                                priority3Tasks += 1;
-//                            }
-//                            else if (t.getPriority() == 2) {
-//                                priority2Tasks += 1;
-//                            }
-//                            else
-//                            {
-//                                priority1Tasks += 1;
-//                            }
-                            // end task priority counting code
 
                             turnaroundTime = completionTime - t.getArrivalTime();
                             remainingRunTimes.remove(t.getName());
@@ -257,12 +233,10 @@ public class HPFP_Aging
             finalTime += totalTime;
             finalTasksDone += totalTasksDone;
 
-            printCompletedTasks(completedTasks, i);
-//            printTimeChart(scheduledTasks, i);
+            Printer.completedTasks(name, completedTasks, i);
+            Printer.timeChart(name, scheduledTasks, i);
         }
         printFinalBenchmark();
-//        System.out.println("priorityTotalTasks: " + priorityTotalTasks + "\t" + priority1Tasks);
-//        printPriorityStats(priority1Tasks, priority2Tasks, priority3Tasks, priority4Tasks, priorityTotalTasks);
     }
 
     public void printPriorityStats(Integer p1, Integer p2, Integer p3, Integer p4, float totalTasks) {
@@ -354,8 +328,8 @@ public class HPFP_Aging
     }
 
     public ArrayList<Object> createAgingQueue(Integer tickQueueCounter){
-        Integer tickQueueSize = (tickQueueCounter * 2) + 2;
-        ArrayList<Object> agingQueue = new ArrayList();
+        //Integer tickQueueSize = (tickQueueCounter * 2) + 2;
+        ArrayList<Object> agingQueue = new ArrayList<>();
 
         while (tickQueueCounter >= 0) {
 
@@ -374,7 +348,6 @@ public class HPFP_Aging
     public void printAgingQueue(ArrayList<Object> agingQueue)
     {
         System.out.println("Aging Queue");
-        int priorityQueueCounter = 1;
         int indexCounter = 0;
         for (Object taskInt : agingQueue)
         {
