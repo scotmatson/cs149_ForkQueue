@@ -25,6 +25,7 @@ static char * const EMPTY_SEAT = "--";
 /* Utility */
 static const char NEWLINE = '\n';
 
+/* Thread stuff that I don't quite understand... yet */
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -64,15 +65,15 @@ void wakeup_all_seller_threads() {
  */
 int main(int argc, char * argv[]) {
 
-    /* I/O Handling */
+    // I/O Handling
     int n; 
     if (argc != 2) {
-       printf("ERROR; Execution must be in form [./a.out] [int]\n"); 
+       fprintf(stderr, "ERROR; Execution must be in form [./a.out] [int]\n"); 
        exit(EXIT_FAILURE);
     }
     else {
         if (!isdigit(*argv[1])) {
-            printf("ERROR; User input must be type int\n");
+            fprintf(stderr, "ERROR; User input must be type int\n");
             exit(EXIT_FAILURE);
         }
         else {
@@ -100,7 +101,8 @@ int main(int argc, char * argv[]) {
     for (i = 0; i < 1; i++) {
         rc = pthread_create(&tids[i], NULL, sell, &sellertype);
         if (rc) {
-            printf("ERROR; return code from pthread_join is %d\n", rc);
+            fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
+            exit(EXIT_FAILURE);
         }
     }
    
@@ -108,7 +110,8 @@ int main(int argc, char * argv[]) {
     for (i = 1; i < 4; i++) {
         rc = pthread_create(&tids[i], NULL, sell, &sellertype);
         if (rc) {
-            printf("ERROR; return code from pthread_join is %d\n", rc);
+            fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
+            exit(EXIT_FAILURE);
         }
     }
 
@@ -116,7 +119,8 @@ int main(int argc, char * argv[]) {
     for (i = 4; i < 10; i++) {
         rc = pthread_create(&tids[i], NULL, sell, &sellertype);
         if (rc) {
-            printf("ERROR; return code from pthread_join is %d\n", rc);
+            fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
+            exit(EXIT_FAILURE);
         }
     }
 
@@ -127,7 +131,8 @@ int main(int argc, char * argv[]) {
     for (i = 0 ; i < NUMBER_OF_SELLERS ; i++) {
         rc = pthread_join(tids[i], NULL); // SUCCESS == 0
         if (rc) {
-            printf("ERROR; return code from pthread_join is %d\n", rc);
+            fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
+            exit(EXIT_FAILURE);
         }
     }
 
