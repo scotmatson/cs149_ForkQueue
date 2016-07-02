@@ -23,8 +23,13 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 /*
  * seller thread to serve one time slice (1 minute)
  */
-void * sell(void * seller_type)
+void * sell(void * sellertype)
 {
+    char  st;
+    st = *((char*) sellertype);
+
+    printf("Seller type %c\n", st);
+
     while (true) { // Having more work to do...
         pthread_mutex_lock(&mutex);
         pthread_cond_wait(&cond, &mutex);
@@ -35,7 +40,7 @@ void * sell(void * seller_type)
         //..................
     }
 
-    return NULL; // thread exits
+    pthread_exit(NULL);
 }
 
 /*
@@ -70,7 +75,6 @@ int main(int argc, char * argv[]) {
 
     int i, j;          
     pthread_t tids[10];     
-    char sellerType;  
 
     // Create necessary data structures for the simulator.
     char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
@@ -84,16 +88,17 @@ int main(int argc, char * argv[]) {
     // N value within an hour and have them in the seller queue.
    
     // Create 10 threads representing the 10 sellers.
-    sellerType = 'H';
-    pthread_create(&tids[i], NULL, sell, &sellerType);
+    char sellertype;
+    sellertype = 'H';
+    pthread_create(&tids[i], NULL, sell, &sellertype);
    
-    sellerType = 'M';
+    sellertype = 'M';
     for (i = 1; i < 4; i++)
-        pthread_create(&tids[i], NULL, sell, &sellerType);
+        pthread_create(&tids[i], NULL, sell, &sellertype);
 
-    sellerType = 'L';
+    sellertype = 'L';
     for (i = 4; i < 10; i++)
-        pthread_create(&tids[i], NULL, sell, &sellerType);
+        pthread_create(&tids[i], NULL, sell, &sellertype);
 
     // wakeup all seller threads
     //wakeup_all_seller_threads();
