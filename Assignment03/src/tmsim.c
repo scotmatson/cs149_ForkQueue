@@ -4,9 +4,10 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-#define NUMBER_OF_ROWS 10
-#define SEATS_PER_ROW 10
-#define EMPTY_SEAT "--"
+static const int NUMBER_OF_ROWS = 10;
+static const int SEATS_PER_ROW = 10;
+static char * const EMPTY_SEAT = "--";
+static const char NEWLINE = '\n';
 
 /*
  *  Solves CS149 Assignment #3 
@@ -19,7 +20,9 @@
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-// seller thread to serve one time slice (1 minute)
+/*
+ * seller thread to serve one time slice (1 minute)
+ */
 void * sell(void * seller_type)
 {
     while (true) { // Having more work to do...
@@ -35,16 +38,21 @@ void * sell(void * seller_type)
     return NULL; // thread exits
 }
 
+/*
+ *
+ */
 void wakeup_all_seller_threads() {
     pthread_mutex_lock(&mutex);
     pthread_cond_broadcast(&cond);
     pthread_mutex_unlock(&mutex);
 }
 
+/*
+ * The main method
+ */
 int main(int argc, char * argv[]) {
 
-    // Type check user input and store N if it is a digit
-    int n;
+    int n; // Multiplicand to determine number of consumers.
     if (argc != 2) {
        printf("Something something error.... @$%#%@#"); 
        exit(EXIT_FAILURE);
@@ -55,9 +63,9 @@ int main(int argc, char * argv[]) {
         }
     }
 
-    int i, j;
-    pthread_t tids[10];
-    char sellerType;
+    int i, j;          
+    pthread_t tids[10];     
+    char sellerType;  
 
     // Create necessary data structures for the simulator.
     char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
@@ -67,7 +75,6 @@ int main(int argc, char * argv[]) {
         }
     }
     
-/*
     // Create buyers list for each seller ticket queue based on the
     // N value within an hour and have them in the seller queue.
    
@@ -84,19 +91,19 @@ int main(int argc, char * argv[]) {
         pthread_create(&tids[i], NULL, sell, &sellerType);
 
     // wakeup all seller threads
-    wakeup_all_seller_threads();
+    //wakeup_all_seller_threads();
 
     // wait for all seller threads to exit
-    for (i = 0 ; i < 10 ; i++)
-        pthread_join(tids[i], NULL); // This returns 0 on success... probably should catch for error handling
-*/
+    //for (i = 0 ; i < 10 ; i++)
+    //    pthread_join(tids[i], NULL); // SUCCESS == 0
+
     // Printout simulation results
     printf("Seating Chart\n");
     for (i=0; i < NUMBER_OF_ROWS; i++) {
         for (j=0; j < SEATS_PER_ROW; j++) {
             printf("%-3s", seatmap[i][j]);
         }
-        printf("\n");
+        printf("%c", NEWLINE);
     } 
 
     exit(EXIT_SUCCESS);

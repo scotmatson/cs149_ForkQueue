@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#define NUMBER_OF_ROWS 10
-#define SEATS_PER_ROW 10
-#define EMPTY_SEAT "--"
+static const int NUMBER_OF_ROWS = 10;
+static const int SEATS_PER_ROW  = 10;
+static char * const EMPTY_SEAT = "--";
 
 int main(int argc, char * argv[]) {
     
