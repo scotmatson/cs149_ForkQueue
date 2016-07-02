@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <pthread.h>
-#include <stdlib.h>
+#include <stdlib.h>     
 #include <stdbool.h>
+#include <ctype.h>
 
 /*
  *  Solves CS149 Assignment #3 
@@ -41,12 +42,12 @@ int main(int argc, char * argv[]) {
     // Type check user input and store N if it is a digit
     int n;
     if (argc != 2) {
-       printf("Something something error.... @$%$#%@#"); 
+       printf("Something something error.... @$%#%@#"); 
        exit(EXIT_FAILURE);
     }
     else {
         if (isdigit(*argv[1])) {
-            n = argv[1];
+            n = atoi(argv[1]);
         }
     }
 
