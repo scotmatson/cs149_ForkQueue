@@ -1,14 +1,3 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <stdlib.h>     
-#include <stdbool.h>
-#include <ctype.h>
-
-static const int NUMBER_OF_ROWS = 10;
-static const int SEATS_PER_ROW = 10;
-static char * const EMPTY_SEAT = "--";
-static const char NEWLINE = '\n';
-
 /*
  *  Solves CS149 Assignment #3 
  *
@@ -16,6 +5,17 @@ static const char NEWLINE = '\n';
  *      Tyler Jones, 
  *      Scot Matson
  */
+#include <stdio.h>
+#include <pthread.h>
+#include <stdlib.h>     
+#include <stdbool.h>
+#include <ctype.h>
+
+static const int NUMBER_OF_SELLERS = 10;
+static const int NUMBER_OF_ROWS = 10;
+static const int SEATS_PER_ROW = 10;
+static char * const EMPTY_SEAT = "--";
+static const char NEWLINE = '\n';
 
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -44,7 +44,7 @@ void * sell(void * sellertype)
 }
 
 /*
- *
+ * Wakes up all of the seller threads
  */
 void wakeup_all_seller_threads() {
     pthread_mutex_lock(&mutex);
@@ -73,7 +73,7 @@ int main(int argc, char * argv[]) {
         }
     }
 
-    int i, j;          
+    int i, j, rc;          
     pthread_t tids[10];     
 
     // Create necessary data structures for the simulator.
@@ -90,22 +90,37 @@ int main(int argc, char * argv[]) {
     // Create 10 threads representing the 10 sellers.
     char sellertype;
     sellertype = 'H';
-    pthread_create(&tids[i], NULL, sell, &sellertype);
+    rc = pthread_create(&tids[i], NULL, sell, &sellertype);
+    if (rc) {
+        printf("ERROR; return code from pthread_join is %d\n", rc);
+    }
    
     sellertype = 'M';
-    for (i = 1; i < 4; i++)
-        pthread_create(&tids[i], NULL, sell, &sellertype);
+    for (i = 1; i < 4; i++) {
+        rc = pthread_create(&tids[i], NULL, sell, &sellertype);
+        if (rc) {
+            printf("ERROR; return code from pthread_join is %d\n", rc);
+        }
+    }
 
     sellertype = 'L';
-    for (i = 4; i < 10; i++)
-        pthread_create(&tids[i], NULL, sell, &sellertype);
+    for (i = 4; i < 10; i++) {
+        rc = pthread_create(&tids[i], NULL, sell, &sellertype);
+        if (rc) {
+            printf("ERROR; return code from pthread_join is %d\n", rc);
+        }
+    }
 
     // wakeup all seller threads
     //wakeup_all_seller_threads();
 
-    // wait for all seller threads to exit
-    for (i = 0 ; i < 10 ; i++)
-        pthread_join(tids[i], NULL); // SUCCESS == 0
+    // Wait for all seller threads to exit
+    for (i = 0 ; i < NUMBER_OF_SELLERS ; i++) {
+        rc = pthread_join(tids[i], NULL); // SUCCESS == 0
+        if (rc) {
+            printf("ERROR; return code from pthread_join is %d\n", rc);
+        }
+    }
 
     // Printout simulation results
     printf("Seating Chart\n");
