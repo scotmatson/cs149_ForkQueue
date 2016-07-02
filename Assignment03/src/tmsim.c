@@ -30,15 +30,15 @@ void * sell(void * sellertype)
 
     printf("Seller type %c\n", st);
 
-    while (true) { // Having more work to do...
-        pthread_mutex_lock(&mutex);
-        pthread_cond_wait(&cond, &mutex);
-        pthread_mutex_unlock(&mutex);
+    //while (true) { // Having more work to do...
+    //    pthread_mutex_lock(&mutex);
+    //    pthread_cond_wait(&cond, &mutex);
+    //    pthread_mutex_unlock(&mutex);
 
         // Serve any buyer available in this seller queue that is ready
         // now to buy ticket till done with all relevant buyers in their queue
         //..................
-    }
+    //}
 
     pthread_exit(NULL);
 }
@@ -104,8 +104,8 @@ int main(int argc, char * argv[]) {
     //wakeup_all_seller_threads();
 
     // wait for all seller threads to exit
-    //for (i = 0 ; i < 10 ; i++)
-    //    pthread_join(tids[i], NULL); // SUCCESS == 0
+    for (i = 0 ; i < 10 ; i++)
+        pthread_join(tids[i], NULL); // SUCCESS == 0
 
     // Printout simulation results
     printf("Seating Chart\n");
