@@ -52,13 +52,18 @@ void wakeup_all_seller_threads() {
  */
 int main(int argc, char * argv[]) {
 
-    int n; // Multiplicand to determine number of consumers.
+    /* I/O Handling */
+    int n; 
     if (argc != 2) {
-       printf("Something something error.... @$%#%@#"); 
+       printf("ERROR; Execution must be in form [./a.out] [int]\n"); 
        exit(EXIT_FAILURE);
     }
     else {
-        if (isdigit(*argv[1])) {
+        if (!isdigit(*argv[1])) {
+            printf("ERROR; User input must be type int\n");
+            exit(EXIT_FAILURE);
+        }
+        else {
             n = atoi(argv[1]);
         }
     }
