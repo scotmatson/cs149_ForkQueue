@@ -4,6 +4,10 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+#define NUMBER_OF_ROWS 10
+#define SEATS_PER_ROW 10
+#define EMPTY_SEAT "--"
+
 /*
  *  Solves CS149 Assignment #3 
  *
@@ -51,11 +55,19 @@ int main(int argc, char * argv[]) {
         }
     }
 
-    int i;
+    int i, j;
     pthread_t tids[10];
     char sellerType;
 
     // Create necessary data structures for the simulator.
+    char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
+    for (i=0; i < NUMBER_OF_ROWS; i++) {
+        for (j=0; j < SEATS_PER_ROW; j++) {
+            seatmap[i][j] = EMPTY_SEAT;
+        }
+    }
+    
+/*
     // Create buyers list for each seller ticket queue based on the
     // N value within an hour and have them in the seller queue.
    
@@ -77,7 +89,15 @@ int main(int argc, char * argv[]) {
     // wait for all seller threads to exit
     for (i = 0 ; i < 10 ; i++)
         pthread_join(tids[i], NULL); // This returns 0 on success... probably should catch for error handling
-
+*/
     // Printout simulation results
+    printf("Seating Chart\n");
+    for (i=0; i < NUMBER_OF_ROWS; i++) {
+        for (j=0; j < SEATS_PER_ROW; j++) {
+            printf("%-3s", seatmap[i][j]);
+        }
+        printf("\n");
+    } 
+
     exit(EXIT_SUCCESS);
 }
