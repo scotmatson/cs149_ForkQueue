@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /*
  *  Solves CS149 Assignment #3 
  *
@@ -15,38 +13,32 @@
 //#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
 
 struct ticket {
+    char seller_name
+    char customer_name
     int ticket_type;
     int seat_number;
-    char sold_by;
     bool availability;
 };
 
 struct customer {
     char priority;
     char name;
-    char thread;
-}
+    char seller_name;
+    double wait_time;
+    double start_time;
+    double end_time;
+    bool boughtTicket;
+    int seat_number;
+};
 
-// seat_manager jobs:
-// (1) handle thread safety for access to ticket datastructure
-// (2) manage the seatmap
-// We might not need this, we may retain this info in the sellers
-// This data structure would need its own thread?
-struct seat_manager {
-// Create necessary data structures for the simulator.
-    char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
-    for (i=0; i < NUMBER_OF_ROWS; i++) {
-        for (j=0; j < SEATS_PER_ROW; j++) {
-            seatmap[i][j] = EMPTY_SEAT;
-        }
-    }
-    
+struct box_office {
     int time = 60;
     struct ticket available_tickets[];
     struct customer turned_away[];
     struct ticket tickets_sold[];
     struct customer customers_served[];
-}
+};
+
 
 /* Business Logic */
 static const int NUMBER_OF_SELLERS = 10;
@@ -192,4 +184,3 @@ int main(int argc, char * argv[]) {
 
     exit(EXIT_SUCCESS);
 }
->>>>>>> 71669851bab78d985d22cd62f9397f3e33259d55
