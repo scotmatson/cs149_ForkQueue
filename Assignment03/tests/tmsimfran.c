@@ -10,21 +10,33 @@
 #include <stdlib.h>     
 #include <stdbool.h>
 #include <ctype.h>
-#include <time.h>
+//#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
 
-#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/customer.h"
-#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
-#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/seller.h"
+struct ticket {
+    char seller_name
+    char customer_name
+    int ticket_type;
+    int seat_number;
+    bool availability;
+};
 
-// must use string.h for strcpy, only way to assign strings to char[] without loops
-#include <string.h>
+struct customer {
+    char priority;
+    char name;
+    char seller_name;
+    double wait_time;
+    double start_time;
+    double end_time;
+    bool boughtTicket;
+    int seat_number;
+};
 
 struct box_office {
-    int time;
- //   struct ticket available_tickets[500];
-   // struct customer turned_away[500];
-  //  struct ticket tickets_sold[500];
-  //  struct customer customers_served[500];
+    int time = 60;
+    struct ticket available_tickets[];
+    struct customer turned_away[];
+    struct ticket tickets_sold[];
+    struct customer customers_served[];
 };
 
 
@@ -77,57 +89,16 @@ void wakeup_all_seller_threads() {
     pthread_mutex_unlock(&mutex);
 }
 
-// this function generates and returns a random_service_time, the time it will 
-// take to complete a single transaction with a customer
-int gen_service_time(int min_service_time, int max_service_time) {
-    srand (time(NULL));
-    int random_service_time = (rand() % max_service_time) + min_service_time;
-    return random_service_time;
-}
-
-
 /*
  * The main method
  */
 int main(int argc, char * argv[]) {
     
-    //customer testing
-    struct customer customer1;
-    customer1.seat_number = 5;
-    customer1.priority = "H";
-    strcpy(customer1.name, "martin");
-    printf("%d\n", customer1.seat_number);
-    printf("%c\n", *customer1.priority);
-    printf("%s\n", customer1.name);
-    
-    // ticket testing
     struct ticket ticket1;
+
     ticket1.seat_number = 5;
-    ticket1.priority = "H";
 
-    printf("Tickets\n");
     printf("%d\n", ticket1.seat_number);
-    printf("%c\n", *ticket1.priority);
-    
-    // seller time
-    struct seller seller1;
-    struct seller seller2;
-    seller1.min_service_time = 1;
-    seller1.max_service_time = 5;
-    seller2.min_service_time = 1;
-    seller2.max_service_time = 5;
-    
-    // ERROR IN THIS METHOD?? if run a.out, both of service times are same;
-    // if run a.out twice, the number are the same to each other but different 
-    // from run 1; does this have to do with the time slice?
-    int service_time = gen_service_time(seller1.min_service_time, seller1.max_service_time);
-    int service_time2 = gen_service_time(seller2.min_service_time, seller2.max_service_time);
-    printf("Seller\n");
-    printf("%d\n", service_time);
-    printf("%d\n", service_time2);
-
-
-
 
     // I/O Handling
     int n; 

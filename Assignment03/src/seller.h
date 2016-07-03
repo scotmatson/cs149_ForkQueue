@@ -1,13 +1,17 @@
-#ifndef tmsim.c
-#define tmsim.c
+#ifndef SELLER_H_
+#define SELLER_H_
 
 struct seller {
-    char priority //H, M, or L seller
-    int responseTime // 1-10 minutes depending on priority
-    char customerQueue[20] // Customers in line with max size of 20 (arbitrary)
+    // service times: there is a min/max per seller-type, but a random service time must be
+    // generated for each individual ticket-sold event
+    int  min_service_time;
+    int  max_service_time;
+    double avg_service_time;
+    char* name[3]; //Name of seller. E.G M1 or L3
+    char* priority; //Priority of seller. H, M, or L
+    char customerQueue[200]; //Customer line for the seller
+};
 
 
 
-}
-
-#endif
+#endif // SELLER_H_
