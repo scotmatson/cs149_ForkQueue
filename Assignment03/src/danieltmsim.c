@@ -23,28 +23,16 @@ struct customer {
     char priority;
     char name;
     char thread;
-}
+};
 
-// seat_manager jobs:
-// (1) handle thread safety for access to ticket datastructure
-// (2) manage the seatmap
-// We might not need this, we may retain this info in the sellers
-// This data structure would need its own thread?
-struct seat_manager {
-// Create necessary data structures for the simulator.
-    char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
-    for (i=0; i < NUMBER_OF_ROWS; i++) {
-        for (j=0; j < SEATS_PER_ROW; j++) {
-            seatmap[i][j] = EMPTY_SEAT;
-        }
-    }
-    
-    int time = 60;
-    struct ticket available_tickets[];
-    struct customer turned_away[];
-    struct ticket tickets_sold[];
-    struct customer customers_served[];
-}
+struct seller {
+    int min_responseTime;
+    int max_responseTime;
+    int avg_reponseTime;
+    char name; //Name of seller. E.G M1 or L3
+    char priority; //Priority of seller. H, M, or L
+    char customerQueue[]; //Customer line for the seller
+};
 
 /* Business Logic */
 static const int NUMBER_OF_SELLERS = 10;
