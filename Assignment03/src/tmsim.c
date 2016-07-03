@@ -14,40 +14,6 @@
 #include <ctype.h>
 //#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
 
-struct ticket {
-    int ticket_type;
-    int seat_number;
-    char sold_by;
-    bool availability;
-};
-
-struct customer {
-    char priority;
-    char name;
-    char thread;
-}
-
-// seat_manager jobs:
-// (1) handle thread safety for access to ticket datastructure
-// (2) manage the seatmap
-// We might not need this, we may retain this info in the sellers
-// This data structure would need its own thread?
-struct seat_manager {
-// Create necessary data structures for the simulator.
-    char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
-    for (i=0; i < NUMBER_OF_ROWS; i++) {
-        for (j=0; j < SEATS_PER_ROW; j++) {
-            seatmap[i][j] = EMPTY_SEAT;
-        }
-    }
-    
-    int time = 60;
-    struct ticket available_tickets[];
-    struct customer turned_away[];
-    struct ticket tickets_sold[];
-    struct customer customers_served[];
-}
-
 /* Business Logic */
 static const int NUMBER_OF_SELLERS = 10;
 static const int HIGH_PRICE_SELLERS = 1;
@@ -65,6 +31,35 @@ static const char NEWLINE = '\n';
 /* Thread stuff that I don't quite understand... yet */
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
+struct ticket {
+    int ticket_type;
+    int seat_number;
+    char sold_by;
+    bool availability;
+};
+
+struct customer {
+    char priority;
+    char name;
+    char thread;
+};
+/* 
+ * seat_manager jobs:
+ * (1) handle thread safety for access to ticket datastructure
+ * (2) manage the seatmap
+ * We might not need this, we may retain this info in the sellers
+ * This data structure would need its own thread?
+ */
+struct seat_manager {
+    int time = 60;
+    struct ticket available_tickets[];
+    struct customer turned_away[];
+    struct ticket tickets_sold[];
+    struct customer customers_served[];
+    char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
+};
+
 
 /*
  * seller thread to serve one time slice (1 minute)
