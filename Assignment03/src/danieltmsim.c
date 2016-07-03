@@ -23,8 +23,16 @@ struct customer {
     char priority;
     char name;
     char thread;
-}
+};
 
+struct seller {
+    int min_responseTime;
+    int max_responseTime;
+    int avg_reponseTime;
+    char name; //Name of seller. E.G M1 or L3
+    char priority; //Priority of seller. H, M, or L
+    char customerQueue[]; //Customer line for the seller
+};
 
 /* Business Logic */
 static const int NUMBER_OF_SELLERS = 10;
