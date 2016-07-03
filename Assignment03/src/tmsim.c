@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /*
  *  Solves CS149 Assignment #3 
  *
@@ -7,11 +5,14 @@
  *      Tyler Jones, 
  *      Scot Matson
  */
+/* C LIB */
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>     
 #include <stdbool.h>
 #include <ctype.h>
+
+/* USER LIB */
 //#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
 
 /* Business Logic */
@@ -44,6 +45,7 @@ struct customer {
     char name;
     char thread;
 };
+
 /* 
  * seat_manager jobs:
  * (1) handle thread safety for access to ticket datastructure
@@ -187,4 +189,3 @@ int main(int argc, char * argv[]) {
 
     exit(EXIT_SUCCESS);
 }
->>>>>>> 71669851bab78d985d22cd62f9397f3e33259d55
