@@ -13,17 +13,31 @@
 //#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
 
 struct ticket {
+    char seller_name
+    char customer_name
     int ticket_type;
     int seat_number;
-    char sold_by;
     bool availability;
 };
 
 struct customer {
     char priority;
     char name;
-    char thread;
-}
+    char seller_name;
+    double wait_time;
+    double start_time;
+    double end_time;
+    bool boughtTicket;
+    int seat_number;
+};
+
+struct box_office {
+    int time = 60;
+    struct ticket available_tickets[];
+    struct customer turned_away[];
+    struct ticket tickets_sold[];
+    struct customer customers_served[];
+};
 
 
 /* Business Logic */
