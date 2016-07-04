@@ -56,7 +56,6 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 void * sell(void * sellertype) {
     char st;
     st = *((char*) sellertype);
-
     printf("Seller type %c\n", st);
     fflush(stdout);
 
@@ -161,9 +160,9 @@ int main(int argc, char * argv[]) {
     // N value within an hour and have them in the seller queue.
    
     // Create 10 threads representing the 10 sellers.
-    char sellertype;
-    sellertype = 'H';
     for (i = 0; i < 1; i++) {
+        char sellertype;
+        sellertype = 'H';
         rc = pthread_create(&tids[i], NULL, sell, &sellertype);
         if (rc) {
             fflush(stdout);
@@ -173,8 +172,9 @@ int main(int argc, char * argv[]) {
         }
     }
    
-    sellertype = 'M';
     for (i = 1; i < 4; i++) {
+        char sellertype;
+        sellertype = 'M';
         rc = pthread_create(&tids[i], NULL, sell, &sellertype);
         if (rc) {
             fflush(stdout);
@@ -184,8 +184,9 @@ int main(int argc, char * argv[]) {
         }
     }
 
-    sellertype = 'L';
     for (i = 4; i < 10; i++) {
+        char sellertype;
+        sellertype = 'L';
         rc = pthread_create(&tids[i], NULL, sell, &sellertype);
         if (rc) {
             fflush(stdout);
@@ -200,7 +201,7 @@ int main(int argc, char * argv[]) {
 
     // Wait for all seller threads to exit
     for (i = 0 ; i < NUMBER_OF_SELLERS ; i++) {
-        rc = pthread_join(tids[i], NULL); // SUCCESS == 0
+        rc = pthread_join(tids[i], NULL);
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
