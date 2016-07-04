@@ -36,10 +36,7 @@ static const int NUMBER_OF_SELLERS = 10;
 //static const int LOW_PRICE_SELLERS = 6;
 
 /* Time */
-//static const int ONE_SECOND = 1;
-//static const int ONE_MINUTE = ONE_SECOND * 60;
-//static const int ONE_HOUR = ONE_MINUTE * 60; 
-//static int remaining_time = ONE_HOUR;
+static const int ONE_HOUR = 60
 
 /* Map Visualization */
 static const int NUMBER_OF_ROWS = 10;
@@ -84,6 +81,7 @@ void * sell(void * sellertype) {
  */
 int main(int argc, char * argv[]) {
   
+    /* --- TESTING --- */
     // seller time
     struct Sellers seller1;
     struct Sellers seller2;
@@ -122,7 +120,9 @@ int main(int argc, char * argv[]) {
     //printf("%d\n", service_time);
     //printf("%d\n", service_time2);
     fflush(stdout);
+    
 
+    /* --- CODE STARTS HERE --- */
     // I/O Handling
     int n; 
     if (argc != 2) {
@@ -144,6 +144,7 @@ int main(int argc, char * argv[]) {
     }
 
     int i, j, rc;          
+    int simulation_clock = 0
     pthread_t tids[10];     
 
     // Create necessary data structures for the simulator.
