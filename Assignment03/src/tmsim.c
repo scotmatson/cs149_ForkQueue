@@ -5,13 +5,16 @@
  *      Tyler Jones, 
  *      Scot Matson
  */
+/* C libs */
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>     
 #include <stdbool.h>
 #include <ctype.h>
 #include <time.h>
+#include <string.h>
 
+/* User libs */
 #include "customer.h"
 #include "ticket.h"
 #include "seller.h"
@@ -20,8 +23,6 @@
 //#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
 //#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/seller.h"
 
-// must use string.h for strcpy, only way to assign strings to char[] without loops
-#include <string.h>
 
 struct box_office {
     int time;
@@ -34,9 +35,9 @@ struct box_office {
 
 /* Business Logic */
 static const int NUMBER_OF_SELLERS = 10;
-static const int HIGH_PRICE_SELLERS = 1;
-static const int MEDIUM_PRICE_SELLERS = 3;
-static const int LOW_PRICE_SELLERS = 6;
+//static const int HIGH_PRICE_SELLERS = 1;
+//static const int MEDIUM_PRICE_SELLERS = 3;
+//static const int LOW_PRICE_SELLERS = 6;
 
 /* Map Visualization */
 static const int NUMBER_OF_ROWS = 10;
