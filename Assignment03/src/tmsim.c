@@ -160,10 +160,10 @@ int main(int argc, char * argv[]) {
     // N value within an hour and have them in the seller queue.
    
     // Create 10 threads representing the 10 sellers.
+    char seller_type[NUMBER_OF_SELLERS];
     for (i = 0; i < 1; i++) {
-        char sellertype;
-        sellertype = 'H';
-        rc = pthread_create(&tids[i], NULL, sell, &sellertype);
+        seller_type[i] = 'H';
+        rc = pthread_create(&tids[i], NULL, sell, &seller_type[i]);
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
@@ -173,9 +173,8 @@ int main(int argc, char * argv[]) {
     }
    
     for (i = 1; i < 4; i++) {
-        char sellertype;
-        sellertype = 'M';
-        rc = pthread_create(&tids[i], NULL, sell, &sellertype);
+        seller_type[i] = 'M';
+        rc = pthread_create(&tids[i], NULL, sell, &seller_type[i]);
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
@@ -185,9 +184,8 @@ int main(int argc, char * argv[]) {
     }
 
     for (i = 4; i < 10; i++) {
-        char sellertype;
-        sellertype = 'L';
-        rc = pthread_create(&tids[i], NULL, sell, &sellertype);
+        seller_type[i] = 'L';
+        rc = pthread_create(&tids[i], NULL, sell, &seller_type[i]);
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
