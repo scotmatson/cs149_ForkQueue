@@ -11,7 +11,4 @@ struct seller {
     char* priority; //Priority of seller. H, M, or L
     char customerQueue[200]; //Customer line for the seller
 };
-
-
-
 #endif // SELLER_H_

@@ -53,6 +53,7 @@ void * sell(void * sellertype) {
     st = *((char*) sellertype);
 
     printf("Seller type %c\n", st);
+    fflush(stdout);
 
     //while (true) { // Having more work to do...
     //    pthread_mutex_lock(&mutex);
@@ -64,7 +65,7 @@ void * sell(void * sellertype) {
         //..................
     //}
 
-    pthread_exit(NULL);
+    return NULL;
 }
 
 /*
@@ -106,6 +107,7 @@ int main(int argc, char * argv[]) {
     printf("%d\n", customer1.seat_number);
     printf("%c\n", *customer1.priority);
     printf("%s\n", customer1.name);
+    fflush(stdout);
     
     // ticket testing
     struct ticket ticket1;
@@ -115,6 +117,7 @@ int main(int argc, char * argv[]) {
     printf("Tickets\n");
     printf("%d\n", ticket1.seat_number);
     printf("%c\n", *ticket1.priority);
+    fflush(stdout);
     
     // ERROR IN THIS METHOD?? if run a.out, both of service times are same;
     // if run a.out twice, the number are the same to each other but different 
@@ -124,16 +127,21 @@ int main(int argc, char * argv[]) {
     printf("Seller\n");
     printf("%d\n", service_time);
     printf("%d\n", service_time2);
+    fflush(stdout);
 
     // I/O Handling
     int n; 
     if (argc != 2) {
+       fflush(stdout);
        fprintf(stderr, "ERROR; Execution must be in form [./a.out] [int]\n"); 
+       flush(stderr);
        exit(EXIT_FAILURE);
     }
     else {
         if (!isdigit(*argv[1])) {
+            fflush(stdout);
             fprintf(stderr, "ERROR; User input must be type int\n");
+            fflush(stderr);
             exit(EXIT_FAILURE);
         }
         else {
@@ -163,7 +171,9 @@ int main(int argc, char * argv[]) {
     for (i = 0; i < 1; i++) {
         rc = pthread_create(&tids[i], NULL, sell, &sellertype);
         if (rc) {
+            fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
+            fflush(stderr);
             exit(EXIT_FAILURE);
         }
     }
@@ -172,7 +182,9 @@ int main(int argc, char * argv[]) {
     for (i = 1; i < 4; i++) {
         rc = pthread_create(&tids[i], NULL, sell, &sellertype);
         if (rc) {
+            fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
+            fflush(stderr);
             exit(EXIT_FAILURE);
         }
     }
@@ -181,7 +193,9 @@ int main(int argc, char * argv[]) {
     for (i = 4; i < 10; i++) {
         rc = pthread_create(&tids[i], NULL, sell, &sellertype);
         if (rc) {
+            fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
+            fflush(stderr);
             exit(EXIT_FAILURE);
         }
     }
@@ -193,7 +207,9 @@ int main(int argc, char * argv[]) {
     for (i = 0 ; i < NUMBER_OF_SELLERS ; i++) {
         rc = pthread_join(tids[i], NULL); // SUCCESS == 0
         if (rc) {
+            fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
+            fflush(stderr);
             exit(EXIT_FAILURE);
         }
     }
@@ -205,6 +221,7 @@ int main(int argc, char * argv[]) {
             printf("%-3s", seatmap[i][j]);
         }
         printf("%c", NEWLINE);
+        fflush(stdout);
     } 
 
     exit(EXIT_SUCCESS);
