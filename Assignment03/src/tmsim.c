@@ -136,7 +136,7 @@ int main(int argc, char * argv[]) {
         buyer.sale_time;
 
         /* Buyer struct should be placed in Queue here */
-        ticket_line
+        add(ticket_line, buyer);
         printf("C%d", i);
     }
     printf("%c", NEWLINE);
@@ -150,7 +150,7 @@ int main(int argc, char * argv[]) {
 
         sellers[i].type = 'H';
         sellers[i].service_time = service_time;
-        // Reference to PQueue
+        sellers[i].ticket_line = ticket_line;
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
@@ -167,7 +167,7 @@ int main(int argc, char * argv[]) {
 
         sellers[i].type = 'M';
         sellers[i].service_time = service_time;
-        // Reference to PQueue
+        sellers[i].ticket_line = ticket_line;
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
@@ -184,7 +184,7 @@ int main(int argc, char * argv[]) {
         
         sellers[i].type = 'L';
         sellers[i].service_time = service_time;
-        // Reference to PQueue
+        sellers[i].ticket_line = ticket_line;
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
