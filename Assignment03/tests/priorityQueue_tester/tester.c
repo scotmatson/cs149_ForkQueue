@@ -71,7 +71,7 @@ int main(int argc, char * argv[]) {
         }
         strcpy(h.name, str);
         h.arrival_time = rand() % 60; //0 to 59
-        h.sale_time = rand() % 2 + 1; //1 to 2
+        h.sale_time = rand() % 2 + 1; //1 to 2 /* 
         add(H0, h);
 
         //Create M1 - M3 customers
