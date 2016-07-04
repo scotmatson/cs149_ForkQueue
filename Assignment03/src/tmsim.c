@@ -45,29 +45,6 @@ static const char NEWLINE = '\n';
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-/**
-struct ticket {
-    int ticket_type;
-    int seat_number;
-    char sold_by;
-    bool availability;
-};
-
-struct customer {
-    char priority;
-    char name;
-    char thread;
-};
-*/
-
-/* 
- * seat_manager jobs:
- * (1) handle thread safety for access to ticket datastructure
- * (2) manage the seatmap
- * We might not need this, we may retain this info in the sellers
- * This data structure would need its own thread?
- */
-
 /*
  * seller thread to serve one time slice (1 minute)
  */
