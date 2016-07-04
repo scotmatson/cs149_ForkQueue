@@ -15,6 +15,7 @@
 #include <string.h>
 
 /* User libs */
+#include "priorityqueue.h"
 #include "buyers.h"
 #include "tickets.h"
 #include "sellers.h"
@@ -110,22 +111,30 @@ int main(int argc, char * argv[]) {
     }
    
     /* Declare the buyer priority queue */
+    PriorityQueue *ticket_line = createPriorityQueue(n);
 
     /* Generate N Buyer structs */
     printf("*** Generating %d Buyers ***\n", n);
     for (i = 0; i <= n; i++) {
+
+        /* I don't entirely understand why we have so many variables -sm */
         struct Buyers buyer;
-        buyer.priority;
+        buyer.arrival_time = rand() % ONE_HOUR;
         buyer.name;
-        buyer.seller_name;
+        buyer.priority;
         buyer.wait_time;
+
         buyer.start_time;
         buyer.end_time;
+
+        /* Assigned at time of sale */
         buyer.bought_ticket;
+        buyer.seller_name;
         buyer.seat_number;
-        buyer.arrival_time;
         buyer.sale_time;
+
         /* Buyer struct should be placed in Queue here */
+        ticket_line
         printf("C%d", i);
     }
     printf("%c", NEWLINE);
