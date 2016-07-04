@@ -59,7 +59,9 @@ void * sell(void * s) {
     printf("Type: %c - Time: %d\n", seller->type, seller->service_time);
     fflush(stdout);
 
-    //while (true) { // Having more work to do... ===== dudes in line (queue)
+    /* This while condition is by reference and shared
+       by all sellers */
+    //while (!seller.ticket_line.isEmpty()) {
     //    pthread_mutex_lock(&mutex);
     //    pthread_cond_wait(&cond, &mutex);
     //    pthread_mutex_unlock(&mutex)
