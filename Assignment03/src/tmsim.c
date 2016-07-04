@@ -55,7 +55,7 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
  */
 void * sell(void * s) {
     struct Sellers *seller = (struct Sellers*) s;
-    printf("Seller type %c\n", seller->type);
+    printf("Type: %c : Time %d\n", seller->type, seller->service_time);
     fflush(stdout);
 
     //while (true) { // Having more work to do...
@@ -79,15 +79,6 @@ void * sell(void * s) {
  */
 int main(int argc, char * argv[]) {
   
-    /* --- TESTING --- */
-    // seller time
-    //shtruct Sellers seller1;
-    //struct Sellers seller2;
-    //seller1.min_service_time = 1;
-    //seller1.max_service_time = 5;
-    //seller2.min_service_time = 1;
-    //seller2.max_service_time = 5;
-    
     // buyer testing
     struct Buyers buyer1;
     buyer1.seat_number = 5;
@@ -141,9 +132,13 @@ int main(int argc, char * argv[]) {
         }
     }
 
-    int i, j, rc;          
-    int simulation_clock = 0;
-    pthread_t tids[10];     
+    int i, j;                 /* Counters */
+    int rc;                   /* Error Return Code */
+    int simulation_clock = 0; /* Simulated time represented by loop iterations */
+    pthread_t tids[10];       /* */
+    srand(time(NULL));        /* Seeding the random number generator */
+    n *= NUMBER_OF_SELLERS;   /* Number of customers */
+    printf("Number of customers: %d\n", n);
 
     // Create necessary data structures for the simulator.
     char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
@@ -161,7 +156,12 @@ int main(int argc, char * argv[]) {
     // Create 10 threads representing the 10 sellers.
     struct Sellers sellers[NUMBER_OF_SELLERS];
     for (i = 0; i < 1; i++) {
+        int min_time = 1;
+        int max_time = 2;
+        int service_time = rand() % (max_time + 1 - min_time) + min_time;
+
         sellers[i].type = 'H';
+        sellers[i].service_time = service_time;
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
@@ -172,7 +172,12 @@ int main(int argc, char * argv[]) {
     }
    
     for (i = 1; i < 4; i++) {
+        int min_time = 2;
+        int max_time = 4;
+        int service_time = rand() % (max_time + 1 - min_time) + min_time;
+
         sellers[i].type = 'M';
+        sellers[i].service_time = service_time;
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
@@ -183,7 +188,12 @@ int main(int argc, char * argv[]) {
     }
 
     for (i = 4; i < 10; i++) {
+        int min_time = 4;
+        int max_time = 7;
+        int service_time = rand() % (max_time + 1 - min_time) + min_time;
+        
         sellers[i].type = 'L';
+        sellers[i].service_time = service_time;
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
