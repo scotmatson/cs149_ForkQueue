@@ -1,7 +1,6 @@
-#ifndef SELLER_H_
-#define SELLER_H_
-
-struct seller {
+#ifndef SELLER_H
+#define SELLER_H
+struct Sellers {
     // service times: there is a min/max per seller-type, but a random service time must be
     // generated for each individual ticket-sold event
     int  min_service_time;
@@ -11,4 +10,4 @@ struct seller {
     char* priority; //Priority of seller. H, M, or L
     char customerQueue[200]; //Customer line for the seller
 };
-#endif // SELLER_H_
+#endif /* SELLER_H */

@@ -15,23 +15,31 @@
 #include <string.h>
 
 /* User libs */
-#include "customer.h"
-#include "ticket.h"
-#include "seller.h"
+#include "buyers.h"
+#include "tickets.h"
+#include "sellers.h"
 
+/*
 struct box_office {
     int time;
- //   struct ticket available_tickets[500];
-   // struct customer turned_away[500];
-  //  struct ticket tickets_sold[500];
-  //  struct customer customers_served[500];
+    struct Ticket available_tickets[500];
+    struct Buyer turned_away[500];
+    struct Ticket tickets_sold[500];
+    struct Buyer customers_served[500];
 };
+*/
 
 /* Business Logic */
 static const int NUMBER_OF_SELLERS = 10;
 //static const int HIGH_PRICE_SELLERS = 1;
 //static const int MEDIUM_PRICE_SELLERS = 3;
 //static const int LOW_PRICE_SELLERS = 6;
+
+/* Time */
+//static const int ONE_SECOND = 1;
+//static const int ONE_MINUTE = ONE_SECOND * 60;
+//static const int ONE_HOUR = ONE_MINUTE * 60; 
+//static int remaining_time = ONE_HOUR;
 
 /* Map Visualization */
 static const int NUMBER_OF_ROWS = 10;
@@ -58,31 +66,16 @@ void * sell(void * sellertype) {
     //while (true) { // Having more work to do...
     //    pthread_mutex_lock(&mutex);
     //    pthread_cond_wait(&cond, &mutex);
-    //    pthread_mutex_unlock(&mutex);
+    //    pthread_mutex_unlock(&mutex)
 
-        // Serve any buyer available in this seller queue that is ready
-        // now to buy ticket till done with all relevant buyers in their queue
-        //..................
-    //}
+    // Serve any buyer available in this sell queue that is ready
+    // now to buy ticket till done with all relevant buyers in their queue
 
+    //int gen_service_time(int min_service_time, int max_service_time) {
+    //srand (time(NULL));
+    //int random_service_time = (rand() % max_service_time) + min_service_time;
+    //return random_service_time;
     return NULL;
-}
-
-/*
- * Wakes up all of the seller threads
- */
-void wakeup_all_seller_threads() {
-    pthread_mutex_lock(&mutex);
-    pthread_cond_broadcast(&cond);
-    pthread_mutex_unlock(&mutex);
-}
-
-// this function generates and returns a random_service_time, the time it will 
-// take to complete a single transaction with a customer
-int gen_service_time(int min_service_time, int max_service_time) {
-    srand (time(NULL));
-    int random_service_time = (rand() % max_service_time) + min_service_time;
-    return random_service_time;
 }
 
 
@@ -92,25 +85,25 @@ int gen_service_time(int min_service_time, int max_service_time) {
 int main(int argc, char * argv[]) {
   
     // seller time
-    struct seller seller1;
-    struct seller seller2;
+    struct Sellers seller1;
+    struct Sellers seller2;
     seller1.min_service_time = 1;
     seller1.max_service_time = 5;
     seller2.min_service_time = 1;
     seller2.max_service_time = 5;
     
-    //customer testing
-    struct customer customer1;
-    customer1.seat_number = 5;
-    customer1.priority = "H";
-    strcpy(customer1.name, "martin");
-    printf("%d\n", customer1.seat_number);
-    printf("%c\n", *customer1.priority);
-    printf("%s\n", customer1.name);
+    // buyer testing
+    struct Buyers buyer1;
+    buyer1.seat_number = 5;
+    buyer1.priority = "H";
+    strcpy(buyer1.name, "martin");
+    printf("%d\n", buyer1.seat_number);
+    printf("%c\n", *buyer1.priority);
+    printf("%s\n", buyer1.name);
     fflush(stdout);
     
     // ticket testing
-    struct ticket ticket1;
+    struct Tickets ticket1;
     ticket1.seat_number = 5;
     ticket1.priority = "H";
 
@@ -122,11 +115,12 @@ int main(int argc, char * argv[]) {
     // ERROR IN THIS METHOD?? if run a.out, both of service times are same;
     // if run a.out twice, the number are the same to each other but different 
     // from run 1; does this have to do with the time slice?
-    int service_time = gen_service_time(seller1.min_service_time, seller1.max_service_time);
-    int service_time2 = gen_service_time(seller2.min_service_time, seller2.max_service_time);
-    printf("Seller\n");
-    printf("%d\n", service_time);
-    printf("%d\n", service_time2);
+    // ** gen_service_time does not work with x86_64 architectures
+    //int service_time = gen_service_time(seller1.min_service_time, seller1.max_service_time);
+    //int service_time2 = gen_service_time(seller2.min_service_time, seller2.max_service_time);
+    //printf("Seller\n");
+    //printf("%d\n", service_time);
+    //printf("%d\n", service_time2);
     fflush(stdout);
 
     // I/O Handling
@@ -134,7 +128,7 @@ int main(int argc, char * argv[]) {
     if (argc != 2) {
        fflush(stdout);
        fprintf(stderr, "ERROR; Execution must be in form [./a.out] [int]\n"); 
-       flush(stderr);
+       fflush(stderr);
        exit(EXIT_FAILURE);
     }
     else {

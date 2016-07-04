@@ -1,7 +1,6 @@
-#ifndef CUSTOMER_H_
-#define CUSTOMER_H_
-
-struct customer {
+#ifndef BUYERS_H
+#define BUYERS_H
+struct Buyers {
     char* priority;
     char name[25];
     char seller_name[25];
@@ -11,7 +10,6 @@ struct customer {
     bool boughtTicket;
     int seat_number;
 };
-
-#endif // CUSTOMER_H_
+#endif /* CUSTOMER_H */
 
 
