@@ -9,6 +9,7 @@ struct Buyers {
     double end_time;
     bool boughtTicket;
     int seat_number;
+    int arrival_time;
 };
 #endif /* CUSTOMER_H */
 
