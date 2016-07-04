@@ -108,25 +108,7 @@ int main(int argc, char * argv[]) {
     printf("Tickets\n");
     printf("%d\n", ticket1.seat_number);
     printf("%c\n", *ticket1.priority);
-    
-    // seller time
-    struct seller seller1;
-    struct seller seller2;
-    seller1.min_service_time = 1;
-    seller1.max_service_time = 5;
-    seller2.min_service_time = 1;
-    seller2.max_service_time = 5;
-    
-    // ERROR IN THIS METHOD?? if run a.out, both of service times are same;
-    // if run a.out twice, the number are the same to each other but different 
-    // from run 1; does this have to do with the time slice?
-    int service_time = gen_service_time(seller1.min_service_time, seller1.max_service_time);
-    int service_time2 = gen_service_time(seller2.min_service_time, seller2.max_service_time);
-    printf("Seller\n");
-    printf("%d\n", service_time);
-    printf("%d\n", service_time2);
-
-
+   
 
 
     // I/O Handling

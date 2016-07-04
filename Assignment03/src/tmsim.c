@@ -11,8 +11,15 @@
 #include <stdlib.h>     
 #include <stdbool.h>
 #include <ctype.h>
+<<<<<<< HEAD
+#include "seller.h"
+=======
 #include <time.h>
+<<<<<<< HEAD
+>>>>>>> 8717fd9f17f17c9039c53eb072120068ca1623e0
+=======
 #include <string.h>
+>>>>>>> 7eb0042a0acfa86e3a7bf2de04d8c353ef0848df
 
 /* User libs */
 #include "customer.h"
@@ -51,6 +58,30 @@ static const char NEWLINE = '\n';
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
+<<<<<<< HEAD
+struct ticket {
+    int ticket_type;
+    int seat_number;
+    char sold_by;
+    bool availability;
+};
+
+struct customer {
+    char priority;
+    char name;
+    char thread;
+};
+
+/* 
+ * seat_manager jobs:
+ * (1) handle thread safety for access to ticket datastructure
+ * (2) manage the seatmap
+ * We might not need this, we may retain this info in the sellers
+ * This data structure would need its own thread?
+ */
+
+=======
+>>>>>>> 8717fd9f17f17c9039c53eb072120068ca1623e0
 /*
  * seller thread to serve one time slice (1 minute)
  */
@@ -95,7 +126,17 @@ int gen_service_time(int min_service_time, int max_service_time) {
  * The main method
  */
 int main(int argc, char * argv[]) {
+  
+    // seller time
+    struct seller seller1;
+    struct seller seller2;
+    seller1.min_service_time = 1;
+    seller1.max_service_time = 5;
+    seller2.min_service_time = 1;
+    seller2.max_service_time = 5;
     
+<<<<<<< HEAD
+=======
     //customer testing
     struct customer customer1;
     customer1.seat_number = 5;
@@ -122,6 +163,7 @@ int main(int argc, char * argv[]) {
     seller2.min_service_time = 1;
     seller2.max_service_time = 5;
     
+>>>>>>> 8717fd9f17f17c9039c53eb072120068ca1623e0
     // ERROR IN THIS METHOD?? if run a.out, both of service times are same;
     // if run a.out twice, the number are the same to each other but different 
     // from run 1; does this have to do with the time slice?
@@ -130,9 +172,12 @@ int main(int argc, char * argv[]) {
     printf("Seller\n");
     printf("%d\n", service_time);
     printf("%d\n", service_time2);
+<<<<<<< HEAD
+=======
 
 
 
+>>>>>>> 8717fd9f17f17c9039c53eb072120068ca1623e0
 
     // I/O Handling
     int n; 
