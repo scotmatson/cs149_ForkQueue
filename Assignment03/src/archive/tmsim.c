@@ -12,13 +12,9 @@
 #include <ctype.h>
 #include <time.h>
 
-#include "customer.h"
-#include "ticket.h"
-#include "seller.h"
-
-//#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/customer.h"
-//#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
-//#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/seller.h"
+#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/customer.h"
+#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
+#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/seller.h"
 
 // must use string.h for strcpy, only way to assign strings to char[] without loops
 #include <string.h>
