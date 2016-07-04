@@ -10,6 +10,7 @@ struct Buyers {
     bool boughtTicket;
     int seat_number;
     int arrival_time;
+    int sale_time;
 };
 #endif /* CUSTOMER_H */
 
