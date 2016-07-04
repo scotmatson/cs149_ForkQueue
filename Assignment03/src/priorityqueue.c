@@ -1,7 +1,9 @@
-#include "arrivalPriorityQueue.h"\
-//This file includes implementation of all functions in arrivalPriorityQueue.h
-// Solves CS149 Homework#3
-// @author Tyler Jones
+/*
+ * This file includes implementation of all functions in priorityqueue.h
+ * Solves CS149 Homework#3
+ * @author Tyler Jones
+ */
+#include "priorityqueue.h"\
 
 //****************************************************************************************
 //CreatePriortityQueue takes the number of customers, and creates
@@ -22,7 +24,7 @@ PriorityQueue * createPriorityQueue(int numOfBuyers)
 }
 
 //****************************************************************************************
-//Check if arrival priority queue is empty
+//Check if priority queue is empty
 //****************************************************************************************
 int isEmpty(PriorityQueue *PQ)
 {
@@ -37,7 +39,7 @@ int isEmpty(PriorityQueue *PQ)
 }
 
 //****************************************************************************************
-//Look at first element of arrival priority queue
+//Look at first element of priority queue
 //****************************************************************************************
 struct Buyers peek(PriorityQueue *PQ)
 {
@@ -45,7 +47,7 @@ struct Buyers peek(PriorityQueue *PQ)
 }
 
 //****************************************************************************************
-//Remove an element from the arrival priority queue
+//Remove an element from the priority queue
 //****************************************************************************************
 struct Buyers poll(PriorityQueue *PQ)
 {
@@ -57,7 +59,7 @@ struct Buyers poll(PriorityQueue *PQ)
 }
 
 //****************************************************************************************
-//Add an element to the arrival priority queue
+//Add an element to the priority queue
 //****************************************************************************************
 void add(PriorityQueue *PQ, struct Buyers buyer)
 {

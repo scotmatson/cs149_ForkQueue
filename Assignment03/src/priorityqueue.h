@@ -1,11 +1,11 @@
 /* 
- * Header file for the arrival priority queue to be used with tmsim.c
+ * Header file for the priority queue to be used with tmsim.c
  * Solves CS149 Homework#3
  * @author Tyler Jones
  */
 
-#ifndef ARRIVALPRIORITYQUEUE_H
-#define ARRIVALPRIORITYQUEUE_H
+#ifndef PRIORITYQUEUE_H
+#define PRIORITYQUEUE_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,10 +23,10 @@ typedef struct PriorityQueue
 } PriorityQueue;
 
 //List all functions
-PriorityQueue * createPriorityQueue(int numOfBuyers); //Create the arrival priority queue
-int isEmpty(PriorityQueue *PQ); //Check if arrival priority queue is empty
-struct Buyers peek(PriorityQueue *PQ); //Look at first element of arrival priority queue
-struct Buyers poll(PriorityQueue *PQ); //Remove an element from the arrival priority queue
-void add(PriorityQueue *PQ, struct Buyers buyer); //Add an element to the arrival priority queue
+PriorityQueue * createPriorityQueue(int numOfBuyers); //Create the priority queue
+int isEmpty(PriorityQueue *PQ); //Check if priority queue is empty
+struct Buyers peek(PriorityQueue *PQ); //Look at first element of priority queue
+struct Buyers poll(PriorityQueue *PQ); //Remove an element from the priority queue
+void add(PriorityQueue *PQ, struct Buyers buyer); //Add an element to the priority queue
 
-#endif // ARRIVALPRIORITYQUEUE_H
+#endif /* PRIORITYQUEUE_H */

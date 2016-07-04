@@ -15,9 +15,10 @@
 #include <string.h>
 
 /* User libs */
+//#include "boxoffice.h"
+#include "seats.h"
 #include "priorityqueue.h"
 #include "buyers.h"
-#include "tickets.h"
 #include "sellers.h"
 
 /*
@@ -112,14 +113,16 @@ int main(int argc, char * argv[]) {
         }
     }
    
-    /* Declare the buyer priority queue */
+    /* Declare a Box Office that stores venue information */
+    // TODO
+    
+    /* Make the line for customers to 'line up' to be served by a Seller  */
     PriorityQueue *ticket_line = createPriorityQueue(n);
 
     /* Generate N Buyer structs */
     printf("*** Generating %d Buyers ***\n", n);
     for (i = 0; i <= n; i++) {
 
-        /* I don't entirely understand why we have so many variables -sm */
         struct Buyers buyer;
         buyer.arrival_time = rand() % ONE_HOUR;
         buyer.name;
@@ -135,7 +138,7 @@ int main(int argc, char * argv[]) {
         buyer.seat_number;
         buyer.sale_time;
 
-        /* Buyer struct should be placed in Queue here */
+        /* Buyer gets in the back of the line */
         add(ticket_line, buyer);
         printf("C%d", i);
     }
@@ -151,6 +154,7 @@ int main(int argc, char * argv[]) {
         sellers[i].type = 'H';
         sellers[i].service_time = service_time;
         sellers[i].ticket_line = ticket_line;
+        // TODO Add box_office reference
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
@@ -168,6 +172,7 @@ int main(int argc, char * argv[]) {
         sellers[i].type = 'M';
         sellers[i].service_time = service_time;
         sellers[i].ticket_line = ticket_line;
+        // TODO Add box_office reference
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
@@ -185,6 +190,7 @@ int main(int argc, char * argv[]) {
         sellers[i].type = 'L';
         sellers[i].service_time = service_time;
         sellers[i].ticket_line = ticket_line;
+        // TODO Add box_office reference
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
