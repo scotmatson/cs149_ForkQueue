@@ -53,10 +53,9 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 /*
  * seller thread to serve one time slice (1 minute)
  */
-void * sell(void * sellertype) {
-    char st;
-    st = *((char*) sellertype);
-    printf("Seller type %c\n", st);
+void * sell(void * s) {
+    struct Sellers *seller = (struct Sellers*) s;
+    printf("Seller type %c\n", seller->type);
     fflush(stdout);
 
     //while (true) { // Having more work to do...
@@ -82,12 +81,12 @@ int main(int argc, char * argv[]) {
   
     /* --- TESTING --- */
     // seller time
-    struct Sellers seller1;
-    struct Sellers seller2;
-    seller1.min_service_time = 1;
-    seller1.max_service_time = 5;
-    seller2.min_service_time = 1;
-    seller2.max_service_time = 5;
+    //shtruct Sellers seller1;
+    //struct Sellers seller2;
+    //seller1.min_service_time = 1;
+    //seller1.max_service_time = 5;
+    //seller2.min_service_time = 1;
+    //seller2.max_service_time = 5;
     
     // buyer testing
     struct Buyers buyer1;
@@ -160,10 +159,10 @@ int main(int argc, char * argv[]) {
     // N value within an hour and have them in the seller queue.
    
     // Create 10 threads representing the 10 sellers.
-    char seller_type[NUMBER_OF_SELLERS];
+    struct Sellers sellers[NUMBER_OF_SELLERS];
     for (i = 0; i < 1; i++) {
-        seller_type[i] = 'H';
-        rc = pthread_create(&tids[i], NULL, sell, &seller_type[i]);
+        sellers[i].type = 'H';
+        rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
@@ -173,8 +172,8 @@ int main(int argc, char * argv[]) {
     }
    
     for (i = 1; i < 4; i++) {
-        seller_type[i] = 'M';
-        rc = pthread_create(&tids[i], NULL, sell, &seller_type[i]);
+        sellers[i].type = 'M';
+        rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
@@ -184,8 +183,8 @@ int main(int argc, char * argv[]) {
     }
 
     for (i = 4; i < 10; i++) {
-        seller_type[i] = 'L';
-        rc = pthread_create(&tids[i], NULL, sell, &seller_type[i]);
+        sellers[i].type = 'L';
+        rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
