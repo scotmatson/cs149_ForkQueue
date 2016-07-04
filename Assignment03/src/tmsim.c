@@ -29,7 +29,7 @@ struct box_office {
 };
 */
 
-/* Business Logic */
+/* Seller Logic */
 static const int NUMBER_OF_SELLERS = 10;
 //static const int HIGH_PRICE_SELLERS = 1;
 //static const int MEDIUM_PRICE_SELLERS = 3;
@@ -55,21 +55,16 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
  */
 void * sell(void * s) {
     struct Sellers *seller = (struct Sellers*) s;
-    printf("Type: %c : Time %d\n", seller->type, seller->service_time);
+    printf("Type: %c - Time: %d\n", seller->type, seller->service_time);
     fflush(stdout);
 
-    //while (true) { // Having more work to do...
+    //while (true) { // Having more work to do... ===== dudes in line (queue)
     //    pthread_mutex_lock(&mutex);
     //    pthread_cond_wait(&cond, &mutex);
     //    pthread_mutex_unlock(&mutex)
 
     // Serve any buyer available in this sell queue that is ready
     // now to buy ticket till done with all relevant buyers in their queue
-
-    //int gen_service_time(int min_service_time, int max_service_time) {
-    //srand (time(NULL));
-    //int random_service_time = (rand() % max_service_time) + min_service_time;
-    //return random_service_time;
     return NULL;
 }
 
@@ -79,40 +74,7 @@ void * sell(void * s) {
  */
 int main(int argc, char * argv[]) {
   
-    // buyer testing
-    struct Buyers buyer1;
-    buyer1.seat_number = 5;
-    buyer1.priority = "H";
-    strcpy(buyer1.name, "martin");
-    printf("%d\n", buyer1.seat_number);
-    printf("%c\n", *buyer1.priority);
-    printf("%s\n", buyer1.name);
-    fflush(stdout);
-    
-    // ticket testing
-    struct Tickets ticket1;
-    ticket1.seat_number = 5;
-    ticket1.priority = "H";
-
-    printf("Tickets\n");
-    printf("%d\n", ticket1.seat_number);
-    printf("%c\n", *ticket1.priority);
-    fflush(stdout);
-    
-    // ERROR IN THIS METHOD?? if run a.out, both of service times are same;
-    // if run a.out twice, the number are the same to each other but different 
-    // from run 1; does this have to do with the time slice?
-    // ** gen_service_time does not work with x86_64 architectures
-    //int service_time = gen_service_time(seller1.min_service_time, seller1.max_service_time);
-    //int service_time2 = gen_service_time(seller2.min_service_time, seller2.max_service_time);
-    //printf("Seller\n");
-    //printf("%d\n", service_time);
-    //printf("%d\n", service_time2);
-    fflush(stdout);
-    
-
-    /* --- CODE STARTS HERE --- */
-    // I/O Handling
+    // I/O Handling - Do this first, if no arg given, kill execution
     int n; 
     if (argc != 2) {
        fflush(stdout);
@@ -138,7 +100,6 @@ int main(int argc, char * argv[]) {
     pthread_t tids[10];       /* */
     srand(time(NULL));        /* Seeding the random number generator */
     n *= NUMBER_OF_SELLERS;   /* Number of customers */
-    printf("Number of customers: %d\n", n);
 
     // Create necessary data structures for the simulator.
     char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
@@ -148,12 +109,28 @@ int main(int argc, char * argv[]) {
         }
     }
    
-    char *testchar = "5";
-    seatmap[5][5] = testchar;;
-    // Create buyers list for each seller ticket queue based on the
-    // N value within an hour and have them in the seller queue.
-   
-    // Create 10 threads representing the 10 sellers.
+    /* Declare the buyer priority queue */
+
+    /* Generate N Buyer structs */
+    printf("*** Generating %d Buyers ***\n", n);
+    for (i = 0; i <= n; i++) {
+        struct Buyers buyer;
+        buyer.priority;
+        buyer.name;
+        buyer.seller_name;
+        buyer.wait_time;
+        buyer.start_time;
+        buyer.end_time;
+        buyer.bought_ticket;
+        buyer.seat_number;
+        buyer.arrival_time;
+        buyer.sale_time;
+        /* Buyer struct should be placed in Queue here */
+        printf("C%d", i);
+    }
+    printf("%c", NEWLINE);
+
+    /* Thread Creation - SELLERS */
     struct Sellers sellers[NUMBER_OF_SELLERS];
     for (i = 0; i < 1; i++) {
         int min_time = 1;
@@ -162,6 +139,7 @@ int main(int argc, char * argv[]) {
 
         sellers[i].type = 'H';
         sellers[i].service_time = service_time;
+        // Reference to PQueue
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
@@ -178,6 +156,7 @@ int main(int argc, char * argv[]) {
 
         sellers[i].type = 'M';
         sellers[i].service_time = service_time;
+        // Reference to PQueue
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);
@@ -194,6 +173,7 @@ int main(int argc, char * argv[]) {
         
         sellers[i].type = 'L';
         sellers[i].service_time = service_time;
+        // Reference to PQueue
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
             fflush(stdout);

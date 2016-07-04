@@ -7,7 +7,7 @@ struct Buyers {
     double wait_time;
     double start_time;
     double end_time;
-    bool boughtTicket;
+    bool bought_ticket;
     int seat_number;
     int arrival_time;
     int sale_time;
