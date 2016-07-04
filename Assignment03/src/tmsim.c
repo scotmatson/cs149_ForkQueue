@@ -5,15 +5,32 @@
  *      Tyler Jones, 
  *      Scot Matson
  */
-/* C LIB */
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>     
 #include <stdbool.h>
 #include <ctype.h>
+#include <time.h>
 
-/* USER LIB */
+#include "customer.h"
+#include "ticket.h"
+#include "seller.h"
+
+//#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/customer.h"
 //#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
+//#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/seller.h"
+
+// must use string.h for strcpy, only way to assign strings to char[] without loops
+#include <string.h>
+
+struct box_office {
+    int time;
+ //   struct ticket available_tickets[500];
+   // struct customer turned_away[500];
+  //  struct ticket tickets_sold[500];
+  //  struct customer customers_served[500];
+};
+
 
 /* Business Logic */
 static const int NUMBER_OF_SELLERS = 10;
@@ -32,36 +49,6 @@ static const char NEWLINE = '\n';
 /* Thread stuff that I don't quite understand... yet */
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
-struct ticket {
-    int ticket_type;
-    int seat_number;
-    char sold_by;
-    bool availability;
-};
-
-struct customer {
-    char priority;
-    char name;
-    char thread;
-};
-
-/* 
- * seat_manager jobs:
- * (1) handle thread safety for access to ticket datastructure
- * (2) manage the seatmap
- * We might not need this, we may retain this info in the sellers
- * This data structure would need its own thread?
- */
-struct seat_manager {
-    int time = 60;
-    struct ticket available_tickets[];
-    struct customer turned_away[];
-    struct ticket tickets_sold[];
-    struct customer customers_served[];
-    char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
-};
-
 
 /*
  * seller thread to serve one time slice (1 minute)
@@ -94,16 +81,57 @@ void wakeup_all_seller_threads() {
     pthread_mutex_unlock(&mutex);
 }
 
+// this function generates and returns a random_service_time, the time it will 
+// take to complete a single transaction with a customer
+int gen_service_time(int min_service_time, int max_service_time) {
+    srand (time(NULL));
+    int random_service_time = (rand() % max_service_time) + min_service_time;
+    return random_service_time;
+}
+
+
 /*
  * The main method
  */
 int main(int argc, char * argv[]) {
     
+    //customer testing
+    struct customer customer1;
+    customer1.seat_number = 5;
+    customer1.priority = "H";
+    strcpy(customer1.name, "martin");
+    printf("%d\n", customer1.seat_number);
+    printf("%c\n", *customer1.priority);
+    printf("%s\n", customer1.name);
+    
+    // ticket testing
     struct ticket ticket1;
-
     ticket1.seat_number = 5;
+    ticket1.priority = "H";
 
+    printf("Tickets\n");
     printf("%d\n", ticket1.seat_number);
+    printf("%c\n", *ticket1.priority);
+    
+    // seller time
+    struct seller seller1;
+    struct seller seller2;
+    seller1.min_service_time = 1;
+    seller1.max_service_time = 5;
+    seller2.min_service_time = 1;
+    seller2.max_service_time = 5;
+    
+    // ERROR IN THIS METHOD?? if run a.out, both of service times are same;
+    // if run a.out twice, the number are the same to each other but different 
+    // from run 1; does this have to do with the time slice?
+    int service_time = gen_service_time(seller1.min_service_time, seller1.max_service_time);
+    int service_time2 = gen_service_time(seller2.min_service_time, seller2.max_service_time);
+    printf("Seller\n");
+    printf("%d\n", service_time);
+    printf("%d\n", service_time2);
+
+
+
 
     // I/O Handling
     int n; 
