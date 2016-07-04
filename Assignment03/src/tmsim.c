@@ -36,7 +36,7 @@ static const int NUMBER_OF_SELLERS = 10;
 //static const int LOW_PRICE_SELLERS = 6;
 
 /* Time */
-static const int ONE_HOUR = 60
+static const int ONE_HOUR = 60;
 
 /* Map Visualization */
 static const int NUMBER_OF_ROWS = 10;
@@ -54,7 +54,7 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
  * seller thread to serve one time slice (1 minute)
  */
 void * sell(void * sellertype) {
-    char  st;
+    char st;
     st = *((char*) sellertype);
 
     printf("Seller type %c\n", st);
@@ -144,7 +144,7 @@ int main(int argc, char * argv[]) {
     }
 
     int i, j, rc;          
-    int simulation_clock = 0
+    int simulation_clock = 0;
     pthread_t tids[10];     
 
     // Create necessary data structures for the simulator.
