@@ -11,25 +11,13 @@
 #include <stdlib.h>     
 #include <stdbool.h>
 #include <ctype.h>
-<<<<<<< HEAD
-#include "seller.h"
-=======
 #include <time.h>
-<<<<<<< HEAD
->>>>>>> 8717fd9f17f17c9039c53eb072120068ca1623e0
-=======
 #include <string.h>
->>>>>>> 7eb0042a0acfa86e3a7bf2de04d8c353ef0848df
 
 /* User libs */
 #include "customer.h"
 #include "ticket.h"
 #include "seller.h"
-
-//#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/customer.h"
-//#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
-//#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/seller.h"
-
 
 struct box_office {
     int time;
@@ -38,7 +26,6 @@ struct box_office {
   //  struct ticket tickets_sold[500];
   //  struct customer customers_served[500];
 };
-
 
 /* Business Logic */
 static const int NUMBER_OF_SELLERS = 10;
@@ -58,7 +45,7 @@ static const char NEWLINE = '\n';
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-<<<<<<< HEAD
+/**
 struct ticket {
     int ticket_type;
     int seat_number;
@@ -71,6 +58,7 @@ struct customer {
     char name;
     char thread;
 };
+*/
 
 /* 
  * seat_manager jobs:
@@ -80,8 +68,6 @@ struct customer {
  * This data structure would need its own thread?
  */
 
-=======
->>>>>>> 8717fd9f17f17c9039c53eb072120068ca1623e0
 /*
  * seller thread to serve one time slice (1 minute)
  */
@@ -135,8 +121,6 @@ int main(int argc, char * argv[]) {
     seller2.min_service_time = 1;
     seller2.max_service_time = 5;
     
-<<<<<<< HEAD
-=======
     //customer testing
     struct customer customer1;
     customer1.seat_number = 5;
@@ -155,15 +139,6 @@ int main(int argc, char * argv[]) {
     printf("%d\n", ticket1.seat_number);
     printf("%c\n", *ticket1.priority);
     
-    // seller time
-    struct seller seller1;
-    struct seller seller2;
-    seller1.min_service_time = 1;
-    seller1.max_service_time = 5;
-    seller2.min_service_time = 1;
-    seller2.max_service_time = 5;
-    
->>>>>>> 8717fd9f17f17c9039c53eb072120068ca1623e0
     // ERROR IN THIS METHOD?? if run a.out, both of service times are same;
     // if run a.out twice, the number are the same to each other but different 
     // from run 1; does this have to do with the time slice?
@@ -172,12 +147,6 @@ int main(int argc, char * argv[]) {
     printf("Seller\n");
     printf("%d\n", service_time);
     printf("%d\n", service_time2);
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 8717fd9f17f17c9039c53eb072120068ca1623e0
 
     // I/O Handling
     int n; 
