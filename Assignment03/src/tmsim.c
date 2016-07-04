@@ -11,6 +11,7 @@
 #include <stdlib.h>     
 #include <stdbool.h>
 #include <ctype.h>
+#include "seller.h"
 
 /* USER LIB */
 //#include "/Users/Natera/Documents/cs149_ForkQueue/Assignment03/src/ticket.h"
@@ -53,15 +54,6 @@ struct customer {
  * We might not need this, we may retain this info in the sellers
  * This data structure would need its own thread?
  */
-struct seat_manager {
-    int time = 60;
-    struct ticket available_tickets[];
-    struct customer turned_away[];
-    struct ticket tickets_sold[];
-    struct customer customers_served[];
-    char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
-};
-
 
 /*
  * seller thread to serve one time slice (1 minute)
@@ -94,16 +86,36 @@ void wakeup_all_seller_threads() {
     pthread_mutex_unlock(&mutex);
 }
 
+// this function generates and returns a random_service_time, the time it will 
+// take to complete a single transaction with a customer
+int gen_service_time(int min_service_time, int max_service_time) {
+    srand (time(NULL));
+    int random_service_time = (rand() % max_service_time) + min_service_time;
+    return random_service_time;
+}
+
+
 /*
  * The main method
  */
 int main(int argc, char * argv[]) {
+  
+    // seller time
+    struct seller seller1;
+    struct seller seller2;
+    seller1.min_service_time = 1;
+    seller1.max_service_time = 5;
+    seller2.min_service_time = 1;
+    seller2.max_service_time = 5;
     
-    struct ticket ticket1;
-
-    ticket1.seat_number = 5;
-
-    printf("%d\n", ticket1.seat_number);
+    // ERROR IN THIS METHOD?? if run a.out, both of service times are same;
+    // if run a.out twice, the number are the same to each other but different 
+    // from run 1; does this have to do with the time slice?
+    int service_time = gen_service_time(seller1.min_service_time, seller1.max_service_time);
+    int service_time2 = gen_service_time(seller2.min_service_time, seller2.max_service_time);
+    printf("Seller\n");
+    printf("%d\n", service_time);
+    printf("%d\n", service_time2);
 
     // I/O Handling
     int n; 
