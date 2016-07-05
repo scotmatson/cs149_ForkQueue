@@ -19,7 +19,6 @@
 #include "seats.h"
 #include "priorityqueue.h"
 #include "buyers.h"
-#include "sellers.h"
 
 /* Seller Logic */
 static const int NUMBER_OF_SELLERS = 10;
@@ -44,8 +43,8 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 /*
  * seller thread to serve one time slice (1 minute)
  */
-void * sell(void * s) {
-    PriorityQueue *sellersQueue = (PriorityQueue*) s;
+void * sell(void * pq) {
+    PriorityQueue *sellersQueue = (PriorityQueue *)pq;
     printf("In sell!!!\n");
     while(!isEmpty(sellersQueue))
     {
