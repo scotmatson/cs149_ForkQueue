@@ -151,7 +151,7 @@ int main(int argc, char * argv[]) {
     // TODO
     
     /* Make the line for customers to 'line up' to be served by a Seller  */
-    PriorityQueue *master_ticket_line = createPriorityQueue(n);
+    PriorityQueue *ticket_line = createPriorityQueue(n);
 
     /* Generate N Buyer structs */
     printf("*** Generating %d Buyers ***\n", n);
@@ -178,10 +178,6 @@ int main(int argc, char * argv[]) {
     }
     printf("%c", NEWLINE);
     
-
-    for (i = 0; i < n * 10; i++)i {
-
-    }
 
     /* Thread Creation - SELLERS */
     struct Sellers sellers[NUMBER_OF_SELLERS];
