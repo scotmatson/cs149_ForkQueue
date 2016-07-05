@@ -53,22 +53,56 @@ pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 /*
+ * make a seller 
+ *
+ */
+
+/*
  * seller thread to serve one time slice (1 minute)
  */
 void * sell(void * s) {
     struct Sellers *seller = (struct Sellers*) s;
     printf("Type: %c - Time: %d\n", seller->type, seller->service_time);
     fflush(stdout);
+    
+    // this is beginning of thread; set thread clock to 0;
+    int thread_clock = 0;
+    // if there are buyers in the seller.ticket_line && there is time left
+    /* 
+    while (!seller.ticket_line.isEmpty() && thread_clock < ONE_HOUR) {
+        // poll for a buyer
+        Buyer b = seller.ticket_line.poll();
+        
+        // generate a random service time
+        int service_time = gen_random_service_time(b.priority);
 
-    /* This while condition is by reference and shared
-       by all sellers */
-    //while (!seller.ticket_line.isEmpty()) {
-    //    pthread_mutex_lock(&mutex);
-    //    pthread_cond_wait(&cond, &mutex);
-    //    pthread_mutex_unlock(&mutex)
+        // set the start of the actual sale
+        b.start_sale_time = clock;
 
-    // Serve any buyer available in this sell queue that is ready
-    // now to buy ticket till done with all relevant buyers in their queue
+        // set end of the sale as current + service_time 
+        b.end_sale_time = thread_clock + service_time;
+
+        // set the actual sale_time as interval between start and end of 
+        // actual sale
+        b.sale_time = b.end_sale_time - b.start_sale_time
+
+        // if the thread_clock is not the same as the time the sale is 
+        // supposed to occur, then increment the thread_clock
+        while (thread_clock != b.end_sale_time) {
+            thread_clock++;
+        }
+        
+        // at time of sale, ask to get the lock
+        pthread_mutex_lock(&mutex);
+        pthread_cond_wait(&cond, &mutex);
+        pthread_mutex_unlock(&mutex)
+
+        // ask the seatmap to seat the buyer
+
+        seat_this_buyer(buyer_queue.poll());
+
+    }
+    */
     return NULL;
 }
 
@@ -117,7 +151,7 @@ int main(int argc, char * argv[]) {
     // TODO
     
     /* Make the line for customers to 'line up' to be served by a Seller  */
-    PriorityQueue *ticket_line = createPriorityQueue(n);
+    PriorityQueue *master_ticket_line = createPriorityQueue(n);
 
     /* Generate N Buyer structs */
     printf("*** Generating %d Buyers ***\n", n);
@@ -143,6 +177,11 @@ int main(int argc, char * argv[]) {
         printf("C%d", i);
     }
     printf("%c", NEWLINE);
+    
+
+    for (i = 0; i < n * 10; i++)i {
+
+    }
 
     /* Thread Creation - SELLERS */
     struct Sellers sellers[NUMBER_OF_SELLERS];
@@ -154,6 +193,9 @@ int main(int argc, char * argv[]) {
         sellers[i].type = 'H';
         sellers[i].service_time = service_time;
         sellers[i].ticket_line = ticket_line;
+        
+        PriorityQueue *internal_ticket_line = createPriorityQueue(n);
+ 
         // TODO Add box_office reference
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
