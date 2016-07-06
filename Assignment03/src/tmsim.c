@@ -133,81 +133,11 @@ void * sell(void * s) {
     */
     return NULL;
 }
->>>>>>> 981be5227b36c2e95f87eefbc83cd0a59ca5c93f
 
     /* Thread stuff that I don't quite understand... yet */
     pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
     pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-    struct Buyers *seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
-    bool seats_available = true; // Starts true because 100 seats are open
-    int UNSERVED_SIZE = 150;
-    //#define UNSERVED_SIZE 150
-   // PriorityQueue *unserved_buyers = createPriorityQueue(UNSERVED_SIZE);
-    
-
-    void seat_this_buyer(struct Buyers b){
-    
-       char priority_of_buyer = b.priority;
-
-        if(seats_available == true)
-        {
-            switch(priority_of_buyer)
-            {
-        
-                case 'H': //Assign buyer a high priority seating, starting from row 1
-                    for(int i = 0; i < NUMBER_OF_ROWS; i++)
-                    {
-                        for(int j = 0; j < SEATS_PER_ROW; j++)
-                        {
-                           if(seatmap[i][j] == NULL)
-                           { // Change to NULL after switching to hold objecti
-                               seatmap[i][j] = &b; // Need to change seatmap to hold object
-                                goto end; //Break out switch statement if seat is assigned
-                           }
-                        }
-                    }
-                    seats_available = false; // Change to false if no empty seats are found
-                    break;
-
-                case 'M'://Assign buyer a med priority seating, starting from row 4
-                    for(int i = 3; i < NUMBER_OF_ROWS; i++)
-                    {
-                        for(int j = 0; j < SEATS_PER_ROW; j++)
-                        {
-                            if(seatmap[i][j] == NULL)
-                            {//Change to NULL after switching to hold objects
-                                seatmap[i][j] = &b;
-                                goto end; //Break out switch statement if seat is assigned
-                            }
-                        }
-                    }
-                    seats_available = false; //Change to false if no empty seats are found
-                    break;
-
-                /*Low algo will start from row 10, sell from left to right,
-                 *then decrement down a row when current row is filled up */
-                case 'L':
-                    for(int i = NUMBER_OF_ROWS - 1; i >= 0; i--)
-                    {
-                        for(int j = 0; j < SEATS_PER_ROW; j++){
-                            if(seatmap[i][j] == NULL){//Change to NULL after switching to hold object
-                                seatmap[i][j] = &b; //Need to change seatmap to hold object
-                                goto end; //Break out switch statement if seat is assigned
-                            }
-                        }
-                    }
-                    seats_available = false; //Change to false if no empty seats are found
-                    break;
-            
-            }
-        }  
-        //else, put the buyer into unserved list
-      //  else{
-    //        add(unserved_buyers, b);
-       // }
-            end:;//Label to break out switch statement
-    }
     /*
      * seller thread to serve one time slice (1 minute)
      */
@@ -384,35 +314,6 @@ void * sell(void * s) {
         printf("%c", NEWLINE);
         fflush(stdout);
     } 
-
-    struct Buyers buyer;
-    buyer.priority = 'H';
-   // buyer.name[0] = 'f';
-//
-struct Buyers b2;
-b2.priority = "H";
-seat_this_buyer(b2);
-    seat_this_buyer(buyer);
- //   seatmap[2][3] = &buyer;
-struct Buyers m1;
-m1.priority = "M";
-seat_this_buyer(m1);
- // Printout simulation results
-    printf("Seating Chart\n");
-    for (i=0; i < NUMBER_OF_ROWS; i++) {
-        for (j=0; j < SEATS_PER_ROW; j++) {
-            if(seatmap[i][j] == NULL){
-                printf("%-3s", EMPTY_SEAT);
-            }else
-            {
-     //       printf("%c", buyer.name[0]);
-                printf("%c", seatmap[i][j]->priority);
-            }
-        }
-        printf("%c", NEWLINE);
-        fflush(stdout);
-    } 
-
 
     exit(EXIT_SUCCESS);
 }
