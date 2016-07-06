@@ -21,34 +21,6 @@
 #include "buyers.h"
 #include "sellers.h"
 
-<<<<<<< HEAD
-    /*
-    struct box_office {
-        int time;
-        struct Ticket available_tickets[500];
-        struct Buyer turned_away[500];
-        struct Ticket tickets_sold[500];
-        struct Buyer customers_served[500];
-    };
-    */
-
-    /* Seller Logic */
-    static const int NUMBER_OF_SELLERS = 10;
-    //static const int HIGH_PRICE_SELLERS = 1;
-    //static const int MEDIUM_PRICE_SELLERS = 3;
-    //static const int LOW_PRICE_SELLERS = 6;
-
-    /* Time */
-    static const int ONE_HOUR = 60;
-
-    /* Map Visualization */
-    static const int NUMBER_OF_ROWS = 10;
-    static const int SEATS_PER_ROW = 10;
-    static char * const EMPTY_SEAT = "--";
-
-    /* Utility */
-    static const char NEWLINE = '\n';
-=======
 /*
 struct box_office {
     int time;
@@ -134,31 +106,6 @@ void * sell(void * s) {
     return NULL;
 }
 
-    /* Thread stuff that I don't quite understand... yet */
-    pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
-    pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
-    /*
-     * seller thread to serve one time slice (1 minute)
-     */
-    void * sell(void * s) {
-        struct Sellers *seller = (struct Sellers*) s;
-        printf("Type: %c - Time: %d\n", seller->type, seller->service_time);
-        fflush(stdout);
-
-        /* This while condition is by reference and shared
-           by all sellers */
-        //while (!seller.ticket_line.isEmpty()) {
-        //    pthread_mutex_lock(&mutex);
-        //    pthread_cond_wait(&cond, &mutex);
-        //    pthread_mutex_unlock(&mutex)
-
-        // Serve any buyer available in this sell queue that is ready
-        // now to buy ticket till done with all relevant buyers in their queue
-        return NULL;
-    }
-
-
     /*
      * The main method
      */
@@ -192,13 +139,6 @@ void * sell(void * s) {
     srand(time(NULL));        /* Seeding the random number generator */
     n *= NUMBER_OF_SELLERS;   /* Number of customers */
 
-    // Create necessary data structures for the simulator.
-    //for (i=0; i < NUMBER_OF_ROWS; i++) {
-      //  for (j=0; j < SEATS_PER_ROW; j++) {
-        //    seatmap[i][j] = EMPTY_SEAT;
-        //}
-    //}
-   
     /* Declare a Box Office that stores venue information */
     // TODO
     
@@ -303,17 +243,6 @@ void * sell(void * s) {
             exit(EXIT_FAILURE);
         }
     }
-    // Printout simulation results
-    printf("Seating Chart\n");
-    for (i=0; i < NUMBER_OF_ROWS; i++) {
-        for (j=0; j < SEATS_PER_ROW; j++) {
-            if(seatmap[i][j] == NULL){
-                printf("%-3s", EMPTY_SEAT);
-            }
-        }
-        printf("%c", NEWLINE);
-        fflush(stdout);
-    } 
 
     exit(EXIT_SUCCESS);
 }

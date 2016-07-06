@@ -1,7 +1,8 @@
 #ifndef BUYERS_H
 #define BUYERS_H
 struct Buyers {
-    char* priority;
+//char* priority;
+    int priority; // Changed priority from char to int. 1 = high, 2 = med, 3 = low
     char name[25];
     char seller_name[25];
     double wait_time;
