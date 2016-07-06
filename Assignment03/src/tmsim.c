@@ -21,6 +21,7 @@
 #include "buyers.h"
 #include "sellers.h"
 
+<<<<<<< HEAD
     /*
     struct box_office {
         int time;
@@ -47,6 +48,92 @@
 
     /* Utility */
     static const char NEWLINE = '\n';
+=======
+/*
+struct box_office {
+    int time;
+    struct Ticket available_tickets[500];
+    struct Buyer turned_away[500];
+    struct Ticket tickets_sold[500];
+    struct Buyer customers_served[500];
+};
+*/
+
+/* Seller Logic */
+static const int NUMBER_OF_SELLERS = 10;
+//static const int HIGH_PRICE_SELLERS = 1;
+//static const int MEDIUM_PRICE_SELLERS = 3;
+//static const int LOW_PRICE_SELLERS = 6;
+
+/* Time */
+static const int ONE_HOUR = 60;
+
+/* Map Visualization */
+static const int NUMBER_OF_ROWS = 10;
+static const int SEATS_PER_ROW = 10;
+static char * const EMPTY_SEAT = "--";
+
+/* Utility */
+static const char NEWLINE = '\n';
+
+/* Thread stuff that I don't quite understand... yet */
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
+/*
+ * make a seller 
+ *
+ */
+
+/*
+ * seller thread to serve one time slice (1 minute)
+ */
+void * sell(void * s) {
+    struct Sellers *seller = (struct Sellers*) s;
+    printf("Type: %c - Time: %d\n", seller->type, seller->service_time);
+    fflush(stdout);
+    
+    // this is beginning of thread; set thread clock to 0;
+    int thread_clock = 0;
+    // if there are buyers in the seller.ticket_line && there is time left
+    /* 
+    while (!seller.ticket_line.isEmpty() && thread_clock < ONE_HOUR) {
+        // poll for a buyer
+        Buyer b = seller.ticket_line.poll();
+        
+        // generate a random service time
+        int service_time = gen_random_service_time(b.priority);
+
+        // set the start of the actual sale
+        b.start_sale_time = clock;
+
+        // set end of the sale as current + service_time 
+        b.end_sale_time = thread_clock + service_time;
+
+        // set the actual sale_time as interval between start and end of 
+        // actual sale
+        b.sale_time = b.end_sale_time - b.start_sale_time
+
+        // if the thread_clock is not the same as the time the sale is 
+        // supposed to occur, then increment the thread_clock
+        while (thread_clock != b.end_sale_time) {
+            thread_clock++;
+        }
+        
+        // at time of sale, ask to get the lock
+        pthread_mutex_lock(&mutex);
+        pthread_cond_wait(&cond, &mutex);
+        pthread_mutex_unlock(&mutex)
+
+        // ask the seatmap to seat the buyer
+
+        seat_this_buyer(buyer_queue.poll());
+
+    }
+    */
+    return NULL;
+}
+>>>>>>> 981be5227b36c2e95f87eefbc83cd0a59ca5c93f
 
     /* Thread stuff that I don't quite understand... yet */
     pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
@@ -212,6 +299,7 @@
         printf("C%d\n", i);
     }
     printf("%c", NEWLINE);
+    
 
     /* Thread Creation - SELLERS */
     struct Sellers sellers[NUMBER_OF_SELLERS];
@@ -223,6 +311,9 @@
         sellers[i].type = 'H';
         sellers[i].service_time = service_time;
         sellers[i].ticket_line = ticket_line;
+        
+        PriorityQueue *internal_ticket_line = createPriorityQueue(n);
+ 
         // TODO Add box_office reference
         rc = pthread_create(&tids[i], NULL, sell, &sellers[i]);
         if (rc) {
