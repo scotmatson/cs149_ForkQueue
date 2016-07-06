@@ -1,3 +1,4 @@
+/*
 #ifndef TICKET_H
 #define TICKET_H
 struct Tickets {
@@ -7,4 +8,8 @@ struct Tickets {
     int seat_number;
     bool availability;
 };
-#endif /* TICKET_H */
+#endif
+
+*/
+
+

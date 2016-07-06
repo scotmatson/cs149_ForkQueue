@@ -107,6 +107,7 @@ void * sell(void * s) {
     return NULL;
 }
 
+<<<<<<< HEAD
 /*
  * The main method
  */
@@ -126,6 +127,21 @@ int main(int argc, char * argv[]) {
             fprintf(stderr, "ERROR; User input must be type int\n");
             fflush(stderr);
             exit(EXIT_FAILURE);
+=======
+    /*
+     * The main method
+     */
+    int main(int argc, char * argv[]) {
+        PriorityQueue *unserved_buyers = createPriorityQueue(150);
+
+        // I/O Handling - Do this first, if no arg given, kill execution
+        int n; 
+        if (argc != 2) {
+           fflush(stdout);
+           fprintf(stderr, "ERROR; Execution must be in form [./a.out] [int]\n"); 
+           fflush(stderr);
+           exit(EXIT_FAILURE);
+>>>>>>> cdb6f11071f7949f3ad615e9d3336b56da933fd3
         }
         else {
             n = atoi(argv[1]);
@@ -141,6 +157,7 @@ int main(int argc, char * argv[]) {
     srand(time(NULL));        /* Seeding the random number generator */
     n *= NUMBER_OF_SELLERS;   /* Number of customers */
 
+<<<<<<< HEAD
     // Create necessary data structures for the simulator.
     char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
     for (i=0; i < NUMBER_OF_ROWS; i++) {
@@ -149,6 +166,8 @@ int main(int argc, char * argv[]) {
         }
     }
    
+=======
+>>>>>>> cdb6f11071f7949f3ad615e9d3336b56da933fd3
     /* Declare a Box Office that stores venue information */
     // TODO
     
@@ -258,6 +277,7 @@ int main(int argc, char * argv[]) {
         }
     }
 
+<<<<<<< HEAD
     // Printout simulation results
     printf("Seating Chart\n");
     for (i=0; i < NUMBER_OF_ROWS; i++) {
@@ -268,5 +288,7 @@ int main(int argc, char * argv[]) {
         fflush(stdout);
     } 
 
+=======
+>>>>>>> cdb6f11071f7949f3ad615e9d3336b56da933fd3
     exit(EXIT_SUCCESS);
 }
