@@ -45,8 +45,8 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
  */
 void *sell(void *pq) {
     struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
-    printf("In sell!!!\n");
 
+    //Tester just to see if the queue made it
     while(!isEmpty(sellers_queue))
     {
         struct Buyers b = poll(sellers_queue);
@@ -56,10 +56,11 @@ void *sell(void *pq) {
         printf("%d", b.arrival_time);
         printf("\nSale time = " );
         printf("%d", b.sale_time);
+        printf("\nPriority = " );
+        printf("%c", b.priority);
+        printf("\n\n");
         fflush(stdout);
     }
-    printf("\n\n");
-    fflush(stdout);
 
     /* This while condition is by reference and shared
        by all sellers */
@@ -104,7 +105,6 @@ int main(int argc, char * argv[]) {
     int simulation_clock = 0; /* Simulated time represented by loop iterations */
     pthread_t tids[NUMBER_OF_SELLERS];       /* */
     srand(time(NULL));        /* Seeding the random number generator */
-    n *= NUMBER_OF_SELLERS;   /* Number of  TOTAL customers */
 
     // Create necessary data structures for the simulator.
     char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
@@ -143,6 +143,7 @@ int main(int argc, char * argv[]) {
     // Create buyers list for each seller ticket queue based on the
     // N value within an hour and put them in the correct seller queue.
     //****************************************************************************
+
     for (i = 1; i <= n; i++) {
         //**********************Create H0 queue buyers***********************
         struct Buyers h;
@@ -163,6 +164,7 @@ int main(int argc, char * argv[]) {
         //Create the buyers arrival and sale times randomly
         h.arrival_time = rand() % 60; //0 to 59
         h.sale_time = rand() % 2 + 1; //1 to 2 /* 
+        h.priority = 'H';
         //Add the buyer to the correct queue
         add(H0, h);
 
@@ -190,6 +192,7 @@ int main(int argc, char * argv[]) {
                     //Create the buyers arrival and sale times randomly
                     m.arrival_time = rand() % 60; //0 to 59
                     m.sale_time = rand() % 2 + 2; //2 to 4
+                    m.priority = 'M';
                     //Add the buyer to the correct queue
                     add(M1, m);
                     break;
@@ -211,6 +214,7 @@ int main(int argc, char * argv[]) {
                     //Create the buyers arrival and sale times randomly
                     m.arrival_time = rand() % 60; //0 to 59
                     m.sale_time = rand() % 2 + 2; //2 to 4
+                    m.priority = 'M';
                     //Add the buyer to the correct queue
                     add(M2, m);
                     break;
@@ -232,6 +236,7 @@ int main(int argc, char * argv[]) {
                     //Create the buyers arrival and sale times randomly
                     m.arrival_time = rand() % 60; //0 to 59
                     m.sale_time = rand() % 2 + 2; //2 to 4
+                    m.priority = 'M';
                     //Add the buyer to the correct queue
                     add(M3, m);
                     break;
@@ -262,6 +267,7 @@ int main(int argc, char * argv[]) {
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
                     l.sale_time = rand() % 4 + 4; //4 to 7
+                    l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L1, l);
                     break;
@@ -281,6 +287,7 @@ int main(int argc, char * argv[]) {
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
                     l.sale_time = rand() % 4 + 4; //4 to 7
+                    l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L2, l);
                     break;
@@ -300,6 +307,7 @@ int main(int argc, char * argv[]) {
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
                     l.sale_time = rand() % 4 + 4; //4 to 7
+                    l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L3, l);
                     break;
@@ -319,6 +327,7 @@ int main(int argc, char * argv[]) {
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
                     l.sale_time = rand() % 4 + 4; //4 to 7
+                    l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L4, l);
                     break;
@@ -338,6 +347,7 @@ int main(int argc, char * argv[]) {
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
                     l.sale_time = rand() % 4 + 4; //4 to 7
+                    l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L5, l);
                     break;
@@ -357,6 +367,7 @@ int main(int argc, char * argv[]) {
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
                     l.sale_time = rand() % 4 + 4; //4 to 7
+                    l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L6, l);
                     break;
@@ -365,8 +376,7 @@ int main(int argc, char * argv[]) {
             }
         }
     }
-    //having trouble passing in the sellers queues
-    // help me help me help me !!!
+
     /* Thread Creation - SELLERS PRIORITY QUEUE */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
         rc = pthread_create(&tids[i], NULL, sell, (void *) sellersQueues[i]);
