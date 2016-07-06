@@ -1,11 +1,11 @@
-/*
- *  Solves CS149 Assignment #3 
- *
- *  Authors: 
- *      Tyler Jones, 
- *      Scot Matson
- */
-/* C libs */
+    /*
+     *  Solves CS149 Assignment #3 
+     *
+     *  Authors: 
+     *      Tyler Jones, 
+     *      Scot Matson
+     */
+    /* C libs */
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>     
@@ -14,89 +14,159 @@
 #include <time.h>
 #include <string.h>
 
-/* User libs */
-//#include "boxoffice.h"
-#include "seats.h"
+    /* User libs */
+    //#include "boxoffice.h"
+//#include "seats.h"
 #include "priorityqueue.h"
 #include "buyers.h"
 #include "sellers.h"
 
-/*
-struct box_office {
-    int time;
-    struct Ticket available_tickets[500];
-    struct Buyer turned_away[500];
-    struct Ticket tickets_sold[500];
-    struct Buyer customers_served[500];
-};
-*/
+    /*
+    struct box_office {
+        int time;
+        struct Ticket available_tickets[500];
+        struct Buyer turned_away[500];
+        struct Ticket tickets_sold[500];
+        struct Buyer customers_served[500];
+    };
+    */
 
-/* Seller Logic */
-static const int NUMBER_OF_SELLERS = 10;
-//static const int HIGH_PRICE_SELLERS = 1;
-//static const int MEDIUM_PRICE_SELLERS = 3;
-//static const int LOW_PRICE_SELLERS = 6;
+    /* Seller Logic */
+    static const int NUMBER_OF_SELLERS = 10;
+    //static const int HIGH_PRICE_SELLERS = 1;
+    //static const int MEDIUM_PRICE_SELLERS = 3;
+    //static const int LOW_PRICE_SELLERS = 6;
 
-/* Time */
-static const int ONE_HOUR = 60;
+    /* Time */
+    static const int ONE_HOUR = 60;
 
-/* Map Visualization */
-static const int NUMBER_OF_ROWS = 10;
-static const int SEATS_PER_ROW = 10;
-static char * const EMPTY_SEAT = "--";
+    /* Map Visualization */
+    static const int NUMBER_OF_ROWS = 10;
+    static const int SEATS_PER_ROW = 10;
+    static char * const EMPTY_SEAT = "--";
 
-/* Utility */
-static const char NEWLINE = '\n';
+    /* Utility */
+    static const char NEWLINE = '\n';
 
-/* Thread stuff that I don't quite understand... yet */
-pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+    /* Thread stuff that I don't quite understand... yet */
+    pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+    pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-/*
- * seller thread to serve one time slice (1 minute)
- */
-void * sell(void * s) {
-    struct Sellers *seller = (struct Sellers*) s;
-    printf("Type: %c - Time: %d\n", seller->type, seller->service_time);
-    fflush(stdout);
+    struct Buyers *seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
+    bool seats_available = true; // Starts true because 100 seats are open
+    int UNSERVED_SIZE = 150;
+    //#define UNSERVED_SIZE 150
+   // PriorityQueue *unserved_buyers = createPriorityQueue(UNSERVED_SIZE);
+    
 
-    /* This while condition is by reference and shared
-       by all sellers */
-    //while (!seller.ticket_line.isEmpty()) {
-    //    pthread_mutex_lock(&mutex);
-    //    pthread_cond_wait(&cond, &mutex);
-    //    pthread_mutex_unlock(&mutex)
+    void seat_this_buyer(struct Buyers b){
+    
+       char priority_of_buyer = b.priority;
 
-    // Serve any buyer available in this sell queue that is ready
-    // now to buy ticket till done with all relevant buyers in their queue
-    return NULL;
-}
+        if(seats_available == true)
+        {
+            switch(priority_of_buyer)
+            {
+        
+                case 'H': //Assign buyer a high priority seating, starting from row 1
+                    for(int i = 0; i < NUMBER_OF_ROWS; i++)
+                    {
+                        for(int j = 0; j < SEATS_PER_ROW; j++)
+                        {
+                           if(seatmap[i][j] == NULL)
+                           { // Change to NULL after switching to hold objecti
+                               seatmap[i][j] = &b; // Need to change seatmap to hold object
+                                goto end; //Break out switch statement if seat is assigned
+                           }
+                        }
+                    }
+                    seats_available = false; // Change to false if no empty seats are found
+                    break;
 
+                case 'M'://Assign buyer a med priority seating, starting from row 4
+                    for(int i = 3; i < NUMBER_OF_ROWS; i++)
+                    {
+                        for(int j = 0; j < SEATS_PER_ROW; j++)
+                        {
+                            if(seatmap[i][j] == NULL)
+                            {//Change to NULL after switching to hold objects
+                                seatmap[i][j] = &b;
+                                goto end; //Break out switch statement if seat is assigned
+                            }
+                        }
+                    }
+                    seats_available = false; //Change to false if no empty seats are found
+                    break;
 
-/*
- * The main method
- */
-int main(int argc, char * argv[]) {
-  
-    // I/O Handling - Do this first, if no arg given, kill execution
-    int n; 
-    if (argc != 2) {
-       fflush(stdout);
-       fprintf(stderr, "ERROR; Execution must be in form [./a.out] [int]\n"); 
-       fflush(stderr);
-       exit(EXIT_FAILURE);
+                /*Low algo will start from row 10, sell from left to right,
+                 *then decrement down a row when current row is filled up */
+                case 'L':
+                    for(int i = NUMBER_OF_ROWS - 1; i >= 0; i--)
+                    {
+                        for(int j = 0; j < SEATS_PER_ROW; j++){
+                            if(seatmap[i][j] == NULL){//Change to NULL after switching to hold object
+                                seatmap[i][j] = &b; //Need to change seatmap to hold object
+                                goto end; //Break out switch statement if seat is assigned
+                            }
+                        }
+                    }
+                    seats_available = false; //Change to false if no empty seats are found
+                    break;
+            
+            }
+        }  
+        //else, put the buyer into unserved list
+      //  else{
+    //        add(unserved_buyers, b);
+       // }
+            end:;//Label to break out switch statement
     }
-    else {
-        if (!isdigit(*argv[1])) {
-            fflush(stdout);
-            fprintf(stderr, "ERROR; User input must be type int\n");
-            fflush(stderr);
-            exit(EXIT_FAILURE);
+    /*
+     * seller thread to serve one time slice (1 minute)
+     */
+    void * sell(void * s) {
+        struct Sellers *seller = (struct Sellers*) s;
+        printf("Type: %c - Time: %d\n", seller->type, seller->service_time);
+        fflush(stdout);
+
+        /* This while condition is by reference and shared
+           by all sellers */
+        //while (!seller.ticket_line.isEmpty()) {
+        //    pthread_mutex_lock(&mutex);
+        //    pthread_cond_wait(&cond, &mutex);
+        //    pthread_mutex_unlock(&mutex)
+
+        // Serve any buyer available in this sell queue that is ready
+        // now to buy ticket till done with all relevant buyers in their queue
+        return NULL;
+    }
+
+
+    /*
+     * The main method
+     */
+    int main(int argc, char * argv[]) {
+        PriorityQueue *unserved_buyers = createPriorityQueue(150);
+
+        // I/O Handling - Do this first, if no arg given, kill execution
+        int n; 
+        if (argc != 2) {
+           fflush(stdout);
+           fprintf(stderr, "ERROR; Execution must be in form [./a.out] [int]\n"); 
+           fflush(stderr);
+           exit(EXIT_FAILURE);
         }
         else {
-            n = atoi(argv[1]);
+            if (!isdigit(*argv[1])) {
+                fflush(stdout);
+                fprintf(stderr, "ERROR; User input must be type int\n");
+                fflush(stderr);
+                exit(EXIT_FAILURE);
+            }
+            else {
+                n = atoi(argv[1]);
+            }
         }
-    }
 
     int i, j;                 /* Counters */
     int rc;                   /* Error Return Code */
@@ -106,12 +176,11 @@ int main(int argc, char * argv[]) {
     n *= NUMBER_OF_SELLERS;   /* Number of customers */
 
     // Create necessary data structures for the simulator.
-    char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
-    for (i=0; i < NUMBER_OF_ROWS; i++) {
-        for (j=0; j < SEATS_PER_ROW; j++) {
-            seatmap[i][j] = EMPTY_SEAT;
-        }
-    }
+    //for (i=0; i < NUMBER_OF_ROWS; i++) {
+      //  for (j=0; j < SEATS_PER_ROW; j++) {
+        //    seatmap[i][j] = EMPTY_SEAT;
+        //}
+    //}
    
     /* Declare a Box Office that stores venue information */
     // TODO
@@ -140,7 +209,7 @@ int main(int argc, char * argv[]) {
 
         /* Buyer gets in the back of the line */
         add(ticket_line, buyer);
-        printf("C%d", i);
+        printf("C%d\n", i);
     }
     printf("%c", NEWLINE);
 
@@ -213,16 +282,46 @@ int main(int argc, char * argv[]) {
             exit(EXIT_FAILURE);
         }
     }
-
     // Printout simulation results
     printf("Seating Chart\n");
     for (i=0; i < NUMBER_OF_ROWS; i++) {
         for (j=0; j < SEATS_PER_ROW; j++) {
-            printf("%-3s", seatmap[i][j]);
+            if(seatmap[i][j] == NULL){
+                printf("%-3s", EMPTY_SEAT);
+            }
         }
         printf("%c", NEWLINE);
         fflush(stdout);
     } 
+
+    struct Buyers buyer;
+    buyer.priority = 'H';
+   // buyer.name[0] = 'f';
+//
+struct Buyers b2;
+b2.priority = "H";
+seat_this_buyer(b2);
+    seat_this_buyer(buyer);
+ //   seatmap[2][3] = &buyer;
+struct Buyers m1;
+m1.priority = "M";
+seat_this_buyer(m1);
+ // Printout simulation results
+    printf("Seating Chart\n");
+    for (i=0; i < NUMBER_OF_ROWS; i++) {
+        for (j=0; j < SEATS_PER_ROW; j++) {
+            if(seatmap[i][j] == NULL){
+                printf("%-3s", EMPTY_SEAT);
+            }else
+            {
+     //       printf("%c", buyer.name[0]);
+                printf("%c", seatmap[i][j]->priority);
+            }
+        }
+        printf("%c", NEWLINE);
+        fflush(stdout);
+    } 
+
 
     exit(EXIT_SUCCESS);
 }
