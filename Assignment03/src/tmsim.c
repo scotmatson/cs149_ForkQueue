@@ -150,18 +150,19 @@ int main(int argc, char * argv[2]) {
     //  [H0, M1, M2, M3, L1, L2, L3, L4, L5, L6], where each element is a complete sellersQueue
     // This must happen before the loop
     SellersQueueArray *sellersQueues = createSellersQueueArray(NUMBER_OF_SELLERS, n);
+
+    /* 
+     * THIS WORKS,
+     * Now we have to apply this flow of logic to the threading process
+     */
+    PriorityQueue *pq = (PriorityQueue *) &sellersQueues[0];
+    printf("checking isEmpty\n");
+    isEmpty(pq);
+    printf("finishg check\n");
     
     /* Thread Creation */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
-        rc = pthread_create(&tids[i], NULL, sell,  &sellersQueues[i]);
-
-/*
-        rc = pthread_create(
-            &tids[i], 
-            NULL, 
-            sell, 
-            (void *) sellersQueues[i].sellersQueues);
-*/
+        rc = pthread_create(&tids[i], NULL, sell, (void *) &sellersQueues[i]);
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
