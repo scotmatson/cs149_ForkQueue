@@ -64,22 +64,30 @@ void *sell(void *pq) {
     /*
      * start francisco void sell code
     int thread_clock = 0;
+    int buyer_seated = 0;
 
     while (!sellers_queue.isEmpty() && thread_clock < 60) {
         Buyers b = sellers_queue.poll();
         int buyer_seated = 0;
         b.sale_start_time = thread_clock;
         b.sale_end_time = thread_clock + b.service_time;
-*/    
+        b.sale_time = b.sale_end_time - b.start_sale_time;
+       
+        while (thread_clock != b.sale_end_time) {
+            thread_clock++;
+        }
+        
+        pthread_mutex_lock(&mutex);
+        pthread_cond_wait(&cond, &mutex);
+        pthread_mutex_unlock(&mutex);
 
+        buyer_seated = seat_this_buyer(b);
 
-/* This while condition is by reference and shared
-       by all sellers */
-    //while (!seller.ticket_line.isEmpty()) {
-    //    pthread_mutex_lock(&mutex);
-    //    pthread_cond_wait(&cond, &mutex);
-    //    pthread_mutex_unlock(&mutex)
-
+        if (buyer_seated == -1){
+            add(unserved_list, b);
+        }
+        thread_clock++;
+    }
     // Serve any buyer available in this sell queue that is ready
     // now to buy ticket till done with all relevant buyers in their queue
     return NULL;
