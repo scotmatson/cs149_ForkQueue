@@ -47,6 +47,7 @@ void *sell(void *pq) {
     printf("\nIn sell\n" );
 
     //Tester just to see if the queue made it
+    /*
     while(!isEmpty(sellers_queue))
     {
         struct Buyers b = poll(sellers_queue);
@@ -61,18 +62,25 @@ void *sell(void *pq) {
         printf("\n\n");
         fflush(stdout);
     }
+    */
     
     /*
      * start francisco void sell code
+     */
     int thread_clock = 0;
     int buyer_seated = 0;
+    
+    while(!isEmpty(sellers_queue) && thread_clock < 60) {
 
-    while (!sellers_queue.isEmpty() && thread_clock < 60) {
-        Buyers b = sellers_queue.poll();
+        struct Buyers b = poll(sellers_queue);
+
         int buyer_seated = 0;
+
         b.sale_start_time = thread_clock;
+
         b.sale_end_time = thread_clock + b.service_time;
-        b.sale_time = b.sale_end_time - b.start_sale_time;
+
+        b.sale_time = b.sale_end_time - b.sale_start_time;;
        
         while (thread_clock != b.sale_end_time) {
             thread_clock++;
@@ -95,7 +103,6 @@ void *sell(void *pq) {
     }
     // Serve any buyer available in this sell queue that is ready
     // now to buy ticket till done with all relevant buyers in their queue
-*/
     return NULL;
 }
 
