@@ -35,6 +35,11 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 /* Statistics */
 int total_sales = 0;
 int total_unseated = 0;
+ 
+// seatmap stuff   
+
+struct Seatmap map;
+
 
 /*
  * seller thread to serve one time slice (1 minute)
@@ -63,7 +68,9 @@ void *sell(void *pq) {
         b.sale_start_time = thread_clock;
         b.sale_end_time = thread_clock + b.service_time;
         b.sale_time = b.sale_end_time - b.sale_start_time;;
-       
+        
+        print_seatmap(&map);
+
         while (thread_clock != b.sale_end_time) {
             thread_clock++;
         }
@@ -71,6 +78,14 @@ void *sell(void *pq) {
         pthread_mutex_lock(&mutex);
         pthread_cond_wait(&cond, &mutex);
         pthread_mutex_unlock(&mutex);
+       
+       /*  
+        struct Seatmap map;
+
+        initialize_seatmap(&map);
+   
+        print_seatmap(&map); 
+    */
 
         /*
         buyer_seated = set_seat(seatmap, b);
@@ -94,10 +109,22 @@ void wakeup_all_seller_threads() {
     pthread_mutex_unlock(&mutex);
 }
 
+
+
+   
+
+
+
 /*
  * The main method
  */
 int main(int argc, char * argv[2]) {
+
+    
+    initialize_seatmap(&map);
+    
+    
+    
     // I/O Handling - Do this first, if no arg given, kill execution
     int n; 
     if (argc != 2) {
@@ -131,12 +158,11 @@ int main(int argc, char * argv[2]) {
     
     
     // seatmap stuff   
+/*
     struct Seatmap map;
 
     initialize_seatmap(&map);
-   
-    print_seatmap(&map);
-    
+  */ 
     
     
     
