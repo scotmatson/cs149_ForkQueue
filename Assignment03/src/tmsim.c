@@ -42,7 +42,7 @@ int total_unseated = 0;
  */
 
 void *sell(void *pq) {
-    PriorityQueue *sellers_queue = (PriorityQueue *) &pq;
+    struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
     int thread_clock = 0;
     int buyer_seated = 0;
     
@@ -152,11 +152,13 @@ int main(int argc, char * argv[2]) {
     //  all sellersQueues inthe SellersQueueArray ordered 
     //  [H0, M1, M2, M3, L1, L2, L3, L4, L5, L6], where each element is a complete sellersQueue
     // This must happen before the loop
-    SellersQueueArray *sellersQueues = createSellersQueueArray(NUMBER_OF_SELLERS, n);
+    SellersQueueArray * sqa = createSellersQueueArray(NUMBER_OF_SELLERS);
+    buildSellersQueueArray(sqa, n);
 
     /* Thread Creation */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
-        rc = pthread_create(&tids[i], NULL, sell, (void *) &sellersQueues[i]);
+        PriorityQueue * pq = sqa[i].sellersQueues;
+        rc = pthread_create(&tids[i], NULL, sell, (void *) pq);
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);

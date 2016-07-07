@@ -11,36 +11,39 @@
 static const int MEDIUM_PRICE_SELLERS = 3;
 static const int LOW_PRICE_SELLERS = 6;
 
-SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
+SellersQueueArray * createSellersQueueArray(int numOfSellers)
 {
     SellersQueueArray *SQA;
-    //SQA = (SellersQueueArray*)malloc(sizeof(SellersQueueArray));
-    SQA = (SellersQueueArray*)malloc(sizeof(SellersQueueArray) * numOfSellers);
+    SQA = (SellersQueueArray*)malloc(sizeof(SellersQueueArray));
+    SQA->sellersQueues = (PriorityQueue*)malloc(sizeof(PriorityQueue) * numOfSellers);
+    //Return the pointer to the SellersQueueArray
+    return SQA;
+}
 
-    // Create the array of PriorityQueues
-    PriorityQueue * sellersQueues[numOfSellers];
 
+void buildSellersQueueArray(SellersQueueArray *SQA, int numOfBuyers)
+{
     // Priority queues for the 10 Sellers
     PriorityQueue *H0 = createPriorityQueue(numOfBuyers);
-    sellersQueues[0] = H0;
+    SQA->sellersQueues[0] = *H0;
     PriorityQueue *M1 = createPriorityQueue(numOfBuyers);
-    sellersQueues[1] = M1;
+    SQA->sellersQueues[1] = *M1;
     PriorityQueue *M2 = createPriorityQueue(numOfBuyers);
-    sellersQueues[2] = M2;
+    SQA->sellersQueues[2] = *M2;
     PriorityQueue *M3 = createPriorityQueue(numOfBuyers);
-    sellersQueues[3] = M3;
+    SQA->sellersQueues[3] = *M3;
     PriorityQueue *L1 = createPriorityQueue(numOfBuyers);
-    sellersQueues[4] = L1;
+    SQA->sellersQueues[4] = *L1;
     PriorityQueue *L2 = createPriorityQueue(numOfBuyers);
-    sellersQueues[5] = L2;
+    SQA->sellersQueues[5] = *L2;
     PriorityQueue *L3 = createPriorityQueue(numOfBuyers);
-    sellersQueues[6] = L3;
+    SQA->sellersQueues[6] = *L3;
     PriorityQueue *L4 = createPriorityQueue(numOfBuyers);
-    sellersQueues[7] = L4;
+    SQA->sellersQueues[7] = *L4;
     PriorityQueue *L5 = createPriorityQueue(numOfBuyers);
-    sellersQueues[8] = L5;
+    SQA->sellersQueues[8] = *L5;
     PriorityQueue *L6 = createPriorityQueue(numOfBuyers);
-    sellersQueues[9] = L6;
+    SQA->sellersQueues[9] = *L6;
 
     //****************************************************************************
     // Create N Buyers with 
@@ -297,8 +300,6 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
             }
         }
     }
-    //Return the pointer to the SellersQueueArray
-    return SQA;
-}
 
+}
 

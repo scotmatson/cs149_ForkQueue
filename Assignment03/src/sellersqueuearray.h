@@ -12,17 +12,16 @@
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
-#include "buyers.h"
 #include "priorityqueue.h"
 
 typedef struct SellersQueueArray {
-    PriorityQueue *sellersQueues; //Pointer to array of priorityqueues
+    PriorityQueue * sellersQueues;
 } SellersQueueArray;
 
 /*
  * List all functions
  * Create the array of complete sellers queues
  */
-SellersQueueArray *createSellersQueueArray(int numOfSellers, int numOfBuyers); 
-
+SellersQueueArray *createSellersQueueArray(int numOfSellers); 
+void buildSellersQueueArray(SellersQueueArray *SQA, int numOfBuyers);
 #endif /* SELLERSQUEUEARRAY_H */
