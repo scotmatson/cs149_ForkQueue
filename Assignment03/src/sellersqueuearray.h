@@ -15,14 +15,14 @@
 #include "buyers.h"
 #include "priorityqueue.h"
 
-typedef struct SellersQueueArray
-{
-    //int numSellers; //Total number of seller queues
-    PriorityQueue * sellersQueues; //Pointer to array of priorityqueues
+typedef struct SellersQueueArray {
+    PriorityQueue *sellersQueues; //Pointer to array of priorityqueues
 } SellersQueueArray;
 
-//List all functions
-//Create the array of complete sellers queues
-SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers); 
+/*
+ * List all functions
+ * Create the array of complete sellers queues
+ */
+SellersQueueArray *createSellersQueueArray(int numOfSellers, int numOfBuyers); 
 
 #endif /* SELLERSQUEUEARRAY_H */

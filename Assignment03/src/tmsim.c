@@ -147,7 +147,7 @@ int main(int argc, char * argv[2]) {
     //[H0, M1, M2, M3, L1, L2, L3, L4, L5, L6], where each element is a complete sellersQueue
     SellersQueueArray *sellersQueues = createSellersQueueArray(NUMBER_OF_SELLERS, n);
     
-    /* Thread Creation - SELLERS PRIORITY QUEUE */
+    /* Thread Creation */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
 
         rc = pthread_create(

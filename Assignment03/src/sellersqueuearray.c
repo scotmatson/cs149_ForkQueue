@@ -15,13 +15,11 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
 {
 
     SellersQueueArray *SQA;
-    //SQA = (SellersQueueArray*)malloc(sizeof(SellersQueueArray) * numOfSellers);
     SQA = (SellersQueueArray*)malloc(sizeof(SellersQueueArray));
-
-    //SQA->sellersQueues = (SellersQueueArray*)malloc(sizeof(SellersQueueArray) * numOfSellers);
 
     // Create the array of PriorityQueues
     PriorityQueue * sellersQueues[numOfSellers];
+
     // Priority queues for the 10 Sellers
     PriorityQueue *H0 = createPriorityQueue(numOfBuyers);
     sellersQueues[0] = H0;
@@ -43,7 +41,6 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
     sellersQueues[8] = L5;
     PriorityQueue *L6 = createPriorityQueue(numOfBuyers);
     sellersQueues[9] = L6;
-
 
     //****************************************************************************
     // Create N Buyers with 
