@@ -5,6 +5,8 @@ struct Buyers {
     char priority;
     int arrival_time;
     int sale_time;
+    int sale_start_time;
+    int sale_end_time;
 };
 #endif /* BUYERS_H */
 
