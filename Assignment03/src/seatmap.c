@@ -14,7 +14,7 @@
 // function to return the next available seat
 // inputs: customer name 
 // output: a seat number, or -1 if none available
-int sell_seat(struct Seatmap* map, struct Buyer* b)
+int sell_seat(struct Seatmap* map, struct Buyers* b)
 {
 	// seller threads will execute this function to get seats
 	// only one seller at a time can execute 
@@ -67,7 +67,7 @@ void initialize_seatmap(struct Seatmap* map)
 // a routine to manage the seat sales
 // uses pointers to determine where the remaining seats are 
 // return -1 if no seats left, 0 if seat set
-int set_seat(struct Seatmap* map, struct Buyer* b)
+int set_seat(struct Seatmap* map, struct Buyers* b)
 {
 	// figure out the section by stripping the buyer name first char
 	char* name = b->name;
@@ -96,7 +96,7 @@ int set_seat(struct Seatmap* map, struct Buyer* b)
 	
 	int row = (int) seat_ptr / 10; 
 	int seat = seat_ptr - row; 
-	struct Buyer* t = map->seatmap[row][seat];
+	struct Buyers* t = map->seatmap[row][seat];
 	
 	while(t != NULL) // seat is taken and more are left
 	{

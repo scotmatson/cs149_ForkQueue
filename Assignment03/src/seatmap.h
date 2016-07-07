@@ -3,7 +3,7 @@
 #define NUM_OF_ROWS  10			
 #define SEATS_PER_ROW 10		
 
-#include "buyer.h"
+#include "buyers.h"
 
 /*
  *   seatmap is an array of char*, which hold the id of whoever bought a

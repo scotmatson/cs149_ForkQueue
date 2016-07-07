@@ -1,13 +1,10 @@
 #ifndef BUYERS_H
 #define BUYERS_H
-struct Buyers{
-    char* priority;
-    char name[25];
-    char seller_name[25];
-    int sale_start_time;
-    int sale_end_time;
-    int sale_time;
+struct Buyers {
+    char name[5];
+    char priority;
     int arrival_time;
+    int sale_time;
 };
 #endif /* BUYERS_H */
 

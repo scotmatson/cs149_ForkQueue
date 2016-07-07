@@ -3,7 +3,7 @@
  * Solves CS149 Homework#3
  * @author Tyler Jones
  */
-#include "priorityqueue.h"
+#include "priorityqueue.h"\
 
 //****************************************************************************************
 //CreatePriortityQueue takes the number of customers, and creates
@@ -11,16 +11,16 @@
 //****************************************************************************************
 PriorityQueue * createPriorityQueue(int numOfBuyers)
 {
-    PriorityQueue *PQ;
-    PQ = (PriorityQueue*)malloc(sizeof(PriorityQueue));
-    //Initialize attributes
-    PQ->buyers = (struct Buyers*)malloc(sizeof(struct Buyers) * numOfBuyers);
-    PQ->size = 0;
-    PQ->capacity = numOfBuyers;
-    PQ->front = 0;
-    PQ->rear = -1;
-    //Return the pointer to the PriorityQueue
-    return PQ;
+        PriorityQueue *PQ;
+        PQ = (PriorityQueue*)malloc(sizeof(PriorityQueue));
+        //Initialize attributes
+        PQ->buyers = (struct Buyers*)malloc(sizeof(struct Buyers) * numOfBuyers);
+        PQ->size = 0;
+        PQ->capacity = numOfBuyers;
+        PQ->front = 0;
+        PQ->rear = -1;
+        //Return the pointer to the PriorityQueue
+        return PQ;
 }
 
 //****************************************************************************************
