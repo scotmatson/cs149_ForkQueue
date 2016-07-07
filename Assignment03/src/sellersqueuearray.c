@@ -11,39 +11,35 @@
 static const int MEDIUM_PRICE_SELLERS = 3;
 static const int LOW_PRICE_SELLERS = 6;
 
-SellersQueueArray * createSellersQueueArray(int numOfSellers)
+//void buildSellersQueueArray(SellersQueueArray *SQA, int numOfBuyers)
+PriorityQueue** buildSellersQueueArray(int numOfSellers, int numOfBuyers)
 {
-    SellersQueueArray *SQA;
-    SQA = (SellersQueueArray*)malloc(sizeof(SellersQueueArray));
-    SQA->sellersQueues = (PriorityQueue*)malloc(sizeof(PriorityQueue) * numOfSellers);
-    //Return the pointer to the SellersQueueArray
-    return SQA;
-}
+    //PriorityQueue H0, M1, M2, M3, L1, L2, L3, L4, L5, L6, L7;
+    // Create an array of PriorityQueues for later use
+    // This is hack-ish, but I couldn't get malloc to work right here
+    static PriorityQueue * sellersQueues[10];
 
-
-void buildSellersQueueArray(SellersQueueArray *SQA, int numOfBuyers)
-{
     // Priority queues for the 10 Sellers
     PriorityQueue *H0 = createPriorityQueue(numOfBuyers);
-    SQA->sellersQueues[0] = *H0;
+    sellersQueues[0] = H0;
     PriorityQueue *M1 = createPriorityQueue(numOfBuyers);
-    SQA->sellersQueues[1] = *M1;
+    sellersQueues[1] = M1;
     PriorityQueue *M2 = createPriorityQueue(numOfBuyers);
-    SQA->sellersQueues[2] = *M2;
+    sellersQueues[2] = M2;
     PriorityQueue *M3 = createPriorityQueue(numOfBuyers);
-    SQA->sellersQueues[3] = *M3;
+    sellersQueues[3] = M3;
     PriorityQueue *L1 = createPriorityQueue(numOfBuyers);
-    SQA->sellersQueues[4] = *L1;
+    sellersQueues[4] = L1;
     PriorityQueue *L2 = createPriorityQueue(numOfBuyers);
-    SQA->sellersQueues[5] = *L2;
+    sellersQueues[5] = L2;
     PriorityQueue *L3 = createPriorityQueue(numOfBuyers);
-    SQA->sellersQueues[6] = *L3;
+    sellersQueues[6] = L3;
     PriorityQueue *L4 = createPriorityQueue(numOfBuyers);
-    SQA->sellersQueues[7] = *L4;
+    sellersQueues[7] = L4;
     PriorityQueue *L5 = createPriorityQueue(numOfBuyers);
-    SQA->sellersQueues[8] = *L5;
+    sellersQueues[8] = L5;
     PriorityQueue *L6 = createPriorityQueue(numOfBuyers);
-    SQA->sellersQueues[9] = *L6;
+    sellersQueues[9] = L6;
 
     //****************************************************************************
     // Create N Buyers with 
@@ -300,6 +296,6 @@ void buildSellersQueueArray(SellersQueueArray *SQA, int numOfBuyers)
             }
         }
     }
-
+return sellersQueues;
 }
 

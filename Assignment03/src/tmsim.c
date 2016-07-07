@@ -52,11 +52,11 @@ void *sell(void *pq) {
         printf(
             "Buyer name = %s\n"
             "Arrival time = %d\n"
-            "Sale time = %d\n"
+            "Service time = %d\n"
             "Priority = %c\n\n",
             b.name,
             b.arrival_time,
-            b.sale_time,
+            b.service_time,
             b.priority);
         fflush(stdout);
 
@@ -152,12 +152,11 @@ int main(int argc, char * argv[2]) {
     //  all sellersQueues inthe SellersQueueArray ordered 
     //  [H0, M1, M2, M3, L1, L2, L3, L4, L5, L6], where each element is a complete sellersQueue
     // This must happen before the loop
-    SellersQueueArray * sqa = createSellersQueueArray(NUMBER_OF_SELLERS);
-    buildSellersQueueArray(sqa, n);
+    PriorityQueue** sqa = buildSellersQueueArray(NUMBER_OF_SELLERS, n);
 
     /* Thread Creation */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
-        PriorityQueue * pq = sqa[i].sellersQueues;
+        PriorityQueue * pq = sqa[i];
         rc = pthread_create(&tids[i], NULL, sell, (void *) pq);
         if (rc) {
             fflush(stdout);
