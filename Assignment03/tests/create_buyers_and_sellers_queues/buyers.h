@@ -6,6 +6,6 @@ struct Buyers {
     int arrival_time;
     int sale_time;
 };
-#endif /* BUYERS_H */
+#endif /* CUSTOMER_H */
 
 

@@ -39,7 +39,6 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
  * seller thread to serve one time slice (1 minute)
  */
 void *sell(void *pq) {
-    //struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
     struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
 
     //Tester just to see if the queue made it
@@ -118,7 +117,7 @@ int main(int argc, char * argv[]) {
 
     /* Thread Creation - SELLERS PRIORITY QUEUE */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
-        rc = pthread_create(&tids[i], NULL, sell, (void *) sellersQueues[i].sellersQueues);
+        rc = pthread_create(&tids[i], NULL, sell, (void *) &sellersQueues[i]);
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
