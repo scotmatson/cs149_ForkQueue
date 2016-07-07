@@ -33,17 +33,14 @@ static const char NEWLINE = '\n';
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-/* Statistics */
-int total_sales = 0;
-int total_h = 0;
-int total_m = 0;
-int total_l = 0;
-int total_unseated = 0;
-
-
 /*
  * seller thread to serve one time slice (1 minute)
  */
+
+
+
+
+
 void *sell(void *pq) {
     //struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
     struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
@@ -51,7 +48,6 @@ void *sell(void *pq) {
     //Tester just to see if the queue made it
     while(!isEmpty(sellers_queue))
     {
-        /*
         struct Buyers b = poll(sellers_queue);
         printf("\nBuyer name = " );
         printf("%s", b.name);
@@ -63,7 +59,6 @@ void *sell(void *pq) {
         printf("%c", b.priority);
         printf("\n\n");
         fflush(stdout);
-        */
     }
     
     /*
@@ -143,29 +138,22 @@ int main(int argc, char * argv[2]) {
     }
     //printf("Seatmap has been initialized\n");
 
-
-    /*
-     * Create NUMBER_OF_SELLERS sellerqueues, then create n buyers for each sellersQueue
-     *  and put them into the correct sellersQueue based on buyer attributes. Then place
-     * all sellersQueues inthe SellersQueueArray ordered 
-     * [H0, M1, M2, M3, L1, L2, L3, L4, L5, L6], where each element is a complete sellersQueue
-     */
-
     /* SEGMENTATION FAULT ORIGIN IS BELOW */
-    SellersQueueArray *sellersQueues = createSellersQueueArray(NUMBER_OF_SELLERS, n);
+
+    // Create NUMBER_OF_SELLERS sellerqueues, then create n buyers for each sellersQueue
+    // and put them into the correct sellersQueue based on buyer attributes. Then place
+    //all sellersQueues inthe SellersQueueArray ordered 
+    //[H0, M1, M2, M3, L1, L2, L3, L4, L5, L6], where each element is a complete sellersQueue
+    //SellersQueueArray *sellersQueues = createSellersQueueArray(NUMBER_OF_SELLERS, n);
+    
+    /* Thread Creation - SELLERS PRIORITY QUEUE */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
         //printf("Value of i: %d\n", i);
 
         //sellersQueues[i].sellersQueues;        
 
         //rc = pthread_create(&tids[i], NULL, sell, (void *) sellersQueues[i].sellersQueues);
-        rc = pthread_create(
-            &tids[i],
-            NULL,
-            sell,
-            (void *) sellersQueues[i].sellersQueues);
-            //(void *) createSellersQueueArray(NUMBER_OF_SELLERS, n));
-
+        rc = pthread_create(&tids[i], NULL, sell, (void *) createSellersQueueArray(NUMBER_OF_SELLERS, n));
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
@@ -192,6 +180,7 @@ int main(int argc, char * argv[2]) {
     */
 
     /* Printout simulation results */
+    /*
     printf("Seating Chart\n");
     for (i=0; i < NUMBER_OF_ROWS; i++) {
         for (j=0; j < SEATS_PER_ROW; j++) {
@@ -200,6 +189,7 @@ int main(int argc, char * argv[2]) {
         printf("%c", NEWLINE);
         fflush(stdout);
     } 
+    */
 
     exit(EXIT_SUCCESS);
 }
