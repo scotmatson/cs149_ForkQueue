@@ -43,7 +43,7 @@ int total_unseated = 0;
 
 void *sell(void *pq) {
     //struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
-    PriorityQueue *sellers_queue = (PriorityQueue *) pq;
+    PriorityQueue *sellers_queue = (PriorityQueue *) &pq;
     printf("\nIn sell\n" );
 
     //Tester just to see if the queue made it
@@ -159,15 +159,6 @@ int main(int argc, char * argv[2]) {
     // This must happen before the loop
     SellersQueueArray *sellersQueues = createSellersQueueArray(NUMBER_OF_SELLERS, n);
 
-    /* 
-     * THIS WORKS,
-     * Now we have to apply this flow of logic to the threading process
-     */
-    PriorityQueue *pq = (PriorityQueue *) &sellersQueues[0];
-    printf("checking isEmpty\n");
-    isEmpty(pq);
-    printf("finishg check\n");
-    
     /* Thread Creation */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
         rc = pthread_create(&tids[i], NULL, sell, (void *) &sellersQueues[i]);
