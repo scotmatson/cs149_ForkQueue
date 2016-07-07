@@ -13,7 +13,6 @@ static const int LOW_PRICE_SELLERS = 6;
 
 SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
 {
-
     SellersQueueArray *SQA;
     //SQA = (SellersQueueArray*)malloc(sizeof(SellersQueueArray));
     SQA = (SellersQueueArray*)malloc(sizeof(SellersQueueArray) * numOfSellers);
@@ -46,6 +45,7 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
     //****************************************************************************
     // Create N Buyers with 
     //****************************************************************************
+
     int i, j;
     char str[5];
     char strNum[5];

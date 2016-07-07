@@ -50,7 +50,15 @@ void *sell(void *pq) {
 
         struct Buyers b = poll(sellers_queue);
 
-        printf("Buyer name = %s\nArrival time = %d\nSale time = %d\nPriority = %c\n\n", b.name, b.arrival_time, b.sale_time, b.priority);
+        printf(
+            "Buyer name = %s\n"
+            "Arrival time = %d\n"
+            "Sale time = %d\n"
+            "Priority = %c\n\n",
+            b.name,
+            b.arrival_time,
+            b.sale_time,
+            b.priority);
         fflush(stdout);
 
         /*
