@@ -54,6 +54,7 @@ void print_seatmap(struct Seatmap* map)
 }
 
 // a routine to set all the seat owners to ----
+// Francisco hard-coded them to 10 for testing
 void initialize_seatmap(struct Seatmap* map)
 {
 	for(int row =0; row < NUM_OF_ROWS; row++)

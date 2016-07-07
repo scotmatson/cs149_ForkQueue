@@ -23,8 +23,6 @@
 static const int NUMBER_OF_SELLERS = 10;
 
 /* Map Visualization */
-static const int NUMBER_OF_ROWS = 10;
-static const int SEATS_PER_ROW = 10;
 static char * const EMPTY_SEAT = "----";
 
 /* Utility */
