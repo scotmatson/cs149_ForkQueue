@@ -73,13 +73,9 @@ void *sell(void *pq) {
     while(!isEmpty(sellers_queue) && thread_clock < 60) {
 
         struct Buyers b = poll(sellers_queue);
-
         int buyer_seated = 0;
-
         b.sale_start_time = thread_clock;
-
         b.sale_end_time = thread_clock + b.service_time;
-
         b.sale_time = b.sale_end_time - b.sale_start_time;;
        
         while (thread_clock != b.sale_end_time) {
@@ -90,6 +86,7 @@ void *sell(void *pq) {
         pthread_cond_wait(&cond, &mutex);
         pthread_mutex_unlock(&mutex);
 
+        /*
         buyer_seated = seat_this_buyer(b);
 
         if (buyer_seated == -1){
@@ -99,10 +96,9 @@ void *sell(void *pq) {
         else if(buyer_seated != -1) {
             total_sales++;
         }
+        */
         thread_clock++;
     }
-    // Serve any buyer available in this sell queue that is ready
-    // now to buy ticket till done with all relevant buyers in their queue
     return NULL;
 }
 
