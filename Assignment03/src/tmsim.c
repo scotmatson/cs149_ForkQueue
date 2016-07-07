@@ -36,11 +36,6 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 /*
  * seller thread to serve one time slice (1 minute)
  */
-
-
-
-
-
 void *sell(void *pq) {
     //struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
     struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
@@ -48,6 +43,7 @@ void *sell(void *pq) {
     //Tester just to see if the queue made it
     while(!isEmpty(sellers_queue))
     {
+        /*
         struct Buyers b = poll(sellers_queue);
         printf("\nBuyer name = " );
         printf("%s", b.name);
@@ -59,6 +55,7 @@ void *sell(void *pq) {
         printf("%c", b.priority);
         printf("\n\n");
         fflush(stdout);
+        */
     }
     
     /*
@@ -134,7 +131,6 @@ int main(int argc, char * argv[2]) {
     }
     printf("Seatmap has been initialized\n");
 
-    /* SEGMENTATION FAULT ORIGIN IS BELOW */
 
     /*
      * Create NUMBER_OF_SELLERS sellerqueues, then create n buyers for each sellersQueue
@@ -143,8 +139,8 @@ int main(int argc, char * argv[2]) {
      * [H0, M1, M2, M3, L1, L2, L3, L4, L5, L6], where each element is a complete sellersQueue
      */
 
+    /* SEGMENTATION FAULT ORIGIN IS BELOW */
     SellersQueueArray *sellersQueues = createSellersQueueArray(NUMBER_OF_SELLERS, n);
-    /* Thread Creation - SELLERS PRIORITY QUEUE */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
         printf("Value of i: %d\n", i);
 
@@ -184,7 +180,6 @@ int main(int argc, char * argv[2]) {
     */
 
     /* Printout simulation results */
-    /*
     printf("Seating Chart\n");
     for (i=0; i < NUMBER_OF_ROWS; i++) {
         for (j=0; j < SEATS_PER_ROW; j++) {
@@ -193,7 +188,6 @@ int main(int argc, char * argv[2]) {
         printf("%c", NEWLINE);
         fflush(stdout);
     } 
-    */
 
     exit(EXIT_SUCCESS);
 }
