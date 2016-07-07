@@ -7,6 +7,7 @@ struct Buyers {
     int sale_time;
     int sale_start_time;
     int sale_end_time;
+    int service_time;
 };
 #endif /* BUYERS_H */
 

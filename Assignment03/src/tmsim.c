@@ -36,6 +36,11 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 /*
  * seller thread to serve one time slice (1 minute)
  */
+
+
+
+
+
 void *sell(void *pq) {
     //struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
     struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
@@ -55,8 +60,20 @@ void *sell(void *pq) {
         printf("\n\n");
         fflush(stdout);
     }
+    
+    /*
+     * start francisco void sell code
+    int thread_clock = 0;
 
-    /* This while condition is by reference and shared
+    while (!sellers_queue.isEmpty() && thread_clock < 60) {
+        Buyers b = sellers_queue.poll();
+        int buyer_seated = 0;
+        b.sale_start_time = thread_clock;
+        b.sale_end_time = thread_clock + b.service_time;
+*/    
+
+
+/* This while condition is by reference and shared
        by all sellers */
     //while (!seller.ticket_line.isEmpty()) {
     //    pthread_mutex_lock(&mutex);
