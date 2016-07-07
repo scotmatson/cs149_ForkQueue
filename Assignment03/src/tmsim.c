@@ -46,11 +46,17 @@ void *sell(void *pq) {
     PriorityQueue *sellers_queue = (PriorityQueue *) &pq;
     printf("\nIn sell\n" );
 
-    //Tester just to see if the queue made it
+        
     /*
-    while(!isEmpty(sellers_queue))
-    {
+     * start francisco void sell code
+     */
+    int thread_clock = 0;
+    int buyer_seated = 0;
+    
+    while(!isEmpty(sellers_queue) && thread_clock < 60) {
+
         struct Buyers b = poll(sellers_queue);
+
         printf("\nBuyer name = " );
         printf("%s", b.name);
         printf("\nArrival time = " );
@@ -61,18 +67,7 @@ void *sell(void *pq) {
         printf("%c", b.priority);
         printf("\n\n");
         fflush(stdout);
-    }
-    */
-    
-    /*
-     * start francisco void sell code
-     */
-    int thread_clock = 0;
-    int buyer_seated = 0;
-    
-    while(!isEmpty(sellers_queue) && thread_clock < 60) {
 
-        struct Buyers b = poll(sellers_queue);
         int buyer_seated = 0;
         b.sale_start_time = thread_clock;
         b.sale_end_time = thread_clock + b.service_time;
