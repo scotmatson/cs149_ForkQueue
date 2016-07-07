@@ -47,7 +47,6 @@ void *sell(void *pq) {
     int buyer_seated = 0;
     
     while(!isEmpty(sellers_queue) && thread_clock < 60) {
-
         struct Buyers b = poll(sellers_queue);
 
         printf(
@@ -60,19 +59,6 @@ void *sell(void *pq) {
             b.sale_time,
             b.priority);
         fflush(stdout);
-
-        /*
-        printf("%s", b.name);
-        printf("\nArrival time = " );
-        printf("%d", b.arrival_time);
-
-        printf("\nSale time = " );
-        printf("%d", b.sale_time);
-
-        printf("\nPriority = " );
-        printf("%c", b.priority);
-        printf("\n\n");
-        */
 
         int buyer_seated = 0;
         b.sale_start_time = thread_clock;
@@ -103,6 +89,11 @@ void *sell(void *pq) {
     return NULL;
 }
 
+void wakeup_all_seller_threads() {
+    pthread_mutex_lock(&mutex);
+    pthread_cond_broadcast(&cond);
+    pthread_mutex_unlock(&mutex);
+}
 
 /*
  * The main method
@@ -174,12 +165,10 @@ int main(int argc, char * argv[2]) {
         }
     }
 
-    /* THIS IS MISSING? 
-    wakeup_all_seller_threads();
-    */
-
-    /* Wait for all seller threads to exit */
+    /* THIS CAUSES CODE TO HANG, POSSIBLE DEADLOCK */
     /*
+    wakeup_all_seller_threads();
+    //Wait for all seller threads to exit 
     for (i = 0 ; i < NUMBER_OF_SELLERS ; i++) {
         rc = pthread_join(tids[i], NULL);
         if (rc) {
