@@ -135,7 +135,7 @@ int main(int argc, char * argv[2]) {
 
     initialize_seatmap(&map);
    
-    print_seatmap(map);
+    print_seatmap(&map);
     
     
     
