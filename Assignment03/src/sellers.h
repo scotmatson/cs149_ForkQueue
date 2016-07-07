@@ -1,11 +1,11 @@
-#ifndef SELLER_H
-#define SELLER_H
+#ifndef SELLERS_H
+#define SELLERS_H
 struct Sellers {
-    char type; //Name of seller. E.G M1 or L3
+    char type; // priority of seller; eg, 'L', 'M', 'H'
     int service_time;
     PriorityQueue *ticket_line;
     //double avg_service_time;
     //char* priority; //Priority of seller. H, M, or L
     //char customerQueue[200]; //Customer line for the seller
 };
-#endif /* SELLER_H */
+#endif /* SELLERS_H */
