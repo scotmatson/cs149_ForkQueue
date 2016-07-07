@@ -42,14 +42,7 @@ int total_unseated = 0;
  */
 
 void *sell(void *pq) {
-    //struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
     PriorityQueue *sellers_queue = (PriorityQueue *) &pq;
-    printf("\nIn sell\n" );
-
-        
-    /*
-     * start francisco void sell code
-     */
     int thread_clock = 0;
     int buyer_seated = 0;
     
@@ -57,16 +50,21 @@ void *sell(void *pq) {
 
         struct Buyers b = poll(sellers_queue);
 
-        printf("\nBuyer name = " );
+        printf("Buyer name = %s\nArrival time = %d\nSale time = %d\nPriority = %c\n\n", b.name, b.arrival_time, b.sale_time, b.priority);
+        fflush(stdout);
+
+        /*
         printf("%s", b.name);
         printf("\nArrival time = " );
         printf("%d", b.arrival_time);
+
         printf("\nSale time = " );
         printf("%d", b.sale_time);
+
         printf("\nPriority = " );
         printf("%c", b.priority);
         printf("\n\n");
-        fflush(stdout);
+        */
 
         int buyer_seated = 0;
         b.sale_start_time = thread_clock;
