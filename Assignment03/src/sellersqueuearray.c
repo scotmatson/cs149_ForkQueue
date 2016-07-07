@@ -8,7 +8,6 @@
 #include "buyers.h"
 
 /* Seller Logic */
-static const int NUMBER_OF_SELLERS = 10;
 static const int MEDIUM_PRICE_SELLERS = 3;
 static const int LOW_PRICE_SELLERS = 6;
 
@@ -22,7 +21,7 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
     //SQA->sellersQueues = (SellersQueueArray*)malloc(sizeof(SellersQueueArray) * numOfSellers);
 
     // Create the array of PriorityQueues
-    PriorityQueue * sellersQueues[NUMBER_OF_SELLERS];
+    PriorityQueue * sellersQueues[numOfSellers];
     // Priority queues for the 10 Sellers
     PriorityQueue *H0 = createPriorityQueue(numOfBuyers);
     sellersQueues[0] = H0;
@@ -70,6 +69,8 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
         //Create the buyers arrival and sale times randomly
         h.arrival_time = rand() % 60; //0 to 59
         h.service_time = rand() % 2 + 1; //1 to 2 /* 
+        //Assign a the sellers name  and priority to this buyer
+        strcpy(h.seller_name, "H0");
         h.priority = 'H';
         //Add the buyer to the correct queue
         add(H0, h);
@@ -97,6 +98,8 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     //Create the buyers arrival and sale times randomly
                     m.arrival_time = rand() % 60; //0 to 59
                     m.service_time = rand() % 2 + 2; //2 to 4
+                    //Assign a the sellers name  and priority to this buyer
+                    strcpy(m.seller_name, "M1");
                     m.priority = 'M';
                     //Add the buyer to the correct queue
                     add(M1, m);
@@ -119,6 +122,8 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     //Create the buyers arrival and sale times randomly
                     m.arrival_time = rand() % 60; //0 to 59
                     m.service_time = rand() % 2 + 2; //2 to 4
+                    //Assign a the sellers name  and priority to this buyer
+                    strcpy(m.seller_name, "M2");
                     m.priority = 'M';
                     //Add the buyer to the correct queue
                     add(M2, m);
@@ -141,6 +146,8 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     //Create the buyers arrival and sale times randomly
                     m.arrival_time = rand() % 60; //0 to 59
                     m.service_time = rand() % 2 + 2; //2 to 4
+                    //Assign a the sellers name  and priority to this buyer
+                    strcpy(m.seller_name, "M3");
                     m.priority = 'M';
                     //Add the buyer to the correct queue
                     add(M3, m);
@@ -171,6 +178,8 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
                     l.service_time = rand() % 4 + 4; //4 to 7
+                    //Assign a the sellers name  and priority to this buyer
+                    strcpy(l.seller_name, "L1");
                     l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L1, l);
@@ -191,6 +200,8 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
                     l.service_time = rand() % 4 + 4; //4 to 7
+                    //Assign a the sellers name  and priority to this buyer
+                    strcpy(l.seller_name, "L2");
                     l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L2, l);
@@ -211,6 +222,8 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
                     l.service_time = rand() % 4 + 4; //4 to 7
+                    //Assign a the sellers name  and priority to this buyer
+                    strcpy(l.seller_name, "L3");
                     l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L3, l);
@@ -231,6 +244,8 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
                     l.service_time = rand() % 4 + 4; //4 to 7
+                    //Assign a the sellers name  and priority to this buyer
+                    strcpy(l.seller_name, "L4");
                     l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L4, l);
@@ -251,6 +266,8 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
                     l.service_time = rand() % 4 + 4; //4 to 7
+                    //Assign a the sellers name  and priority to this buyer
+                    strcpy(l.seller_name, "L5");
                     l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L5, l);
@@ -271,6 +288,8 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
                     l.service_time = rand() % 4 + 4; //4 to 7
+                    //Assign a the sellers name  and priority to this buyer
+                    strcpy(l.seller_name, "L6");
                     l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L6, l);
@@ -283,4 +302,5 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
     //Return the pointer to the SellersQueueArray
     return SQA;
 }
+
 
