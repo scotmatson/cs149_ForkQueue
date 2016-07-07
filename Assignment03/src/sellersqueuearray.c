@@ -69,7 +69,7 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
         strcpy(h.name, str);
         //Create the buyers arrival and sale times randomly
         h.arrival_time = rand() % 60; //0 to 59
-        h.sale_time = rand() % 2 + 1; //1 to 2 /* 
+        h.service_time = rand() % 2 + 1; //1 to 2 /* 
         h.priority = 'H';
         //Add the buyer to the correct queue
         add(H0, h);
@@ -96,7 +96,7 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     strcpy(m.name, str);
                     //Create the buyers arrival and sale times randomly
                     m.arrival_time = rand() % 60; //0 to 59
-                    m.sale_time = rand() % 2 + 2; //2 to 4
+                    m.service_time = rand() % 2 + 2; //2 to 4
                     m.priority = 'M';
                     //Add the buyer to the correct queue
                     add(M1, m);
@@ -118,7 +118,7 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     strcpy(m.name, str);
                     //Create the buyers arrival and sale times randomly
                     m.arrival_time = rand() % 60; //0 to 59
-                    m.sale_time = rand() % 2 + 2; //2 to 4
+                    m.service_time = rand() % 2 + 2; //2 to 4
                     m.priority = 'M';
                     //Add the buyer to the correct queue
                     add(M2, m);
@@ -140,7 +140,7 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     strcpy(m.name, str);
                     //Create the buyers arrival and sale times randomly
                     m.arrival_time = rand() % 60; //0 to 59
-                    m.sale_time = rand() % 2 + 2; //2 to 4
+                    m.service_time = rand() % 2 + 2; //2 to 4
                     m.priority = 'M';
                     //Add the buyer to the correct queue
                     add(M3, m);
@@ -170,7 +170,7 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     strcpy(l.name, str);
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
-                    l.sale_time = rand() % 4 + 4; //4 to 7
+                    l.service_time = rand() % 4 + 4; //4 to 7
                     l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L1, l);
@@ -190,7 +190,7 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     strcpy(l.name, str);
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
-                    l.sale_time = rand() % 4 + 4; //4 to 7
+                    l.service_time = rand() % 4 + 4; //4 to 7
                     l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L2, l);
@@ -210,7 +210,7 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     strcpy(l.name, str);
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
-                    l.sale_time = rand() % 4 + 4; //4 to 7
+                    l.service_time = rand() % 4 + 4; //4 to 7
                     l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L3, l);
@@ -230,7 +230,7 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     strcpy(l.name, str);
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
-                    l.sale_time = rand() % 4 + 4; //4 to 7
+                    l.service_time = rand() % 4 + 4; //4 to 7
                     l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L4, l);
@@ -250,7 +250,7 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     strcpy(l.name, str);
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
-                    l.sale_time = rand() % 4 + 4; //4 to 7
+                    l.service_time = rand() % 4 + 4; //4 to 7
                     l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L5, l);
@@ -270,7 +270,7 @@ SellersQueueArray * createSellersQueueArray(int numOfSellers, int numOfBuyers)
                     strcpy(l.name, str);
                     //Create the buyers arrival and sale times randomly
                     l.arrival_time = rand() % 60; //0 to 59
-                    l.sale_time = rand() % 4 + 4; //4 to 7
+                    l.service_time = rand() % 4 + 4; //4 to 7
                     l.priority = 'L';
                     //Add the buyer to the correct queue
                     add(L6, l);
