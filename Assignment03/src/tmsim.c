@@ -33,6 +33,14 @@ static const char NEWLINE = '\n';
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
+/* Statistics */
+int total_sales = 0;
+int total_h = 0;
+int total_m = 0;
+int total_l = 0;
+int total_unseated = 0;
+
+
 /*
  * seller thread to serve one time slice (1 minute)
  */
@@ -118,7 +126,11 @@ int main(int argc, char * argv[2]) {
             n = atoi(argv[1]);
         }
     }
-    printf("Value of N: %d\n", n); /* TEST */
+    //printf("Value of N: %d\n", n); /* TEST */
+    printf("Initial amount of seat: 100\n");
+    printf("%d customers for each seller\n", n);
+    printf("Total customers: %d\n", n * 10);
+
 
     int i, j;                 /* Counters */
     int rc;                   /* Error Return Code */
@@ -132,7 +144,7 @@ int main(int argc, char * argv[2]) {
             seatmap[i][j] = EMPTY_SEAT;
         }
     }
-    printf("Seatmap has been initialized\n");
+    //printf("Seatmap has been initialized\n");
 
     /* SEGMENTATION FAULT ORIGIN IS BELOW */
 
@@ -144,7 +156,7 @@ int main(int argc, char * argv[2]) {
     
     /* Thread Creation - SELLERS PRIORITY QUEUE */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
-        printf("Value of i: %d\n", i);
+        //printf("Value of i: %d\n", i);
 
         //sellersQueues[i].sellersQueues;        
 
