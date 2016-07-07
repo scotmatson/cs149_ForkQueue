@@ -10,15 +10,15 @@
  *   ticket, or no one. 
 */
 struct Seatmap {
-	struct Buyer* seatmap[NUM_OF_ROWS][SEATS_PER_ROW]; // records who owns seat
+	struct Buyers* seatmap[NUM_OF_ROWS][SEATS_PER_ROW]; // records who owns seat
 };
 
 
 // function to get a seat from a particular section H M L
-int sell_seat(struct Seatmap* map, struct Buyer* b);
+int sell_seat(struct Seatmap* map, struct Buyers* b);
 
 // function to set a seat as sold, or return error if no more seats
-int set_seat(struct Seatmap* map, struct Buyer* b);
+int set_seat(struct Seatmap* map, struct Buyers* b);
 
 
 //function to printout the seat map in ascii
