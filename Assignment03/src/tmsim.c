@@ -36,9 +36,11 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 /*
  * seller thread to serve one time slice (1 minute)
  */
-void *sell(void *pq) {
-    struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
 
+void *sell(void *pq) {
+    //struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
+    PriorityQueue *sellers_queue = (PriorityQueue *) pq;
+    printf("\nIn sell\n" );
     //Tester just to see if the queue made it
     while(!isEmpty(sellers_queue))
     {
@@ -142,20 +144,23 @@ int main(int argc, char * argv[2]) {
     }
 
     // Create NUMBER_OF_SELLERS sellerqueues, then create n buyers for each sellersQueue
-    // and put them into the correct sellersQueue based on buyer attributes. Then place
-    //all sellersQueues inthe SellersQueueArray ordered 
-    //[H0, M1, M2, M3, L1, L2, L3, L4, L5, L6], where each element is a complete sellersQueue
+    //  and put them into the correct sellersQueue based on buyer attributes. Then place
+    //  all sellersQueues inthe SellersQueueArray ordered 
+    //  [H0, M1, M2, M3, L1, L2, L3, L4, L5, L6], where each element is a complete sellersQueue
+    // This must happen before the loop
     SellersQueueArray *sellersQueues = createSellersQueueArray(NUMBER_OF_SELLERS, n);
     
     /* Thread Creation */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
+        rc = pthread_create(&tids[i], NULL, sell, &sellersQueues[i]);
 
+/*
         rc = pthread_create(
             &tids[i], 
             NULL, 
             sell, 
             (void *) sellersQueues[i].sellersQueues);
-
+*/
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
