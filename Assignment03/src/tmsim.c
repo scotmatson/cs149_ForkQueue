@@ -41,6 +41,7 @@ void *sell(void *pq) {
     //struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
     PriorityQueue *sellers_queue = (PriorityQueue *) pq;
     printf("\nIn sell\n" );
+
     //Tester just to see if the queue made it
     while(!isEmpty(sellers_queue))
     {
@@ -86,8 +87,8 @@ void *sell(void *pq) {
     }
     // Serve any buyer available in this sell queue that is ready
     // now to buy ticket till done with all relevant buyers in their queue
-    return NULL;
 */
+    return NULL;
 }
 
 
@@ -152,7 +153,7 @@ int main(int argc, char * argv[2]) {
     
     /* Thread Creation */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
-        rc = pthread_create(&tids[i], NULL, sell, &sellersQueues[i]);
+        rc = pthread_create(&tids[i], NULL, sell,  &sellersQueues[i]);
 
 /*
         rc = pthread_create(
