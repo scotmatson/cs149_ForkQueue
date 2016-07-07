@@ -33,6 +33,10 @@ static const char NEWLINE = '\n';
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
+/* Statistics */
+int total_sales = 0;
+int total_unseated = 0;
+
 /*
  * seller thread to serve one time slice (1 minute)
  */
@@ -82,6 +86,10 @@ void *sell(void *pq) {
 
         if (buyer_seated == -1){
             add(unserved_list, b);
+            total_unseated++;
+        }
+        else if(buyer_seated != -1) {
+            total_sales++;
         }
         thread_clock++;
     }
@@ -187,5 +195,8 @@ int main(int argc, char * argv[2]) {
         }
     }
     */
+    printf("Total sales: %d\n", total_sales);
+    printf("Total unseated: %d\n", total_unseated);
+
     exit(EXIT_SUCCESS);
 }
