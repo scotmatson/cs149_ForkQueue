@@ -136,12 +136,14 @@ int main(int argc, char * argv[2]) {
 
     /* SEGMENTATION FAULT ORIGIN IS BELOW */
 
-    // Create NUMBER_OF_SELLERS sellerqueues, then create n buyers for each sellersQueue
-    // and put them into the correct sellersQueue based on buyer attributes. Then place
-    //all sellersQueues inthe SellersQueueArray ordered 
-    //[H0, M1, M2, M3, L1, L2, L3, L4, L5, L6], where each element is a complete sellersQueue
-    //SellersQueueArray *sellersQueues = createSellersQueueArray(NUMBER_OF_SELLERS, n);
-    
+    /*
+     * Create NUMBER_OF_SELLERS sellerqueues, then create n buyers for each sellersQueue
+     *  and put them into the correct sellersQueue based on buyer attributes. Then place
+     * all sellersQueues inthe SellersQueueArray ordered 
+     * [H0, M1, M2, M3, L1, L2, L3, L4, L5, L6], where each element is a complete sellersQueue
+     */
+
+    SellersQueueArray *sellersQueues = createSellersQueueArray(NUMBER_OF_SELLERS, n);
     /* Thread Creation - SELLERS PRIORITY QUEUE */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {
         printf("Value of i: %d\n", i);
@@ -149,7 +151,13 @@ int main(int argc, char * argv[2]) {
         //sellersQueues[i].sellersQueues;        
 
         //rc = pthread_create(&tids[i], NULL, sell, (void *) sellersQueues[i].sellersQueues);
-        rc = pthread_create(&tids[i], NULL, sell, (void *) createSellersQueueArray(NUMBER_OF_SELLERS, n));
+        rc = pthread_create(
+            &tids[i],
+            NULL,
+            sell,
+            (void *) sellersQueues[i].sellersQueues);
+            //(void *) createSellersQueueArray(NUMBER_OF_SELLERS, n));
+
         if (rc) {
             fflush(stdout);
             fprintf(stderr, "ERROR; return code from pthread_join is %d\n", rc);
