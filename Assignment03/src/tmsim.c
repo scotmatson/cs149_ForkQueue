@@ -17,6 +17,7 @@
 #include "priorityqueue.h"
 #include "sellersqueuearray.h"
 #include "buyers.h"
+#include "seatmap.h"
 
 /* Seller Logic */
 static const int NUMBER_OF_SELLERS = 10;
@@ -74,7 +75,7 @@ void *sell(void *pq) {
         pthread_mutex_unlock(&mutex);
 
         /*
-        buyer_seated = seat_this_buyer(b);
+        buyer_seated = set_seat(seatmap, b);
 
         if (buyer_seated == -1){
             add(unserved_list, b);
@@ -129,24 +130,20 @@ int main(int argc, char * argv[2]) {
     pthread_t tids[NUMBER_OF_SELLERS];
     srand(time(NULL));        /* Seeding the random number generator */
 
-    // Create necessary data structures for the simulator.
-    char * seatmap[NUMBER_OF_ROWS][SEATS_PER_ROW];
-    for (i = 0; i < NUMBER_OF_ROWS; i++) {
-        for (j = 0; j < SEATS_PER_ROW; j++) {
-            seatmap[i][j] = EMPTY_SEAT;
-        }
-    }
-    printf("Initial seatmap\n");
-     /* Printout simulation results */
-    printf("Seating Chart\n");
-    for (i=0; i < NUMBER_OF_ROWS; i++) {
-        for (j=0; j < SEATS_PER_ROW; j++) {
-            printf("%-3s ", seatmap[i][j]);
-        }
-        printf("%c", NEWLINE);
-        fflush(stdout);
-    }
+    
+    
+    // seatmap stuff   
+    struct Seatmap map;
 
+    initialize_seatmap(&map);
+   
+    print_seatmap(map);
+    
+    
+    
+    
+    
+    
     // Create NUMBER_OF_SELLERS sellerqueues, then create n buyers for each sellersQueue
     //  and put them into the correct sellersQueue based on buyer attributes. Then place
     //  all sellersQueues inthe SellersQueueArray ordered 
