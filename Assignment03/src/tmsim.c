@@ -136,8 +136,16 @@ int main(int argc, char * argv[2]) {
             seatmap[i][j] = EMPTY_SEAT;
         }
     }
-    //printf("Seatmap has been initialized\n");
-
+    printf("Initial seatmap\n");
+     /* Printout simulation results */
+    printf("Seating Chart\n");
+    for (i=0; i < NUMBER_OF_ROWS; i++) {
+        for (j=0; j < SEATS_PER_ROW; j++) {
+            printf("%-3s ", seatmap[i][j]);
+        }
+        printf("%c", NEWLINE);
+        fflush(stdout);
+    }
     /* SEGMENTATION FAULT ORIGIN IS BELOW */
 
     // Create NUMBER_OF_SELLERS sellerqueues, then create n buyers for each sellersQueue
@@ -178,18 +186,5 @@ int main(int argc, char * argv[2]) {
         }
     }
     */
-
-    /* Printout simulation results */
-    /*
-    printf("Seating Chart\n");
-    for (i=0; i < NUMBER_OF_ROWS; i++) {
-        for (j=0; j < SEATS_PER_ROW; j++) {
-            printf("%-3s", seatmap[i][j]);
-        }
-        printf("%c", NEWLINE);
-        fflush(stdout);
-    } 
-    */
-
     exit(EXIT_SUCCESS);
 }
