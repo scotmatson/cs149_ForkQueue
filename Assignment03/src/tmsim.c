@@ -79,19 +79,14 @@ void *sell(void *pq) {
         pthread_mutex_lock(&mutex);
         pthread_cond_wait(&cond, &mutex);
         pthread_mutex_unlock(&mutex);
-        
-       /*  
+
         struct Seatmap map;
-
         initialize_seatmap(&map);
-   
         print_seatmap(&map); 
-    */
-
         
         buyer_seated = set_seat(&map, &b);
 
-        if (buyer_seated == -1){
+        if (buyer_seated == -1) {
             total_unseated++;
         }
         else if (buyer_seated != -1) {
@@ -152,17 +147,9 @@ int main(int argc, char * argv[2]) {
     int rc;                   /* Error Return Code */
     pthread_t tids[NUMBER_OF_SELLERS];
     srand(time(NULL));        /* Seeding the random number generator */
-
     
-    
-    // seatmap stuff   
-      
+    /* **  seatmap stuff ** */
     print_seatmap(&map);
-
- 
-    
-    
-    
     
     // Create NUMBER_OF_SELLERS sellerqueues, then create n buyers for each sellersQueue
     //  and put them into the correct sellersQueue based on buyer attributes. Then place
@@ -207,6 +194,6 @@ int main(int argc, char * argv[2]) {
 
     printf("Total sales: %d\n", total_sales);
     printf("Total unseated: %d\n", total_unseated);
-    print_seatmap(&map);
+    fflush(stdout);
     exit(EXIT_SUCCESS);
 }
