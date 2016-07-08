@@ -56,11 +56,13 @@ void *sell(void *pq) {
             "Buyer name = %s\n"
             "Arrival time = %d\n"
             "Service time = %d\n"
-            "Priority = %c\n\n",
+            "Priority = %c\n"
+            "Thread clock = %n\n\n",
             b.name,
             b.arrival_time,
             b.service_time,
-            b.priority);
+            b.priority,
+            thread_clock);
         fflush(stdout);
 
         int buyer_seated = 0;
