@@ -70,8 +70,7 @@ void *sell(void *pq) {
         b.sale_end_time = thread_clock + b.service_time;
         b.sale_time = b.sale_end_time - b.sale_start_time;;
         
-        print_seatmap(&map);
-        fflush(stdout);
+        print_seatmap(&map); /* flushed in seatmap.c */
 
         while (thread_clock != b.sale_end_time) {
             thread_clock++;
@@ -187,9 +186,10 @@ int main(int argc, char * argv[2]) {
 
     /* THIS CAUSES CODE TO HANG, POSSIBLE DEADLOCK */
     
-    wakeup_all_seller_threads();
+    //wakeup_all_seller_threads();
     //Wait for all seller threads to exit 
     
+    /*
     for (i = 0 ; i < NUMBER_OF_SELLERS ; i++) {
         rc = pthread_join(tids[i], NULL);
         if (rc) {
@@ -204,6 +204,7 @@ int main(int argc, char * argv[2]) {
 
        Pthread_join(&tids[i], NULL);
     }
+    */
 
     printf("Total sales: %d\n", total_sales);
     printf("Total unseated: %d\n", total_unseated);
