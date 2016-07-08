@@ -71,6 +71,7 @@ void *sell(void *pq) {
         b.sale_time = b.sale_end_time - b.sale_start_time;;
         
         print_seatmap(&map);
+        fflush(stdout);
 
         while (thread_clock != b.sale_end_time) {
             thread_clock++;
@@ -122,8 +123,6 @@ int main(int argc, char * argv[2]) {
 
     
     initialize_seatmap(&map);
-    
-    
     
     // I/O Handling - Do this first, if no arg given, kill execution
     int n; 
