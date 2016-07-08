@@ -55,8 +55,8 @@ void print_seatmap(struct Seatmap* map)
             strcat(buffer, "  ");
 		}
         strcat(buffer, "\n");
+        printf("%s", buffer);
 	}
-    printf("%s", buffer);
     fflush(stdout);
 }
 
