@@ -39,6 +39,7 @@ void print_seatmap(struct Seatmap* map)
 	for(int row =0; row < NUM_OF_ROWS; row++)
 	{
 		printf("ROW: %d\t", row); 
+        fflush(stdout);
 		for(int seat = 0; seat < SEATS_PER_ROW; seat++)
 		{	
 			if(map->seatmap[row][seat] == NULL)
@@ -48,8 +49,10 @@ void print_seatmap(struct Seatmap* map)
 				toprint = map->seatmap[row][seat]->name;
 			}
 			printf("%s\t", toprint);
+            fflush(stdout);
 		}
 		printf("\n");
+        fflush(stdout);
 	}
 }
 
@@ -111,6 +114,7 @@ int set_seat(struct Seatmap* map, struct Buyers* b)
 	
 	// if we got here, we set the seat
 	printf("set row %d seat %d for buyer %s\n", row, seat, b->name);
+    fflush(stdout);
 	map->seatmap[row][seat] = b;
 
 	return seat_ptr; 
