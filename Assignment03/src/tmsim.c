@@ -148,6 +148,7 @@ int main(int argc, char * argv[2]) {
     printf("Initial amount of seat: 100\n");
     printf("%d customers for each seller\n", n);
     printf("Total customers: %d\n", n * 10);
+    fflush(stdout);
 
 
     int i, j;                 /* Counters */
@@ -203,6 +204,7 @@ int main(int argc, char * argv[2]) {
     */
     printf("Total sales: %d\n", total_sales);
     printf("Total unseated: %d\n", total_unseated);
+    fflush(stdout);
 
     exit(EXIT_SUCCESS);
 }
