@@ -53,6 +53,7 @@ void *sell(void *pq) {
     while(!isEmpty(sellers_queue) && thread_clock < 60) {
         struct Buyers b = poll(sellers_queue);
 
+
         printf(
             "Buyer name = %s\n"
             "Arrival time = %d\n"
@@ -78,7 +79,7 @@ void *sell(void *pq) {
         pthread_mutex_lock(&mutex);
         pthread_cond_wait(&cond, &mutex);
         pthread_mutex_unlock(&mutex);
-       
+        
        /*  
         struct Seatmap map;
 
@@ -87,17 +88,16 @@ void *sell(void *pq) {
         print_seatmap(&map); 
     */
 
-        /*
-        buyer_seated = set_seat(seatmap, b);
+        
+        buyer_seated = set_seat(&map, &b);
 
         if (buyer_seated == -1){
-            add(unserved_list, b);
             total_unseated++;
         }
-        else if(buyer_seated != -1) {
+        else if (buyer_seated != -1) {
             total_sales++;
         }
-        */
+        
         thread_clock++;
     }
     return NULL;
