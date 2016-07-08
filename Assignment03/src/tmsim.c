@@ -37,9 +37,7 @@ int total_sales = 0;
 int total_unseated = 0;
  
 // seatmap stuff   
-
-struct Seatmap map;
-
+static struct Seatmap map;
 
 /*
  * seller thread to serve one time slice (1 minute)
@@ -80,11 +78,9 @@ void *sell(void *pq) {
         pthread_cond_wait(&cond, &mutex);
         pthread_mutex_unlock(&mutex);
 
-        struct Seatmap map;
-        initialize_seatmap(&map);
-        print_seatmap(&map); 
         
         buyer_seated = set_seat(&map, &b);
+        print_seatmap(&map); 
 
         if (buyer_seated == -1) {
             total_unseated++;
@@ -104,17 +100,10 @@ void wakeup_all_seller_threads() {
     pthread_mutex_unlock(&mutex);
 }
 
-
-
-   
-
-
-
 /*
  * The main method
  */
 int main(int argc, char * argv[2]) {
-
     
     initialize_seatmap(&map);
     
@@ -174,11 +163,8 @@ int main(int argc, char * argv[2]) {
 
 
 
-    /* THIS CAUSES CODE TO HANG, POSSIBLE DEADLOCK */
-    //wakeup_all_seller_threads();
 
     //Wait for all seller threads to exit 
-    /*
     for (i = 0 ; i < NUMBER_OF_SELLERS ; i++) {
         rc = pthread_join(tids[i], NULL);
         if (rc) {
@@ -188,14 +174,18 @@ int main(int argc, char * argv[2]) {
             exit(EXIT_FAILURE);
         }
     }
-    for (i = 0 ; i < 10 ; i++) {
 
-       Pthread_join(&tids[i], NULL);
+    /* THIS CAUSES CODE TO HANG, POSSIBLE DEADLOCK
+    wakeup_all_seller_threads();
+
+    for (i = 0 ; i < 10 ; i++) {
+       pthread_join(tids[i], NULL);
     }
     */
 
     printf("Total sales: %d\n", total_sales);
     printf("Total unseated: %d\n", total_unseated);
     fflush(stdout);
+
     exit(EXIT_SUCCESS);
 }
