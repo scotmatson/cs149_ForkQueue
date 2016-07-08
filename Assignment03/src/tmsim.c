@@ -158,12 +158,10 @@ int main(int argc, char * argv[2]) {
     
     
     // seatmap stuff   
-/*
-    struct Seatmap map;
+      
+    print_seatmap(&map);
 
-    initialize_seatmap(&map);
-  */ 
-    
+ 
     
     
     
@@ -188,9 +186,10 @@ int main(int argc, char * argv[2]) {
     }
 
     /* THIS CAUSES CODE TO HANG, POSSIBLE DEADLOCK */
-    /*
+    
     wakeup_all_seller_threads();
     //Wait for all seller threads to exit 
+    
     for (i = 0 ; i < NUMBER_OF_SELLERS ; i++) {
         rc = pthread_join(tids[i], NULL);
         if (rc) {
@@ -200,7 +199,12 @@ int main(int argc, char * argv[2]) {
             exit(EXIT_FAILURE);
         }
     }
-    */
+    
+    for (i = 0 ; i < 10 ; i++) {
+
+       Pthread_join(&tids[i], NULL);
+    }
+
     printf("Total sales: %d\n", total_sales);
     printf("Total unseated: %d\n", total_unseated);
 
