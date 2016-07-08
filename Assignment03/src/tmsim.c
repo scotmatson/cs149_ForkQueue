@@ -23,10 +23,10 @@
 static const int NUMBER_OF_SELLERS = 10;
 
 /* Map Visualization */
-static char * const EMPTY_SEAT = "----";
+//static char * const EMPTY_SEAT = "----";
 
 /* Utility */
-static const char NEWLINE = '\n';
+//static const char NEWLINE = '\n';
 
 /* Thread stuff that I don't quite understand... yet */
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
@@ -48,7 +48,7 @@ struct Seatmap map;
 void *sell(void *pq) {
     struct PriorityQueue *sellers_queue = (PriorityQueue *) pq;
     int thread_clock = 0;
-    int buyer_seated = 0;
+    //int buyer_seated = 0;
     
     while(!isEmpty(sellers_queue) && thread_clock < 60) {
         struct Buyers b = poll(sellers_queue);
@@ -143,7 +143,8 @@ int main(int argc, char * argv[2]) {
     printf("Total customers: %d\n", n * 10);
 
 
-    int i, j;                 /* Counters */
+    int i;                 /* Counters */
+    //int j;
     int rc;                   /* Error Return Code */
     pthread_t tids[NUMBER_OF_SELLERS];
     srand(time(NULL));        /* Seeding the random number generator */
@@ -156,7 +157,8 @@ int main(int argc, char * argv[2]) {
     //  all sellersQueues inthe SellersQueueArray ordered 
     //  [H0, M1, M2, M3, L1, L2, L3, L4, L5, L6], where each element is a complete sellersQueue
     // This must happen before the loop
-    PriorityQueue** sqa = buildSellersQueueArray(NUMBER_OF_SELLERS, n);
+    //PriorityQueue** sqa = buildSellersQueueArray(NUMBER_OF_SELLERS, n);
+    PriorityQueue** sqa = buildSellersQueueArray(n);
 
     /* Thread Creation */
     for (i = 0; i < NUMBER_OF_SELLERS; i++) {

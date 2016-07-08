@@ -22,5 +22,6 @@ typedef struct SellersQueueArray {
  * List all functions
  * Create the array of complete sellers queues
  */
-PriorityQueue** buildSellersQueueArray(int numOfSellers, int numOfBuyers);
+//PriorityQueue** buildSellersQueueArray(int numOfSellers, int numOfBuyers);
+PriorityQueue** buildSellersQueueArray(int numOfBuyers);
 #endif /* SELLERSQUEUEARRAY_H */

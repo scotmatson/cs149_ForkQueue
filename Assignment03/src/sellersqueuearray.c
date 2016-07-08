@@ -12,7 +12,8 @@ static const int MEDIUM_PRICE_SELLERS = 3;
 static const int LOW_PRICE_SELLERS = 6;
 
 //void buildSellersQueueArray(SellersQueueArray *SQA, int numOfBuyers)
-PriorityQueue** buildSellersQueueArray(int numOfSellers, int numOfBuyers)
+//PriorityQueue** buildSellersQueueArray(int numOfSellers, int numOfBuyers)
+PriorityQueue** buildSellersQueueArray(int numOfBuyers)
 {
     //PriorityQueue H0, M1, M2, M3, L1, L2, L3, L4, L5, L6, L7;
     // Create an array of PriorityQueues for later use
