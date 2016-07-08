@@ -146,7 +146,6 @@ int main(int argc, char * argv[2]) {
     printf("Initial amount of seat: 100\n");
     printf("%d customers for each seller\n", n);
     printf("Total customers: %d\n", n * 10);
-    fflush(stdout);
 
 
     int i, j;                 /* Counters */
@@ -184,11 +183,12 @@ int main(int argc, char * argv[2]) {
         }
     }
 
+
+
     /* THIS CAUSES CODE TO HANG, POSSIBLE DEADLOCK */
-    
     //wakeup_all_seller_threads();
+
     //Wait for all seller threads to exit 
-    
     /*
     for (i = 0 ; i < NUMBER_OF_SELLERS ; i++) {
         rc = pthread_join(tids[i], NULL);
@@ -199,7 +199,6 @@ int main(int argc, char * argv[2]) {
             exit(EXIT_FAILURE);
         }
     }
-    
     for (i = 0 ; i < 10 ; i++) {
 
        Pthread_join(&tids[i], NULL);
@@ -208,7 +207,6 @@ int main(int argc, char * argv[2]) {
 
     printf("Total sales: %d\n", total_sales);
     printf("Total unseated: %d\n", total_unseated);
-    fflush(stdout);
-
+    print_seatmap(&map);
     exit(EXIT_SUCCESS);
 }
