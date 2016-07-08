@@ -34,26 +34,36 @@ void print_seatmap(struct Seatmap* map)
 {
 	char* toprint; 
 	char* dashes = "----";
+    char buffer[500];
 
 	// go through the seats and print them. 
 	for(int row =0; row < NUM_OF_ROWS; row++)
 	{
-		printf("ROW: %d\t", row); 
-        fflush(stdout);
+		//printf("ROW: %d\t", row); 
+        strcpy(buffer, "ROW: ");
+        //strcat(out, (row));
+        sprintf(buffer, "%d", row);
+        //fflush(stdout);
 		for(int seat = 0; seat < SEATS_PER_ROW; seat++)
 		{	
 			if(map->seatmap[row][seat] == NULL)
 			{
 				toprint = dashes;
-			}else{
+			}else {
 				toprint = map->seatmap[row][seat]->name;
 			}
-			printf("%s\t", toprint);
-            fflush(stdout);
+			//printf("%s\t", toprint);
+            strcpy(buffer, toprint);
+            strcpy(buffer, "\t");
+            //fflush(stdout);
 		}
-		printf("\n");
-        fflush(stdout);
+        strcpy(buffer, "\n");
+		//printf("\n");
+        //fflush(stdout);
 	}
+    printf("** Seatmap **\n");
+    printf("%s", buffer);
+    fflush(stdout);
 }
 
 // a routine to set all the seat owners to ----
