@@ -2,16 +2,35 @@ import logging
 import datetime
 import sys
 import random
+from queue import PriorityQueue
 
 def main():
     logging.info('Inside main()')
 
-    # ENV initialization
+    # Simulation Variables 
+    EXECUTION_TIME  = 100
+
+    # Memory Variables
     MAIN_MEMORY     = 100             # Units as MB 
     PAGE_SIZE       = 1               # Size as MB
+
+    # Process Variables
+    NUMBER_OF_PROCESSES = 10
+    PROCESS_NAME    = range(11)
     PROCESS_SIZE    = [5, 11, 17, 31] # Randomly chosen, Size as MB
     PROCESS_RUNTIME = [1, 2, 3, 4, 5] # Randomly chosen, Time as seconds
 
+    # Initialize the processes
+    # TODO Enforce unique naming
+    # TODO Enforce even distribution
+    pq = PriorityQueue(maxsize=0)
+    for i in range(NUMBER_OF_PROCESSES):
+        process = dict()
+        process['name'] = random.choice(PROCESS_NAME)
+        process['size'] = random.choice(PROCESS_SIZE)
+        process['arrival_time'] = random.choice(range(EXECUTION_TIME))
+        process['duration'] = random.choice(PROCESS_RUNTIME)
+        pq.put((process['arrival_time'], process))
 
 
 ################################################################################
