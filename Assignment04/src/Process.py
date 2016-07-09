@@ -1,4 +1,4 @@
-// by Francisco
+# by Francisco
 
 import random
 
