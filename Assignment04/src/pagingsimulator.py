@@ -33,8 +33,11 @@ def main():
         process['duration'] = random.choice(PROCESS_RUNTIME)
         job_queue.put((process['arrival_time'], process))
 
-    #while not job_queue.empty():
+    # Initialize page_list
+    #page_list = {}.fromkeys(
+    
 
+    #while not job_queue.empty():
     # TODO Generate an appropriate record whenever starting or completing a job
     #      <time stamp, process name, enter/exit, size, duration, memory-map>
 
