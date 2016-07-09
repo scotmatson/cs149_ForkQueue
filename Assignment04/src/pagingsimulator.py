@@ -34,10 +34,12 @@ def main():
         job_queue.put((process['arrival_time'], process))
 
     # Initialize page_list
-    #page_list = {}.fromkeys(
-    
+    page_list = dict.fromkeys(range(FREE_PAGES))
 
     #while not job_queue.empty():
+    #    if sum(page_list.values() > 3:
+
+
     # TODO Generate an appropriate record whenever starting or completing a job
     #      <time stamp, process name, enter/exit, size, duration, memory-map>
 
