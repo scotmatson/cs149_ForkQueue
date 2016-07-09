@@ -7,7 +7,8 @@ def main():
 
     # List of tests to run
     test_modules = [
-        'test_random_generator.py'
+        'test_random_generator.py',
+        'test_process_generator.py'
     ]
 
     # Loops through all tests, outputs to stdout
