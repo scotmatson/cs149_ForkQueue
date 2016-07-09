@@ -12,7 +12,7 @@ def main():
 
     # Memory Variables
     MAIN_MEMORY     = 100             # Units as MB 
-    FREE_PAGES      = 11              # 0-10
+    FREE_PAGES      = 100             #
     PAGE_SIZE       = 1               # Size as MB
 
     # Process Variables
