@@ -4,6 +4,23 @@ import sys
 import random
 from queue import PriorityQueue
 
+def create_job_queue(number, name, size, execution, runtime):
+    '''
+    Generates random processes and places them into a priority queue
+    '''
+    # Initialize the processes
+    # TODO Enforce unique naming
+    # TODO Enforce even distribution
+    job_queue = PriorityQueue(maxsize=0)
+    for i in range(number):
+        process = dict()
+        process['name'] = random.choice(name)
+        process['size'] = random.choice(size)
+        process['arrival_time'] = random.choice(range(execution))
+        process['duration'] = random.choice(runtime)
+        job_queue.put((process['arrival_time'], process))
+    return job_queue
+
 def main():
     logging.info('Inside main()')
 
@@ -17,21 +34,17 @@ def main():
 
     # Process Variables
     NUMBER_OF_PROCESSES = 150
-    PROCESS_NAME    = range(11)
+    PROCESS_NAME_SIZE    = range(11)
     PROCESS_SIZE    = [5, 11, 17, 31] # Randomly chosen, Size as MB
     PROCESS_RUNTIME = [1, 2, 3, 4, 5] # Randomly chosen, Time as seconds
 
-    # Initialize the processes
-    # TODO Enforce unique naming
-    # TODO Enforce even distribution
-    job_queue = PriorityQueue(maxsize=0)
-    for i in range(NUMBER_OF_PROCESSES):
-        process = dict()
-        process['name'] = random.choice(PROCESS_NAME)
-        process['size'] = random.choice(PROCESS_SIZE)
-        process['arrival_time'] = random.choice(range(EXECUTION_TIME))
-        process['duration'] = random.choice(PROCESS_RUNTIME)
-        job_queue.put((process['arrival_time'], process))
+    book_keeping = list()
+    job_queue = create_job_queue(
+        NUMBER_OF_PROCESSES,
+        PROCESS_NAME_SIZE,
+        PROCESS_SIZE,
+        EXECUTION_TIME,
+        PROCESS_RUNTIME)
 
     # Initialize page_list
     page_list = dict.fromkeys(range(FREE_PAGES))
