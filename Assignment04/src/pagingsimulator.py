@@ -1,6 +1,7 @@
 import logging
 import datetime
 import sys
+import random
 
 def main():
     logging.info('Inside main()')
@@ -8,10 +9,8 @@ def main():
     # ENV initialization
     MAIN_MEMORY     = 100             # Units as MB 
     PAGE_SIZE       = 1               # Size as MB
-    PROCESS_SIZE    = {5, 11, 17, 31} # Randomly chosen, Size as MB
-    PROCESS_RUNTIME = {1, 2, 3, 4, 5} # Randomly chosen, Time as seconds
-
-
+    PROCESS_SIZE    = [5, 11, 17, 31] # Randomly chosen, Size as MB
+    PROCESS_RUNTIME = [1, 2, 3, 4, 5] # Randomly chosen, Time as seconds
 
 ################################################################################
 if __name__ == '__main__':

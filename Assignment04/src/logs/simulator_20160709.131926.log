@@ -1,0 +1,23 @@
+2016-07-09 13:19:26,688 Calling procedure main(), initiating paging simulation
+2016-07-09 13:19:26,688 Inside main()
+2016-07-09 13:19:26,688 TEST; Random Process Size: 31
+2016-07-09 13:19:26,688 TEST; Random Runtime Time: 5
+2016-07-09 13:19:26,688 TEST; Random Process Size: 11
+2016-07-09 13:19:26,688 TEST; Random Runtime Time: 5
+2016-07-09 13:19:26,688 TEST; Random Process Size: 31
+2016-07-09 13:19:26,688 TEST; Random Runtime Time: 5
+2016-07-09 13:19:26,688 TEST; Random Process Size: 17
+2016-07-09 13:19:26,688 TEST; Random Runtime Time: 1
+2016-07-09 13:19:26,688 TEST; Random Process Size: 17
+2016-07-09 13:19:26,688 TEST; Random Runtime Time: 3
+2016-07-09 13:19:26,688 TEST; Random Process Size: 11
+2016-07-09 13:19:26,688 TEST; Random Runtime Time: 4
+2016-07-09 13:19:26,688 TEST; Random Process Size: 17
+2016-07-09 13:19:26,688 TEST; Random Runtime Time: 1
+2016-07-09 13:19:26,688 TEST; Random Process Size: 11
+2016-07-09 13:19:26,688 TEST; Random Runtime Time: 3
+2016-07-09 13:19:26,688 TEST; Random Process Size: 31
+2016-07-09 13:19:26,688 TEST; Random Runtime Time: 4
+2016-07-09 13:19:26,688 TEST; Random Process Size: 5
+2016-07-09 13:19:26,688 TEST; Random Runtime Time: 1
+2016-07-09 13:19:26,688 Application execution terminated successfully
