@@ -12,7 +12,7 @@ def main():
 
     # Memory Variables
     MAIN_MEMORY     = 100             # Units as MB 
-    FREE_PAGES      = 100             #
+    TOTAL_FREE_PAGES      = 100
     PAGE_SIZE       = 1               # Size as MB
 
     # Process Variables
@@ -37,7 +37,14 @@ def main():
     page_list = dict.fromkeys(range(FREE_PAGES))
 
     #while not job_queue.empty():
-    #    if sum(page_list.values() > 3:
+        #free_pages = sum(x == None for x in job_queue.values())
+        #if free_pages > 3:
+            # Assign process
+
+
+
+
+
 
 
     # TODO Generate an appropriate record whenever starting or completing a job
