@@ -12,10 +12,11 @@ def main():
 
     # Memory Variables
     MAIN_MEMORY     = 100             # Units as MB 
+    FREE_PAGES      = 11              # 0-10
     PAGE_SIZE       = 1               # Size as MB
 
     # Process Variables
-    NUMBER_OF_PROCESSES = 10
+    NUMBER_OF_PROCESSES = 150
     PROCESS_NAME    = range(11)
     PROCESS_SIZE    = [5, 11, 17, 31] # Randomly chosen, Size as MB
     PROCESS_RUNTIME = [1, 2, 3, 4, 5] # Randomly chosen, Time as seconds
