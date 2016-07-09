@@ -24,14 +24,19 @@ def main():
     # Initialize the processes
     # TODO Enforce unique naming
     # TODO Enforce even distribution
-    pq = PriorityQueue(maxsize=0)
+    job_queue = PriorityQueue(maxsize=0)
     for i in range(NUMBER_OF_PROCESSES):
         process = dict()
         process['name'] = random.choice(PROCESS_NAME)
         process['size'] = random.choice(PROCESS_SIZE)
         process['arrival_time'] = random.choice(range(EXECUTION_TIME))
         process['duration'] = random.choice(PROCESS_RUNTIME)
-        pq.put((process['arrival_time'], process))
+        job_queue.put((process['arrival_time'], process))
+
+    #while not job_queue.empty():
+
+    # TODO Generate an appropriate record whenever starting or completing a job
+    #      <time stamp, process name, enter/exit, size, duration, memory-map>
 
 
 ################################################################################
