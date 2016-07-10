@@ -1,4 +1,4 @@
-class TestPage:
+class Page:
     '''
     A class which simulates pages used by memory
     '''
