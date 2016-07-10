@@ -59,17 +59,6 @@ def main():
     algorithms.first_in_first_out(workload, page_table, book_keeping, MIN_PAGES)
     logging.info('END; FIFO Algorithm')
 
-    #test_counter = 0 # Use to break infinite loops 
-    #while not workload.empty() and test_counter < 3:
-    #    test_counter += 1
-    #    if page_table.available_pages() >= MIN_PAGES:
-    #        page_table.touch(MIN_PAGES, workload.get())
-            #process = workload.get()
-            #free_pages = [page_table.get_free_pages(4)]
-    #    else:
-    #        print('No more free pages available')
-
-
     # TODO Generate an appropriate record whenever starting or completing a job
     #      <time stamp, process name, enter/exit, size, duration, memory-map>
 
