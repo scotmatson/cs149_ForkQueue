@@ -3,9 +3,10 @@ A class which simulates pages used by memory
 '''
 class Page(object):
 
-    def __init__(self, page_id, page_size):
+    def __init__(self, page_id, page_size, last_accessed):
         self.page_id = page_id
         self.page_data = None
+        self.last_accessed = last_accessed
 
     def store_data(self, data):
         '''
