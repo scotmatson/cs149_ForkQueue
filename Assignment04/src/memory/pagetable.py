@@ -14,7 +14,6 @@ class PageTable(object):
     or "touched," by a process. Slots in physical memory are tracked using the
     RAM_tokenCounter.
     '''
-    RAM = {} # RAM keys are strings page.name; value is the Process object itself
     Disk = {}
     RAM_tokenCounter = 100
 
@@ -23,13 +22,11 @@ class PageTable(object):
         Arguments:
             free_pages (int): The number of pages in the page list
         '''
-        self.pages = dict()
+        self.ram = dict()
         for i in range(number_of_pages):
             # TODO value of i should be a unique page_id
             p = page.Page(i, page_size)
-            self.pages[i] = p
-        #self.free_pages = dict.fromkeys(range(number_of_pages))
-        #self.page_size = page_size
+            self.ram[i] = p
 
     def available_pages(self):
         '''
@@ -40,16 +37,15 @@ class PageTable(object):
         Returns:
             The number of available pages in the page list
         '''
-        return sum(page.access() == None for page in self.pages.values())
-        #return sum(x == None for x in self.free_pages.values())
+        return sum(page.access() == None for page in self.ram.values())
 
     def get_free_pages(self, number_of_pages):
         '''
         Returns N number of free pages from the page table
         '''
         free_pages = {}
-        for page_id, page in self.pages.items():
-            if self.pages[page_id].access() == None and len(free_pages) < 4:
+        for page_id, page in self.ram.items():
+            if self.ram[page_id].access() == None and len(free_pages) < 4:
                 free_pages[page_id] = page
                 if len(free_pages) == 4:
                     return free_pages
@@ -62,19 +58,3 @@ class PageTable(object):
         free_pages = self.get_free_pages(number_of_pages)
         for page_id, free_page in free_pages.items():
             free_page.store(process)
-
-    '''
-    def touch(page):
-        if the page is in memory, update its access and put it at the front of the queue in RAM; else,
-        perform the algorithm
-        page.lastAccessed = clock
-        if page in RAM:
-            RAM.put(page)
-        else:
-            pageReplacement(algorithm)
-
-    def touch(self, page):
-        if page in self.RAM:
-            print "Adding to RAM: ", page.page_ID
-            self.RAM.add(page)
-    '''
