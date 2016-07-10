@@ -26,8 +26,11 @@ class PageTable(object):
         Returns:
             The number of available pages in the page list
         '''
-        return sum(x.access() == None for x in self.pages)
+        return sum(page.access() == None for page in self.pages)
         #return sum(x == None for x in self.free_pages.values())
 
-    def get_page():
-        pass
+    def get_free_pages(self, number_of_pages):
+        free_pages = {}
+        for page_id, page in pages.items()
+            if pages[page_id] == None:
+                pass

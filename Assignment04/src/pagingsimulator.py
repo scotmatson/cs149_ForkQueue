@@ -32,7 +32,7 @@ def main():
 
     # Memory Variables
     MAIN_MEMORY     = 100             # Units as MB 
-    FREE_PAGES      = 100
+    TOTAL_PAGES      = 100
     PAGE_SIZE       = 1               # Size as MB
 
     # Process Variables
@@ -50,13 +50,13 @@ def main():
         PROCESS_RUNTIME)
 
     # Initialize page_list
-    page_table = memory.pagetable.PageTable(FREE_PAGES, PAGE_SIZE)
+    page_table = memory.pagetable.PageTable(TOTAL_PAGES, PAGE_SIZE)
 
-    # While we have processes in the Queue, continue to assign them, duh
-    #while not job_queue.empty():
-        #free_pages = sum(x == None for x in job_queue.values())
-        #if free_pages > 3:
-            # Assign process
+    #while not workload.empty():                          # we have work to do
+    #    if page_table.available_pages() > 3:             # there are at least 4 free pages
+    #        free_pages = [page_table.get_free_pages(4)   # get the free pages 
+                # assign a process
+                # update the page_table
 
     # TODO Generate an appropriate record whenever starting or completing a job
     #      <time stamp, process name, enter/exit, size, duration, memory-map>
