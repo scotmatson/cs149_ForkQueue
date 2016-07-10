@@ -2,10 +2,11 @@ class Page(object):
     '''
     A class which simulates pages used by memory
     '''
-    def __init__(self, page_id, page_size):
-        self.page_id = page_id
-        self.page_data = None
-        self.last_access_time = None
+
+    def __init__(self, name, process_id, last_accessed):
+        self.name = name
+        self.process_id = process_id
+        self.last_accessed = last_accessed
 
     def store(self, data):
         '''

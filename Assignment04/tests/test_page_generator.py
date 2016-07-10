@@ -13,12 +13,12 @@ print myPage.name, myPage.last_accessed, myPage.process_id
 ###### BEGIN PROCESS TEST CODE.
 
 NUMBER_OF_PROCESSES = 150
-NUMBER_OF_PAGES = [5, 11, 17, 31]
+PROCESS_SIZE = [5, 11, 17, 31]
 MIN_DURATION = 1
 MAX_DURATION = 5
 
 MIN_ARRIVAL_TIME = 0
-MAX_ARRIVAL_TIME = 599
+MAX_ARRIVAL_TIME = 59999
 
 processSet = set()
 pq = PriorityQueue()
@@ -27,7 +27,7 @@ for x in range(NUMBER_OF_PROCESSES):
     name = "P" + str(x)
     arrival_time = random.randint(0, 60000)
     duration = random.randint(1, 5)
-    page_amount = random.choice(NUMBER_OF_PAGES)
+    page_amount = random.choice(PROCESS_SIZE)
     pages = []
 
     process = Process(name, arrival_time, duration, pages)

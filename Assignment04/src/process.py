@@ -4,12 +4,11 @@ import random
 
 class Process(object):
 
-    def __init__(self, name, size, arrival, duration):
+    def __init__(self, name, arrival_time, duration, pages):
         self.name = name
-        self.size = size
-        self.arrival_time = arrival
+        self.arrival_time = arrival_time
         self.duration = duration
-        self.pages = None # This is something the process probably doesn't care about
+        self.pages = pages
 
     def __lt__(self, other):
         return self.arrival_time < other.arrival_time
