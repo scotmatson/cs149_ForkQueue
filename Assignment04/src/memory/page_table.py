@@ -1,13 +1,16 @@
-from memory import page
+import page
 
-class PageTable(object):
+class page_table(object):
     '''
     '''
+    RAM = {}
+    Disk = {}
+    RAM_tokenCounter = 100
+
     def __init__(self, number_of_pages, page_size):
         '''
         Arguments:
-            number_of_pages (int): The number of pages in the page list
-            page_size (int): The size of a page in MB
+            free_pages (int): The number of pages in the page list
         '''
         self.pages = dict()
         for i in range(number_of_pages):
@@ -26,12 +29,26 @@ class PageTable(object):
         Returns:
             The number of available pages in the page list
         '''
-        return sum(page.access() == None for page in self.pages)
+        return sum(x.access() == None for x in self.pages)
         #return sum(x == None for x in self.free_pages.values())
 
-    def get_free_pages(self, number_of_pages):
-        free_pages = {}
-        for page_id, page in pages.items():
-            if pages[page_id].access() == None:
-                free_pages[page_id] = page
-        return free_pages
+    def get_page(page):
+        pass
+
+    #
+    # def touch(page):
+    #     page.lastAccessed = clock
+	#
+    #     # if the page is in memory, update its access and put it at the front of the queue in RAM; else,
+    #     # perform the algorithm
+    #     if page in RAM:
+    #         RAM.put(page)
+    #     else
+    #         pageReplacement(algorithm)
+    #
+    #
+
+    def touch(self, page):
+        if page in self.RAM:
+            print "Adding to RAM: ", page.page_ID
+            self.RAM.add(page)

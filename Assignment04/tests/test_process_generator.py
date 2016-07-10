@@ -1,6 +1,6 @@
 # this test creates processes from Process.py, then puts them into a set and prints out the attributes for each
 #from queue import PriorityQueue
-from Process import Process
+from process import Process
 from queue import PriorityQueue
 
 
