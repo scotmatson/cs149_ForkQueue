@@ -6,8 +6,6 @@ import TestPage
 # Slots in physical memory are tracked using the RAM_tokenCounter.
 
 class TestPageTable:
-    '''
-    '''
 
     # RAM keys are strings page.name; value is the Process object itself
     RAM_tokenCounter = 100
