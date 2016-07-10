@@ -7,7 +7,7 @@ class Page(object):
         self.page_data = None
         self.last_access_time = None
 
-    def store_data(self, data):
+    def store(self, data):
         '''
         Stores data to the page
 
