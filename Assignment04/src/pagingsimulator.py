@@ -53,12 +53,8 @@ def main():
     # Initialize page_list
     page_table = memory.pagetable.PageTable(TOTAL_PAGES, PAGE_SIZE)
 
-    '''
-    This can essentially represent the beginnings of the FIFO algorithm that will later be in a separate module
-    The arguments passed should be the page_table, workload, and book_keeping
-    '''
-    test_counter = 0
-    while not workload.empty() and test_counter < 3: # Prevent infinite loops during tests
+    test_counter = 0 # Use to break infinite loops 
+    while not workload.empty() and test_counter < 3:
         test_counter += 1
         if page_table.available_pages() >= MIN_PAGES:
             page_table.touch(MIN_PAGES, workload.get())
