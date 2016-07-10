@@ -3,6 +3,7 @@ import datetime
 import sys
 import random
 from process import Process
+from queue import PriorityQueue
 
 def create_job_queue(number, name, size, execution, runtime):
     '''
@@ -19,8 +20,7 @@ def create_job_queue(number, name, size, execution, runtime):
             random.choice(size),
             priority,
             random.choice(runtime))
-
-        job_queue.enqueue((priority, process))
+        job_queue.put((priority, process))
     return job_queue
 
 def main():
@@ -41,14 +41,12 @@ def main():
     PROCESS_RUNTIME = [1, 2, 3, 4, 5] # Randomly chosen, Time as seconds
 
     book_keeping = list()
-    '''
     job_queue = create_job_queue(
         NUMBER_OF_PROCESSES,
         PROCESS_NAME_SIZE,
         PROCESS_SIZE,
         EXECUTION_TIME,
         PROCESS_RUNTIME)
-    '''
 
     # Initialize page_list
     page_list = dict.fromkeys(range(TOTAL_FREE_PAGES))
@@ -58,9 +56,9 @@ def main():
         #if free_pages > 3:
             # Assign process
 
-
-
-
+    # TEST TEST TEST FUCKING ERASE THIS WHEN DONE
+    while not job_queue.empty():
+        print(job_queue.get())
 
 
 
