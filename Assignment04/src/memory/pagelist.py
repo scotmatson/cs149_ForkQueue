@@ -1,14 +1,18 @@
+import page
+
 class PageList(object):
     '''
     '''
 
-    def __init__(self, free_pages, page_size):
+    def __init__(self, number_of_pages, page_size):
         '''
         Arguments:
             free_pages (int): The number of pages in the page list
         '''
-        self.free_pages = dict.fromkeys(range(free_pages))
-        self.page_size = page_size
+        self.pages = set() # may have to change this into a Linked List per assignment
+        for i in range(number_of_pages):
+            p = page.Page(i, page_size)
+            self.pages.add(p)
 
     def available_pages(self):
         '''
@@ -19,4 +23,7 @@ class PageList(object):
         Returns:
             The number of available pages in the page list
         '''
-        return sum(x == None for x in self.free_pages.values())
+        return sum(x.access() == None for x in self.pages)
+
+    def get_page():
+        pass
