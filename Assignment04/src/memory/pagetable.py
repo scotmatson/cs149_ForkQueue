@@ -49,9 +49,11 @@ class PageTable(object):
         '''
         free_pages = {}
         for page_id, page in self.pages.items():
-            if self.pages[page_id].access() == None:
+            if self.pages[page_id].access() == None and len(free_pages) < 4:
                 free_pages[page_id] = page
-        return free_pages
+                if len(free_pages) == 4:
+                    return free_pages
+        return None
 
 
     # def touch(page):
