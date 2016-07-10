@@ -52,13 +52,16 @@ def main():
     # Initialize page_list
     page_table = memory.pagetable.PageTable(TOTAL_PAGES, PAGE_SIZE)
 
-    #test_counter = 0
-    #while not workload.empty() and counter < 3:                          # we have work to do
-    #    test_counter += 1
-    #    if page_table.available_pages() > 3:             # there are at least 4 free pages
-    #        free_pages = [page_table.get_free_pages(4)   # get the free pages 
-                # assign a process
-                # update the page_table
+    test_counter = 0
+    while not workload.empty() and test_counter < 3: # Prevent infinite loops during tests
+        test_counter += 1
+        if page_table.available_pages() > 3:             # there are at least 4 free pages
+            pass
+            #process = workload.get()
+            #free_pages = [page_table.get_free_pages(4)]  # get the free pages 
+            #print(free_pages)
+            #print(process)
+            # Get a process, Get Pages, Couple, Update PageTable
 
     # TODO Generate an appropriate record whenever starting or completing a job
     #      <time stamp, process name, enter/exit, size, duration, memory-map>

@@ -1,4 +1,10 @@
-from memory import page
+try:
+    from memory import page
+except:
+    pass
+
+try: import page
+except: pass
 
 class PageTable(object):
     '''
@@ -26,8 +32,7 @@ class PageTable(object):
         Returns:
             The number of available pages in the page list
         '''
-        return sum(page.access() == None for page in self.pages)
-        #return sum(x == None for x in self.free_pages.values())
+        return sum(page.access() == None for page in self.pages.values())
 
     def get_free_pages(self, number_of_pages):
         free_pages = {}
