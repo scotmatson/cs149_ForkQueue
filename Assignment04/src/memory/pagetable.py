@@ -31,6 +31,7 @@ class PageTable(object):
 
     def get_free_pages(self, number_of_pages):
         free_pages = {}
-        for page_id, page in pages.items()
-            if pages[page_id] == None:
-                pass
+        for page_id, page in pages.items():
+            if pages[page_id].access() == None:
+                free_pages[page_id] = page
+        return free_pages
