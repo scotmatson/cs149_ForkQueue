@@ -51,6 +51,7 @@ def main():
     # Initialize page_list
     page_list = dict.fromkeys(range(TOTAL_FREE_PAGES))
 
+    # While we have processes in the Queue, continue to assign them, duh
     #while not job_queue.empty():
         #free_pages = sum(x == None for x in job_queue.values())
         #if free_pages > 3:
