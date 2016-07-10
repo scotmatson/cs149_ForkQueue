@@ -4,7 +4,7 @@ import sys
 import random
 from process import Process
 from queue import PriorityQueue
-from pagelist import PageList
+import memory
 
 def create_job_queue(number, name, size, execution, runtime):
     '''
@@ -50,8 +50,7 @@ def main():
         PROCESS_RUNTIME)
 
     # Initialize page_list
-    #page_list = dict.fromkeys(range(TOTAL_FREE_PAGES)) # SAVE -SM
-    page_list = PageList(TOTAL_FREE_PAGES)
+    page_list = memory.PageList(TOTAL_FREE_PAGES)
 
     # While we have processes in the Queue, continue to assign them, duh
     #while not job_queue.empty():

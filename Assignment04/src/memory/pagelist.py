@@ -7,7 +7,7 @@ class PageList(object):
         Arguments:
             free_pages (int): The number of pages in the page list
         '''
-        self.free_pages = dict.keys(range(free_pages))
+        self.free_pages = dict.fromkeys(range(free_pages))
 
     def available_pages(self):
         '''
