@@ -56,11 +56,10 @@ def main():
     while not workload.empty() and test_counter < 3: # Prevent infinite loops during tests
         test_counter += 1
         if page_table.available_pages() > 3:             # there are at least 4 free pages
-            pass
-            #process = workload.get()
-            #free_pages = [page_table.get_free_pages(4)]  # get the free pages 
-            #print(free_pages)
-            #print(process)
+            process = workload.get()
+            free_pages = [page_table.get_free_pages(4)]  # get the free pages 
+            print(free_pages)
+            print(process)
             # Get a process, Get Pages, Couple, Update PageTable
 
     # TODO Generate an appropriate record whenever starting or completing a job
