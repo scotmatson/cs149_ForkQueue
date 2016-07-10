@@ -32,7 +32,7 @@ def main():
 
     # Memory Variables
     MAIN_MEMORY     = 100             # Units as MB 
-    TOTAL_FREE_PAGES      = 100
+    FREE_PAGES      = 100
     PAGE_SIZE       = 1               # Size as MB
 
     # Process Variables
@@ -50,7 +50,7 @@ def main():
         PROCESS_RUNTIME)
 
     # Initialize page_list
-    page_list = memory.PageList(TOTAL_FREE_PAGES)
+    page_list = memory.PageList(FREE_PAGES, PAGE_SIZE)
 
     # While we have processes in the Queue, continue to assign them, duh
     #while not job_queue.empty():

@@ -2,12 +2,13 @@ class PageList(object):
     '''
     '''
 
-    def __init__(self, free_pages):
+    def __init__(self, free_pages, page_size):
         '''
         Arguments:
             free_pages (int): The number of pages in the page list
         '''
         self.free_pages = dict.fromkeys(range(free_pages))
+        self.page_size = page_size
 
     def available_pages(self):
         '''
