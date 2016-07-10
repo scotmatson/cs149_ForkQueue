@@ -2,7 +2,7 @@
 
 import random
 
-class Process(object):
+class process(object):
 
     def __init__(self, name, size, arrival, duration):
         self.name = name
