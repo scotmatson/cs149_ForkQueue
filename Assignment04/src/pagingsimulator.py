@@ -43,7 +43,6 @@ def main():
     PROCESS_SIZE    = [5, 11, 17, 31] # Randomly chosen, Size as MB
     PROCESS_RUNTIME = [1, 2, 3, 4, 5] # Randomly chosen, Time as seconds
 
-    book_keeping = list()
     workload = create_job_queue(
         NUMBER_OF_PROCESSES,
         PROCESS_NAME_SIZE,
@@ -53,6 +52,9 @@ def main():
 
     # Initialize page_list
     page_table = memory.pagetable.PageTable(TOTAL_PAGES, PAGE_SIZE)
+
+    # Used to store results from all algorithms, print this as the last step
+    book_keeping = list()
 
     # Execute Algorithms
     logging.info('BEGIN; FIFO Algorithm')
@@ -74,6 +76,8 @@ def main():
     #logging.info('BEGIN; RAND Algorithm')
     #algorithms.random(workload, page_table, book_keeping, MIN_PAGES)
     #logging.info('END; RAND Algorithm')
+
+    # TODO Print results from book_keeping
 ################################################################################
 if __name__ == '__main__':
     # Logging Init
