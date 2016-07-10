@@ -1,6 +1,6 @@
 import logging
 
-def first_in_first_out(workload, page_table, book_keeping, min_pages):
+def first_in_first_out(workload, page_table, min_pages):
     '''
     Demonstrates the First-in-first-out algorithm
     for managing processes in an operating system

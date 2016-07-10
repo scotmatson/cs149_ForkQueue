@@ -56,13 +56,24 @@ def main():
 
     # Execute Algorithms
     logging.info('BEGIN; FIFO Algorithm')
-    algorithms.first_in_first_out(workload, page_table, book_keeping, MIN_PAGES)
+    algorithms.first_in_first_out(workload, page_table, MIN_PAGES)
     logging.info('END; FIFO Algorithm')
 
-    # TODO Generate an appropriate record whenever starting or completing a job
-    #      <time stamp, process name, enter/exit, size, duration, memory-map>
+    #logging.info('BEGIN; LRU Algorithm')
+    #algorithms.least_recently_used(workload, page_table, book_keeping, MIN_PAGES)
+    #logging.info('END; LRU Algorithm')
 
+    #logging.info('BEGIN; LFU Algorithm')
+    #algorithms.least_frequently_used(workload, page_table, book_keeping, MIN_PAGES)
+    #logging.info('END; LFU Algorithm')
 
+    #logging.info('BEGIN; MFU Algorithm')
+    #algorithms.most_frequently_used(workload, page_table, book_keeping, MIN_PAGES)
+    #logging.info('END; MFU Algorithm')
+
+    #logging.info('BEGIN; RAND Algorithm')
+    #algorithms.random(workload, page_table, book_keeping, MIN_PAGES)
+    #logging.info('END; RAND Algorithm')
 ################################################################################
 if __name__ == '__main__':
     # Logging Init
