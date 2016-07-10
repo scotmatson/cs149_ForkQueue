@@ -12,7 +12,7 @@ def create_job_queue(number, name, size, execution, runtime):
     # Initialize the processes
     # TODO Enforce unique naming
     # TODO Enforce even distribution
-    job_queue = PriorityQueue(maxsize=0) # If maxsize is 0, queue size is infinite
+    pq = PriorityQueue(maxsize=0) # If maxsize is 0, queue size is infinite
     for i in range(number):
         priority = random.choice(range(execution))
         process = Process(
@@ -20,8 +20,8 @@ def create_job_queue(number, name, size, execution, runtime):
             random.choice(size),
             priority,
             random.choice(runtime))
-        job_queue.put((priority, process))
-    return job_queue
+        pq.put((priority, process))
+    return pq
 
 def main():
     logging.info('Inside main()')
@@ -41,7 +41,7 @@ def main():
     PROCESS_RUNTIME = [1, 2, 3, 4, 5] # Randomly chosen, Time as seconds
 
     book_keeping = list()
-    job_queue = create_job_queue(
+    workload = create_job_queue(
         NUMBER_OF_PROCESSES,
         PROCESS_NAME_SIZE,
         PROCESS_SIZE,
