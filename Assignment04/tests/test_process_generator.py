@@ -1,17 +1,23 @@
 # this test creates processes from Process.py, then puts them into a set and prints out the attributes for each
 #from queue import PriorityQueue
-from process import Process
-from queue import PriorityQueue
+import .
+from Queue import PriorityQueue
 
 
 NUMBER_OF_PROCESSES = 150
+PROCESS_SIZES = [5, 11, 17, 31]
+MIN_DURATION = 1
+MAX_DURATION = 5
+
+MIN_ARRIVAL_TIME = 0
+MAX_ARRIVAL_TIME = 599
 
 processSet = set()
 pq = PriorityQueue()
 # make a set of 150 processes, add to processSet
 for x in range(NUMBER_OF_PROCESSES):
 	name = "P" + str(x)
-	process = Process(name)
+	process = process(name)
 	processSet.add(process)
 
 for process in processSet:

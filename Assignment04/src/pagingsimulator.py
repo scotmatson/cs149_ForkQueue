@@ -4,7 +4,7 @@ import sys
 import random
 import memory
 from queue import PriorityQueue
-from process import Process
+from Process import process
 
 def create_job_queue(number, name, size, execution, runtime):
     '''
@@ -16,7 +16,7 @@ def create_job_queue(number, name, size, execution, runtime):
     pq = PriorityQueue(maxsize=0) # If maxsize is 0, queue size is infinite
     for i in range(number):
         priority = random.choice(range(execution))
-        process = Process(
+        process = process(
             random.choice(name),
             random.choice(size),
             priority,

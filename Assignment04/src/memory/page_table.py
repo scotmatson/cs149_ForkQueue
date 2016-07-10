@@ -1,5 +1,10 @@
 import page
 
+# This class simulates the Page Table. The purpose of the Page Table is to make user level processes believe that all of
+# their data is in memory, which may or may not be the case. Due to limitations on physical memory, some of the data
+# may have to reside on disk and be brought back into memory when it is accessed, or "touched," by a process.
+# Slots in physical memory are tracked using the RAM_tokenCounter.
+
 class page_table(object):
     '''
     '''
