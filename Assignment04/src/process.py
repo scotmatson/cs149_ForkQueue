@@ -2,22 +2,13 @@
 
 import random
 
-PROCESS_SIZES = [5, 11, 17, 31]
-MIN_DURATION = 1
-MAX_DURATION = 5
+class Process(object):
 
-MIN_ARRIVAL_TIME = 0
-MAX_ARRIVAL_TIME = 599
-
-class Process:
-	def __init__(self, name):
+	def __init__(self, name, size, arrival, duration):
 		self.name = name
-		self.size = random.choice(PROCESS_SIZES)
-		self.arrival_time = random.randint(MIN_ARRIVAL_TIME, MAX_ARRIVAL_TIME)
-		self.duration = random.randint(MIN_DURATION, MAX_DURATION)
+		self.size = size
+		self.arrival_time = arrival
+		self.duration = duration
 
 	def __lt__(self, other):
 		return self.arrival_time < other.arrival_time
-
-
-

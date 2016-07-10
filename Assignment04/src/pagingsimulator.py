@@ -2,7 +2,7 @@ import logging
 import datetime
 import sys
 import random
-from queue import PriorityQueue
+from process import Process
 
 def create_job_queue(number, name, size, execution, runtime):
     '''
@@ -13,20 +13,21 @@ def create_job_queue(number, name, size, execution, runtime):
     # TODO Enforce even distribution
     job_queue = PriorityQueue(maxsize=0) # If maxsize is 0, queue size is infinite
     for i in range(number):
-        process = dict()
         priority = random.choice(range(execution))
-        process['name'] = random.choice(name) # Needs a check to enforce uniqueness
-        process['size'] = random.choice(size)
-        process['arrival_time'] = priority
-        process['duration'] = random.choice(runtime)
-        job_queue.put((priority, process)) # PQ is a POS - THIS WILL ERR
+        process = Process(
+            random.choice(name),
+            random.choice(size),
+            priority,
+            random.choice(runtime))
+
+        job_queue.enqueue((priority, process))
     return job_queue
 
 def main():
     logging.info('Inside main()')
 
     # Simulation Variables 
-    EXECUTION_TIME  = 100
+    EXECUTION_TIME  = 600
 
     # Memory Variables
     MAIN_MEMORY     = 100             # Units as MB 
@@ -40,15 +41,17 @@ def main():
     PROCESS_RUNTIME = [1, 2, 3, 4, 5] # Randomly chosen, Time as seconds
 
     book_keeping = list()
+    '''
     job_queue = create_job_queue(
         NUMBER_OF_PROCESSES,
         PROCESS_NAME_SIZE,
         PROCESS_SIZE,
         EXECUTION_TIME,
         PROCESS_RUNTIME)
+    '''
 
     # Initialize page_list
-    page_list = dict.fromkeys(range(FREE_PAGES))
+    page_list = dict.fromkeys(range(TOTAL_FREE_PAGES))
 
     #while not job_queue.empty():
         #free_pages = sum(x == None for x in job_queue.values())
