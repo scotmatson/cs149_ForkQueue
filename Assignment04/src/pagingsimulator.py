@@ -2,9 +2,9 @@ import logging
 import datetime
 import sys
 import random
-from memory import PageTable
-from process import Process
+import memory
 from queue import PriorityQueue
+from process import Process
 
 def create_job_queue(number, name, size, execution, runtime):
     '''
@@ -50,7 +50,7 @@ def main():
         PROCESS_RUNTIME)
 
     # Initialize page_list
-    page_table = PageTable(FREE_PAGES, PAGE_SIZE)
+    page_table = memory.pagetable.PageTable(FREE_PAGES, PAGE_SIZE)
 
     # While we have processes in the Queue, continue to assign them, duh
     #while not job_queue.empty():

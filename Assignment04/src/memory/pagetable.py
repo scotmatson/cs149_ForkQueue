@@ -1,13 +1,13 @@
-import page
+from memory import page
 
 class PageTable(object):
     '''
     '''
-
     def __init__(self, number_of_pages, page_size):
         '''
         Arguments:
-            free_pages (int): The number of pages in the page list
+            number_of_pages (int): The number of pages in the page list
+            page_size (int): The size of a page in MB
         '''
         self.pages = dict()
         for i in range(number_of_pages):
