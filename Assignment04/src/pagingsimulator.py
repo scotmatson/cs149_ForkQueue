@@ -57,12 +57,6 @@ def main():
         #if free_pages > 3:
             # Assign process
 
-    # TEST TEST TEST FUCKING ERASE THIS WHEN DONE
-    while not job_queue.empty():
-        print(job_queue.get())
-
-
-
     # TODO Generate an appropriate record whenever starting or completing a job
     #      <time stamp, process name, enter/exit, size, duration, memory-map>
 
