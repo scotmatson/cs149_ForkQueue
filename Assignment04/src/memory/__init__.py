@@ -1,2 +1,1 @@
-from .pagelist import PageList
-from .page import Page
+from .pagetable import PageTable
