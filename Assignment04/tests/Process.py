@@ -16,5 +16,8 @@ class Process:
 		self.arrival_time = random.randint(MIN_ARRIVAL_TIME, MAX_ARRIVAL_TIME)
 		self.duration = random.randint(MIN_DURATION, MAX_DURATION)
 
+	def __lt__(self, other):
+		return self.arrival_time < other.arrival_time
+
 
 
