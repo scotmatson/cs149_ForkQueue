@@ -11,14 +11,15 @@ def create_job_queue(number, name, size, execution, runtime):
     # Initialize the processes
     # TODO Enforce unique naming
     # TODO Enforce even distribution
-    job_queue = PriorityQueue(maxsize=0)
+    job_queue = PriorityQueue(maxsize=0) # If maxsize is 0, queue size is infinite
     for i in range(number):
         process = dict()
-        process['name'] = random.choice(name)
+        priority = random.choice(range(execution))
+        process['name'] = random.choice(name) # Needs a check to enforce uniqueness
         process['size'] = random.choice(size)
-        process['arrival_time'] = random.choice(range(execution))
+        process['arrival_time'] = priority
         process['duration'] = random.choice(runtime)
-        job_queue.put((process['arrival_time'], process))
+        job_queue.put((priority, process)) # PQ is a POS - THIS WILL ERR
     return job_queue
 
 def main():
@@ -78,3 +79,6 @@ if __name__ == '__main__':
     # Application controlled termination
     logging.info('Application execution terminated successfully')
     sys.exit()
+
+
+
