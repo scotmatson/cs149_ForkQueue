@@ -49,25 +49,32 @@ class PageTable(object):
         '''
         free_pages = {}
         for page_id, page in self.pages.items():
-            if self.pages[page_id].access() == None:
+            if self.pages[page_id].access() == None and len(free_pages) < 4:
                 free_pages[page_id] = page
-        return free_pages
+                if len(free_pages) == 4:
+                    return free_pages
+        return None
 
+    def touch(self, number_of_pages, process):
+        '''
+        Gets N free pages and assigns them to a process.
+        '''
+        free_pages = self.get_free_pages(number_of_pages)
+        for page_id, free_page in free_pages.items():
+            free_page.store(process)
 
-    # def touch(page):
-    #
-    #     page.lastAccessed = clock
-	#
-    #     # if the page is in memory, update its access and put it at the front of the queue in RAM; else,
-    #     # perform the algorithm
-    #     if page in RAM:
-    #         RAM.put(page)
-    #     else
-    #         pageReplacement(algorithm)
-    #
-    #
+    '''
+    def touch(page):
+        if the page is in memory, update its access and put it at the front of the queue in RAM; else,
+        perform the algorithm
+        page.lastAccessed = clock
+        if page in RAM:
+            RAM.put(page)
+        else:
+            pageReplacement(algorithm)
 
-    #def touch(self, page):
-    #    if page in self.RAM:
-    #        print "Adding to RAM: ", page.page_ID
-    #        self.RAM.add(page)
+    def touch(self, page):
+        if page in self.RAM:
+            print "Adding to RAM: ", page.page_ID
+            self.RAM.add(page)
+    '''

@@ -32,8 +32,9 @@ def main():
 
     # Memory Variables
     MAIN_MEMORY     = 100             # Units as MB 
-    TOTAL_PAGES      = 100
-    PAGE_SIZE       = 1               # Size as MB
+    PAGE_SIZE       = 1               # The size of a page in MB
+    TOTAL_PAGES     = 100             # Maximum number of pages held by the page table 
+    MIN_PAGES       = 4               # The minimum number of pages required to assign a process
 
     # Process Variables
     NUMBER_OF_PROCESSES = 150
@@ -52,15 +53,20 @@ def main():
     # Initialize page_list
     page_table = memory.pagetable.PageTable(TOTAL_PAGES, PAGE_SIZE)
 
+    '''
+    This can essentially represent the beginnings of the FIFO algorithm that will later be in a separate module
+    The arguments passed should be the page_table, workload, and book_keeping
+    '''
     test_counter = 0
     while not workload.empty() and test_counter < 3: # Prevent infinite loops during tests
         test_counter += 1
-        if page_table.available_pages() > 3:             # there are at least 4 free pages
-            process = workload.get()
-            free_pages = [page_table.get_free_pages(4)]  # get the free pages 
-            print(free_pages)
-            print(process)
-            # Get a process, Get Pages, Couple, Update PageTable
+        if page_table.available_pages() >= MIN_PAGES:
+            page_table.touch(MIN_PAGES, workload.get())
+            #process = workload.get()
+            #free_pages = [page_table.get_free_pages(4)]
+        else:
+            print('No more free pages available')
+
 
     # TODO Generate an appropriate record whenever starting or completing a job
     #      <time stamp, process name, enter/exit, size, duration, memory-map>
