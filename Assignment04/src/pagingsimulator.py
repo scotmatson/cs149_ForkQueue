@@ -60,7 +60,6 @@ def access_page(clock, page_table, page):
 
     # add the page to the page_table.memory
     page_table.touch(page)
-    
     # update the parent process of that page so that it knows which page was last accessed
     # this code will be necessary for locality of reference, which is yet to be coded
     # THIS CODE NEEDS TO BE TESTED
