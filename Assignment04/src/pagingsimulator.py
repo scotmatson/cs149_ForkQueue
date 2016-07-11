@@ -55,7 +55,7 @@ def os():
             page_name_num = random.randint(0, 1000)
             page_name_string = ''.join(random.sample(string.ascii_lowercase, 5))
             page_name = page_name_string + str(page_name_num)
-            last_accessed = random.randint(0, 59999)
+            last_accessed = 0
 
             new_page = Page(page_name, process.name, last_accessed)
             process.pages.append(new_page)
