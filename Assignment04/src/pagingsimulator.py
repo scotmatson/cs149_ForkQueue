@@ -210,8 +210,8 @@ def main():
             active_process_list[random_process.name].duration = active_process_list[random_process.name].duration - 1
 
             if active_process_list[random_process.name].duration == 0:
-                new_process.clear(page_table)
-
+                random_process.clear(page_table)
+                del active_process_list[random_process.name]
             ######################################################################################
             # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF A RANDOM PROCESS
             ######################################################################################
