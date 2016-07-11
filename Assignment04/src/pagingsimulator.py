@@ -41,17 +41,17 @@ def os():
     pq = PriorityQueue()
     page_table = PageTable()
 
-    # Make a set of 150 processes, add to processSet
+    # Make a set of 150 processes, add to process_list
     for x in range(NUMBER_OF_PROCESSES):
         name = "P" + str(x)
         arrival_time = random.randint(0, MAX_ARRIVAL_TIME)
         duration = random.randint(MIN_DURATION, MAX_DURATION)
-        page_amount = random.choice(PROCESS_SIZE)
+        number_of_pages = random.choice(PROCESS_SIZE)
         pages = []
 
         process = Process(name, arrival_time, duration, pages)
 
-        for x in range(page_amount):
+        for x in range(number_of_pages):
             page_name_num = random.randint(0, 1000)
             page_name_string = ''.join(random.sample(string.ascii_lowercase, 5))
             page_name = page_name_string + str(page_name_num)
@@ -60,7 +60,7 @@ def os():
             new_page = Page(page_name, process.name, last_accessed)
             process.pages.append(new_page)
 
-        # must test pages, new creation, this will break
+        # Must test pages, new creation, this will break
         process_list.append(process)
 
 ################################################################################
