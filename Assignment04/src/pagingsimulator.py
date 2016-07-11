@@ -200,7 +200,7 @@ def main():
             # choose a random process from the active process list
             # NOTE: This line of code does not need to be changed by the person is doing the locality of reference
             # thing!! This code just selects a random process
-            random_process_name = random.choice(active_process_list.keys())
+            random_process_name = random.choice(list(active_process_list.keys()))
             random_process = active_process_list[random_process_name]
 
             # decrement the duration counter for that randomly selected process
