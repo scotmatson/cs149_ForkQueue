@@ -48,7 +48,6 @@ MEMORY_MIN = 4
 
 # helper function; it "touches" a page
 def access_page(clock, page_table, page):
-    print ("in access_page")
     # update the time of access for that page
     page.last_accessed = clock
 
@@ -61,8 +60,7 @@ def access_page(clock, page_table, page):
 
     # add the page to the page_table.memory
     page_table.touch(page)
-    #newprocess = page_table.memory.pop(page.process_id)
-    print "Touched page's process ID:", page.process_id
+    
     # update the parent process of that page so that it knows which page was last accessed
     # this code will be necessary for locality of reference, which is yet to be coded
     # THIS CODE NEEDS TO BE TESTED
