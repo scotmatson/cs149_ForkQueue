@@ -37,13 +37,14 @@ def main():
     logging.info('Inside main()')
 
     # Simulation Variables, should be 60000 if 100ms quanta in one minute
-    EXECUTION_TIME  = 60000
+    EXECUTION_TIME  = 60000           # Unit of time in milliseconds
+    QUANTA = 100                      # Unit of time in milliseconds
 
     # Memory Variables
     MAIN_MEMORY     = 100             # Units as MB
     PAGE_SIZE       = 1               # The size of a page in MB
     TOTAL_PAGES     = 100             # Maximum number of pages held by the page table
-    MIN_PAGES       = 4               # The minimum number of pages required to assign a process
+    PAGES_PER_PROCESS       = 4               # The minimum number of pages required to assign a process
 
     # Process Variables
     NUMBER_OF_PROCESSES = 150
@@ -107,23 +108,23 @@ def main():
     # HAD TO COMMENT OUT CUZ NOT WORKING ON FRANCISCO
     # Execute Algorithms
     # logging.info('BEGIN; FIFO Algorithm')
-    # algorithms.first_in_first_out(workload, page_table, MIN_PAGES)
+    # algorithms.first_in_first_out(workload, page_table, PAGES_PER_PROCESS)
     # logging.info('END; FIFO Algorithm')
 
     #logging.info('BEGIN; LRU Algorithm')
-    #algorithms.least_recently_used(workload, page_table, book_keeping, MIN_PAGES)
+    #algorithms.least_recently_used(workload, page_table, book_keeping, PAGES_PER_PROCESS)
     #logging.info('END; LRU Algorithm')
 
     #logging.info('BEGIN; LFU Algorithm')
-    #algorithms.least_frequently_used(workload, page_table, book_keeping, MIN_PAGES)
+    #algorithms.least_frequently_used(workload, page_table, book_keeping, PAGES_PER_PROCESS)
     #logging.info('END; LFU Algorithm')
 
     #logging.info('BEGIN; MFU Algorithm')
-    #algorithms.most_frequently_used(workload, page_table, book_keeping, MIN_PAGES)
+    #algorithms.most_frequently_used(workload, page_table, book_keeping, PAGES_PER_PROCESS)
     #logging.info('END; MFU Algorithm')
 
     #logging.info('BEGIN; RAND Algorithm')
-    #algorithms.random(workload, page_table, book_keeping, MIN_PAGES)
+    #algorithms.random(workload, page_table, book_keeping, PAGES_PER_PROCESS)
     #logging.info('END; RAND Algorithm')
 ################################################################################
 if __name__ == '__main__':
