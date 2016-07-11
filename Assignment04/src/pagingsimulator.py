@@ -63,6 +63,19 @@ def os():
         # Must test pages, new creation, this will break
         process_list.append(process)
 
+
+
+#######################################
+#### ALGORITHM AND MAIN STARTS HERE
+#######################################
+
+
+
+
+
+
+    # pull out a process from the processList
+
 ################################################################################
 if __name__ == '__os__':
     os();
