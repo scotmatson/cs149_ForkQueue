@@ -4,8 +4,8 @@ import sys
 import random
 
 # these two are needed for Francisco's machine
-from memory import page
-from memory import pagetable
+
+from memory import PageTable
 
 import algorithms
 from Queue import PriorityQueue
@@ -57,7 +57,7 @@ def main():
     MAX_ARRIVAL_TIME = 59999
 
     # makes the processes, populate them with pages
-    processSet = set()
+    processList = []
     pq = PriorityQueue()
 
     # make a set of 150 processes, add to processSet
@@ -80,7 +80,7 @@ def main():
             process.pages.append(new_page)
 
         # must test pages, new creation, this will break
-        processSet.add(process)
+        processList.append(process)
 
 
     book_keeping = list()
@@ -96,7 +96,8 @@ def main():
     # scot, this line is screwed up on my machine
     #page_table = memory.pagetable.PageTable(TOTAL_PAGES, PAGE_SIZE)
 
-
+    # this is for Francisco's implementation
+    pagetable = PageTable()
 
     # HAD TO COMMENT OUT CUZ NOT WORKING ON FRANCISCO
     # Execute Algorithms
