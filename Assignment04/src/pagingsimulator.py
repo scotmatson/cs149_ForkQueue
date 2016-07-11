@@ -52,7 +52,18 @@ def access_page(clock, page_table, page):
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if page_table.memory.__sizeof__() < MEMORY_MIN:
         print "page replacement"
-        # call page_replacement
+        # page_replacement(algorithm_name, page_table)        # you need to write this function!!
+        #
+        # You need to write a function here in pagingsimulator called page_replacement, and it will take the algorithm
+        # and the page_table as parameters. You decide how this works - do you want to make a menu for it like in
+        # assignment2? I don't know what works for you, you have to decide. If you need more parameters, like the
+        # active_process_list, then say let me know.
+        #
+        # The function, I imagine, will be something like page_replacement(FIFO, page_table), which means
+        # "perform the page replacement algorithm FIFO on the object page_table"; this means the algorithm will have to
+        # select a page in page_table.memory, remove it from page_table.memory, and put it in page_table.disk.
+        # I don't imagine that any changes will need to be made to pagingsimulator.py, but I can't know that ahead of
+        # time; you actually have to try and write the replacement algorithms.
 
 def os():
     '''
