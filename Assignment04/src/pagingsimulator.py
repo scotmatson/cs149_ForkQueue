@@ -4,7 +4,7 @@ import random
 import string
 try: from Queue import PriorityQueue
 except: from queue import PriorityQueue
-
+from collections import OrderedDict
 # USER LIBS
 import algorithms
 from process import Process
@@ -61,12 +61,17 @@ def access_page(clock, page_table, page):
 
     # add the page to the page_table.memory
     page_table.touch(page)
-
+    #newprocess = page_table.memory.pop(page.process_id)
+    print "Touched page's process ID:", page.process_id
     # update the parent process of that page so that it knows which page was last accessed
     # this code will be necessary for locality of reference, which is yet to be coded
     # THIS CODE NEEDS TO BE TESTED
-    index_of_page = page_table[page.name].index(page)
-    page_table[page.name].last_accessed_page = index_of_page
+
+    # testProcess = page_table.memory.get(page.process_id)
+    # print "testing inside access_page", testProcess.name
+    # testIndex = testProcess.pages.index(page.name)
+    # index_of_page = page_table.memory.get(page.process_id).pages.index(page.name)
+    # page_table[page.name].last_accessed_page = index_of_page
 
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if page_table.memory.__sizeof__() < MEMORY_MIN:
@@ -93,12 +98,13 @@ def main():
     print ("in main os")
     # Makes the processes, populate them with pages
     process_list = []
-    active_process_list = []
+    active_process_list = OrderedDict()
     page_table = PageTable()
 
     # Make a set of 150 processes, add to process_list
     for x in range(NUMBER_OF_PROCESSES):
-        name = "P" + str(x)
+        name_int = 0
+        name = "P" + str(name_int)
         arrival_time = random.randint(0, MAX_ARRIVAL_TIME)
         duration = random.randint(MIN_DURATION, MAX_DURATION)
         number_of_pages = random.choice(PROCESS_SIZE)
@@ -117,6 +123,7 @@ def main():
 
         # Must test pages, new creation, this will break
         process_list.append(process)
+        name_int += 1
 
 
 
@@ -161,7 +168,7 @@ def main():
                 process_list.pop(0)
 
                 # add the new_process to the active_process_list
-                active_process_list.append(new_process)
+                active_process_list[new_process.name] = new_process
 
                 # decrement that process's duration
                 new_process.duration = new_process.duration - 1
@@ -191,10 +198,10 @@ def main():
             # choose a random process from the active process list
             # NOTE: This line of code does not need to be changed by the person is doing the locality of reference
             # thing!! This code just selects a random process
-            random_process = random.choice(active_process_list)
+            random_process = random.choice(active_process_list.keys())
 
             # decrement the duration counter for that randomly selected process
-            active_process_list[random_process.name].duration = active_process_list[random_process.name].duration - 1
+            print "testing  ", active_process_list[random_process.name].name
 
             if active_process_list[random_process.name].duration == 0:
                 new_process.clear(page_table)
