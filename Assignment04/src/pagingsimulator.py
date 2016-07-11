@@ -43,6 +43,12 @@ def access_page(clock, page_table, page):
     # add the page to the page_table.memory
     page_table.touch(page)
 
+    # update the parent process of that page so that it knows which page was last accessed
+    # this code will be necessary for locality of reference, which is yet to be coded
+    # THIS CODE NEEDS TO BE TESTED
+    index_of_page = page_table[page.name].index(page)
+    page_table[page.name].last_accessed_page = index_of_page
+
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if page_table.memory.__sizeof__() < MEMORY_MIN:
         print "page replacement"
@@ -125,12 +131,6 @@ def os():
                 # decrement that process's duration
                 new_process.duration = new_process.duration - 1
 
-                # if the process's duration is 0, remove all of its pages from memory
-                # this is a stub, still needs implementation
-                if new_process.duration == 0:
-                    new_process.clear(page_table)
-
-
                 ######################################################################################
                 #  PAGE REPLACE EVENT (1): ADDING PAGES OF A NEW PROCESS
                 ######################################################################################
@@ -138,6 +138,11 @@ def os():
                 # add all of that process's pages, one by one, into memory using touch
                 for page in new_process.pages:
                     access_page(clock, page_table, page)
+
+                # if the process's duration is 0, remove all of its pages from memory
+                # this is a stub, still needs implementation
+                if new_process.duration == 0:
+                    new_process.clear(page_table)
 
 
 
