@@ -59,7 +59,7 @@ def main():
     processList = []
     pq = PriorityQueue()
     # this is for Francisco's implementation
-    pagetable = PageTable()
+    page_table = PageTable()
 
     # make a set of 150 processes, add to processSet
     for x in range(NUMBER_OF_PROCESSES):
