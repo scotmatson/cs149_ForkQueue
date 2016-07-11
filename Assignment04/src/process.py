@@ -8,6 +8,7 @@ class Process(object):
         self.name = name
         self.arrival_time = arrival_time
         self.duration = duration
+        self.remaining = duration
         self.pages = pages
 
     def __lt__(self, other):
@@ -15,3 +16,10 @@ class Process(object):
 
     def set_pages(self):
         pass
+
+    def do_work(self):
+        '''
+        Whatever the process is 'doing', do it and update the
+        remaining time
+        '''
+        self.remaining -= 1
