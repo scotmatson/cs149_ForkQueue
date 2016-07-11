@@ -119,13 +119,11 @@ def os():
                 new_process = process_list[0]
                 process_list.pop(0)
 
-                # add the process to the active_process_list
+                # add the new_process to the active_process_list
                 active_process_list.append(new_process)
 
                 # decrement that process's duration
                 new_process.duration = new_process.duration - 1
-
-
 
 
                 ######################################################################################
