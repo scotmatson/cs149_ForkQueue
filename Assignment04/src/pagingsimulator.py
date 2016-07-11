@@ -153,8 +153,7 @@ def main():
     # for 60000 cycles
     for x in range(EXECUTION_TIME):
         # check if the process_list is empty; if it has processes in there, then they have to be loaded into memory
-        if not process_list:
-
+        if process_list:
         # peek at the process_list, check if the next arrival_time == clock
             if process_list[0].arrival_time == clock:
                 # if so, capture that process and pop it off the process_list
