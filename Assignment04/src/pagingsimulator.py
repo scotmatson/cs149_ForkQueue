@@ -44,7 +44,7 @@ def access_page(clock, page_table, page):
     page_table.touch(page)
 
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
-    if page_table.memory.__sizeof__() > MEMORY_MIN:
+    if page_table.memory.__sizeof__() < MEMORY_MIN:
         print "page replacement"
         # call page_replacement
 
@@ -125,6 +125,11 @@ def os():
                 # decrement that process's duration
                 new_process.duration = new_process.duration - 1
 
+                # if the process's duration is 0, remove all of its pages from memory
+                # this is a stub, still needs implementation
+                if new_process.duration == 0:
+                    new_process.clear(page_table)
+
 
                 ######################################################################################
                 #  PAGE REPLACE EVENT (1): ADDING PAGES OF A NEW PROCESS
@@ -143,13 +148,19 @@ def os():
         if clock % 100 == 0:
 
             # if so, then it's time to touch a random page of a random process in the active_process_list
+            # choose a random process from the active process list
             random_process = random.choice(active_process_list)
-            random_page = random.choice(random_process.pages)
+
+            # decrement the duration counter for that randomly selected process
+            active_process_list[random_process.name].duration = active_process_list[random_process.name].duration - 1
+
+            if active_process_list[random_process.name].duration == 0:
+                new_process.clear(page_table)
 
             ######################################################################################
             # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF A RANDOM PROCESS
             ######################################################################################
-            access_page(clock, page_table, random_page)
+            access_page(clock, page_table, random.choice(random_process.pages))
 
 
 
