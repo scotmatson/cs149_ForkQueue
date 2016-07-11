@@ -12,9 +12,30 @@ class PageTable(object):
     user level processes believe that all of their data is in memory, which may
     or may not be the case. Due to limitations on physical memory, some of the data
     may have to reside on disk and be brought back into memory when it is accessed,
-    or "touched," by a process. Slots in physical memory are tracked using the
-    RAM_tokenCounter.
+    or "touched," by a process. Whether or not a page needs to be replaced and the
+    page replacement algorithm performed is decided in main(), which we call os()
+    because it is simulating the Operating System. For our assignment, the OS, which
+    is simulated by pagingsimulator.py, decides when to perform a page replacement.
+    The decision is that there must be a minimum of 4 pages remaining in memory for
+    performance reasons. If there are currently 96 pages in memory when a "touch"
+    is performed, then touch will still insert the page into memory, meaning that
+    there will be 97 pages in memory and only 3 slots remaining. The OS has to
+    be checking for this and call the page replacement algorithm.
+
+    This checking code is already written and is inside pagingsimulator.py. It is
+    not tested yet because there isn't an algorithm built yet to test it with.
+    However, there is a clear stub where you need to plug in your algorithm -
+    it's in the "access_page" method in pagingsimulator.py. Access_page will
+    "touch" the page and update all the necessary attributes of pages and/or
+    processes as necessary; the only thing left to do is testing and the
+    algorithms.
+
     '''
+    #####################################################
+    # HOW DOES PAGETABLE WORK? WHAT ARE THE ATTRIBUTES?
+    # Both disk and memory are OrderedDictionaries. Think of them as dictionaries that you can add and remove from
+    # as if they were a PriorityQueue. The advantage to having them a dictionary is that you can add/remove at
+    # constant time, like a dictionary or a hashMap.
 
     def __init__(self):
         '''
@@ -23,10 +44,19 @@ class PageTable(object):
         self.disk = OrderedDict()
         self.memory = OrderedDict()
 
+# This function will add the page to memory. Here's the flow:
+    # (1) If the page is already memory, put it at the "front" of memory. To do so, the code removes and then re-adds
+    #       the page.
+    # (2) Else if the page is NOT in memory, check if it's in the disk. If the page is in the disk, then remove it
+    #       from the disk and put it into memory.
+    # (3) Else, the page is NEITHER in memory NOR disk. So just put it in memory.
+    #
+    # A "touch" may bring the amount of pages in memory to 97, meaning there are only 3 slots in memory left. It
+    # is the responsibility of the OS to check for this and call the page replacement algorithm as necessary.
+
     def touch(self, page):
-        '''
-        TODO: Francisco needs to document this logic
-        '''
+
+
         if self.memory.has_key(page.name):
             del self.memory[page.name]
             self.memory[page.name] = page
