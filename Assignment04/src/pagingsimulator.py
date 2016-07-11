@@ -40,9 +40,9 @@ def main():
     EXECUTION_TIME  = 60000
 
     # Memory Variables
-    MAIN_MEMORY     = 100             # Units as MB 
+    MAIN_MEMORY     = 100             # Units as MB
     PAGE_SIZE       = 1               # The size of a page in MB
-    TOTAL_PAGES     = 100             # Maximum number of pages held by the page table 
+    TOTAL_PAGES     = 100             # Maximum number of pages held by the page table
     MIN_PAGES       = 4               # The minimum number of pages required to assign a process
 
     # Process Variables
@@ -76,9 +76,8 @@ def main():
             page_name_string = ''.join(random.sample(string.ascii_lowercase, 5))
             page_name = page_name_string + str(page_name_num)
             last_accessed = random.randint(0, 59999)
-            frequency = 0
 
-            new_page = Page(page_name, process.name, last_accessed, frequency)
+            new_page = Page(page_name, process.name, last_accessed)
             process.pages.append(new_page)
 
         # must test pages, new creation, this will break
