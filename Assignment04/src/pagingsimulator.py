@@ -10,26 +10,6 @@ from process import Process
 import string
 from memory import Page
 
-
-def create_job_queue(number, name, size, execution, runtime):
-    '''
-    Generates random processes and places them into a priority queue
-    '''
-    # Initialize the processes
-    # TODO Enforce unique naming
-    # TODO Enforce even distribution
-
-    pq = PriorityQueue(maxsize=0) # If maxsize is 0, queue size is infinite
-    for i in range(number):
-        priority = random.choice(range(execution))
-        process = Process(
-            random.choice(name),
-            random.choice(size),
-            priority,
-            random.choice(runtime))
-        pq.put((priority, process))
-    return pq
-
 def os():
     # Simulation Variables, should be 60000 if 100ms quanta in one minute
     EXECUTION_TIME  = 60000           # Unit of time in milliseconds
@@ -54,7 +34,6 @@ def os():
     # makes the processes, populate them with pages
     processList = []
     pq = PriorityQueue()
-    # this is for Francisco's implementation
     page_table = PageTable()
 
     # make a set of 150 processes, add to processSet
