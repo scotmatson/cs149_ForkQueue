@@ -1,5 +1,3 @@
-import logging
-import datetime
 import sys
 import random
 from memory import PageTable
