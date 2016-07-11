@@ -19,7 +19,9 @@ def least_frequently_used(page_table):
     #Now find the oldest last accessed page in lowest_freq_dict
     for key, value in lowest_freq_dict.items(): #Loop through whole lowest_freq_dict
         if value.last_accessed == oldest_last_accessed_value: #If last_accessed of low freq page matches oldest access
-            eviction_index = key #Store the name of the oldest and lowest freq page
+            eviction_page_name = key #Store the name of the oldest and lowest freq page
+
+    print ("Evicted page name is ", eviction_page_name)
 
     page_table.memory[eviction_page_name].frequency = 0 #Reset the page's frequency count to 0 because it got evicted
     #page_table.disk[eviction_page_name] = page_table.memory[eviction_page_name] #Add that page to disk
