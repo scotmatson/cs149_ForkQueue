@@ -69,7 +69,7 @@ def access_page(clock, page_table, page):
 
     # get the process_id for that page
     touched_process_id = page_table.memory[page.name].process_id
-    print "touched page's process id: ", touched_process_id
+    print("touched page's process id: ", touched_process_id)
     # print "testing inside access_page", testProcess.name
     # testIndex = testProcess.pages.index(page.name)
     # index_of_page = page_table.memory.get(page.process_id).pages.index(page.name)
@@ -78,7 +78,7 @@ def access_page(clock, page_table, page):
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     algorithms.random_pick(page_table)
     if page_table.memory.__sizeof__() < MEMORY_MIN:
-        print ("page replacement")
+        print("page replacement")
         #least_frequently_used(page_table)
 
         # page_replacement(algorithm_name, page_table)        # you need to write this function!!
@@ -204,7 +204,7 @@ def main():
             random_process = active_process_list[random_process_name]
 
             # decrement the duration counter for that randomly selected process
-            print "testing  duration: ", active_process_list[random_process.name].duration
+            print("testing  duration: ", active_process_list[random_process.name].duration)
             active_process_list[random_process.name].duration = active_process_list[random_process.name].duration - 1
 
             if active_process_list[random_process.name].duration <= 0:

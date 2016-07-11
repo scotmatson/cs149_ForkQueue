@@ -60,12 +60,10 @@ class PageTable(object):
     # is the responsibility of the OS to check for this and call the page replacement algorithm as necessary.
 
     def touch(self, page):
-
-
-        if self.memory.has_key(page.name):
+        if page.name in self.memory.keys():
             del self.memory[page.name]
             self.memory[page.name] = page
-        elif self.disk.has_key(page.name):
+        elif page.name in self.memory.keys():
             del self.disk[page.name]
             self.memory[page.name] = page
             # run algo @ main

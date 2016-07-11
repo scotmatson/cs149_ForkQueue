@@ -1,7 +1,7 @@
 import copy
 
 def least_frequently_used(page_table):
-    print "hi"
+    print("hi")
     eviction_page_name = "" #For holding name of evicted page
    # first_page = OrderedDict([])
    # first_page[page_table.keys()[0]] = page_table.values()[0] #Store first element of page_table for comparator
@@ -24,5 +24,4 @@ def least_frequently_used(page_table):
     page_table.memory[eviction_page_name].frequency = 0 #Reset the page's frequency count to 0 because it got evicted
     #page_table.disk[eviction_page_name] = page_table.memory[eviction_page_name] #Add that page to disk
     del page_table.memory[eviction_page_name] #Delete that page frm memory
-    print "hi"
-
+    print("hi")
