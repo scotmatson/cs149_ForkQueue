@@ -1,3 +1,5 @@
+from memory import PageTable
+
 class Process(object):
 
     def __init__(self, name, arrival_time, duration, pages):
@@ -10,12 +12,11 @@ class Process(object):
     def __lt__(self, other):
         return self.arrival_time < other.arrival_time
 
-    def set_pages(self):
-        pass
+    # this still needs to be tested
+    def clear(self, page_table):
+        # check if each page in self.pages is in either memory or disk
+        # dictionary.pop(key, None) is a null-safe way to atomically check and remove an item if it's in there
+        for page in self.pages:
+            page_table.memory.pop(page.name, None)
+            page_table.disk.pop(page.name, None)
 
-    def do_work(self):
-        '''
-        Whatever the process is 'doing', do it and update the
-        remaining time
-        '''
-        self.remaining -= 1
