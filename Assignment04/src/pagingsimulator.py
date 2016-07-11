@@ -85,7 +85,7 @@ def access_page(clock, page_table, page):
         # I don't imagine that any changes will need to be made to pagingsimulator.py, but I can't know that ahead of
         # time; you actually have to try and write the replacement algorithms.
 
-def os():
+def main():
     '''
     This is the main() function and entry point for the Paging Simulator.
     We are treating main() as an Operating System and named it accordingly so.
@@ -104,7 +104,7 @@ def os():
         number_of_pages = random.choice(PROCESS_SIZE)
         pages = []
 
-        process = Process(name, arrival_time, duration, pages)
+        process = Process(name, arrival_time, duration, pages, 0)
 
         for x in range(number_of_pages):
             page_name_num = random.randint(0, 1000)
@@ -152,9 +152,8 @@ def os():
     clock = 0
     # for 60000 cycles
     for x in range(EXECUTION_TIME):
-        print ("in clock loop")
         # check if the process_list is empty; if it has processes in there, then they have to be loaded into memory
-        if not process_list.isEmpty():
+        if not process_list:
 
         # peek at the process_list, check if the next arrival_time == clock
             if process_list[0].arrival_time == clock:
@@ -187,7 +186,7 @@ def os():
         clock += 1
 
         # check if the clock is at a 100ms interval
-        if clock % 100 == 0:
+        if clock % 100 == 0 and active_process_list:
 
             # if so, then it's time to touch a random page of a random process in the active_process_list
             # choose a random process from the active process list
@@ -226,6 +225,6 @@ def os():
 
 
 ################################################################################
-if __name__ == '__os__':
-    os();
+if __name__ == '__main__':
+    main();
     sys.exit()
