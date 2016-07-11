@@ -8,7 +8,8 @@ import random
 from memory import PageTable
 
 import algorithms
-from Queue import PriorityQueue
+try: from Queue import PriorityQueue
+except: from queue import PriorityQueue
 from process import Process
 import string
 from memory import Page

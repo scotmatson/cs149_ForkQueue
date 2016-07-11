@@ -1,5 +1,9 @@
-from Queue import PriorityQueue
-from page import Page
+try: from Queue import PriorityQueue
+except: from queue import PriorityQueue
+
+try: from memory import page
+except: import page
+
 from collections import OrderedDict
 
 #
