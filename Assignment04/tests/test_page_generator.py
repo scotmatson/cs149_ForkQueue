@@ -1,12 +1,11 @@
 from TestPage import Page
 from TestProcess  import Process
 from Queue import PriorityQueue
+#from queue import PriorityQueue
+
 import random
 import string
 
-# test making one page
-myPage = Page("john", 5, 5)
-print myPage.name, myPage.last_accessed, myPage.process_id
 
 
 ##############################################################
@@ -37,7 +36,9 @@ for x in range(NUMBER_OF_PROCESSES):
         page_name_string = ''.join(random.sample(string.ascii_lowercase, 5))
         page_name = page_name_string + str(page_name_num)
         last_accessed = random.randint(0, 59999)
-        new_page = Page(page_name, process.name, last_accessed)
+        frequency = 0
+
+        new_page = Page(page_name, process.name, last_accessed, frequency)
         process.pages.append(new_page)
 
     # must test pages, new creation, this will break
@@ -46,7 +47,7 @@ for x in range(NUMBER_OF_PROCESSES):
 for process in processSet:
     print "\n     Name: ", process.name, "       Arrival Time: ", process.arrival_time, "       Duration: ", process.duration, "\n"
     for page in process.pages:
-        print "Page: ", page.name, "     Process_ID: ", page.process_id, "     Last Accessed: ", page.last_accessed
+        print "Page: ", page.name, "     Process_ID: ", page.process_id, "     Last Accessed: ", page.last_accessed, "     Frequency: ", frequency
 	pq.put((process))
 
 # print("\n\n\n\nPRINTING PQ")

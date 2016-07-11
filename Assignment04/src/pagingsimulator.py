@@ -22,7 +22,6 @@ def create_job_queue(number, name, size, execution, runtime):
     # TODO Enforce unique naming
     # TODO Enforce even distribution
 
-
     pq = PriorityQueue(maxsize=0) # If maxsize is 0, queue size is infinite
     for i in range(number):
         priority = random.choice(range(execution))
@@ -59,12 +58,14 @@ def main():
     # makes the processes, populate them with pages
     processList = []
     pq = PriorityQueue()
+    # this is for Francisco's implementation
+    pagetable = PageTable()
 
     # make a set of 150 processes, add to processSet
     for x in range(NUMBER_OF_PROCESSES):
         name = "P" + str(x)
-        arrival_time = random.randint(0, 60000)
-        duration = random.randint(1, 5)
+        arrival_time = random.randint(0, MAX_ARRIVAL_TIME)
+        duration = random.randint(MIN_DURATION, MAX_DURATION)
         page_amount = random.choice(PROCESS_SIZE)
         pages = []
 
@@ -75,8 +76,9 @@ def main():
             page_name_string = ''.join(random.sample(string.ascii_lowercase, 5))
             page_name = page_name_string + str(page_name_num)
             last_accessed = random.randint(0, 59999)
+            frequency = 0
 
-            new_page = Page(page_name, process.name, last_accessed)
+            new_page = Page(page_name, process.name, last_accessed, frequency)
             process.pages.append(new_page)
 
         # must test pages, new creation, this will break
@@ -96,8 +98,7 @@ def main():
     # scot, this line is screwed up on my machine
     #page_table = memory.pagetable.PageTable(TOTAL_PAGES, PAGE_SIZE)
 
-    # this is for Francisco's implementation
-    pagetable = PageTable()
+
 
     # HAD TO COMMENT OUT CUZ NOT WORKING ON FRANCISCO
     # Execute Algorithms
