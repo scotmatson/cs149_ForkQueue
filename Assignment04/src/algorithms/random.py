@@ -1,2 +1,2 @@
-def random(workload, page_table, min_pages):
+def random():
     pass

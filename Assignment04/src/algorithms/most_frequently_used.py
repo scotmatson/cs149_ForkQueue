@@ -1,2 +1,2 @@
-def most_frequently_used(workload, page_table, min_pages):
+def most_frequently_used():
     pass

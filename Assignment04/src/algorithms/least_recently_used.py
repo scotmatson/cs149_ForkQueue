@@ -1,2 +1,2 @@
-def least_recently_used(workload, page_table, min_pages):
+def least_recently_used():
     pass
