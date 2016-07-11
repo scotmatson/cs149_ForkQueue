@@ -1,12 +1,15 @@
+# PYTHON LIBS
 import sys
 import random
-from memory import PageTable
-import algorithms
+import string
 try: from Queue import PriorityQueue
 except: from queue import PriorityQueue
+
+# USER LIBS
+import algorithms
 from process import Process
-import string
 from memory import Page
+from memory import PageTable
 
 def os():
     # Simulation Variables, should be 60000 if 100ms quanta in one minute
@@ -30,7 +33,7 @@ def os():
     MAX_ARRIVAL_TIME = 59999
 
     # makes the processes, populate them with pages
-    processList = []
+    process_list = []
     pq = PriorityQueue()
     page_table = PageTable()
 
@@ -54,7 +57,7 @@ def os():
             process.pages.append(new_page)
 
         # must test pages, new creation, this will break
-        processList.append(process)
+        process_list.append(process)
 
 ################################################################################
 if __name__ == '__os__':
