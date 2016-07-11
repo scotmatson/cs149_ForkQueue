@@ -70,6 +70,7 @@ def access_page(clock, page_table, page):
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if page_table.memory.__sizeof__() < MEMORY_MIN:
         print "page replacement"
+        least_frequently_used(page_table)
         # page_replacement(algorithm_name, page_table)        # you need to write this function!!
         #
         # You need to write a function here in pagingsimulator called page_replacement, and it will take the algorithm
