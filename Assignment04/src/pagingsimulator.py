@@ -28,6 +28,24 @@ MAX_ARRIVAL_TIME = 59999
 # then a page replacement event must occur
 MEMORY_MIN = 4
 
+
+###    NOTE: HERE IS THE LOCALITY OF REFERENCE STUB
+# def locality_of_reference_select(process):
+
+    # get the index of process's last accessed page
+    # last_accessed_page_index = process.last_page_accessed
+
+    # Now select a page to be touched; really, this line of code is just generating the correct index of the page
+    # to be selected.
+    # Make a 70% chance that the page selected will be the page at the index "last_accessed_page_index - 1" or
+    # "last_accessed_page_index + 1"
+    # <line of code to select index here>
+
+    # Now return the page at that index
+    # <line of code to fetch and return the page at that index here>
+
+
+
 # helper function; it "touches" a page
 def access_page(clock, page_table, page):
     # update the time of access for that page
@@ -119,6 +137,11 @@ def os():
     #   The assignment HW4 requires that at every 100ms, the OS selects a random active process; this process will
     #   try to access a single random page from its own page list in process.pages. To fetch this page for the process,
     #   the OS will again call touch on that page, resulting in another opportunity to replace a page.
+    #   NOTE: right now, the os() code is just selecting a random page from a random process. Someone needs to
+    #   implement the locality of reference thing, which means that the random page that is selected is not entirely
+    #   random; there is a 70% chance that the page selected from the random process will be one to the left or
+    #   one to the right of the page that was last accessed from that process. That's what the i - 1 and i + 1 means
+    #   in the assignment. I put a tag where I think this code needs to be implemented down below.
     ##################################################################################################################
     ##################################################################################################################
 
@@ -165,6 +188,8 @@ def os():
 
             # if so, then it's time to touch a random page of a random process in the active_process_list
             # choose a random process from the active process list
+            # NOTE: This line of code does not need to be changed by the person is doing the locality of reference
+            # thing!! This code just selects a random process
             random_process = random.choice(active_process_list)
 
             # decrement the duration counter for that randomly selected process
@@ -176,6 +201,17 @@ def os():
             ######################################################################################
             # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF A RANDOM PROCESS
             ######################################################################################
+
+                # NOTE: implement the 70% shit here!!
+                # the code that selects a random page from the random_process is inside the following function:
+                #       random.choice(random_process.pages)
+                # Instead of this code, there needs to be a function called locality_of_reference_select, or
+                # special_page_select, whatever you want to call it. It will take in as a parameter a process and return
+                # a page. Based on the process.last_page_accessed attribute, which tracks the index "i" of the last page
+                # accessed, the function has a 70% chance to select "i-1" or "i+1" as the page to be "touched".
+                #
+
+
             access_page(clock, page_table, random.choice(random_process.pages))
 
 
