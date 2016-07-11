@@ -84,7 +84,6 @@ def main():
         # must test pages, new creation, this will break
         processList.append(process)
 
-
     book_keeping = list()
     workload = create_job_queue(
         NUMBER_OF_PROCESSES,
@@ -94,6 +93,12 @@ def main():
         PROCESS_RUNTIME)
 
     # Initialize page_list
+
+
+    ################################################################################################
+    #####   CODE FOR THE REST OF MAIN() AND CALLING ALGO'S GOES HERE #######################################
+    ################################################################################################
+
 
     # scot, this line is screwed up on my machine
     #page_table = memory.pagetable.PageTable(TOTAL_PAGES, PAGE_SIZE)
