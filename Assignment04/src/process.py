@@ -2,11 +2,11 @@ from memory import PageTable
 
 class Process(object):
 
-    def __init__(self, name, arrival_time, duration, pages, last_accessed_page):
+    def __init__(self, name, arrival_time, duration, last_accessed_page):
         self.name = name
         self.arrival_time = arrival_time
         self.duration = duration
-        self.pages = pages
+        self.pages = []
         # this variable is initialized to zero but must be updated by the OS, i.e. main()
         self.last_accessed_page = 0
 

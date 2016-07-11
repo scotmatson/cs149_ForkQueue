@@ -67,7 +67,12 @@ def access_page(clock, page_table, page):
     # this code will be necessary for locality of reference, which is yet to be coded
     # THIS CODE NEEDS TO BE TESTED
 
-    # testProcess = page_table.memory.get(page.process_id)
+    #testProcess = page_table.__getitem__(page.process_id, page_table.memory)
+
+
+    # get the process_id for that page
+    touched_process_id = page_table.memory[page.name].process_id
+    print "touched page's process id: ", touched_process_id
     # print "testing inside access_page", testProcess.name
     # testIndex = testProcess.pages.index(page.name)
     # index_of_page = page_table.memory.get(page.process_id).pages.index(page.name)
@@ -108,9 +113,8 @@ def main():
         arrival_time = random.randint(0, MAX_ARRIVAL_TIME)
         duration = random.randint(MIN_DURATION, MAX_DURATION)
         number_of_pages = random.choice(PROCESS_SIZE)
-        pages = []
 
-        process = Process(name, arrival_time, duration, pages, 0)
+        process = Process(name, arrival_time, duration, 0)
 
         for x in range(number_of_pages):
             page_name_num = random.randint(0, 1000)
@@ -198,10 +202,12 @@ def main():
             # choose a random process from the active process list
             # NOTE: This line of code does not need to be changed by the person is doing the locality of reference
             # thing!! This code just selects a random process
-            random_process = random.choice(active_process_list.keys())
+            random_process_name = random.choice(active_process_list.keys())
+            random_process = active_process_list[random_process_name]
 
             # decrement the duration counter for that randomly selected process
-            print "testing  ", active_process_list[random_process.name].name
+            print "testing  duration: ", active_process_list[random_process.name].duration
+            active_process_list[random_process.name].duration = active_process_list[random_process.name].duration - 1
 
             if active_process_list[random_process.name].duration == 0:
                 new_process.clear(page_table)

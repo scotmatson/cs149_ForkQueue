@@ -44,6 +44,11 @@ class PageTable(object):
         self.disk = OrderedDict()
         self.memory = OrderedDict()
 
+    def __getitem__(self, process_id, orderedDict):
+        for p in orderedDict:
+            if p == process_id:
+                return orderedDict[process_id]
+
 # This function will add the page to memory. Here's the flow:
     # (1) If the page is already memory, put it at the "front" of memory. To do so, the code removes and then re-adds
     #       the page.
