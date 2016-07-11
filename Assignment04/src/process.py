@@ -1,7 +1,3 @@
-# by Francisco
-
-import random
-
 class Process(object):
 
     def __init__(self, name, arrival_time, duration, pages):
