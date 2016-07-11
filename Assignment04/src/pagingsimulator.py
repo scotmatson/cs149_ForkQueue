@@ -99,7 +99,6 @@ def main():
     This is the main() function and entry point for the Paging Simulator.
     We are treating main() as an Operating System and named it accordingly so.
     '''
-    print ("in main os")
     # Makes the processes, populate them with pages
     process_list = []
     active_process_list = OrderedDict()
@@ -194,7 +193,7 @@ def main():
         # increment the master clock counter
         clock += 1
 
-        # check if the clock is at a 100ms interval
+        # check if the clock is at a 100ms interval and there are still processes in the list
         if clock % 100 == 0 and active_process_list:
 
             # if so, then it's time to touch a random page of a random process in the active_process_list
@@ -208,7 +207,7 @@ def main():
             print "testing  duration: ", active_process_list[random_process.name].duration
             active_process_list[random_process.name].duration = active_process_list[random_process.name].duration - 1
 
-            if active_process_list[random_process.name].duration == 0:
+            if active_process_list[random_process.name].duration <= 0:
                 random_process.clear(page_table)
                 del active_process_list[random_process.name]
             ######################################################################################
