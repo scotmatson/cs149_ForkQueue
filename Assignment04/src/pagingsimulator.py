@@ -12,6 +12,10 @@ from memory import Page
 from memory import PageTable
 
 def os():
+    '''
+    This is the main() function and entry point for the Paging Simulator.
+    We are treating main() as an Operating System and named it accordingly so.
+    '''
     # Simulation Variables, should be 60000 if 100ms quanta in one minute
     EXECUTION_TIME  = 60000           # Unit of time in milliseconds
     QUANTA = 100                      # Unit of time in milliseconds
@@ -32,12 +36,12 @@ def os():
     MIN_ARRIVAL_TIME = 0
     MAX_ARRIVAL_TIME = 59999
 
-    # makes the processes, populate them with pages
+    # Makes the processes, populate them with pages
     process_list = []
     pq = PriorityQueue()
     page_table = PageTable()
 
-    # make a set of 150 processes, add to processSet
+    # Make a set of 150 processes, add to processSet
     for x in range(NUMBER_OF_PROCESSES):
         name = "P" + str(x)
         arrival_time = random.randint(0, MAX_ARRIVAL_TIME)
