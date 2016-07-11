@@ -48,6 +48,7 @@ MEMORY_MIN = 4
 
 # helper function; it "touches" a page
 def access_page(clock, page_table, page):
+    print ("in access_page")
     # update the time of access for that page
     page.last_accessed = clock
 
@@ -69,8 +70,8 @@ def access_page(clock, page_table, page):
 
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if page_table.memory.__sizeof__() < MEMORY_MIN:
-        print "page replacement"
-        least_frequently_used(page_table)
+        print ("page replacement")
+        #least_frequently_used(page_table)
         # page_replacement(algorithm_name, page_table)        # you need to write this function!!
         #
         # You need to write a function here in pagingsimulator called page_replacement, and it will take the algorithm
@@ -89,7 +90,7 @@ def os():
     This is the main() function and entry point for the Paging Simulator.
     We are treating main() as an Operating System and named it accordingly so.
     '''
-
+    print ("in main os")
     # Makes the processes, populate them with pages
     process_list = []
     active_process_list = []
@@ -151,6 +152,7 @@ def os():
     clock = 0
     # for 60000 cycles
     for x in range(EXECUTION_TIME):
+        print ("in clock loop")
         # check if the process_list is empty; if it has processes in there, then they have to be loaded into memory
         if not process_list.isEmpty():
 
