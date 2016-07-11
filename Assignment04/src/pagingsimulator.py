@@ -69,9 +69,19 @@ def os():
     #### ALGORITHM AND MAIN STARTS HERE
     #######################################
 
-    # pull out a process from the processList
-    # load it into memory using touch
-    #
+    # BEGINNING
+    # peek at the processList, check if the next arrival_time == clock
+    # if so, pull out that process from the processList
+    # load it into memory using touch in a loop
+        # after each touch, check if there are 4 available slots in page_table.memory
+        # if there are less than 4, then call page_replacement(FIFO, page_table)
+    # now, select a random process that is currently running
+        # tell the process to choose a random page
+        # touch that page
+        # check if the touch makes less than 4 slots remaining in page_table.memory
+            # if there are less than 4, then call page_replacement(FIFO, page_table)
+    # increment clock, go back to beginning
+
 
 ################################################################################
 if __name__ == '__os__':
