@@ -76,7 +76,8 @@ def access_page(clock, page_table, page):
     # page_table[page.name].last_accessed_page = index_of_page
 
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
-    algorithms.random_pick(page_table)
+   # algorithms.random_pick(page_table)
+    algorithms.least_frequently_used(page_table)
     if page_table.memory.__sizeof__() < MEMORY_MIN:
         print("page replacement")
         #least_frequently_used(page_table)
