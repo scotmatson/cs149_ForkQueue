@@ -76,11 +76,14 @@ def access_page(clock, page_table, page):
     # page_table[page.name].last_accessed_page = index_of_page
 
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
-   # algorithms.random_pick(page_table)
-    algorithms.least_frequently_used(page_table)
-    if page_table.memory.__sizeof__() < MEMORY_MIN:
+    #if page_table.memory.__sizeof__() < MEMORY_MIN:
+    if True:
         print("page replacement")
-        #least_frequently_used(page_table)
+        #UN-COMMENT OUT THESE TO RUN THE DESIRED ALGORITHM
+        #algorithms.least_frequently_used(page_table)
+        #algorithms.random_pick(page_table)
+        #algorithms.least_recently_used(page_table)
+        algorithms.first_in_first_out(page_table)
 
         # page_replacement(algorithm_name, page_table)        # you need to write this function!!
         #
@@ -107,8 +110,8 @@ def main():
 
     # Make a set of 150 processes, add to process_list
     for x in range(NUMBER_OF_PROCESSES):
-        name_int = 0
-        name = "P" + str(name_int)
+        name_num = (str(x))
+        name = "P" + name_num
         arrival_time = random.randint(0, MAX_ARRIVAL_TIME)
         duration = random.randint(MIN_DURATION, MAX_DURATION)
         number_of_pages = random.choice(PROCESS_SIZE)
@@ -122,11 +125,11 @@ def main():
             last_accessed = 0
 
             new_page = Page(page_name, process.name, last_accessed)
+            new_page.order_assigned = x
             process.pages.append(new_page)
 
         # Must test pages, new creation, this will break
         process_list.append(process)
-        name_int += 1
 
 
 

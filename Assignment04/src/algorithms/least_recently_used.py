@@ -1,2 +1,23 @@
-def least_recently_used():
-    pass
+'''
+This file includes implementation of the least_recently_used page replacement algorithm
+Solves CS149 Homework#4
+@author Tyler Jones
+'''
+def least_recently_used(page_table):
+    #make a dict with keys as page name and values as page.last_accessed
+    last_accessed_dict = dict() #Used to store all the pages last_accessed values
+    for key in page_table.memory:
+        last_accessed_dict[page_table.memory[key].name] = page_table.memory[key].last_accessed
+
+    #find the minimum last_accessed value which is least recently used.
+    #  pick least recently used in memory to evict
+    eviction_page_name = min(last_accessed_dict, key=last_accessed_dict.get)
+    #print for testing
+    print ("The eviction_page_name in least_recently_used = %s" % eviction_page_name)
+    #Reset the page's frequency count to 0 because it got evicted
+    page_table.memory[eviction_page_name].frequency = 0
+    #Add the evicted page to disk
+    page_table.disk[eviction_page_name] = page_table.memory[eviction_page_name]
+    #Delete that page frm memory
+    del page_table.memory[eviction_page_name]
+

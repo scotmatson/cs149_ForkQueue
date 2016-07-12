@@ -11,10 +11,12 @@ class Page(object):
             name (string)       : Page identifier in form P[int]
             process_id (int)    : Numerical identifier of stored process
             last_accessed (int) : Time in execution when page was accessed
+            order_assigned (int): If order_assigned == 5, this was the 5th page assigned to a process
         '''
         self.name = name
         self.process_id = process_id
         self.last_accessed = last_accessed
+        self.order_assigned = 0
         self.frequency = 0
 
     def store(self, data):
