@@ -13,7 +13,7 @@ def first_in_first_out(page_table):
     #for each process pick the first page assigned in memory to evict
     eviction_page_name = min(order_assigned_dict, key=order_assigned_dict.get)
     #print for testing
-    print ("The eviction_page_name in random_pick = %s" % eviction_page_name)
+    print ("The eviction_page_name in first_in_first_out = %s" % eviction_page_name)
     #Reset the page's frequency count to 0 because it got evicted
     page_table.memory[eviction_page_name].frequency = 0
     #Add the evicted page to disk
