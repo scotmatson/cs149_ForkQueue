@@ -30,7 +30,7 @@ MEMORY_MIN = 4
 
 
 ###    NOTE: HERE IS THE LOCALITY OF REFERENCE STUB
-# def locality_of_reference_select(process):
+def locality_of_reference_select(process):
 
     # get the index of process's last accessed page
     # last_accessed_page_index = process.last_page_accessed
@@ -43,6 +43,8 @@ MEMORY_MIN = 4
 
     # Now return the page at that index
     # <line of code to fetch and return the page at that index here>
+    locality_page = random.choice(process.pages)
+    return locality_page
 
 
 
@@ -126,8 +128,7 @@ def main():
 
     # Make a set of 150 processes, add to process_list
     for x in range(NUMBER_OF_PROCESSES):
-        name_int = 0
-        name = "P" + str(name_int)
+        name = "P" + str(x)
         arrival_time = random.randint(0, MAX_ARRIVAL_TIME)
         duration = random.randint(MIN_DURATION, MAX_DURATION)
         number_of_pages = random.choice(PROCESS_SIZE)
@@ -145,7 +146,6 @@ def main():
 
         # Must test pages, new creation, this will break
         process_list.append(process)
-        name_int += 1
 
 
 
@@ -186,8 +186,7 @@ def main():
         # peek at the process_list, check if the next arrival_time == clock
             if process_list[0].arrival_time == clock:
                 # if so, capture that process and pop it off the process_list
-                new_process = process_list[0]
-                process_list.pop(0)
+                new_process = process_list.pop(0)
 
                 # add the new_process to the active_process_list
                 active_process_list[new_process.name] = new_process
@@ -201,7 +200,9 @@ def main():
 
                 # add all of that process's pages, one by one, into memory using touch
                 for page in new_process.pages:
-                    access_page(clock, page_table, page)
+                    #get the correct page using locality_of_reference
+                    locality_page = locality_of_reference_select(new_process)
+                    access_page(clock, page_table, locality_page)
 
                 # if the process's duration is 0, remove all of its pages from memory
                 # this is a stub, still needs implementation
@@ -215,7 +216,11 @@ def main():
 
         # check if the clock is at a 100ms interval and there are still processes in the list
         if clock % 100 == 0 and active_process_list:
-
+            '''
+            #commmenting this out because I think we need to get random pages from all running processes, not just
+            #one single random process - moved new code below
+            
+            
             # if so, then it's time to touch a random page of a random process in the active_process_list
             # choose a random process from the active process list
             # NOTE: This line of code does not need to be changed by the person is doing the locality of reference
@@ -230,8 +235,10 @@ def main():
             if active_process_list[random_process.name].duration <= 0:
                 random_process.clear(page_table)
                 del active_process_list[random_process.name]
+            '''
+
             ######################################################################################
-            # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF A RANDOM PROCESS
+            # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF RUNNING PROCESSES
             ######################################################################################
 
                 # NOTE: implement the 70% shit here!!
@@ -242,15 +249,19 @@ def main():
                 # a page. Based on the process.last_page_accessed attribute, which tracks the index "i" of the last page
                 # accessed, the function has a 70% chance to select "i-1" or "i+1" as the page to be "touched".
                 #
+            #get the correct page using locality_of_reference
+            for key, active_process in active_process_list.items():
+                # decrement the duration counter for the current process
+                print("testing  duration: ", active_process.duration)
+                active_process.duration = active_process.duration - 1
 
-
-            access_page(clock, page_table, random.choice(random_process.pages))
-
-
-
-
-
-
+                if active_process.duration <= 0:
+                    active_process.clear(page_table)
+                    del active_process_list[active_process.name]
+                #locality_page = locality_of_reference_select(random_process)
+                locality_page = locality_of_reference_select(active_process)
+                access_page(clock, page_table, locality_page)
+                
 
 
 

@@ -9,6 +9,8 @@ class Process(object):
         self.pages = []
         # this variable is initialized to zero but must be updated by the OS, i.e. main()
         self.last_accessed_page = 0
+        #this variable is used for the locality reference
+        self.current_page = -1
 
     def __lt__(self, other):
         return self.arrival_time < other.arrival_time
