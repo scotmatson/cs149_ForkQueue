@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from operator import attrgetter
 
 def least_frequently_used(page_table):
     eviction_page_name = "" #For holding name of evicted page
@@ -14,13 +13,13 @@ def least_frequently_used(page_table):
     print ("Lowest frequency value: ", lowest_freq_value) #Test code
 
     #Put all lowest_freq_value pages into lowest_freq_dict
-    #if value.frequency == lowest_freq_value: #If page's frequency matches lowest value
+    #If page's frequency matches lowest value
     for key, value in page_table.memory.items():
         if page_table.memory[key].frequency == lowest_freq_value:
-            lowest_freq_dict.update({key : value}) #Store all lowest frequency pages into this dict
+            lowest_freq_dict.update({key : value}) #Store all lowest frequency pages into lowest_freq_dict
 
     oldest_last_accessed = 60000 #Max range of last_accessed
-   #Find the oldest page based on last_accessed time
+   #Find the oldest page in lowest_freq_dict based on last_accessed time
     for key in lowest_freq_dict:
        if lowest_freq_dict[key].last_accessed < oldest_last_accessed:
            oldest_last_accessed = lowest_freq_dict[key].last_accessed
