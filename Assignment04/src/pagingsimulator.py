@@ -77,7 +77,26 @@ def access_page(clock, page_table, page):
 
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
    # algorithms.random_pick(page_table)
-    algorithms.most_frequently_used(page_table)
+    #algorithms.most_frequently_used(page_table)
+    """
+    #Run five time
+    #for x in range(0,4):
+        if x == 0:
+            print ("Printing FIFO")
+            algorithms.first_in_first_out(page_table)
+        elif x == 1:
+            print ("Printing LRU")
+            #algorithms.least_recently_used(page_table)
+        elif x == 2:
+            print ("Printing LFU")
+            algorithms.least_frequently_used(page_table)
+        elif x == 3:
+            print ("Printing MFU")
+            algorithms.most_frequently_(page_table)
+        elif x == 4:
+            print ("Printing Random pick")
+            algorithms.random_pick(page_table)
+    """
     if page_table.memory.__sizeof__() < MEMORY_MIN:
         print("page replacement")
         #least_frequently_used(page_table)
