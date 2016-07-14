@@ -70,7 +70,7 @@ class PageTable(object):
         entry = "     "
 
         for key in self.memory:
-            print "current key in memory map:  ", key
+            print('current key in memory map:  ', key)
             counter += 1
 
             if counter < 10:
@@ -81,18 +81,17 @@ class PageTable(object):
                 process_list_string = "     "
 
     def touch(self, page):
-        if self.memory.has_key(page.name):
+        if page.name in self.memory.keys():
             del self.memory[page.name]
             self.memory.update({page.name: page})
-            print "Touch attempt: Inside already there"
+            print('Touch attempt: Inside already there')
         elif page.name in self.memory.keys():
             del self.disk[page.name]
             self.memory.update({page.name: page})
-            print "Touch attempt: Was on disk"
+            print('Touch attempt: Was on disk')
         else:
             self.memory.update({page.name: page})
-            print "Touch attempt: Newly Inserted"
-
+            print('Touch attempt: Newly Inserted')
             # run algo @ main
 
         self.print_memory_map()
