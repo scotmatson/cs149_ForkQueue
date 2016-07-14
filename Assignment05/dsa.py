@@ -26,6 +26,8 @@ def main(argv):
     for y in n[1:]:
         d += abssub(x,y)
         x=y
+    print('Total Values: %d' % len(n))
+    print('Total Moves: %d' % (len(n)-1))
     print('Total Distance: %d' % (d))
 
 ################################################################################
