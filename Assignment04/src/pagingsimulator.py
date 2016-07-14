@@ -173,23 +173,6 @@ def generate_processes(number_of_processes, max_arrival, min_duration, max_durat
     return out
 
 
-def main():
-    '''
-    This is the main() function and entry point for the Paging Simulator application
-    '''
-    # Makes the processes, populate them with pages
-    process_list = generate_processes(
-        NUMBER_OF_PROCESSES,
-        MAX_ARRIVAL_TIME,
-        MIN_DURATION,
-        MAX_DURATION,
-        PROCESS_SIZE)
-
-    # Testing process list contents:
-    for p in process_list:
-        print('%s Arrival: %s' % (p.name, p.arrival_time))
-
-    simulate_paging(process_list, EXECUTION_TIME)
 
     ###############################
     #### ALGORITHM STARTS HERE ####
@@ -198,30 +181,34 @@ def main():
     ##################################################################################################################
     ##################################################################################################################
     #
-    # NOTE TO ALGO WRITERS:
-    #  There will be two opportunities when the OS will need to replace a page
-    #
-    # PAGE REPLACEMENT EVENT (1): ADDING PAGES OF A NEW PROCESS
-    #  Newly arrived processes will have all of their pages added into memory using the "touch" method. Any or all of
-    #  the adds may require a page replacement.
-    #
-    # PAGE REPLACEMENT EVENT (2): TOUCHING A RANDOM PAGE OF A RANDOM PROCESS
-    #  The assignment HW4 requires that at every 100ms, the OS selects a random active process; this process will
-    #  try to access a single random page from its own page list in process.pages. To fetch this page for the process,
-    #  the OS will again call touch on that page, resulting in another opportunity to replace a page.
-    #
-    # NOTE: Right now, the os() code is just selecting a random page from a random process. Someone needs to
-    #  implement the locality of reference thing, which means that the random page that is selected is not entirely
-    #  random; there is a 70% chance that the page selected from the random process will be one to the left or
-    #  one to the right of the page that was last accessed from that process. That's what the i - 1 and i + 1 means
-    #  in the assignment. I put a tag where I think this code needs to be implemented down below.
-    #
+    #     #
     ##################################################################################################################
     ##################################################################################################################
 
 
 def simulate_paging(process_list, execution_time):
+    '''
+    Procedure for simulating a paging system
 
+    NOTE TO ALGO WRITERS:
+        There will be two opportunities when the OS will need to replace a page
+
+    PAGE REPLACEMENT EVENT (1): ADDING PAGES OF A NEW PROCESS
+        Newly arrived processes will have all of their pages added into memory using the "touch" method. Any or all of
+        the adds may require a page replacement.
+
+    PAGE REPLACEMENT EVENT (2): TOUCHING A RANDOM PAGE OF A RANDOM PROCESS
+        The assignment HW4 requires that at every 100ms, the OS selects a random active process; this process will
+        try to access a single random page from its own page list in process.pages. To fetch this page for the process,
+        the OS will again call touch on that page, resulting in another opportunity to replace a page.
+
+    NOTE:
+        Right now, the os() code is just selecting a random page from a random process. Someone needs to
+        implement the locality of reference thing, which means that the random page that is selected is not entirely
+        random; there is a 70% chance that the page selected from the random process will be one to the left or
+        one to the right of the page that was last accessed from that process. That's what the i - 1 and i + 1 means
+        in the assignment. I put a tag where I think this code needs to be implemented down below.
+    '''
     page_table = PageTable()
     active_process_list = OrderedDict()
 
@@ -258,8 +245,6 @@ def simulate_paging(process_list, execution_time):
                 # this is a stub, still needs implementation
                 if new_process.duration == 0:
                     new_process.clear(page_table)
-
-
 
         # increment the master clock counter
         clock += 1
@@ -310,6 +295,24 @@ def simulate_paging(process_list, execution_time):
                 #locality_page = locality_of_reference_select(random_process)
                 locality_page = locality_of_reference_select(active_process)
                 access_page(clock, page_table, locality_page)
+
+def main():
+    '''
+    This is the main() function and entry point for the Paging Simulator application
+    '''
+    # Makes the processes, populate them with pages
+    process_list = generate_processes(
+        NUMBER_OF_PROCESSES,
+        MAX_ARRIVAL_TIME,
+        MIN_DURATION,
+        MAX_DURATION,
+        PROCESS_SIZE)
+
+    # Testing process list contents:
+    for p in process_list:
+        print('%s Arrival: %s' % (p.name, p.arrival_time))
+
+    simulate_paging(process_list, EXECUTION_TIME)
 
 ################################################################################
 if __name__ == '__main__':
