@@ -49,11 +49,12 @@ def locality_of_reference_select(process):
     return locality_page
 
 # # helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
-# def print_touch_results(process, clock, memory_map):
-#     exit_time
-#     "UNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process, "     " \
-#         "Arrival: ", process.arrival_time, "     Exit: ", exit_time, "     Duration: ", process.duration, \
-#         "     Memory map:", print_memory_map(memory_map)
+def print_status(process, clock, memory_map):
+    "UNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process, "     " \
+        "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration, \
+        "     Memory map:", print_memory_map(memory_map)
+
+
 
 
 # helper function; it "touches" a page
