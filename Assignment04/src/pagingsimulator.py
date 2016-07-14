@@ -227,7 +227,7 @@ def main():
         for p in process_list:
         #if process_list:
         # peek at the process_list, check if the next arrival_time == clock
-            if process_list[0].arrival_time == clock:
+            if p.arrival_time == clock:
                 # if so, capture that process and pop it off the process_list
                 print("################################")
                 print("New Process Arrival Event: ", p.name)
