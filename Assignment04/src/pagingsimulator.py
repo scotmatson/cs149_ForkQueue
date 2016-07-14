@@ -65,12 +65,12 @@ def locality_of_reference_select(process):
                 top_rand = num_of_pages - 1
             else:
                 top_rand = random.randint(process.current_page + 2, num_of_pages - 1)
-                
+
             if (process.current_page - 2) <= 0:
                 bottom_rand = 0
             else:
                 bottom_rand = random.randint(0, process.current_page - 2)
-            
+
             choices = [bottom_rand, top_rand]
             delta = random.choice(choices)
 
@@ -86,8 +86,8 @@ def locality_of_reference_select(process):
 
 # # helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
 def print_status(process, clock, page_table):
-    print "\nUNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process.name, "     " \
-        "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration
+    print("\nUNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process.name, "     " \
+        "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration)
 
 
 
@@ -229,10 +229,10 @@ def main():
         # peek at the process_list, check if the next arrival_time == clock
             if process_list[0].arrival_time == clock:
                 # if so, capture that process and pop it off the process_list
-                print "################################"
-                print "New Process Arrival Event: ", p.name
-                print "################################"
-                print "Status: ", print_status(p, clock, page_table)
+                print("################################")
+                print("New Process Arrival Event: ", p.name)
+                print("################################")
+                print("Status: ", print_status(p, clock, page_table))
 
                 new_process = process_list.pop(0)
 
