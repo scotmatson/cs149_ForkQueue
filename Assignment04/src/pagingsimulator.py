@@ -122,9 +122,11 @@ def access_page(clock, page_table, page):
     #######  PAGE REPLACEMENT EVENT - Use Page Replacement Algorithms
     ##################################################################
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
-    if page_table.memory.__sizeof__() < MEMORY_MIN:
+    if len(page_table.memory) > 96:
         print("page replacement")
+        print (len(page_table.memory))
         #PAGE REPLACEMENT ALGORITHMS SHOULD GO HERE!
+        algorithms.random_pick(page_table)
 
     #this is where the algos go, but probably not the loop
     """
