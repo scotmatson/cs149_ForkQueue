@@ -106,24 +106,27 @@ def print_status(process, clock, page_table):
 
 # helper function; it "touches" a page
 def access_page(clock, page_table, page):
+    '''
+    access_page() is called whenever a page is needed. if there are 
+    less than 4 slots left in page_table.memory the page replacement 
+    algorithms are used
+    '''
     # update the time of access for that page
     page.last_accessed = clock
-
     # increase that page's frequency
     page.frequency += 1
-
-    ############################
-    #######  PAGE REPLACEMENT EVENT
-    ############################
-
     # add the page to the page_table.memory
     page_table.touch(page)
-    
+
+    ##################################################################
+    #######  PAGE REPLACEMENT EVENT - Use Page Replacement Algorithms
+    ##################################################################
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if page_table.memory.__sizeof__() < MEMORY_MIN:
         print("page replacement")
         #PAGE REPLACEMENT ALGORITHMS SHOULD GO HERE!
 
+    #this is where the algos go, but probably not the loop
     """
     #Run five time
     #for x in range(0,4):
