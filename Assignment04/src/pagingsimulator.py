@@ -280,7 +280,6 @@ def main():
             #get the correct page using locality_of_reference
             for key, active_process in active_process_list.items():
                 # decrement the duration counter for the current process
-                print("testing  duration: ", active_process.duration)
                 active_process.duration = active_process.duration - 1
 
                 if active_process.duration <= 0:
