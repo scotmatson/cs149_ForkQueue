@@ -69,7 +69,7 @@ def locality_of_reference_select(process):
 def print_status(process, clock, memory_map):
     "UNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process, "     " \
         "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration, \
-        "     Memory map:", print_memory_map(memory_map)
+        "     Memory map:", memory_map.print_memory_map()
 
 
 
