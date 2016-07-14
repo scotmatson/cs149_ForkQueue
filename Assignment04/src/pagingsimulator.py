@@ -142,22 +142,17 @@ def access_page(clock, page_table, page):
         # I don't imagine that any changes will need to be made to pagingsimulator.py, but I can't know that ahead of
         # time; you actually have to try and write the replacement algorithms.
 
-def main():
+def generate_processes(number_of_processes, max_arrival, min_duration, max_duration, process_size):
     '''
-    This is the main() function and entry point for the Paging Simulator application
-    '''
-    # Makes the processes, populate them with pages
-    process_list = []
-    active_process_list = OrderedDict()
-    page_table = PageTable()
 
-    # Make a set of 150 processes, add to process_list
+    '''
+    out = list()
     process_name_index = 0
-    for x in range(NUMBER_OF_PROCESSES):
+    for x in range(number_of_processes):
         name = "P" + str(process_name_index)
-        arrival_time = random.randint(0, MAX_ARRIVAL_TIME)
-        duration = random.randint(MIN_DURATION, MAX_DURATION)
-        number_of_pages = random.choice(PROCESS_SIZE)
+        arrival_time = random.randint(0, max_arrival)
+        duration = random.randint(min_duration, max_duration)
+        number_of_pages = random.choice(process_size)
 
         process = Process(name, arrival_time, duration, 0)
 
@@ -171,10 +166,27 @@ def main():
             process.pages.append(new_page)
 
         # Must test pages, new creation, this will break
-        process_list.append(process)
+        out.append(process)
         process_name_index += 1
+    return out
 
-    "Testing process list contents:"
+
+def main():
+    '''
+    This is the main() function and entry point for the Paging Simulator application
+    '''
+    # Makes the processes, populate them with pages
+    active_process_list = OrderedDict()
+    page_table = PageTable()
+    process_list = generate_processes(
+        NUMBER_OF_PROCESSES,
+        MAX_ARRIVAL_TIME,
+        MIN_DURATION,
+        MAX_DURATION,
+        PROCESS_SIZE)
+
+
+    # Testing process list contents:
     for p in process_list:
         print p.name, "  Arrival: ", p.arrival_time
 
