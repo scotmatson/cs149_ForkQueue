@@ -167,28 +167,11 @@ def generate_processes(number_of_processes, max_arrival, min_duration, max_durat
         out.append(process)
         process_name_index += 1
     return out
-
-
-def main():
-    '''
-    This is the main() function and entry point for the Paging Simulator application
-    '''
-    # Makes the processes, populate them with pages
-    active_process_list = OrderedDict()
-    page_table = PageTable()
-    process_list = generate_processes(
-        NUMBER_OF_PROCESSES,
-        MAX_ARRIVAL_TIME,
-        MIN_DURATION,
-        MAX_DURATION,
-        PROCESS_SIZE)
-
-
+    
+    
     #######################################
     #### ALGORITHM AND MAIN STARTS HERE
     #######################################
-
-
 
     ##################################################################################################################
     ##################################################################################################################
@@ -211,6 +194,19 @@ def main():
     ##################################################################################################################
     ##################################################################################################################
 
+def main():
+    '''
+    This is the main() function and entry point for the Paging Simulator application
+    '''
+    # Makes the processes, populate them with pages
+    active_process_list = OrderedDict()
+    page_table = PageTable()
+    process_list = generate_processes(
+        NUMBER_OF_PROCESSES,
+        MAX_ARRIVAL_TIME,
+        MIN_DURATION,
+        MAX_DURATION,
+        PROCESS_SIZE)
 
     # BEGINNING OF MASTER LOOP
     clock = 0
@@ -258,25 +254,14 @@ def main():
                     new_process.clear(page_table)
 
 
-
-
         # increment the master clock counter
         clock += 1
-
         # check if the clock is at a 100ms interval and there are still processes in the list
         if (clock % 100 == 0) and active_process_list:
             ######################################################################################
             # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF RUNNING PROCESSES
             ######################################################################################
 
-                # NOTE: implement the 70% shit here!!
-                # the code that selects a random page from the random_process is inside the following function:
-                #       random.choice(random_process.pages)
-                # Instead of this code, there needs to be a function called locality_of_reference_select, or
-                # special_page_select, whatever you want to call it. It will take in as a parameter a process and return
-                # a page. Based on the process.last_page_accessed attribute, which tracks the index "i" of the last page
-                # accessed, the function has a 70% chance to select "i-1" or "i+1" as the page to be "touched".
-                #
             #get the correct page using locality_of_reference
             #for key, active_process in active_process_list.items():
             for key in list(active_process_list.keys()):
