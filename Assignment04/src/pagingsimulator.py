@@ -91,11 +91,13 @@ def locality_of_reference_select(process):
 def print_status(process, clock, page_table):
     unix_time = time.time()
     human_time = datetime.datetime.fromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
-    print("\nUNIX time: ",  human_time, \
-        "     Clock: ", clock, "     Process: ", process.name, "     " \
+    print("\nUNIX time: ",  human_time, "     Clock: ", clock, "     Process: ", process.name, "     " \
         "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration)
 
-
+    def print_status_replacement(page, clock, page_table):
+        unix_time = time.time()
+        human_time = datetime.datetime.fromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
+        print("\nUNIX time: ", human_time, "     Clock: ", clock, "     Page: ", page.name, "     ", "Process ID: ", page.process_id)
 
 
 # helper function; it "touches" a page
