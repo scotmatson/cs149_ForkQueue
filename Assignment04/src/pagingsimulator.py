@@ -66,10 +66,9 @@ def locality_of_reference_select(process):
     return locality_page
 
 # # helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
-def print_status(process, clock, memory_map):
-    "UNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process, "     " \
-        "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration, \
-        "     Memory map:", memory_map.print_memory_map()
+def print_status(process, clock, page_table):
+    print "\nUNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process.name, "     " \
+        "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration
 
 
 
@@ -88,21 +87,6 @@ def access_page(clock, page_table, page):
 
     # add the page to the page_table.memory
     page_table.touch(page)
-    # update the parent process of that page so that it knows which page was last accessed
-    # this code will be necessary for locality of reference, which is yet to be coded
-    # THIS CODE NEEDS TO BE TESTED
-
-    #testProcess = page_table.__getitem__(page.process_id, page_table.memory)
-
-
-    # get the process_id for that page
-    touched_process_id = page_table.memory[page.name].process_id
-    print("touched page's process id: ", touched_process_id)
-    # print "testing inside access_page", testProcess.name
-    # testIndex = testProcess.pages.index(page.name)
-    # index_of_page = page_table.memory.get(page.process_id).pages.index(page.name)
-    # page_table[page.name].last_accessed_page = index_of_page
-
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
    # algorithms.random_pick(page_table)
     #algorithms.most_frequently_used(page_table)
@@ -186,10 +170,6 @@ def main():
         PROCESS_SIZE)
 
 
-    # Testing process list contents:
-    for p in process_list:
-        print p.name, "  Arrival: ", p.arrival_time
-
     #######################################
     #### ALGORITHM AND MAIN STARTS HERE
     #######################################
@@ -230,6 +210,11 @@ def main():
         # peek at the process_list, check if the next arrival_time == clock
             if process_list[0].arrival_time == clock:
                 # if so, capture that process and pop it off the process_list
+                print "################################"
+                print "New Process Arrival Event: ", p.name
+                print "################################"
+                print "Status: ", print_status(p, clock, page_table)
+
                 new_process = process_list.pop(0)
 
                 # add the new_process to the active_process_list
