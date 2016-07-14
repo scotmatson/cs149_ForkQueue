@@ -91,13 +91,12 @@ def print_status(process, clock, page_table):
     print("\nUNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process.name, "     " \
         "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration)
 
-# helper function; it "touches" a page
 def access_page(clock, page_table, page):
-    # update the time of access for that page
-    page.last_accessed = clock
-
-    # increase that page's frequency
-    page.frequency += 1
+    '''
+    Helper function that 'touches' a page
+    '''
+    page.last_accessed = clock # Update page access time
+    page.frequency += 1        # Increment page frequency
 
     ############################
     #######  PAGE REPLACEMENT EVENT
