@@ -1,3 +1,20 @@
+'''
+    file:
+        pagingsimulator.py
+
+    description:
+        Aside from being the main point of executionf or this
+        application, the main() method is used to carry out basic
+        operating system procedures for memory management
+
+    Authors:
+        Francisco, Scot, Tyler, Daniel
+
+    Group:
+        ForkQueue
+
+    Copyright (c) 2016
+'''
 # PYTHON LIBS
 import sys
 import random
@@ -128,8 +145,7 @@ def access_page(clock, page_table, page):
 
 def main():
     '''
-    This is the main() function and entry point for the Paging Simulator.
-    We are treating main() as an Operating System and named it accordingly so.
+    This is the main() function and entry point for the Paging Simulator application
     '''
     # Makes the processes, populate them with pages
     process_list = []
@@ -232,12 +248,11 @@ def main():
         clock += 1
 
         # check if the clock is at a 100ms interval and there are still processes in the list
-        if clock % 100 == 0 and active_process_list:
+        if (clock % 100 == 0) and active_process_list:
             '''
-            #commmenting this out because I think we need to get random pages from all running processes, not just
-            #one single random process - moved new code below
-            
-            
+            # Commmenting this out because I think we need to get random pages from all running processes, not just
+            # one single random process - moved new code below
+
             # if so, then it's time to touch a random page of a random process in the active_process_list
             # choose a random process from the active process list
             # NOTE: This line of code does not need to be changed by the person is doing the locality of reference
@@ -278,9 +293,6 @@ def main():
                 #locality_page = locality_of_reference_select(random_process)
                 locality_page = locality_of_reference_select(active_process)
                 access_page(clock, page_table, locality_page)
-                
-
-
 
 ################################################################################
 if __name__ == '__main__':
