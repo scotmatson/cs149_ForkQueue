@@ -33,27 +33,12 @@ from memory import PageTable
 # Disable byte code creation
 sys.dont_write_bytecode = True
 
-# Simulation Variables, should be 60000 if 100ms quanta in one minute
-EXECUTION_TIME = 60000  # There are 60000 milliseconds in one minute
-PAGE_INTERVAL = 100     # Every 100 milliseconds, perform a random page access
-
-# Process Variables
-NUMBER_OF_PROCESSES = 150
-PROCESS_SIZE = [5, 11, 17, 31]  # Randomly chosen, think of the size as 1 MB per page
-
-# durations are the number of times you should run a process; this decrements every time it is ran
-MIN_DURATION = 1
-MAX_DURATION = 5
-MAX_ARRIVAL_TIME = 59999
-
-# MEMORY_MIN is the minimum number of pages that can be in page_table memory; if there are fewer than this number,
-# then a page replacement event must occur
-MEMORY_MIN = 4
-# Location_reference_probability from assignment
-LOC_REF_PROB = .70
-
-
 def locality_of_reference_select(process):
+    '''
+    TODO: Document this procedure
+    '''
+    LOCATION_REFERENCE_PROBABILITY = .70
+
     #get the number of pages belonging to this process
     num_of_pages = len(process.pages)
     #if the page hasnt been referenced yet
@@ -61,7 +46,7 @@ def locality_of_reference_select(process):
         current_page = random.randint(0, num_of_pages - 1)  #random index for this process's pages
     else:
         r = random.randint(0, num_of_pages - 1)
-        if r <= num_of_pages * LOC_REF_PROB:
+        if r <= num_of_pages * LOCATION_REFERENCE_PROBABILITY:
             delta = random.randint(-1, 1) #delta is -1, 0, or 1
         else:
             if (num_of_pages - 1) - (process.current_page + 2) <= 0:
@@ -95,6 +80,7 @@ def access_page(clock, page_table, page):
     '''
     Helper function that 'touches' a page
     '''
+    MEMORY_MIN = 4 # Min. number of pages that can be in page table memory before a swap occurs
     page.last_accessed = clock # Update page access time
     page.frequency += 1        # Increment page frequency
 
@@ -289,6 +275,16 @@ def main():
     '''
     This is the main() function and entry point for the Paging Simulator application
     '''
+    # Simulation execution time
+    EXECUTION_TIME = 60000  # There are 60000 milliseconds in one minute
+
+    # Process attributes
+    MIN_DURATION = 1
+    MAX_DURATION = 5
+    MAX_ARRIVAL_TIME = 59999
+    NUMBER_OF_PROCESSES = 150
+    PROCESS_SIZE = [5, 11, 17, 31]
+
     # Makes the processes, populate them with pages
     process_list = generate_processes(
         NUMBER_OF_PROCESSES,
