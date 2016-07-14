@@ -2,6 +2,8 @@
 import sys
 import random
 import string
+import time
+
 try: from Queue import PriorityQueue
 except: from queue import PriorityQueue
 from collections import OrderedDict
@@ -46,7 +48,13 @@ def locality_of_reference_select(process):
     locality_page = random.choice(process.pages)
     return locality_page
 
-# helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
+# # helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
+# def print_touch_results(process, clock, memory_map):
+#     exit_time
+#     "UNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process, "     " \
+#         "Arrival: ", process.arrival_time, "     Exit: ", exit_time, "     Duration: ", process.duration, \
+#         "     Memory map:", print_memory_map(memory_map)
+
 
 # helper function; it "touches" a page
 def access_page(clock, page_table, page):
@@ -149,7 +157,9 @@ def main():
         process_list.append(process)
         process_name_index += 1
 
-
+    "Testing process list contents:"
+    for p in process_list:
+        print p.name, "  Arrival: ", p.arrival_time
 
     #######################################
     #### ALGORITHM AND MAIN STARTS HERE
@@ -184,7 +194,10 @@ def main():
     # for 60000 cycles
     for x in range(EXECUTION_TIME):
         # check if the process_list is empty; if it has processes in there, then they have to be loaded into memory
-        if process_list:
+
+        # this line of code i don't think is good, it is causing problems
+        for p in process_list:
+        #if process_list:
         # peek at the process_list, check if the next arrival_time == clock
             if process_list[0].arrival_time == clock:
                 # if so, capture that process and pop it off the process_list
