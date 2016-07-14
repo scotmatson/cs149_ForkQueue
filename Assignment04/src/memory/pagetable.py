@@ -85,14 +85,14 @@ class PageTable(object):
         if page.name in self.memory.keys():
             del self.memory[page.name]
             self.memory.update({page.name: page})
-            print("\nTouch attempt: Inside already there")
+     #       print("\nTouch attempt: Inside already there")
         elif page.name in self.disk.keys():
             del self.disk[page.name]
             self.memory.update({page.name: page})
-            print("\nTouch attempt: Was on disk")
+    #        print("\nTouch attempt: Was on disk")
         else:
             self.memory.update({page.name: page})
-            print("\nTouch attempt: Newly Inserted")
+   #         print("\nTouch attempt: Newly Inserted")
 
             # run algo @ main
 
