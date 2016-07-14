@@ -63,13 +63,14 @@ class PageTable(object):
     # is the responsibility of the OS to check for this and call the page replacement algorithm as necessary.
 
 
-    def print_memory_map(self, memory_map):
+    def print_memory_map(self):
         counter = 0
         output_string = "     "
         process_line_string = "     "
         entry = "     "
 
-        for key in memory_map:
+        for key in self.memory:
+            print "current key in memory map:  ", key
             counter += 1
 
             if counter < 10:
@@ -82,17 +83,17 @@ class PageTable(object):
     def touch(self, page):
         if self.memory.has_key(page.name):
             del self.memory[page.name]
-            self.memory[page.name] = page
+            self.memory.update({page.name: page})
             print "Touch attempt: Inside already there"
         elif page.name in self.memory.keys():
             del self.disk[page.name]
-            self.memory[page.name] = page
+            self.memory.update({page.name: page})
             print "Touch attempt: Was on disk"
         else:
-            self.memory[page.name] = page
+            self.memory.update({page.name: page})
             print "Touch attempt: Newly Inserted"
 
             # run algo @ main
 
-        self.print_memory_map(self.memory)
+        self.print_memory_map()
 
