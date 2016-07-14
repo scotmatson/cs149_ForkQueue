@@ -114,9 +114,12 @@ def access_page(clock, page_table, page):
 
     # add the page to the page_table.memory
     page_table.touch(page)
+    
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
-   # algorithms.random_pick(page_table)
-    #algorithms.most_frequently_used(page_table)
+        if page_table.memory.__sizeof__() < MEMORY_MIN:
+        print("page replacement")
+        #PAGE REPLACEMENT ALGORITHMS SHOULD GO HERE!
+
     """
     #Run five time
     #for x in range(0,4):
@@ -136,22 +139,6 @@ def access_page(clock, page_table, page):
             print ("Printing Random pick")
             algorithms.random_pick(page_table)
     """
-    if page_table.memory.__sizeof__() < MEMORY_MIN:
-        print("page replacement")
-        #least_frequently_used(page_table)
-
-        # page_replacement(algorithm_name, page_table)        # you need to write this function!!
-        #
-        # You need to write a function here in pagingsimulator called page_replacement, and it will take the algorithm
-        # and the page_table as parameters. You decide how this works - do you want to make a menu for it like in
-        # assignment2? I don't know what works for you, you have to decide. If you need more parameters, like the
-        # active_process_list, then say let me know.
-        #
-        # The function, I imagine, will be something like page_replacement(FIFO, page_table), which means
-        # "perform the page replacement algorithm FIFO on the object page_table"; this means the algorithm will have to
-        # select a page in page_table.memory, remove it from page_table.memory, and put it in page_table.disk.
-        # I don't imagine that any changes will need to be made to pagingsimulator.py, but I can't know that ahead of
-        # time; you actually have to try and write the replacement algorithms.
 
 def generate_processes(number_of_processes, max_arrival, min_duration, max_duration, process_size):
     '''
@@ -278,26 +265,6 @@ def main():
 
         # check if the clock is at a 100ms interval and there are still processes in the list
         if (clock % 100 == 0) and active_process_list:
-            '''
-            # Commmenting this out because I think we need to get random pages from all running processes, not just
-            # one single random process - moved new code below
-
-            # if so, then it's time to touch a random page of a random process in the active_process_list
-            # choose a random process from the active process list
-            # NOTE: This line of code does not need to be changed by the person is doing the locality of reference
-            # thing!! This code just selects a random process
-            random_process_name = random.choice(list(active_process_list.keys()))
-            random_process = active_process_list[random_process_name]
-
-            # decrement the duration counter for that randomly selected process
-            print("testing  duration: ", active_process_list[random_process.name].duration)
-            active_process_list[random_process.name].duration = active_process_list[random_process.name].duration - 1
-
-            if active_process_list[random_process.name].duration <= 0:
-                random_process.clear(page_table)
-                del active_process_list[random_process.name]
-            '''
-
             ######################################################################################
             # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF RUNNING PROCESSES
             ######################################################################################
