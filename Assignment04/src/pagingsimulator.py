@@ -20,18 +20,17 @@ import sys
 import random
 import string
 import time
-
+from collections import OrderedDict
 try: from Queue import PriorityQueue
 except: from queue import PriorityQueue
-from collections import OrderedDict
+
 # USER LIBS
 import algorithms
 from process import Process
 from memory import Page
 from memory import PageTable
 
-# Disable byte code creation
-sys.dont_write_bytecode = True
+sys.dont_write_bytecode = True # Disable bytecode file creation
 
 def locality_of_reference_select(process):
     '''
