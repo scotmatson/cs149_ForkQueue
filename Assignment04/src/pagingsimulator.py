@@ -116,7 +116,7 @@ def access_page(clock, page_table, page):
     page_table.touch(page)
     
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
-        if page_table.memory.__sizeof__() < MEMORY_MIN:
+    if page_table.memory.__sizeof__() < MEMORY_MIN:
         print("page replacement")
         #PAGE REPLACEMENT ALGORITHMS SHOULD GO HERE!
 
