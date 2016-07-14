@@ -20,6 +20,7 @@ import sys
 import random
 import string
 import time
+import datetime
 
 try: from Queue import PriorityQueue
 except: from queue import PriorityQueue
@@ -88,7 +89,10 @@ def locality_of_reference_select(process):
 
 # # helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
 def print_status(process, clock, page_table):
-    print("\nUNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process.name, "     " \
+    unix_time = time.time()
+    human_time = datetime.datetime.fromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
+    print("\nUNIX time: ",  human_time, \
+        "     Clock: ", clock, "     Process: ", process.name, "     " \
         "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration)
 
 
@@ -257,7 +261,13 @@ def main():
                 # if the process's duration is 0, remove all of its pages from memory
                 # this is a stub, still needs implementation
                 if new_process.duration == 0:
+                    print("################################")
+                    print("Process Exit Event: ", new_process.name)
+                    print("################################")
+                    new_process.exit_time = clock
+                    print("Status: ", print_status(new_process, clock, page_table))
                     new_process.clear(page_table)
+
 
 
 
@@ -301,6 +311,8 @@ def main():
             #get the correct page using locality_of_reference
             #for key, active_process in active_process_list.items():
             for key in list(active_process_list.keys()):
+                print ("PAGE REPLACEMENT EVENT")
+                print("Status: ", print_status(p, clock, page_table))
                 active_process = active_process_list[key]
                 # decrement the duration counter for the current process
                 active_process.duration = active_process.duration - 1
