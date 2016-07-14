@@ -91,9 +91,6 @@ def print_status(process, clock, page_table):
     print("\nUNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process.name, "     " \
         "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration)
 
-
-
-
 # helper function; it "touches" a page
 def access_page(clock, page_table, page):
     # update the time of access for that page
@@ -149,7 +146,7 @@ def access_page(clock, page_table, page):
 
 def generate_processes(number_of_processes, max_arrival, min_duration, max_duration, process_size):
     '''
-
+    Generates a list of random processes
     '''
     out = list()
     process_name_index = 0
@@ -175,23 +172,7 @@ def generate_processes(number_of_processes, max_arrival, min_duration, max_durat
         process_name_index += 1
     return out
 
-
-def main():
-    '''
-    This is the main() function and entry point for the Paging Simulator application
-    '''
-    # Makes the processes, populate them with pages
-    process_list = generate_processes(
-        NUMBER_OF_PROCESSES,
-        MAX_ARRIVAL_TIME,
-        MIN_DURATION,
-        MAX_DURATION,
-        PROCESS_SIZE)
-
-    simulate_paging(process_list, EXECUTION_TIME)
-
 def simulate_paging(process_list, execution_time):
-
     '''
     Algorithms start here
 
@@ -213,7 +194,6 @@ def simulate_paging(process_list, execution_time):
        one to the right of the page that was last accessed from that process. That's what the i - 1 and i + 1 means
        in the assignment. I put a tag where I think this code needs to be implemented down below.
     '''
-
     page_table = PageTable()
     active_process_list = OrderedDict()
     # BEGINNING OF MASTER LOOP
@@ -256,8 +236,6 @@ def simulate_paging(process_list, execution_time):
                 if new_process.duration == 0:
                     new_process.clear(page_table)
 
-
-
         # increment the master clock counter
         clock += 1
 
@@ -286,9 +264,8 @@ def simulate_paging(process_list, execution_time):
             ######################################################################################
             # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF RUNNING PROCESSES
             ######################################################################################
-
             # NOTE: implement the 70% shit here!!
-            # the code that selects a random page from the random_process is inside the following function:
+            # The code that selects a random page from the random_process is inside the following function:
             #       random.choice(random_process.pages)
             # Instead of this code, there needs to be a function called locality_of_reference_select, or
             # special_page_select, whatever you want to call it. It will take in as a parameter a process and return
@@ -308,6 +285,20 @@ def simulate_paging(process_list, execution_time):
                 #locality_page = locality_of_reference_select(random_process)
                 locality_page = locality_of_reference_select(active_process)
                 access_page(clock, page_table, locality_page)
+
+def main():
+    '''
+    This is the main() function and entry point for the Paging Simulator application
+    '''
+    # Makes the processes, populate them with pages
+    process_list = generate_processes(
+        NUMBER_OF_PROCESSES,
+        MAX_ARRIVAL_TIME,
+        MIN_DURATION,
+        MAX_DURATION,
+        PROCESS_SIZE)
+
+    simulate_paging(process_list, EXECUTION_TIME)
 
 ################################################################################
 if __name__ == '__main__':
