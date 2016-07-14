@@ -48,24 +48,43 @@ MAX_ARRIVAL_TIME = 59999
 # MEMORY_MIN is the minimum number of pages that can be in page_table memory; if there are fewer than this number,
 # then a page replacement event must occur
 MEMORY_MIN = 4
+# Location_reference_probability from assignment
+LOC_REF_PROB = .70
 
 
-###    NOTE: HERE IS THE LOCALITY OF REFERENCE STUB
 def locality_of_reference_select(process):
+    #get the number of pages belonging to this process
+    num_of_pages = len(process.pages)
+    #if the page hasnt been referenced yet
+    if process.current_page == -1:
+        current_page = random.randint(0, num_of_pages - 1)  #random index for this process's pages
+    else:
+        r = random.randint(0, num_of_pages - 1)
+        if r <= num_of_pages * LOC_REF_PROB:
+            delta = random.randint(-1, 1) #delta is -1, 0, or 1
+        else:
+            if (num_of_pages - 1) - (process.current_page + 2) <= 0:
+                top_rand = num_of_pages - 1
+            else:
+                top_rand = random.randint(process.current_page + 2, num_of_pages - 1)
+                
+            if (process.current_page - 2) <= 0:
+                bottom_rand = 0
+            else:
+                bottom_rand = random.randint(0, process.current_page - 2)
+            
+            choices = [bottom_rand, top_rand]
+            delta = random.choice(choices)
 
-    # get the index of process's last accessed page
-    # last_accessed_page_index = process.last_page_accessed
+        #if current_page + delta puts us past the last index
+        if (process.current_page + delta) >= (num_of_pages - 1):
+            current_page = (process.current_page + delta) % (num_of_pages - 1)
+        else:
+            current_page = process.current_page + delta
 
-    # Now select a page to be touched; really, this line of code is just generating the correct index of the page
-    # to be selected.
-    # Make a 70% chance that the page selected will be the page at the index "last_accessed_page_index - 1" or
-    # "last_accessed_page_index + 1"
-    # <line of code to select index here>
+    process.current_page = current_page
+    return process.pages[current_page]
 
-    # Now return the page at that index
-    # <line of code to fetch and return the page at that index here>
-    locality_page = random.choice(process.pages)
-    return locality_page
 
 # # helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
 def print_status(process, clock, memory_map):
