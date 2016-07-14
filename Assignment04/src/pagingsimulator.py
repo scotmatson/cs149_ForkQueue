@@ -55,6 +55,10 @@ LOC_REF_PROB = .70
 
 
 def locality_of_reference_select(process):
+    '''
+    Due to locality of reference, after referencing a page i, there is a 70% probability 
+    that the next reference will be to page i, i-1, or i+1. This def handles that logic
+    '''
     #get the number of pages belonging to this process
     num_of_pages = len(process.pages)
     #if the page hasnt been referenced yet
@@ -142,7 +146,8 @@ def access_page(clock, page_table, page):
 
 def generate_processes(number_of_processes, max_arrival, min_duration, max_duration, process_size):
     '''
-
+    generate_processes creates 150 processes and randomly assigns them either 5, 11, 17, or 31
+    pages respectively
     '''
     out = list()
     process_name_index = 0
@@ -167,32 +172,7 @@ def generate_processes(number_of_processes, max_arrival, min_duration, max_durat
         out.append(process)
         process_name_index += 1
     return out
-    
-    
-    #######################################
-    #### ALGORITHM AND MAIN STARTS HERE
-    #######################################
 
-    ##################################################################################################################
-    ##################################################################################################################
-    # NOTE TO ALGO WRITERS:
-    # There will be two opportunities when the OS will need to replace a page
-    #
-    #  PAGE REPLACEMENT EVENT (1): ADDING PAGES OF A NEW PROCESS
-    #   Newly arrived processes will have all of their pages added into memory using the "touch" method. Any or all of
-    #   the adds may require a page replacement.
-    #
-    # PAGE REPLACEMENT EVENT (2): TOUCHING A RANDOM PAGE OF A RANDOM PROCESS
-    #   The assignment HW4 requires that at every 100ms, the OS selects a random active process; this process will
-    #   try to access a single random page from its own page list in process.pages. To fetch this page for the process,
-    #   the OS will again call touch on that page, resulting in another opportunity to replace a page.
-    #   NOTE: right now, the os() code is just selecting a random page from a random process. Someone needs to
-    #   implement the locality of reference thing, which means that the random page that is selected is not entirely
-    #   random; there is a 70% chance that the page selected from the random process will be one to the left or
-    #   one to the right of the page that was last accessed from that process. That's what the i - 1 and i + 1 means
-    #   in the assignment. I put a tag where I think this code needs to be implemented down below.
-    ##################################################################################################################
-    ##################################################################################################################
 
 def main():
     '''
@@ -213,7 +193,6 @@ def main():
     # for 60000 cycles
     for x in range(EXECUTION_TIME):
         # check if the process_list is empty; if it has processes in there, then they have to be loaded into memory
-
         # this line of code i don't think is good, it is causing problems
         for p in process_list:
         #if process_list:
@@ -235,8 +214,9 @@ def main():
 
                 ######################################################################################
                 #  PAGE REPLACE EVENT (1): ADDING PAGES OF A NEW PROCESS
+                #   Newly arrived processes will have all of their pages added into memory using the 
+                #   "touch" method. Any or all of the adds may require a page replacement.
                 ######################################################################################
-
                 # add all of that process's pages, one by one, into memory using touch
                 for page in new_process.pages:
                     #get the correct page using locality_of_reference
@@ -260,8 +240,11 @@ def main():
         if (clock % 100 == 0) and active_process_list:
             ######################################################################################
             # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF RUNNING PROCESSES
+            #   The assignment HW4 requires that at every 100ms, the OS selects a page from a process; 
+            #   this process will try to access a single random page from its own page list in 
+            #   process.pages. To fetch this page for the process, the OS will again call touch on 
+            #   that page, resulting in another opportunity to replace a page.
             ######################################################################################
-
             #get the correct page using locality_of_reference
             #for key, active_process in active_process_list.items():
             for key in list(active_process_list.keys()):
