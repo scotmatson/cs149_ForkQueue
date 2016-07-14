@@ -30,6 +30,9 @@ from process import Process
 from memory import Page
 from memory import PageTable
 
+# Disable byte code creation
+sys.dont_write_bytecode = True
+
 # Simulation Variables, should be 60000 if 100ms quanta in one minute
 EXECUTION_TIME = 60000  # There are 60000 milliseconds in one minute
 PAGE_INTERVAL = 100     # Every 100 milliseconds, perform a random page access
