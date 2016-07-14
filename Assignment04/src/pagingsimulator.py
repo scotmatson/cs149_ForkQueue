@@ -181,8 +181,6 @@ def main():
     This is the main() function and entry point for the Paging Simulator application
     '''
     # Makes the processes, populate them with pages
-    active_process_list = OrderedDict()
-    page_table = PageTable()
     process_list = generate_processes(
         NUMBER_OF_PROCESSES,
         MAX_ARRIVAL_TIME,
@@ -192,36 +190,36 @@ def main():
 
     simulate_paging(process_list, EXECUTION_TIME)
 
-def simulate_paging(process_list, execution_time)
+def simulate_paging(process_list, execution_time):
 
-    ##################################################################################################################
-    # ALGORITHM STARTS HERE
-    #
-    # NOTE TO ALGO WRITERS:
-    # There will be two opportunities when the OS will need to replace a page
-    #
-    #  PAGE REPLACEMENT EVENT (1): ADDING PAGES OF A NEW PROCESS
-    #   Newly arrived processes will have all of their pages added into memory using the "touch" method. Any or all of
-    #   the adds may require a page replacement.
-    #
-    # PAGE REPLACEMENT EVENT (2): TOUCHING A RANDOM PAGE OF A RANDOM PROCESS
-    #   The assignment HW4 requires that at every 100ms, the OS selects a random active process; this process will
-    #   try to access a single random page from its own page list in process.pages. To fetch this page for the process,
-    #   the OS will again call touch on that page, resulting in another opportunity to replace a page.
-    #   NOTE: right now, the os() code is just selecting a random page from a random process. Someone needs to
-    #   implement the locality of reference thing, which means that the random page that is selected is not entirely
-    #   random; there is a 70% chance that the page selected from the random process will be one to the left or
-    #   one to the right of the page that was last accessed from that process. That's what the i - 1 and i + 1 means
-    #   in the assignment. I put a tag where I think this code needs to be implemented down below.
-    #
-    ##################################################################################################################
-    ##################################################################################################################
+    '''
+    Algorithms start here
 
+    **There will be two opportunities when the OS will need to replace a page
 
+    PAGE REPLACEMENT EVENT (1): ADDING PAGES OF A NEW PROCESS
+        Newly arrived processes will have all of their pages added into memory using the "touch" method. Any or all of
+        the adds may require a page replacement.
+
+    PAGE REPLACEMENT EVENT (2): TOUCHING A RANDOM PAGE OF A RANDOM PROCESS
+        The assignment HW4 requires that at every 100ms, the OS selects a random active process; this process will
+        try to access a single random page from its own page list in process.pages. To fetch this page for the process,
+        the OS will again call touch on that page, resulting in another opportunity to replace a page.
+
+    NOTE:
+       Right now, the os() code is just selecting a random page from a random process. Someone needs to
+       implement the locality of reference thing, which means that the random page that is selected is not entirely
+       random; there is a 70% chance that the page selected from the random process will be one to the left or
+       one to the right of the page that was last accessed from that process. That's what the i - 1 and i + 1 means
+       in the assignment. I put a tag where I think this code needs to be implemented down below.
+    '''
+
+    page_table = PageTable()
+    active_process_list = OrderedDict()
     # BEGINNING OF MASTER LOOP
     clock = 0
     # for 60000 cycles
-    for x in range(EXECUTION_TIME):
+    for x in range(execution_time):
         # check if the process_list is empty; if it has processes in there, then they have to be loaded into memory
 
         # this line of code i don't think is good, it is causing problems
