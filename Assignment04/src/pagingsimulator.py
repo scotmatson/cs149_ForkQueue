@@ -83,7 +83,6 @@ def locality_of_reference_select(process):
     process.current_page = current_page
     return process.pages[current_page]
 
-
 # # helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
 def print_status(process, clock, page_table):
     print("\nUNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process.name, "     " \
@@ -297,7 +296,9 @@ def main():
                 # accessed, the function has a 70% chance to select "i-1" or "i+1" as the page to be "touched".
                 #
             #get the correct page using locality_of_reference
-            for key, active_process in active_process_list.items():
+            #for key, active_process in active_process_list.items():
+            for key in list(active_process_list.keys()):
+                active_process = active_process_list[key]
                 # decrement the duration counter for the current process
                 active_process.duration = active_process.duration - 1
 
