@@ -3,10 +3,10 @@ import sys
 import random
 import string
 import time
-
+from collections import OrderedDict
 try: from Queue import PriorityQueue
 except: from queue import PriorityQueue
-from collections import OrderedDict
+
 # USER LIBS
 import algorithms
 from process import Process
@@ -21,25 +21,27 @@ PAGE_INTERVAL = 100     # Every 100 milliseconds, perform a random page access
 NUMBER_OF_PROCESSES = 150
 PROCESS_SIZE = [5, 11, 17, 31]  # Randomly chosen, think of the size as 1 MB per page
 
-# durations are the number of times you should run a process; this decrements every time it is ran
+# Durations are the number of times you should run a process;
+# this decrements every time it is ran
 MIN_DURATION = 1
 MAX_DURATION = 5
 MAX_ARRIVAL_TIME = 59999
 
-# MEMORY_MIN is the minimum number of pages that can be in page_table memory; if there are fewer than this number,
-# then a page replacement event must occur
+# MEMORY_MIN is the minimum number of pages that can be in page_table memory;
+# if there are fewer than this number, then a page replacement event must occur
 MEMORY_MIN = 4
 
 
-###    NOTE: HERE IS THE LOCALITY OF REFERENCE STUB
+### NOTE: HERE IS THE LOCALITY OF REFERENCE STUB
 def locality_of_reference_select(process):
 
     # get the index of process's last accessed page
     # last_accessed_page_index = process.last_page_accessed
 
-    # Now select a page to be touched; really, this line of code is just generating the correct index of the page
-    # to be selected.
-    # Make a 70% chance that the page selected will be the page at the index "last_accessed_page_index - 1" or
+    # Now select a page to be touched; really, this line of code is
+    # just generating the correct index of the page to be selected.
+    # Make a 70% chance that the page selected will be the page at
+    # the index "last_accessed_page_index - 1" or 
     # "last_accessed_page_index + 1"
     # <line of code to select index here>
 
@@ -48,7 +50,8 @@ def locality_of_reference_select(process):
     locality_page = random.choice(process.pages)
     return locality_page
 
-# # helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
+# Helper printer function; after every touch, print <time stamp, process
+# name, Enter/exit, Size, Duration, Memory-map>
 # def print_touch_results(process, clock, memory_map):
 #     exit_time
 #     "UNIX time: ", int(time.time()), "     Clock: ", clock, "     Process: ", process, "     " \
@@ -56,13 +59,12 @@ def locality_of_reference_select(process):
 #         "     Memory map:", print_memory_map(memory_map)
 
 
-# helper function; it "touches" a page
 def access_page(clock, page_table, page):
-    # update the time of access for that page
-    page.last_accessed = clock
-
-    # increase that page's frequency
-    page.frequency += 1
+    '''
+    Helper function used to 'touch' a page
+    '''
+    page.last_accessed = clock # Update page access time
+    page.frequency += 1 # Increase page frequency
 
     ############################
     #######  PAGE REPLACEMENT EVENT
