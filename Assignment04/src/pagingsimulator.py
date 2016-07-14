@@ -46,7 +46,7 @@ def locality_of_reference_select(process):
     locality_page = random.choice(process.pages)
     return locality_page
 
-
+# helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
 
 # helper function; it "touches" a page
 def access_page(clock, page_table, page):
@@ -127,8 +127,9 @@ def main():
     page_table = PageTable()
 
     # Make a set of 150 processes, add to process_list
+    process_name_index = 0
     for x in range(NUMBER_OF_PROCESSES):
-        name = "P" + str(x)
+        name = "P" + str(process_name_index)
         arrival_time = random.randint(0, MAX_ARRIVAL_TIME)
         duration = random.randint(MIN_DURATION, MAX_DURATION)
         number_of_pages = random.choice(PROCESS_SIZE)
@@ -146,6 +147,7 @@ def main():
 
         # Must test pages, new creation, this will break
         process_list.append(process)
+        process_name_index += 1
 
 
 
