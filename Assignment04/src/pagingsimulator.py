@@ -47,18 +47,46 @@ MIN_DURATION = 1
 MAX_DURATION = 5
 MAX_ARRIVAL_TIME = 59999
 
-# MEMORY_MIN is the minimum number of pages that can be in page_table memory; if there are fewer than this number,
-# then a page replacement event must occur
-MEMORY_MIN = 4
+#max memory = 100, so to have 4 free pages max memory used must be 96
+MAX_MEMORY_USED = 96
 # Location_reference_probability from assignment
 LOC_REF_PROB = .70
 
+'''
+generate_processes() creates 150 processes and randomly assigns them either 5, 11, 17, or 31
+pages respectively
+'''
+def generate_processes(number_of_processes, max_arrival, min_duration, max_duration, process_size):
+    out = list()
+    process_name_index = 0
+    for x in range(number_of_processes):
+        name = "P" + str(process_name_index)
+        arrival_time = random.randint(0, max_arrival)
+        duration = random.randint(min_duration, max_duration)
+        number_of_pages = random.choice(process_size)
 
+        process = Process(name, arrival_time, duration, 0)
+
+        for x in range(number_of_pages):
+            page_name_num = random.randint(0, 1000)
+            page_name_string = ''.join(random.sample(string.ascii_lowercase, 5))
+            page_name = page_name_string + str(page_name_num)
+            last_accessed = 0
+
+            new_page = Page(page_name, process.name, last_accessed)
+            process.pages.append(new_page)
+
+        # Must test pages, new creation, this will break
+        out.append(process)
+        process_name_index += 1
+    return out
+    
+'''
+locality_of_reference() functions to decide which page of a process will be accessed
+next. Due to locality of reference, after referencing a page i, there is a 70% probability 
+that the next reference will be to page i, i-1, or i+1. This def handles that logic
+'''
 def locality_of_reference_select(process):
-    '''
-    Due to locality of reference, after referencing a page i, there is a 70% probability 
-    that the next reference will be to page i, i-1, or i+1. This def handles that logic
-    '''
     #get the number of pages belonging to this process
     num_of_pages = len(process.pages)
     #if the page hasnt been referenced yet
@@ -91,26 +119,12 @@ def locality_of_reference_select(process):
     process.current_page = current_page
     return process.pages[current_page]
 
-# # helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
-def print_status(process, clock, page_table):
-    unix_time = time.time()
-    human_time = datetime.datetime.fromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
-    print("\nUNIX time: ",  human_time, "     Clock: ", clock, "     Process: ", process.name, "     " \
-        "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration)
-
-    def print_status_replacement(page, clock, page_table):
-        unix_time = time.time()
-        human_time = datetime.datetime.fromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
-        print("\nUNIX time: ", human_time, "     Clock: ", clock, "     Page: ", page.name, "     ", "Process ID: ", page.process_id)
-
-
-# helper function; it "touches" a page
+'''
+access_page() is called whenever a page is needed. if there are 
+less than 4 slots left in page_table.memory the page replacement 
+algorithms are used
+'''
 def access_page(clock, page_table, page):
-    '''
-    access_page() is called whenever a page is needed. if there are 
-    less than 4 slots left in page_table.memory the page replacement 
-    algorithms are used
-    '''
     # update the time of access for that page
     page.last_accessed = clock
     # increase that page's frequency
@@ -122,13 +136,14 @@ def access_page(clock, page_table, page):
     #######  PAGE REPLACEMENT EVENT - Use Page Replacement Algorithms
     ##################################################################
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
-    if len(page_table.memory) > 96:
+    if len(page_table.memory) > MAX_MEMORY_USED:
         print("page replacement")
         print (len(page_table.memory))
         #PAGE REPLACEMENT ALGORITHMS SHOULD GO HERE!
         algorithms.random_pick(page_table)
 
     #this is where the algos go, but probably not the loop
+    #NEED TO LOOP IN MAIN - DELETE THIS WHEN DONE!!!
     """
     #Run five time
     #for x in range(0,4):
@@ -149,40 +164,24 @@ def access_page(clock, page_table, page):
             algorithms.random_pick(page_table)
     """
 
-def generate_processes(number_of_processes, max_arrival, min_duration, max_duration, process_size):
-    '''
-    generate_processes creates 150 processes and randomly assigns them either 5, 11, 17, or 31
-    pages respectively
-    '''
-    out = list()
-    process_name_index = 0
-    for x in range(number_of_processes):
-        name = "P" + str(process_name_index)
-        arrival_time = random.randint(0, max_arrival)
-        duration = random.randint(min_duration, max_duration)
-        number_of_pages = random.choice(process_size)
+'''
+helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
+'''
+def print_status(process, clock, page_table):
+    unix_time = time.time()
+    human_time = datetime.datetime.fromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
+    print("\nUNIX time: ",  human_time, "     Clock: ", clock, "     Process: ", process.name, "     " \
+        "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration)
 
-        process = Process(name, arrival_time, duration, 0)
+    def print_status_replacement(page, clock, page_table):
+        unix_time = time.time()
+        human_time = datetime.datetime.fromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
+        print("\nUNIX time: ", human_time, "     Clock: ", clock, "     Page: ", page.name, "     ", "Process ID: ", page.process_id)
 
-        for x in range(number_of_pages):
-            page_name_num = random.randint(0, 1000)
-            page_name_string = ''.join(random.sample(string.ascii_lowercase, 5))
-            page_name = page_name_string + str(page_name_num)
-            last_accessed = 0
-
-            new_page = Page(page_name, process.name, last_accessed)
-            process.pages.append(new_page)
-
-        # Must test pages, new creation, this will break
-        out.append(process)
-        process_name_index += 1
-    return out
-
-
+'''
+This is the main() function and entry point for the Paging Simulator application
+'''
 def main():
-    '''
-    This is the main() function and entry point for the Paging Simulator application
-    '''
     # Makes the processes, populate them with pages
     active_process_list = OrderedDict()
     page_table = PageTable()
@@ -198,22 +197,18 @@ def main():
     # for 60000 cycles
     for x in range(EXECUTION_TIME):
         # check if the process_list is empty; if it has processes in there, then they have to be loaded into memory
-        # this line of code i don't think is good, it is causing problems
         for p in process_list:
-        #if process_list:
-        # peek at the process_list, check if the next arrival_time == clock
+            # peek at the process_list, check if the next arrival_time == clock
             if p.arrival_time == clock:
-                # if so, capture that process and pop it off the process_list
                 print("################################")
                 print("New Process Arrival Event: ", p.name)
                 print("################################")
                 print("Status: ", print_status(p, clock, page_table))
-
+                
+                # if so, capture that process and pop it off the process_list
                 new_process = process_list.pop(0)
-
                 # add the new_process to the active_process_list
                 active_process_list[new_process.name] = new_process
-
                 # decrement that process's duration
                 new_process.duration = new_process.duration - 1
 
@@ -224,12 +219,11 @@ def main():
                 ######################################################################################
                 # add all of that process's pages, one by one, into memory using touch
                 for page in new_process.pages:
-                    #get the correct page using locality_of_reference
+                    # use locality of reference to determine next page to be accessed
                     locality_page = locality_of_reference_select(new_process)
                     access_page(clock, page_table, locality_page)
 
                 # if the process's duration is 0, remove all of its pages from memory
-                # this is a stub, still needs implementation
                 if new_process.duration == 0:
                     print("################################")
                     print("Process Exit Event: ", new_process.name)
@@ -262,7 +256,7 @@ def main():
                 if active_process.duration <= 0:
                     active_process.clear(page_table)
                     del active_process_list[active_process.name]
-                #locality_page = locality_of_reference_select(random_process)
+                # use locality of reference to determine next page to be accessed
                 locality_page = locality_of_reference_select(active_process)
                 access_page(clock, page_table, locality_page)
 

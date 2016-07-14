@@ -15,23 +15,14 @@ class PageTable(object):
     user level processes believe that all of their data is in memory, which may
     or may not be the case. Due to limitations on physical memory, some of the data
     may have to reside on disk and be brought back into memory when it is accessed,
-    or "touched," by a process. Whether or not a page needs to be replaced and the
-    page replacement algorithm performed is decided in main(), which we call os()
-    because it is simulating the Operating System. For our assignment, the OS, which
-    is simulated by pagingsimulator.py, decides when to perform a page replacement.
-    The decision is that there must be a minimum of 4 pages remaining in memory for
-    performance reasons. If there are currently 96 pages in memory when a "touch"
-    is performed, then touch will still insert the page into memory, meaning that
-    there will be 97 pages in memory and only 3 slots remaining. The OS has to
-    be checking for this and call the page replacement algorithm.
-
-    This checking code is already written and is inside pagingsimulator.py. It is
-    not tested yet because there isn't an algorithm built yet to test it with.
-    However, there is a clear stub where you need to plug in your algorithm -
-    it's in the "access_page" method in pagingsimulator.py. Access_page will
-    "touch" the page and update all the necessary attributes of pages and/or
-    processes as necessary; the only thing left to do is testing and the
-    algorithms.
+    or "touched," by a process. Whether or not a page needs to be replaced, when to 
+    perform a page replacement, and the page replacement algorithm performed is 
+    decided in pagingsimulator.py. Page replacements happen when there are a 
+    minimum of 4 free pages remaining in memory. If there are currently 96 pages 
+    used in memory when a "touch" is performed, then touch will still insert the page 
+    into memory, meaning that there will be 97 pages in memory and only 3 slots 
+    remaining. The OS (pagingsimulator.py) has to be checking for this and will call 
+    the page replacement algorithm.
 
     '''
     #####################################################
