@@ -6,6 +6,9 @@ except: import page
 
 from collections import OrderedDict
 
+
+
+
 class PageTable(object):
     '''
     This class simulates the Page Table. The purpose of the Page Table is to make
@@ -59,14 +62,38 @@ class PageTable(object):
     # A "touch" may bring the amount of pages in memory to 97, meaning there are only 3 slots in memory left. It
     # is the responsibility of the OS to check for this and call the page replacement algorithm as necessary.
 
+
+    def print_memory_map(self):
+        counter = 0
+        output_string = "     "
+        process_line_string = "     "
+        entry = "     "
+
+        for key in self.memory:
+            print "current key in memory map:  ", key
+            counter += 1
+
+            if counter < 10:
+                process_line_string += (key + entry)
+            else:
+                output_string += (process_line_string + "\n")
+                counter = 0
+                process_list_string = "     "
+
     def touch(self, page):
-        if page.name in self.memory.keys():
+        if self.memory.has_key(page.name):
             del self.memory[page.name]
-            self.memory[page.name] = page
+            self.memory.update({page.name: page})
+            print "Touch attempt: Inside already there"
         elif page.name in self.memory.keys():
             del self.disk[page.name]
-            self.memory[page.name] = page
-            # run algo @ main
+            self.memory.update({page.name: page})
+            print "Touch attempt: Was on disk"
         else:
-            self.memory[page.name] = page
+            self.memory.update({page.name: page})
+            print "Touch attempt: Newly Inserted"
+
             # run algo @ main
+
+        self.print_memory_map()
+
