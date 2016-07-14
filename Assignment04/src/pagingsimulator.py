@@ -73,11 +73,10 @@ def print_status(process, clock, memory_map):
         "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration, \
         "     Memory map:", memory_map.print_memory_map()
 
-
-
-
-# helper function; it "touches" a page
 def access_page(clock, page_table, page):
+    '''
+    Helper function that 'touches' a page
+    '''
     # update the time of access for that page
     page.last_accessed = clock
 
