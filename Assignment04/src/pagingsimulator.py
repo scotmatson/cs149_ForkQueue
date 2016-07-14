@@ -159,7 +159,7 @@ def main():
 
     "Testing process list contents:"
     for p in process_list:
-        print p.name, "  Arrival: ", p.arrival_time
+        print(p.name, "  Arrival: ", p.arrival_time)
 
     #######################################
     #### ALGORITHM AND MAIN STARTS HERE
