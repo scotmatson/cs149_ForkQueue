@@ -1,16 +1,27 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include <stdio.h>  /* for printf() */
+#include <unistd.h> /* for pipe(), fork(), and close() */
+#include <stdlib.h> /* for exit() */
 
 /*
+ * TODO: (1) Main must read from multiple files.
+ *       (2) Main must read from the terminal.
+ *
+ * Definitions:
+ *    (1) Pipe: A system call that creates a unidirecitonal
+ *        communication link between two file descriptors.
+ *    (2) Multiplexing: A way of sending multiple signals over
+ *        a communications link at the same time. 
+ *
  * References:
  *    (1) Creating Pipes in C 
  *        http://tldp.org/LDP/lpg/node11.html
- *
+ *    (2) C Tutorial: Pipes
+ *        https://www.cs.rutgers.edu/~pxk/416/notes/c-tutorials/pipes.html
  *
  */
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
     printf("*** Executing syscall.c ***\n\n");
+    fflush(stdout);
 
     /*
      * To create a simple pipe, we use the pip() system call which
@@ -23,11 +34,25 @@ int main(int argc, char *argv[]) {
      *       2. All data travelling through the pipe moves 
      *          through the kernel.
     */
+    int     i;
     int     fd[2];
     pid_t   pid;
+    char    data;
 
+    /* Accepting user input */
+    printf("Awaiting input... ");
+    scanf("%[^\n]%*c", &data);
+    printf("\n%s\n", &data);
+    fflush(stdout);
+
+    /* Generating 5 pipes */
     pipe(fd); // fd is equivilent to &fd[0]
+    //pipe(fd);
+    //pipe(fd);
+    //pipe(fd);
+    //pipe(fd);
 
+    /* Creating forked processes */
     if ((pid = fork()) < 0) {
         /* Err: Unable to Fork */
         perror("fork");
@@ -37,17 +62,25 @@ int main(int argc, char *argv[]) {
      * For parent to receive data from child,
      * Parent closes fd[1]
      * Child closes fd[0]
+     *
+     * For parent to send data to child,
+     * Parent closes fd[0]
+     * Child closes fd[1]
      */
     else if (pid == 0) {
         /* Child Process */
-        printf("I am the child\n");
+        printf("I am the child, my pid is %d\n", getpid());
+        fflush(stdout);
         close(fd[0]); 
     } 
     else {
         /* Parent Process */
-        printf("I am the parent.\n");
+        printf("I am the parent. my pid is %d\n", getpid());
+        fflush(stdout);
         close(fd[1]);
     }
 
-
+    printf("Terminating process %d\n", getpid());
+    fflush(stdout);
+    exit(0);
 }
