@@ -85,7 +85,4 @@ class PageTable(object):
             self.memory.update({page.name: page})
    #         print("\nTouch attempt: Newly Inserted")
 
-            # run algo @ main
-
-        self.print_memory_map()
 

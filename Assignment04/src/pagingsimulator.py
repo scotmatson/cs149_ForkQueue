@@ -149,12 +149,16 @@ def access_page(process, clock, page_table, page):
         #evicted_page = algorithms.most_frequently_used(page_table)
         evicted_page = algorithms.random_pick(page_table)
 
+    #determine if a page was evicted on this reference
     if evicted_page is not None:
         page_in_memory = "Not In Memory"
         page_process = page.process_id
-        
+
+    #print current stats
     print("\nTime Stamp: ", clock/1000, "    Process Name: ", process.name, "    Page Referenced: ", 
-        page.name, "    Page: ", page_in_memory, "    Evicted Page: ", page_process, ":", evicted_page) 
+        page.name, "    Page: ", page_in_memory, "    Evicted Page: ", page_process, ":", evicted_page)
+    # print memory map at this time
+    page_table.print_memory_map()
 
 
 '''
