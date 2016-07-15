@@ -120,11 +120,12 @@ def locality_of_reference_select(process):
     return process.pages[current_page]
 
 '''
-access_page() is called whenever a page is needed. if there are 
-less than 4 slots left in page_table.memory the page replacement 
-algorithms are used
+access_page() is called whenever a page is needed. if there are less than 4 slots 
+left in page_table.memory the page replacement algorithms are used. This function 
+will also print stats everytime a page is accessed
+<time-stamp in seconds, process Name, page-referenced, if-Page-in-memory, which process/page number will be evicted if needed> 
 '''
-def access_page(clock, page_table, page):
+def access_page(process, clock, page_table, page):
     # update the time of access for that page
     page.last_accessed = clock
     # increase that page's frequency
@@ -135,48 +136,26 @@ def access_page(clock, page_table, page):
     ##################################################################
     #######  PAGE REPLACEMENT EVENT - Use Page Replacement Algorithms
     ##################################################################
+    evicted_page = None
+    page_process = None
+    page_in_memory = "In Memory"
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if len(page_table.memory) > MAX_MEMORY_USED:
-        print("page replacement")
-        print (len(page_table.memory))
         #PAGE REPLACEMENT ALGORITHMS SHOULD GO HERE!
-        algorithms.random_pick(page_table)
+        #WE NEED TO ADD A LOOP IN MAIN SO THAT EACH ALGORITHM RUNS 5 TIMES, SO THE ENTIRE PROGRAM SHOULD RUN 25 TIMES
+        #evicted_page = algorithms.first_in_first_out(page_table)
+        #evicted_page = algorithms.least_frequently_used(page_table)
+        #evicted_page = algorithms.least_recently_used(page_table)
+        #evicted_page = algorithms.most_frequently_used(page_table)
+        evicted_page = algorithms.random_pick(page_table)
 
-    #this is where the algos go, but probably not the loop
-    #NEED TO LOOP IN MAIN - DELETE THIS WHEN DONE!!!
-    """
-    #Run five time
-    #for x in range(0,4):
-        if x == 0:
-            print ("Printing FIFO")
-            algorithms.first_in_first_out(page_table)
-        elif x == 1:
-            print ("Printing LRU")
-            #algorithms.least_recently_used(page_table)
-        elif x == 2:
-            print ("Printing LFU")
-            algorithms.least_frequently_used(page_table)
-        elif x == 3:
-            print ("Printing MFU")
-            algorithms.most_frequently_(page_table)
-        elif x == 4:
-            print ("Printing Random pick")
-            algorithms.random_pick(page_table)
-    """
+    if evicted_page is not None:
+        page_in_memory = "Not In Memory"
+        page_process = page.process_id
+        
+    print("\nTime Stamp: ", clock/1000, "    Process Name: ", process.name, "    Page Referenced: ", 
+        page.name, "    Page: ", page_in_memory, "    Evicted Page: ", page_process, ":", evicted_page) 
 
-'''
-helper printer function; after every touch, print <time stamp, process name, Enter/exit, Size, Duration, Memory-map>
-'''
-def print_status(process, clock, page_table):
-    unix_time = time.time()
-    human_time = datetime.datetime.fromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
-    print("\nUNIX time: ",  human_time, "     Clock: ", clock, "     Process: ", process.name, "     " \
-        "Arrival: ", process.arrival_time, "     Exit: ", process.exit_time, "     Duration: ", process.duration)
-
-    def print_status_replacement(page, clock, page_table):
-        unix_time = time.time()
-        human_time = datetime.datetime.fromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
-        print("\nUNIX time: ", human_time, "     Clock: ", clock, "     Page: ", page.name, "     ", "Process ID: ", page.process_id)
 
 '''
 This is the main() function and entry point for the Paging Simulator application
@@ -203,7 +182,6 @@ def main():
                 print("################################")
                 print("New Process Arrival Event: ", p.name)
                 print("################################")
-                print("Status: ", print_status(p, clock, page_table))
                 
                 # if so, capture that process and pop it off the process_list
                 new_process = process_list.pop(0)
@@ -221,15 +199,14 @@ def main():
                 for page in new_process.pages:
                     # use locality of reference to determine next page to be accessed
                     locality_page = locality_of_reference_select(new_process)
-                    access_page(clock, page_table, locality_page)
+                    access_page(p, clock, page_table, locality_page)
 
                 # if the process's duration is 0, remove all of its pages from memory
-                if new_process.duration == 0:
+                if new_process.duration <= 0:
                     print("################################")
                     print("Process Exit Event: ", new_process.name)
                     print("################################")
                     new_process.exit_time = clock
-                    print("Status: ", print_status(new_process, clock, page_table))
                     new_process.clear(page_table)
 
 
@@ -247,8 +224,6 @@ def main():
             #get the correct page using locality_of_reference
             #for key, active_process in active_process_list.items():
             for key in list(active_process_list.keys()):
-                print ("PAGE REPLACEMENT EVENT")
-                print("Status: ", print_status(p, clock, page_table))
                 active_process = active_process_list[key]
                 # decrement the duration counter for the current process
                 active_process.duration = active_process.duration - 1
@@ -258,7 +233,7 @@ def main():
                     del active_process_list[active_process.name]
                 # use locality of reference to determine next page to be accessed
                 locality_page = locality_of_reference_select(active_process)
-                access_page(clock, page_table, locality_page)
+                access_page(p, clock, page_table, locality_page)
 
 ################################################################################
 if __name__ == '__main__':
