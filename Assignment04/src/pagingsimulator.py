@@ -51,12 +51,31 @@ MAX_ARRIVAL_TIME = 59999
 MAX_MEMORY_USED = 96
 # Location_reference_probability from assignment
 LOC_REF_PROB = .70
+# Variable to track which master loop iteration we are on for printing 
+main_count = 1
 
-'''
-generate_processes() creates 150 processes and randomly assigns them either 5, 11, 17, or 31
-pages respectively
-'''
+# Variables for average calculations
+fifo_hits = 0
+fifo_total_accesses = 0
+fifo_total_processes = 0
+lfu_hits = 0
+lfu_total_accesses = 0
+lfu_total_processes = 0
+lru_hits = 0
+lru_total_accesses = 0
+lru_total_processes = 0
+mfu_hits = 0
+mfu_total_accesses = 0
+mfu_total_processes = 0
+rp_hits = 0
+rp_total_accesses = 0
+rp_total_processes = 0
+
 def generate_processes(number_of_processes, max_arrival, min_duration, max_duration, process_size):
+    '''
+    generate_processes() creates 150 processes and randomly assigns them either 5, 11, 17, or 31
+    pages respectively
+    '''
     out = list()
     process_name_index = 0
     for x in range(number_of_processes):
@@ -81,12 +100,13 @@ def generate_processes(number_of_processes, max_arrival, min_duration, max_durat
         process_name_index += 1
     return out
     
-'''
-locality_of_reference() functions to decide which page of a process will be accessed
-next. Due to locality of reference, after referencing a page i, there is a 70% probability 
-that the next reference will be to page i, i-1, or i+1. This def handles that logic
-'''
+
 def locality_of_reference_select(process):
+    '''
+    locality_of_reference() functions to decide which page of a process will be accessed
+    next. Due to locality of reference, after referencing a page i, there is a 70% probability 
+    that the next reference will be to page i, i-1, or i+1. This def handles that logic
+    '''
     #get the number of pages belonging to this process
     num_of_pages = len(process.pages)
     #if the page hasnt been referenced yet
@@ -119,13 +139,23 @@ def locality_of_reference_select(process):
     process.current_page = current_page
     return process.pages[current_page]
 
-'''
-access_page() is called whenever a page is needed. if there are less than 4 slots 
-left in page_table.memory the page replacement algorithms are used. This function 
-will also print stats everytime a page is accessed
-<time-stamp in seconds, process Name, page-referenced, if-Page-in-memory, which process/page number will be evicted if needed> 
-'''
 def access_page(process, clock, page_table, page):
+    '''
+    access_page() is called whenever a page is needed. if there are less than 4 slots 
+    left in page_table.memory the page replacement algorithms are used. This function 
+    will also print stats everytime a page is accessed
+    <time-stamp in seconds, process Name, page-referenced, if-Page-in-memory, which process/page number will be evicted if needed> 
+    '''
+    global fifo_hits
+    global fifo_total_accesses
+    global lfu_hits
+    global lfu_total_accesses
+    global lru_hits
+    global lru_total_accesses
+    global mfu_hits
+    global mfu_total_accesses
+    global rp_hits
+    global rp_total_accesses
     # update the time of access for that page
     page.last_accessed = clock
     # increase that page's frequency
@@ -141,103 +171,202 @@ def access_page(process, clock, page_table, page):
     page_in_memory = "In Memory"
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if len(page_table.memory) > MAX_MEMORY_USED:
-        #PAGE REPLACEMENT ALGORITHMS SHOULD GO HERE!
-        #WE NEED TO ADD A LOOP IN MAIN SO THAT EACH ALGORITHM RUNS 5 TIMES, SO THE ENTIRE PROGRAM SHOULD RUN 25 TIMES
-        #evicted_page = algorithms.first_in_first_out(page_table)
-        #evicted_page = algorithms.least_frequently_used(page_table)
-        #evicted_page = algorithms.least_recently_used(page_table)
-        #evicted_page = algorithms.most_frequently_used(page_table)
-        evicted_page = algorithms.random_pick(page_table)
+        if main_count <= 5:
+            evicted_page = algorithms.first_in_first_out(page_table)
+        elif main_count > 5 and main_count <= 10:
+            evicted_page = algorithms.least_frequently_used(page_table)
+        elif main_count > 10 and main_count <= 15:
+            evicted_page = algorithms.least_recently_used(page_table)
+        elif main_count > 15 and main_count <= 20:
+            evicted_page = algorithms.most_frequently_used(page_table)
+        else:
+            evicted_page = algorithms.random_pick(page_table)
 
     #determine if a page was evicted on this reference
     if evicted_page is not None:
         page_in_memory = "Not In Memory"
         page_process = page.process_id
 
+    #Calculate Total accesses and hits for each algorithms
+    if main_count <= 5:
+        fifo_total_accesses += 1
+        if evicted_page is None:
+            fifo_hits += 1
+    elif main_count > 5 and main_count <= 10:
+        lfu_total_accesses += 1
+        if evicted_page is None:
+            lfu_hits += 1
+    elif main_count > 10 and main_count <= 15:
+        lru_total_accesses += 1
+        if evicted_page is None:
+            lru_hits += 1
+    elif main_count > 15 and main_count <= 20:
+        mfu_total_accesses += 1
+        if evicted_page is None:
+            mfu_hits += 1
+    else:
+        rp_total_accesses += 1
+        if evicted_page is None:
+            rp_hits += 1
+
+
     #print current stats
-    print("\nTime Stamp: ", clock/1000, "    Process Name: ", process.name, "    Page Referenced: ", 
-        page.name, "    Page: ", page_in_memory, "    Evicted Page: ", page_process, ":", evicted_page)
-    # print memory map at this time
-    page_table.print_memory_map()
+    #only print stats and memory map for 1 run of each algorithm
+    if main_count == 1 or main_count == 6 or main_count == 11 or main_count == 16 or main_count == 21:
+        print("\nTime Stamp: ", clock/1000, "    Process Name: ", process.name, "    Page Referenced: ", 
+            page.name, "    Page: ", page_in_memory, "    Evicted Page: ", page_process, ":", evicted_page)
+        # print memory map at this time
+        page_table.print_memory_map()
 
-
-'''
-This is the main() function and entry point for the Paging Simulator application
-'''
 def main():
-    # Makes the processes, populate them with pages
-    active_process_list = OrderedDict()
-    page_table = PageTable()
-    process_list = generate_processes(
-        NUMBER_OF_PROCESSES,
-        MAX_ARRIVAL_TIME,
-        MIN_DURATION,
-        MAX_DURATION,
-        PROCESS_SIZE)
+    '''
+    This is the main() function and entry point for the Paging Simulator application
+    '''
+    global main_count
+    global fifo_total_processes
+    global lfu_total_processes
+    global lru_total_processes
+    global mfu_total_processes
+    global rp_total_processes
+    #BEGINNING OF MAIN LOOP
+    while main_count <= 25:
+        # Makes the processes, populate them with pages
+        active_process_list = OrderedDict()
+        page_table = PageTable()
+        process_list = generate_processes(
+            NUMBER_OF_PROCESSES,
+            MAX_ARRIVAL_TIME,
+            MIN_DURATION,
+            MAX_DURATION,
+            PROCESS_SIZE)
 
-    # BEGINNING OF MASTER LOOP
-    clock = 0
-    # for 60000 cycles
-    for x in range(EXECUTION_TIME):
-        # check if the process_list is empty; if it has processes in there, then they have to be loaded into memory
-        for p in process_list:
-            # peek at the process_list, check if the next arrival_time == clock
-            if p.arrival_time == clock:
-                print("################################")
-                print("New Process Arrival Event: ", p.name)
-                print("################################")
-                
-                # if so, capture that process and pop it off the process_list
-                new_process = process_list.pop(0)
-                # add the new_process to the active_process_list
-                active_process_list[new_process.name] = new_process
-                # decrement that process's duration
-                new_process.duration = new_process.duration - 1
+        # Title for each algorithm that will be printed
+        if main_count == 1:
+            print("############################################################################")
+            print("##################### FIRST IN FIRST OUT ###################################")
+            print("############################################################################")
+        elif main_count == 6:
+            print("############################################################################")
+            print("##################### LEAST FREQUENTLY USED ################################")
+            print("############################################################################")
+        elif main_count == 11:
+            print("############################################################################")
+            print("##################### LEAST RECENTLY USED ##################################")
+            print("############################################################################")
+        elif main_count == 16:
+            print("############################################################################")
+            print("##################### MOST FREQUENTLY USED #################################")
+            print("############################################################################")
+        elif main_count == 21:
+            print("############################################################################")
+            print("##################### RANDOM PICK ##########################################")
+            print("############################################################################")
+        # BEGINNING OF MASTER CLOCK LOOP
+        clock = 0
+        # for 60000 cycles
+        for x in range(EXECUTION_TIME):
+            # check if the process_list is empty; if it has processes in there, then they have to be loaded into memory
+            for p in process_list:
+                # peek at the process_list, check if the next arrival_time == clock
+                if p.arrival_time == clock:
+                    if main_count == 1 or main_count == 6 or main_count == 11 or main_count == 16 or main_count == 21:
+                        print("######### New Process Arrival Event: ", p.name, " ############")
 
+                    # if so, capture that process and pop it off the process_list
+                    new_process = process_list.pop(0)
+                    # add to total_processes counts
+                    if main_count <= 5:
+                        fifo_total_processes += 1
+                    elif main_count > 5 and main_count <= 10:
+                        lfu_total_processes += 1
+                    elif main_count > 10 and main_count <= 15:
+                        lru_total_processes += 1
+                    elif main_count > 15 and main_count <= 20:
+                        mfu_total_processes += 1
+                    else:
+                        rp_total_processes += 1
+                    # add the new_process to the active_process_list
+                    active_process_list[new_process.name] = new_process
+                    # decrement that process's duration
+                    new_process.duration = new_process.duration - 1
+
+                    ######################################################################################
+                    #  PAGE REPLACE EVENT (1): ADDING PAGES OF A NEW PROCESS
+                    #   Newly arrived processes will have all of their pages added into memory using the 
+                    #   "touch" method. Any or all of the adds may require a page replacement.
+                    ######################################################################################
+                    # add all of that process's pages, one by one, into memory using touch
+                    for page in new_process.pages:
+                        # use locality of reference to determine next page to be accessed
+                        locality_page = locality_of_reference_select(new_process)
+                        access_page(p, clock, page_table, locality_page)
+
+                    # if the process's duration is 0, remove all of its pages from memory
+                    if new_process.duration <= 0:
+                        if main_count == 1 or main_count == 6 or main_count == 11 or main_count == 16 or main_count == 21:
+                            print("########### Process Exit Event: ", new_process.name, " #############")
+                        new_process.exit_time = clock
+                        new_process.clear(page_table)
+            # end of for p in process_list: loop
+
+            # increment the master clock counter
+            clock += 1
+            # check if the clock is at a 100ms interval and there are still processes in the list
+            if (clock % 100 == 0) and active_process_list:
                 ######################################################################################
-                #  PAGE REPLACE EVENT (1): ADDING PAGES OF A NEW PROCESS
-                #   Newly arrived processes will have all of their pages added into memory using the 
-                #   "touch" method. Any or all of the adds may require a page replacement.
+                # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF RUNNING PROCESSES
+                #   The assignment HW4 requires that at every 100ms, the OS selects a page from a process; 
+                #   this process will try to access a single random page from its own page list in 
+                #   process.pages. To fetch this page for the process, the OS will again call touch on 
+                #   that page, resulting in another opportunity to replace a page.
                 ######################################################################################
-                # add all of that process's pages, one by one, into memory using touch
-                for page in new_process.pages:
+                #get the correct page using locality_of_reference
+                #for key, active_process in active_process_list.items():
+                for key in list(active_process_list.keys()):
+                    active_process = active_process_list[key]
+                    # decrement the duration counter for the current process
+                    active_process.duration = active_process.duration - 1
+
+                    if active_process.duration <= 0:
+                        active_process.clear(page_table)
+                        del active_process_list[active_process.name]
                     # use locality of reference to determine next page to be accessed
-                    locality_page = locality_of_reference_select(new_process)
+                    locality_page = locality_of_reference_select(active_process)
                     access_page(p, clock, page_table, locality_page)
+            # end for x in range(EXECUTION_TIME): loop
+        main_count += 1
+    # end while COUNT <= 5: loop
 
-                # if the process's duration is 0, remove all of its pages from memory
-                if new_process.duration <= 0:
-                    print("################################")
-                    print("Process Exit Event: ", new_process.name)
-                    print("################################")
-                    new_process.exit_time = clock
-                    new_process.clear(page_table)
+    #Make final calculations after all runs have completed
+    ave_hit_fifo = fifo_hits / fifo_total_accesses
+    ave_fifo_processes = fifo_total_processes / 5
+    
+    ave_hit_lfu = lfu_hits / lfu_total_accesses
+    ave_lfu_processes = lfu_total_processes / 5
+    
+    ave_hit_lru = lru_hits / lru_total_accesses
+    ave_lru_processes = lru_total_processes / 5
+    
+    ave_hit_mfu = mfu_hits / mfu_total_accesses
+    ave_mfu_processes = mfu_total_processes / 5
+    
+    ave_hit_rp = rp_hits / rp_total_accesses
+    ave_rp_processes = rp_total_processes / 5
 
-
-        # increment the master clock counter
-        clock += 1
-        # check if the clock is at a 100ms interval and there are still processes in the list
-        if (clock % 100 == 0) and active_process_list:
-            ######################################################################################
-            # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF RUNNING PROCESSES
-            #   The assignment HW4 requires that at every 100ms, the OS selects a page from a process; 
-            #   this process will try to access a single random page from its own page list in 
-            #   process.pages. To fetch this page for the process, the OS will again call touch on 
-            #   that page, resulting in another opportunity to replace a page.
-            ######################################################################################
-            #get the correct page using locality_of_reference
-            #for key, active_process in active_process_list.items():
-            for key in list(active_process_list.keys()):
-                active_process = active_process_list[key]
-                # decrement the duration counter for the current process
-                active_process.duration = active_process.duration - 1
-
-                if active_process.duration <= 0:
-                    active_process.clear(page_table)
-                    del active_process_list[active_process.name]
-                # use locality of reference to determine next page to be accessed
-                locality_page = locality_of_reference_select(active_process)
-                access_page(p, clock, page_table, locality_page)
+    #Print Final Stats
+    print ("--------------------------------------------------------------------------------------------")
+    print ("Average Hit Ratios for each algorithm over 5 runs:")
+    print ("    First In First Out: ", ave_hit_fifo)
+    print ("    Least Frequently Used: ", ave_hit_lfu)
+    print ("    Least Recently Used: ", ave_hit_lru)
+    print ("    Most Frequently Used: ", ave_hit_mfu)
+    print ("    Random Pick: ", ave_hit_rp)
+    print ("Average number of processes swapped in for each algorithm over 5 runs:")
+    print ("    First In First Out: ", ave_fifo_processes)
+    print ("    Least Frequently Used: ", ave_lfu_processes)
+    print ("    Least Recently Used: ", ave_lru_processes)
+    print ("    Most Frequently Used: ", ave_mfu_processes)
+    print ("    Random Pick: ", ave_rp_processes)
 
 ################################################################################
 if __name__ == '__main__':
