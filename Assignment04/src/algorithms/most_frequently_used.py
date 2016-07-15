@@ -10,7 +10,7 @@ def most_frequently_used(page_table):
         if page_table.memory[key].frequency >= highest_freq_value:
             highest_freq_value = page_table.memory[key].frequency
 
-    print ("Highest frequency value: ", highest_freq_value) #Test code
+    #print ("Highest frequency value: ", highest_freq_value) #Test code
 
     #Put all highest_freq_value pages into highest_freq_dict
     #If page's frequency matches highest value
@@ -25,7 +25,7 @@ def most_frequently_used(page_table):
         if highest_freq_dict[key].last_accessed < oldest_last_accessed:
             oldest_last_accessed = highest_freq_dict[key].last_accessed
 
-    print ("Oldest last accessed time: ", oldest_last_accessed) #Test code
+    #print ("Oldest last accessed time: ", oldest_last_accessed) #Test code
 
 
     #Now find the oldest last accessed page in lowest_freq_dict
@@ -33,9 +33,9 @@ def most_frequently_used(page_table):
         if highest_freq_dict[key].last_accessed == oldest_last_accessed:
             eviction_page_name = key
 
-    print ("Eviction_page_name for most_frequently_used: ", eviction_page_name)
+    #print ("Eviction_page_name for most_frequently_used: ", eviction_page_name)
 
     page_table.memory[eviction_page_name].frequency = 0 #Reset the page's frequency count to 0 because it got evicted
     page_table.disk[eviction_page_name] = page_table.memory[eviction_page_name] #Add that page to disk
     del page_table.memory[eviction_page_name] #Delete that page from memory
-
+    return eviction_page_name

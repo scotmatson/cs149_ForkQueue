@@ -12,12 +12,10 @@ def least_recently_used(page_table):
     #find the minimum last_accessed value which is least recently used.
     #  pick least recently used in memory to evict
     eviction_page_name = min(last_accessed_dict, key=last_accessed_dict.get)
-    #print for testing
-    print ("The eviction_page_name in least_recently_used = %s" % eviction_page_name)
     #Reset the page's frequency count to 0 because it got evicted
     page_table.memory[eviction_page_name].frequency = 0
     #Add the evicted page to disk
     page_table.disk[eviction_page_name] = page_table.memory[eviction_page_name]
     #Delete that page frm memory
     del page_table.memory[eviction_page_name]
-
+    return eviction_page_name
