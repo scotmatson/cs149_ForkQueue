@@ -5,6 +5,7 @@ Solves CS149 Homework#4
 @author Tyler Jones
 '''
 def pick(page_table):
+    print ('/n/nCALLING RANDOM PIC')
     #pick a random page in memory to evict
     # changed this to random.sample instead random.choice
     page_list = list()

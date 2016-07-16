@@ -39,8 +39,10 @@ EXECUTION_TIME = 60000  # There are 60000 milliseconds in one minute
 PAGE_INTERVAL = 100     # Every 100 milliseconds, perform a random page access
 
 # Process Variables
-NUMBER_OF_PROCESSES = 250
+NUMBER_OF_PROCESSES = 150
 PROCESS_SIZE = [5, 11, 17, 31]  # Randomly chosen, think of the size as 1 MB per page
+
+
 
 # durations are the number of times you should run a process; this decrements every time it is ran
 MIN_DURATION = 1
@@ -171,6 +173,11 @@ def access_page(process, clock, page_table, page):
     page_in_memory = "In Memory"
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if len(page_table.memory) > MAX_MEMORY_USED:
+        print('##################################################################')
+        print('##################################################################')
+        print('#### HOLD UP: LEN(PAGE_TABLE.MEMORY) SHOULD 98 RIGHT NOW #########')
+        print('#### LEN(PAGE_TABLE.MEMORY):  ' + str(len(page_table.memory)) + ' #################################')
+
         if main_count <= 5:
             evicted_page = algorithms.first_in_first_out(page_table)
         elif main_count > 5 and main_count <= 10:
@@ -213,10 +220,10 @@ def access_page(process, clock, page_table, page):
     #print current stats
     #only print stats and memory map for 1 run of each algorithm
     if main_count == 1 or main_count == 6 or main_count == 11 or main_count == 16 or main_count == 21:
-        print("\nTime Stamp: ", clock/1000, "    Process Name: ", process.name, "    Page Referenced: ", 
-            page.name, "    Page: ", page_in_memory, "    Evicted Page: ", page_process, ":", evicted_page)
+        print('Time Stamp: ', clock/1000, '  Process Name: ', process.name, '  Page Referenced: ', page.name, '  Page: ', page_in_memory, '  Evicted Page: ', page_process, ':', evicted_page)
         # print memory map at this time
         page_table.print_memory_map()
+        page_table.print_disk()
 
 def main():
     '''
@@ -269,6 +276,8 @@ def main():
             for p in process_list:
                 # peek at the process_list, check if the next arrival_time == clock
                 if p.arrival_time == clock:
+
+                    # WHAT DOES THIS CODE DO? IF 1 OR 6 OR 11...?
                     if main_count == 1 or main_count == 6 or main_count == 11 or main_count == 16 or main_count == 21:
                         print("######### New Process Arrival Event: ", p.name, " ############")
 
@@ -297,10 +306,14 @@ def main():
                     #   "touch" method. Any or all of the adds may require a page replacement.
                     ######################################################################################
                     # add all of that process's pages, one by one, into memory using touch
+
+                    # NO!! YOU JUST TOUCH ALL THE PAGES, YOU DON'T NEED LOCALITY DURING THIS EVENT
+                    # unless I am misunderstanding?
                     for page in new_process.pages:
                         # use locality of reference to determine next page to be accessed
-                        locality_page = locality_of_reference_select(new_process)
-                        access_page(p, clock, page_table, locality_page)
+                        #locality_page = locality_of_reference_select(new_process)
+                        access_page(p, clock, page_table, page)
+
 
                     # if the process's duration is 0, remove all of its pages from memory
                     if new_process.duration <= 0:
@@ -332,6 +345,7 @@ def main():
                         active_process.clear(page_table)
                         del active_process_list[active_process.name]
                     # use locality of reference to determine next page to be accessed
+                    # THIS IS THE ONLY PLACE TO USE LOCALITY, ON TOUCHING A RANDOM PAGE OF ALL PROCESSES
                     locality_page = locality_of_reference_select(active_process)
                     access_page(p, clock, page_table, locality_page)
             # end for x in range(EXECUTION_TIME): loop

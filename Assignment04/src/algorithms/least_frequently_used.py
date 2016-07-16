@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 def least_frequently_used(page_table):
+    print ('\n\nCALLING LFU')
     eviction_page_name = "" #For holding name of evicted page
     lowest_freq_dict = OrderedDict([]) #Used to store all the lowest freq pages
 

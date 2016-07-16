@@ -5,6 +5,7 @@ Solves CS149 Homework#4
 @author Tyler Jones
 '''
 def first_in_first_out(page_table):
+    print ('\n\nCALLING FIFO')
     #make a dict with keys as page name and values as page.order_assigned
     order_assigned_dict = dict() #Used to store all the pages order_assigned values
     for key in page_table.memory:

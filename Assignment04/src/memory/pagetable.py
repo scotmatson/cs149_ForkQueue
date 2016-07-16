@@ -69,20 +69,40 @@ Process finished with exit code 1rocesses believe that all of their data is in m
         counter = 0
         output_string = "\n\tPages in Memory Map:\n"
         entry = "     "
-        line_counter = 0
-        map_line_string = str(line_counter) + "\t"
+        line_counter = 2
+        map_line_string = "Count" + str(line_counter) + "\t\t"
 
 
         for key in self.memory:
             counter += 1
 
-            if counter < 10:
+            if counter < 3:
                 map_line_string += (key + " :: " + self.memory[key].process_id + entry)
             else:
                 output_string += (map_line_string + "\n")
                 counter = 0
-                line_counter += 10
-                map_line_string = str(line_counter) + "\t"
+                line_counter += 2
+                map_line_string = "Count" + str(line_counter) + "\t\t"
+
+        print(output_string)
+
+    def print_disk(self):
+        counter = 0
+        output_string = "\n\tPages in Disk:\n"
+        entry = "     "
+        line_counter = 2
+        map_line_string = "Count" + str(line_counter) + "\t\t"
+
+        for key in self.disk:
+            counter += 1
+
+            if counter < 3:
+                map_line_string += (key + " :: " + self.disk[key].process_id + entry)
+            else:
+                output_string += (map_line_string + "\n")
+                counter = 0
+                line_counter += 2
+                map_line_string = "Count" + str(line_counter) + "\t\t"
 
         print(output_string)
 
