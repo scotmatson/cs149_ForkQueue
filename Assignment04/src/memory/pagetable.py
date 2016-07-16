@@ -56,19 +56,22 @@ class PageTable(object):
 
     def print_memory_map(self):
         counter = 0
-        map_line_string = "     "
-        output_string = "\n     Pages in Memory Map:          \n"
+        output_string = "\n\tPages in Memory Map:\n"
         entry = "     "
+        line_counter = 10
+        map_line_string = str(line_counter) + "\t"
+
 
         for key in self.memory:
             counter += 1
 
-            if counter < 6:
+            if counter < 10:
                 map_line_string += (key + " :: " + self.memory[key].process_id + entry)
             else:
                 output_string += (map_line_string + "\n")
                 counter = 0
-                map_line_string = "     "
+                line_counter += 10
+                map_line_string = str(line_counter) + "\t"
 
         print(output_string)
 
