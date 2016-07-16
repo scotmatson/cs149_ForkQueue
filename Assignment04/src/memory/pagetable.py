@@ -12,7 +12,18 @@ from collections import OrderedDict
 class PageTable(object):
     '''
     This class simulates the Page Table. The purpose of the Page Table is to make
-    user level processes believe that all of their data is in memory, which may
+    user level pTraceback (most recent call last):
+  File "/Users/Natera/PycharmProjects/cs149_ForkQueue/Assignment04/src/pagingsimulator.py", line 374, in <module>
+    main();
+  File "/Users/Natera/PycharmProjects/cs149_ForkQueue/Assignment04/src/pagingsimulator.py", line 303, in main
+    access_page(p, clock, page_table, locality_page)
+  File "/Users/Natera/PycharmProjects/cs149_ForkQueue/Assignment04/src/pagingsimulator.py", line 183, in access_page
+    evicted_page = algorithms.random_pick(page_table)
+  File "/Users/Natera/PycharmProjects/cs149_ForkQueue/Assignment04/src/algorithms/random_pick.py", line 14, in random_pick
+    eviction_page_name = random.sample(page_list)
+AttributeError: 'module' object has no attribute 'sample'
+
+Process finished with exit code 1rocesses believe that all of their data is in memory, which may
     or may not be the case. Due to limitations on physical memory, some of the data
     may have to reside on disk and be brought back into memory when it is accessed,
     or "touched," by a process. Whether or not a page needs to be replaced, when to 
