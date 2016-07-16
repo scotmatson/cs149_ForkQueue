@@ -31,7 +31,7 @@ from process import Process
 from memory import Page
 from memory import PageTable
 
-# Disable byte code creation
+# Disable bytecode generation
 sys.dont_write_bytecode = True
 
 # Track loop iteration for printing 
@@ -82,7 +82,6 @@ def generate_processes(number_of_processes, max_arrival, min_duration, max_durat
         out.append(process)
         process_name_index += 1
     return out
-    
 
 def locality_of_reference_select(process):
     '''
@@ -124,10 +123,11 @@ def locality_of_reference_select(process):
 
 def access_page(process, clock, page_table, page):
     '''
-    access_page() is called whenever a page is needed. if there are less than 4 slots 
-    left in page_table.memory the page replacement algorithms are used. This function 
-    will also print stats everytime a page is accessed
-    <time-stamp in seconds, process Name, page-referenced, if-Page-in-memory, which process/page number will be evicted if needed> 
+    access_page() is called whenever a page is needed. if there are less than 4
+    slots left in page_table.memory the page replacement algorithms are used.
+    This function will also print stats everytime a page is accessed <time-stamp
+    in seconds, process Name, page-referenced, if-Page-in-memory, which process/page
+    number will be evicted if needed>
     '''
     global fifo_hits
     global fifo_total_accesses
@@ -180,15 +180,15 @@ def access_page(process, clock, page_table, page):
         fifo_total_accesses += 1
         if evicted_page is None:
             fifo_hits += 1
-    elif main_count > 5 and main_count <= 10:
+    elif 5 < main_count <= 10:
         lfu_total_accesses += 1
         if evicted_page is None:
             lfu_hits += 1
-    elif main_count > 10 and main_count <= 15:
+    elif 10 < main_count <= 15:
         lru_total_accesses += 1
         if evicted_page is None:
             lru_hits += 1
-    elif main_count > 15 and main_count <= 20:
+    elif 15 < main_count <= 20:
         mfu_total_accesses += 1
         if evicted_page is None:
             mfu_hits += 1
@@ -197,10 +197,9 @@ def access_page(process, clock, page_table, page):
         if evicted_page is None:
             rp_hits += 1
 
-
-    #print current stats
-    #only print stats and memory map for 1 run of each algorithm
-    if main_count == 1 or main_count == 6 or main_count == 11 or main_count == 16 or main_count == 21:
+    # Only print stats and memory map for 1 run of each algorithm
+    run = [1, 6, 11, 16, 21]
+    if main_count in run:
         print('Time Stamp: ', clock/1000, '  Process Name: ', process.name, '  Page Referenced: ', page.name, '  Page: ', page_in_memory, '  Evicted Page: ', page_process, ':', evicted_page)
         # print memory map at this time
         page_table.print_memory_map()
@@ -229,26 +228,17 @@ def main():
             PROCESS_SIZE)
 
         # Title for each algorithm that will be printed
+        hash_border = 20*'#'
         if main_count == 1:
-            print("############################################################################")
-            print("##################### FIRST IN FIRST OUT ###################################")
-            print("############################################################################")
+            print('%s FIRST IN FIRST OUT %s ' % (hash_border, hash_border))
         elif main_count == 6:
-            print("############################################################################")
-            print("##################### LEAST FREQUENTLY USED ################################")
-            print("############################################################################")
+            print('%s LEAST FREQUENTLY USED %s' % (hash_border, hash_border))
         elif main_count == 11:
-            print("############################################################################")
-            print("##################### LEAST RECENTLY USED ##################################")
-            print("############################################################################")
+            print('%s LEAST RECENTLY USED %s' % (hash_border, hash_border))
         elif main_count == 16:
-            print("############################################################################")
-            print("##################### MOST FREQUENTLY USED #################################")
-            print("############################################################################")
+            print('%s MOST FREQUENTLY USED %s' % (hash_border, hash_border))
         elif main_count == 21:
-            print("############################################################################")
-            print("##################### RANDOM PICK ##########################################")
-            print("############################################################################")
+            print('%s RANDOM PICK %s' % (hash_border, hash_border))
         # BEGINNING OF MASTER CLOCK LOOP
         clock = 0
         # for 60000 cycles
@@ -336,16 +326,16 @@ def main():
     #Make final calculations after all runs have completed
     ave_hit_fifo = fifo_hits / fifo_total_accesses
     ave_fifo_processes = fifo_total_processes / 5
-    
+
     ave_hit_lfu = lfu_hits / lfu_total_accesses
     ave_lfu_processes = lfu_total_processes / 5
-    
+
     ave_hit_lru = lru_hits / lru_total_accesses
     ave_lru_processes = lru_total_processes / 5
-    
+
     ave_hit_mfu = mfu_hits / mfu_total_accesses
     ave_mfu_processes = mfu_total_processes / 5
-    
+
     ave_hit_rp = rp_hits / rp_total_accesses
     ave_rp_processes = rp_total_processes / 5
 

@@ -5,44 +5,13 @@ try: from memory import page
 except: import page
 from collections import OrderedDict
 
+# Disable bytecode generation
 sys.dont_write_bytecode = True
-
-
-
 
 class PageTable(object):
     '''
-    This class simulates the Page Table. The purpose of the Page Table is to make
-    user level pTraceback (most recent call last):
-  File "/Users/Natera/PycharmProjects/cs149_ForkQueue/Assignment04/src/pagingsimulator.py", line 374, in <module>
-    main();
-  File "/Users/Natera/PycharmProjects/cs149_ForkQueue/Assignment04/src/pagingsimulator.py", line 303, in main
-    access_page(p, clock, page_table, locality_page)
-  File "/Users/Natera/PycharmProjects/cs149_ForkQueue/Assignment04/src/pagingsimulator.py", line 183, in access_page
-    evicted_page = algorithms.random_pick(page_table)
-  File "/Users/Natera/PycharmProjects/cs149_ForkQueue/Assignment04/src/algorithms/random_pick.py", line 14, in random_pick
-    eviction_page_name = random.sample(page_list)
-AttributeError: 'module' object has no attribute 'sample'
-
-Process finished with exit code 1rocesses believe that all of their data is in memory, which may
-    or may not be the case. Due to limitations on physical memory, some of the data
-    may have to reside on disk and be brought back into memory when it is accessed,
-    or "touched," by a process. Whether or not a page needs to be replaced, when to 
-    perform a page replacement, and the page replacement algorithm performed is 
-    decided in pagingsimulator.py. Page replacements happen when there are a 
-    minimum of 4 free pages remaining in memory. If there are currently 96 pages 
-    used in memory when a "touch" is performed, then touch will still insert the page 
-    into memory, meaning that there will be 97 pages in memory and only 3 slots 
-    remaining. The OS (pagingsimulator.py) has to be checking for this and will call 
-    the page replacement algorithm.
-
+        Simulates the operations of the Memory Management Unit Page Table.
     '''
-    #####################################################
-    # HOW DOES PAGETABLE WORK? WHAT ARE THE ATTRIBUTES?
-    # Both disk and memory are OrderedDictionaries. Think of them as dictionaries that you can add and remove from
-    # as if they were a PriorityQueue. The advantage to having them a dictionary is that you can add/remove at
-    # constant time, like a dictionary or a hashMap.
-
     def __init__(self):
         '''
         Constructor function
@@ -51,28 +20,20 @@ Process finished with exit code 1rocesses believe that all of their data is in m
         self.memory = OrderedDict()
 
     def __getitem__(self, process_id, orderedDict):
+        '''
+        '''
         for p in orderedDict:
             if p == process_id:
                 return orderedDict[process_id]
 
-# This function will add the page to memory. Here's the flow:
-    # (1) If the page is already memory, put it at the "front" of memory. To do so, the code removes and then re-adds
-    #       the page.
-    # (2) Else if the page is NOT in memory, check if it's in the disk. If the page is in the disk, then remove it
-    #       from the disk and put it into memory.
-    # (3) Else, the page is NEITHER in memory NOR disk. So just put it in memory.
-    #
-    # A "touch" may bring the amount of pages in memory to 97, meaning there are only 3 slots in memory left. It
-    # is the responsibility of the OS to check for this and call the page replacement algorithm as necessary.
-
-
     def print_memory_map(self):
+        '''
+        '''
         counter = 0
         output_string = "\n\tPages in Memory Map:\n"
         entry = "     "
         line_counter = 2
         map_line_string = "Count" + str(line_counter) + "\t\t"
-
 
         for key in self.memory:
             counter += 1
@@ -88,6 +49,8 @@ Process finished with exit code 1rocesses believe that all of their data is in m
         print(output_string)
 
     def print_disk(self):
+        '''
+        '''
         counter = 0
         output_string = "\n\tPages in Disk:\n"
         entry = "     "
@@ -104,20 +67,20 @@ Process finished with exit code 1rocesses believe that all of their data is in m
                 counter = 0
                 line_counter += 2
                 map_line_string = "Count" + str(line_counter) + "\t\t"
-
         print(output_string)
 
     def touch(self, page):
+        '''
+        Adds or relocates a page to the front of the memory
+
+        Arguments:
+            page (Page): The page that will be added to memory
+        '''
         if page.name in self.memory.keys():
             del self.memory[page.name]
             self.memory.update({page.name: page})
-     #       print("\nTouch attempt: Inside already there")
         elif page.name in self.disk.keys():
             del self.disk[page.name]
             self.memory.update({page.name: page})
-    #        print("\nTouch attempt: Was on disk")
         else:
             self.memory.update({page.name: page})
-   #         print("\nTouch attempt: Newly Inserted")
-
-
