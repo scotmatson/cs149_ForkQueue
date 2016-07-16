@@ -39,7 +39,7 @@ EXECUTION_TIME = 60000  # There are 60000 milliseconds in one minute
 PAGE_INTERVAL = 100     # Every 100 milliseconds, perform a random page access
 
 # Process Variables
-NUMBER_OF_PROCESSES = 150
+NUMBER_OF_PROCESSES = 250
 PROCESS_SIZE = [5, 11, 17, 31]  # Randomly chosen, think of the size as 1 MB per page
 
 # durations are the number of times you should run a process; this decrements every time it is ran

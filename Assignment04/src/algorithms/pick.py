@@ -10,9 +10,6 @@ def pick(page_table):
     page_list = list()
     for key in page_table.memory:
         page_list.append(key)
-    print("PRINT THE KEYS IN PAGE_LIST")
-    for item in page_list:
-        print(item)
     eviction_page_name = random.choice(page_list)
     #Reset the page's frequency count to 0 because it got evicted
     page_table.memory[eviction_page_name].frequency = 0
