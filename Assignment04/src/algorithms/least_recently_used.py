@@ -1,9 +1,13 @@
-'''
-This file includes implementation of the least_recently_used page replacement algorithm
-Solves CS149 Homework#4
-@author Tyler Jones
-'''
+import sys
+
+sys.dont_write_bytecode = True
+
 def least_recently_used(page_table):
+    '''
+    This file includes implementation of the least_recently_used page replacement algorithm
+    Solves CS149 Homework#4
+    @author Tyler Jones
+    '''
     print ('\n\nCALLING LRU')
     #make a dict with keys as page name and values as page.last_accessed
     last_accessed_dict = dict() #Used to store all the pages last_accessed values

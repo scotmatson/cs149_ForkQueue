@@ -1,3 +1,7 @@
+import sys
+
+sys.dont_write_bytecode = True
+
 class Page(object):
     '''
     A class which simulates pages used by memory

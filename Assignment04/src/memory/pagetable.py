@@ -1,10 +1,11 @@
+import sys
 try: from Queue import PriorityQueue
 except: from queue import PriorityQueue
-
 try: from memory import page
 except: import page
-
 from collections import OrderedDict
+
+sys.dont_write_bytecode = True
 
 
 

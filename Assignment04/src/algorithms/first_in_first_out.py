@@ -1,10 +1,14 @@
+import sys
 from process import Process
-'''
-This file includes implementation of the first_in_first_out page replacement algorithm
-Solves CS149 Homework#4
-@author Tyler Jones
-'''
+
+sys.dont_write_bytecode = True
+
 def first_in_first_out(page_table):
+    '''
+    This file includes implementation of the first_in_first_out page replacement algorithm
+    Solves CS149 Homework#4
+    @author Tyler Jones
+    '''
     print ('\n\nCALLING FIFO')
     #make a dict with keys as page name and values as page.order_assigned
     order_assigned_dict = dict() #Used to store all the pages order_assigned values

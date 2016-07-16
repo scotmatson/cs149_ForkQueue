@@ -1,11 +1,14 @@
+import sys
 import random
 
-'''
-This file includes implementation of the random_pick page replacement algorithm
-Solves CS149 Homework#4
-@author Tyler Jones
-'''
+sys.dont_write_bytecode = True
+
 def pick(page_table):
+    '''
+    This file includes implementation of the random_pick page replacement algorithm
+    Solves CS149 Homework#4
+    @author Tyler Jones
+    '''
     print ('/n/nCALLING RANDOM PIC')
     #pick a random page in memory to evict
     # changed this to random.sample instead random.choice

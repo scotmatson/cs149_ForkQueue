@@ -1,4 +1,7 @@
+import sys
 from memory import PageTable
+
+sys.dont_write_bytecode = True
 
 class Process(object):
     '''
