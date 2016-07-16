@@ -273,7 +273,8 @@ def main():
                         print("######### New Process Arrival Event: ", p.name, " ############")
 
                     # if so, capture that process and pop it off the process_list
-                    new_process = process_list.pop(0)
+                    new_process = p
+                    process_list.remove(p)
                     # add to total_processes counts
                     if main_count <= 5:
                         fifo_total_processes += 1
