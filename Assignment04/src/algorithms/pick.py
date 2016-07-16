@@ -1,4 +1,5 @@
-from numpy import random
+import random
+
 '''
 This file includes implementation of the random_pick page replacement algorithm
 Solves CS149 Homework#4
