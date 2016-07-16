@@ -24,10 +24,13 @@ def main(argv):
     x = n[0]
     d = 0
     for y in n[1:]:
-        d += abssub(x,y)
+        t = abssub(x,y)
+        print("Cylinder %4d to Cylinder %4d; Distance = %d" % (x, y, t))
+        d += t;
         x=y
+
     print('Total Values: %d' % len(n))
-    print('Total Moves: %d' % (len(n)-1))
+    print('Total Calculations: %d' % (len(n)-1))
     print('Total Distance: %d' % (d))
 
 ################################################################################
