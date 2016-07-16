@@ -1,26 +1,31 @@
 import sys
 from process import Process
 
+# Disable bytecode generation
 sys.dont_write_bytecode = True
 
 def first_in_first_out(page_table):
     '''
-    This file includes implementation of the first_in_first_out page replacement algorithm
-    Solves CS149 Homework#4
-    @author Tyler Jones
-    '''
-    print ('\n\nCALLING FIFO')
-    #make a dict with keys as page name and values as page.order_assigned
-    order_assigned_dict = dict() #Used to store all the pages order_assigned values
-    for key in page_table.memory:
-        order_assigned_dict[page_table.memory[key].name] = page_table.memory[key].order_assigned
+    A First In First Out page replacement algorithm
 
-    #for each process pick the first page assigned in memory to evict
-    eviction_page_name = min(order_assigned_dict, key=order_assigned_dict.get)
-    #Reset the page's frequency count to 0 because it got evicted
-    page_table.memory[eviction_page_name].frequency = 0
-    #Add the evicted page to disk
-    page_table.disk[eviction_page_name] = page_table.memory[eviction_page_name]
-    #Delete that page frm memory
-    del page_table.memory[eviction_page_name]
-    return eviction_page_name
+    Arguments:
+        page_table (PageTable): A simulated MMU Page Table
+
+    Returns:
+        The name of an evicted page
+    '''
+    order_assigned_dict = dict()
+    for page_name in page_table.memory:
+        order_assigned_dict[page_table.memory[page_name].name] = page_table.memory[page_name].order_assigned
+    # Evict the first page assigned in memory
+    evicted_page = min(order_assigned_dict, key=order_assigned_dict.get)
+
+    # Reset page frequency
+    page_table.memory[evicted_page].frequency = 0
+
+    # Add page to disk
+    page_table.disk[evicted_page] = page_table.memory[evicted_page]
+
+    # Delete page from memory
+    del page_table.memory[evicted_page]
+    return evicted_page
