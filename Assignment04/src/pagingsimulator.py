@@ -2,16 +2,15 @@
     file:
         pagingsimulator.py
 
-    description:
-        Aside from being the main point of executionf or this
-        application, the main() method is used to carry out basic
-        operating system procedures for memory management
+    Description:
+        Simulates Operating System paging algorithms.
 
     Authors:
         Francisco, Scot, Tyler, Daniel
 
-    Group:
-        ForkQueue
+    Course:     CS 149-01
+    Instructor: Ezzat
+    Group:      6
 
     Copyright (c) 2016
 '''
@@ -21,11 +20,12 @@ import random
 import string
 import time
 import datetime
-
+from collections import OrderedDict
 try: from Queue import PriorityQueue
 except: from queue import PriorityQueue
-from collections import OrderedDict
+
 # USER LIBS
+from constants import *
 import algorithms
 from process import Process
 from memory import Page
@@ -34,26 +34,7 @@ from memory import PageTable
 # Disable byte code creation
 sys.dont_write_bytecode = True
 
-# Simulation Variables, should be 60000 if 100ms quanta in one minute
-EXECUTION_TIME = 60000  # There are 60000 milliseconds in one minute
-PAGE_INTERVAL = 100     # Every 100 milliseconds, perform a random page access
-
-# Process Variables
-NUMBER_OF_PROCESSES = 150
-PROCESS_SIZE = [5, 11, 17, 31]  # Randomly chosen, think of the size as 1 MB per page
-
-
-
-# durations are the number of times you should run a process; this decrements every time it is ran
-MIN_DURATION = 1
-MAX_DURATION = 5
-MAX_ARRIVAL_TIME = 59999
-
-#max memory = 100, so to have 4 free pages max memory used must be 96
-MAX_MEMORY_USED = 96
-# Location_reference_probability from assignment
-LOC_REF_PROB = .70
-# Variable to track which master loop iteration we are on for printing 
+# Track loop iteration for printing 
 main_count = 1
 
 # Variables for average calculations
@@ -116,7 +97,7 @@ def locality_of_reference_select(process):
         current_page = random.randint(0, num_of_pages - 1)  #random index for this process's pages
     else:
         r = random.randint(0, num_of_pages - 1)
-        if r <= num_of_pages * LOC_REF_PROB:
+        if r <= num_of_pages * LOCATION_REFERENCE_PROBABILITY:
             delta = random.randint(-1, 1) #delta is -1, 0, or 1
         else:
             if (num_of_pages - 1) - (process.current_page + 2) <= 0:
