@@ -58,7 +58,7 @@ class PageTable(object):
         counter = 0
         output_string = "\n\tPages in Memory Map:\n"
         entry = "     "
-        line_counter = 10
+        line_counter = 0
         map_line_string = str(line_counter) + "\t"
 
 
