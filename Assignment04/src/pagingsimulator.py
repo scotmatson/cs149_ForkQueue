@@ -154,7 +154,7 @@ def access_page(process, clock, page_table, page):
         elif 15 < main_count <= 20:
             evicted_page = algorithms.most_frequently_used(page_table)
         else:
-            evicted_page = algorithms.pick(page_table)
+            evicted_page = algorithms.random_pick(page_table)
 
     # Determine if a page was evicted on this reference
     if evicted_page is not None:

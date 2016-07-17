@@ -3,7 +3,7 @@ import random
 
 sys.dont_write_bytecode = True
 
-def pick(page_table):
+def random_pick(page_table):
     '''
     This file includes implementation of the random_pick page replacement algorithm
     Solves CS149 Homework#4
