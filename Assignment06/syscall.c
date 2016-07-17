@@ -81,8 +81,7 @@ int main(int argc, char **argv) {
             close(fd[0]); /* [0] to send, [1] to recieve */
         } 
         else {
-            /* Uses select() to determine if pipe has input */
-            /* Writes piped messages to output.txt */
+            /* TODO:Uses select() to determine if pipe has input */
             fprintf(fh, "I am the parent, my pid is %d", getpid());
             printf("I am the parent. my pid is %d\n", getpid());
             fflush(stdout);
@@ -101,7 +100,7 @@ int main(int argc, char **argv) {
     stop = mach_absolute_time();
     elapsed = (float)(stop-start) * tb.numer/tb.denom;
     elapsed /= 1000000000;
-    printf("Elapsed time for process %d: %.4f\n", getpid(), elapsed);
+    printf("Elapsed time for process 00:%d: %.4f\n", getpid(), elapsed);
     fflush(stdout);
     fclose(fh);
     exit(0);
