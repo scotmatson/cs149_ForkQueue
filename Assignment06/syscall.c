@@ -39,14 +39,16 @@ int main(int argc, char **argv) {
     int      fd[2];       /* File Descripter for the pipes */
     pid_t    pid;         /* Process ID for the forks */
     char     data;        /* Data to pass between pipes */
+    FILE     *fh;         /* File Handler */
 
     /* Time Management */
     static mach_timebase_info_data_t tb;
     uint64_t start, stop;
     float    elapsed; 
-    mach_timebase_info(&tb);
 
-    start = mach_absolute_time(); /* Starts the clock */
+    /* Start the clock */
+    mach_timebase_info(&tb);
+    start = mach_absolute_time();
 
     /* Accepting user input */
     printf("Awaiting input... ");
@@ -61,20 +63,39 @@ int main(int argc, char **argv) {
     pipe(fd);
     pipe(fd);
     */
-    if ((pid = fork()) < 0) {
-        perror("ERR; Unable to fork this process");
+
+    fh = fopen("out/output.txt", "w");
+    if (fh == NULL) {
+        fprintf(stderr, "ERROR; Unable to open file\n");
         exit(1);
-    } 
-    else if (pid == 0) {
-        printf("I am the child, my pid is %d\n", getpid());
-        fflush(stdout);
-        close(fd[0]); /* [0] to send, [1] to recieve */
-    } 
-    else {
-        printf("I am the parent. my pid is %d\n", getpid());
-        fflush(stdout);
-        close(fd[1]); /* [0] to send, [1] to receive */
     }
+
+    for (i = 0; i < 5; i++) {
+        if ((pid = fork()) < 0) {
+            perror("ERROR; Unable to fork this process");
+            exit(1);
+        } 
+        else if (pid == 0) {
+            printf("I am the child, my pid is %d\n", getpid());
+            fflush(stdout);
+            close(fd[0]); /* [0] to send, [1] to recieve */
+        } 
+        else {
+            /* Uses select() to determine if pipe has input */
+            /* Writes piped messages to output.txt */
+            fprintf(fh, "I am the parent, my pid is %d", getpid());
+            printf("I am the parent. my pid is %d\n", getpid());
+            fflush(stdout);
+            close(fd[1]); /* [0] to send, [1] to receive */
+        }
+    }
+
+    /*
+    For 30 seconds, read user input,
+    while () {
+
+    }
+    */
 
     /* Calculate elapsed time and format */
     stop = mach_absolute_time();
@@ -82,5 +103,6 @@ int main(int argc, char **argv) {
     elapsed /= 1000000000;
     printf("Elapsed time for process %d: %.4f\n", getpid(), elapsed);
     fflush(stdout);
+    fclose(fh);
     exit(0);
 }
