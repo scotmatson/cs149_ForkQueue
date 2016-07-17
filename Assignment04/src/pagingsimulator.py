@@ -80,7 +80,7 @@ def locality_of_reference_select(process):
     else:
         r = random.randint(0, num_of_pages - 1)
         if r <= num_of_pages * LOCATION_REFERENCE_PROBABILITY:
-            delta = random.randint(-1, 1)
+            delta = random.choice([-1, 1])
         else:
             if (num_of_pages - 1) - (process.current_page + 2) <= 0:
                 top_rand = num_of_pages - 1
@@ -135,7 +135,8 @@ def access_page(process, clock, page_table, page):
 
     # Page replacement event, use page replacement algorithms
     evicted_page = None
-    page_process = None
+    evicted_page_name = None
+    evicted_page_process = None
     page_in_memory = "In Memory"
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if len(page_table.memory) > MAX_MEMORY_USED:
@@ -160,7 +161,8 @@ def access_page(process, clock, page_table, page):
     # Determine if a page was evicted on this reference
     if evicted_page is not None:
         page_in_memory = "Not In Memory"
-        page_process = page.process_id
+        evicted_page_process = evicted_page.process_id
+        evicted_page_name = evicted_page.name
 
     # Calculate Total accesses and hits for each algorithms
     if main_count <= 5:
@@ -187,7 +189,7 @@ def access_page(process, clock, page_table, page):
     # Only print stats and memory map for 1 run of each algorithm
     run = [1, 6, 11, 16, 21]
     if main_count in run:
-        print('Time Stamp: ', clock/1000, '  Process Name: ', process.name, '  Page Referenced: ', page.name, '  Page: ', page_in_memory, '  Evicted Page: ', page_process, ':', evicted_page)
+        print('Time Stamp: ', clock/1000, '  Process Name: ', process.name, '  Page Referenced: ', page.name, '  Page: ', page_in_memory, '  Evicted Page: ', evicted_page_process, ':', evicted_page_name)
         # print memory map at this time
         page_table.print_memory_map()
         page_table.print_disk()
@@ -275,6 +277,7 @@ def main():
                             print("########### Process Exit Event: ", new_process.name, " #############")
                         new_process.exit_time = clock
                         new_process.clear(page_table)
+                        del active_process_list[new_process.name]
             # end of for p in process_list: loop
 
             # increment the master clock counter

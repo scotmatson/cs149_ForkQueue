@@ -19,14 +19,17 @@ def first_in_first_out(page_table):
         order_assigned_dict[page_table.memory[page_name].name] = page_table.memory[page_name].order_assigned
 
     # Evict the first page assigned in memory
-    evicted_page = min(order_assigned_dict, key=order_assigned_dict.get)
+    eviction_page_name = max(order_assigned_dict, key=order_assigned_dict.get)
 
     # Reset page frequency
-    page_table.memory[evicted_page].frequency = 0
+    page_table.memory[eviction_page_name].frequency = 0
+
+    # Get the actual evicted page
+    eviction_page = page_table.memory[eviction_page_name]
 
     # Add page to disk
-    page_table.disk[evicted_page] = page_table.memory[evicted_page]
+    page_table.disk[eviction_page_name] = eviction_page
 
     # Delete page from memory
-    del page_table.memory[evicted_page]
-    return evicted_page
+    del page_table.memory[eviction_page_name]
+    return eviction_page

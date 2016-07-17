@@ -39,6 +39,10 @@ def most_frequently_used(page_table):
     #print ("Eviction_page_name for most_frequently_used: ", eviction_page_name)
 
     page_table.memory[eviction_page_name].frequency = 0 #Reset the page's frequency count to 0 because it got evicted
-    page_table.disk[eviction_page_name] = page_table.memory[eviction_page_name] #Add that page to disk
-    del page_table.memory[eviction_page_name] #Delete that page from memory
-    return eviction_page_name
+    # Get the actual evicted page
+    eviction_page = page_table.memory[eviction_page_name]
+    # Add page to disk
+    page_table.disk[eviction_page_name] = eviction_page
+    # Delete page from memory
+    del page_table.memory[eviction_page_name]
+    return eviction_page
