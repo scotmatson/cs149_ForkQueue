@@ -4,7 +4,6 @@ from collections import OrderedDict
 sys.dont_write_bytecode = True
 
 def most_frequently_used(page_table):
-    print ('\n\nCALLING MFU')
     eviction_page_name = "" #For holding name of evicted page
     highest_freq_dict = OrderedDict([]) #Used to store all the highest freq pages
 

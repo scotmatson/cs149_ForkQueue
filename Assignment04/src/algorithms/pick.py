@@ -9,7 +9,6 @@ def pick(page_table):
     Solves CS149 Homework#4
     @author Tyler Jones
     '''
-    print ('/n/nCALLING RANDOM PIC')
     #pick a random page in memory to evict
     # changed this to random.sample instead random.choice
     page_list = list()

@@ -139,9 +139,11 @@ def access_page(process, clock, page_table, page):
     page_in_memory = "In Memory"
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if len(page_table.memory) > MAX_MEMORY_USED:
-        print('##################################################################')
-        print('#### HOLD UP: LEN(PAGE_TABLE.MEMORY) SHOULD 98 RIGHT NOW #########')
-        print('#### LEN(PAGE_TABLE.MEMORY):  ' + str(len(page_table.memory)) + ' #################################')
+        run = [1, 6, 11, 16, 21]
+        if main_count in run:
+            print('##################################################################')
+            print('#### HOLD UP: LEN(PAGE_TABLE.MEMORY) SHOULD 98 RIGHT NOW #########')
+            print('#### LEN(PAGE_TABLE.MEMORY):  ' + str(len(page_table.memory)) + ' #################################')
 
         if main_count <= 5:
             evicted_page = algorithms.first_in_first_out(page_table)

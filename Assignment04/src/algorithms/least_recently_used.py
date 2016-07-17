@@ -8,7 +8,6 @@ def least_recently_used(page_table):
     Solves CS149 Homework#4
     @author Tyler Jones
     '''
-    print ('\n\nCALLING LRU')
     #make a dict with keys as page name and values as page.last_accessed
     last_accessed_dict = dict() #Used to store all the pages last_accessed values
     for key in page_table.memory:
