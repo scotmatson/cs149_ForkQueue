@@ -139,6 +139,7 @@ def access_page(process, clock, page_table, page):
     page_in_memory = "In Memory"
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if len(page_table.memory) > MAX_MEMORY_USED:
+        # Only print stats and memory map for 1 run of each algorithm
         run = [1, 6, 11, 16, 21]
         if main_count in run:
             print('##################################################################')
@@ -213,6 +214,7 @@ def main():
             PROCESS_SIZE)
 
         hash_border = 20*'#'
+        # Only print title at the begining of each algorithms run
         if main_count == 1:
             print('%s FIRST IN FIRST OUT %s' % (hash_border, hash_border))
         elif main_count == 6:
@@ -231,12 +233,12 @@ def main():
                 # peek at the process_list, check if the next arrival_time == clock
                 if p.arrival_time == clock:
 
-                    # WHAT DOES THIS CODE DO? IF 1 OR 6 OR 11...?
+                    # Only print stats and memory map for 1 run of each algorithm
                     run = [1, 6, 11, 16, 21]
                     if main_count in run:
                         print("######### New Process Arrival Event: ", p.name, " ############")
 
-                    # If so, capture that process and pop it off the process_list
+                    # If so, capture that process and remove it from the process_list
                     new_process = p
                     process_list.remove(p)
                     # Add to total_processes counts
@@ -263,12 +265,7 @@ def main():
                     #   "touch" method. Any or all of the adds may require a page replacement.
                     ######################################################################################
                     # add all of that process's pages, one by one, into memory using touch
-
-                    # NO!! YOU JUST TOUCH ALL THE PAGES, YOU DON'T NEED LOCALITY DURING THIS EVENT
-                    # unless I am misunderstanding?
                     for page in new_process.pages:
-                        # use locality of reference to determine next page to be accessed
-                        #locality_page = locality_of_reference_select(new_process)
                         access_page(p, clock, page_table, page)
 
 
@@ -302,12 +299,11 @@ def main():
                         active_process.clear(page_table)
                         del active_process_list[active_process.name]
                     # use locality of reference to determine next page to be accessed
-                    # THIS IS THE ONLY PLACE TO USE LOCALITY, ON TOUCHING A RANDOM PAGE OF ALL PROCESSES
                     locality_page = locality_of_reference_select(active_process)
                     access_page(p, clock, page_table, locality_page)
             # end for x in range(EXECUTION_TIME): loop
         main_count += 1
-    # end while COUNT <= 5: loop
+    # end while COUNT <= 25: loop
 
     #Make final calculations after all runs have completed
     ave_hit_fifo = fifo_hits / fifo_total_accesses
