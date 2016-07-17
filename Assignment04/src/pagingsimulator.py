@@ -230,7 +230,7 @@ def main():
         # Title for each algorithm that will be printed
         hash_border = 20*'#'
         if main_count == 1:
-            print('%s FIRST IN FIRST OUT %s ' % (hash_border, hash_border))
+            print('%s FIRST IN FIRST OUT %s' % (hash_border, hash_border))
         elif main_count == 6:
             print('%s LEAST FREQUENTLY USED %s' % (hash_border, hash_border))
         elif main_count == 11:
@@ -249,13 +249,14 @@ def main():
                 if p.arrival_time == clock:
 
                     # WHAT DOES THIS CODE DO? IF 1 OR 6 OR 11...?
-                    if main_count == 1 or main_count == 6 or main_count == 11 or main_count == 16 or main_count == 21:
+                    run = [1, 6, 11, 16, 21]
+                    if main_count in run:
                         print("######### New Process Arrival Event: ", p.name, " ############")
 
-                    # if so, capture that process and pop it off the process_list
+                    # If so, capture that process and pop it off the process_list
                     new_process = p
                     process_list.remove(p)
-                    # add to total_processes counts
+                    # Add to total_processes counts
                     if main_count <= 5:
                         fifo_total_processes += 1
                     elif main_count > 5 and main_count <= 10:
@@ -266,9 +267,11 @@ def main():
                         mfu_total_processes += 1
                     else:
                         rp_total_processes += 1
-                    # add the new_process to the active_process_list
+
+                    # Add the new_process to the active_process_list
                     active_process_list[new_process.name] = new_process
-                    # decrement that process's duration
+
+                    # Decrement that process's duration
                     new_process.duration = new_process.duration - 1
 
                     ######################################################################################
@@ -340,19 +343,19 @@ def main():
     ave_rp_processes = rp_total_processes / 5
 
     #Print Final Stats
-    print ("--------------------------------------------------------------------------------------------")
-    print ("Average Hit Ratios for each algorithm over 5 runs:")
-    print ("    First In First Out: ", ave_hit_fifo)
-    print ("    Least Frequently Used: ", ave_hit_lfu)
-    print ("    Least Recently Used: ", ave_hit_lru)
-    print ("    Most Frequently Used: ", ave_hit_mfu)
-    print ("    Random Pick: ", ave_hit_rp)
-    print ("Average number of processes swapped in for each algorithm over 5 runs:")
-    print ("    First In First Out: ", ave_fifo_processes)
-    print ("    Least Frequently Used: ", ave_lfu_processes)
-    print ("    Least Recently Used: ", ave_lru_processes)
-    print ("    Most Frequently Used: ", ave_mfu_processes)
-    print ("    Random Pick: ", ave_rp_processes)
+    print ('--------------------------------------------------------------------------------------------')
+    print ('Average Hit Ratios for each algorithm over 5 runs:')
+    print ('    First In First Out: ', ave_hit_fifo)
+    print ('    Least Frequently Used: ', ave_hit_lfu)
+    print ('    Least Recently Used: ', ave_hit_lru)
+    print ('    Most Frequently Used: ', ave_hit_mfu)
+    print ('    Random Pick: ', ave_hit_rp)
+    print ('Average number of processes swapped in for each algorithm over 5 runs:')
+    print ('    First In First Out: ', ave_fifo_processes)
+    print ('    Least Frequently Used: ', ave_lfu_processes)
+    print ('    Least Recently Used: ', ave_lru_processes)
+    print ('    Most Frequently Used: ', ave_mfu_processes)
+    print ('    Random Pick: ', ave_rp_processes)
 
 ################################################################################
 if __name__ == '__main__':
