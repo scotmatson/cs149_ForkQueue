@@ -1,7 +1,8 @@
-#include <stdio.h>  /* for printf() */
-#include <unistd.h> /* for pipe(), fork(), and close() */
-#include <stdlib.h> /* for exit() */
-
+#define _POSIX_C_SOURCE 200809L
+#include <stdio.h>    /* for printf() */
+#include <unistd.h>   /* for pipe(), fork(), and close() */
+#include <stdlib.h>   /* for exit() */
+#include <mach/mach_time.h>
 /*
  * TODO: (1) Main must read from multiple files.
  *       (2) Main must read from the terminal.
@@ -34,10 +35,18 @@ int main(int argc, char **argv) {
      *       2. All data travelling through the pipe moves 
      *          through the kernel.
     */
-    int     i;
-    int     fd[2];
-    pid_t   pid;
-    char    data;
+    int      i;           /* Counter */
+    int      fd[2];       /* File Descripter for the pipes */
+    pid_t    pid;         /* Process ID for the forks */
+    char     data;        /* Data to pass between pipes */
+
+    /* Time Management */
+    static mach_timebase_info_data_t tb;
+    uint64_t start, stop;
+    float    elapsed; 
+    mach_timebase_info(&tb);
+
+    start = mach_absolute_time(); /* Starts the clock */
 
     /* Accepting user input */
     printf("Awaiting input... ");
@@ -45,42 +54,33 @@ int main(int argc, char **argv) {
     printf("\n%s\n", &data);
     fflush(stdout);
 
-    /* Generating 5 pipes */
-    pipe(fd); // fd is equivilent to &fd[0]
-    //pipe(fd);
-    //pipe(fd);
-    //pipe(fd);
-    //pipe(fd);
-
-    /* Creating forked processes */
+    pipe(fd); /* fd is equivilent to &fd[0] */
+    /*
+    pipe(fd);
+    pipe(fd);
+    pipe(fd);
+    pipe(fd);
+    */
     if ((pid = fork()) < 0) {
-        /* Err: Unable to Fork */
-        perror("fork");
+        perror("ERR; Unable to fork this process");
         exit(1);
     } 
-    /* 
-     * For parent to receive data from child,
-     * Parent closes fd[1]
-     * Child closes fd[0]
-     *
-     * For parent to send data to child,
-     * Parent closes fd[0]
-     * Child closes fd[1]
-     */
     else if (pid == 0) {
-        /* Child Process */
         printf("I am the child, my pid is %d\n", getpid());
         fflush(stdout);
-        close(fd[0]); 
+        close(fd[0]); /* [0] to send, [1] to recieve */
     } 
     else {
-        /* Parent Process */
         printf("I am the parent. my pid is %d\n", getpid());
         fflush(stdout);
-        close(fd[1]);
+        close(fd[1]); /* [0] to send, [1] to receive */
     }
 
-    printf("Terminating process %d\n", getpid());
+    /* Calculate elapsed time and format */
+    stop = mach_absolute_time();
+    elapsed = (float)(stop-start) * tb.numer/tb.denom;
+    elapsed /= 1000000000;
+    printf("Elapsed time for process %d: %.4f\n", getpid(), elapsed);
     fflush(stdout);
     exit(0);
 }

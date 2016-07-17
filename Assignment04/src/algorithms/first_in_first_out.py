@@ -17,6 +17,7 @@ def first_in_first_out(page_table):
     order_assigned_dict = dict()
     for page_name in page_table.memory:
         order_assigned_dict[page_table.memory[page_name].name] = page_table.memory[page_name].order_assigned
+
     # Evict the first page assigned in memory
     evicted_page = min(order_assigned_dict, key=order_assigned_dict.get)
 

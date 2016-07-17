@@ -1,9 +1,6 @@
+# pagingsimulator.py
 '''
-    file:
-        pagingsimulator.py
-
-    Description:
-        Simulates Operating System paging algorithms.
+    Simulates Operating System paging algorithms.
 
     Authors:
         Francisco, Scot, Tyler, Daniel
@@ -38,26 +35,15 @@ sys.dont_write_bytecode = True
 main_count = 1
 
 # Variables for average calculations
-fifo_hits = 0
-fifo_total_accesses = 0
-fifo_total_processes = 0
-lfu_hits = 0
-lfu_total_accesses = 0
-lfu_total_processes = 0
-lru_hits = 0
-lru_total_accesses = 0
-lru_total_processes = 0
-mfu_hits = 0
-mfu_total_accesses = 0
-mfu_total_processes = 0
-rp_hits = 0
-rp_total_accesses = 0
-rp_total_processes = 0
+fifo_hits = fifo_total_accesses = fifo_total_processes = 0
+lfu_hits = lfu_total_accesses = lfu_total_processes = 0
+lru_hits = lru_total_accesses = lru_total_processes = 0
+mfu_hits = mfu_total_accesses = mfu_total_processes = 0
+rp_hits = rp_total_accesses = rp_total_processes = 0
 
 def generate_processes(number_of_processes, max_arrival, min_duration, max_duration, process_size):
     '''
-    generate_processes() creates 150 processes and randomly assigns them either 5, 11, 17, or 31
-    pages respectively
+    Creates processes and randomly assigns them pages
     '''
     out = list()
     process_name_index = 0
@@ -85,19 +71,16 @@ def generate_processes(number_of_processes, max_arrival, min_duration, max_durat
 
 def locality_of_reference_select(process):
     '''
-    locality_of_reference() functions to decide which page of a process will be accessed
-    next. Due to locality of reference, after referencing a page i, there is a 70% probability 
-    that the next reference will be to page i, i-1, or i+1. This def handles that logic
+    Decides which page of a process will be accessed next.
     '''
-    #get the number of pages belonging to this process
     num_of_pages = len(process.pages)
-    #if the page hasnt been referenced yet
+    #if the page hasnt been referenced yet...
     if process.current_page == -1:
         current_page = random.randint(0, num_of_pages - 1)  #random index for this process's pages
     else:
         r = random.randint(0, num_of_pages - 1)
         if r <= num_of_pages * LOCATION_REFERENCE_PROBABILITY:
-            delta = random.randint(-1, 1) #delta is -1, 0, or 1
+            delta = random.randint(-1, 1)
         else:
             if (num_of_pages - 1) - (process.current_page + 2) <= 0:
                 top_rand = num_of_pages - 1
@@ -112,7 +95,7 @@ def locality_of_reference_select(process):
             choices = [bottom_rand, top_rand]
             delta = random.choice(choices)
 
-        #if current_page + delta puts us past the last index
+        # If current_page + delta puts us past the last index
         if (process.current_page + delta) >= (num_of_pages - 1):
             current_page = (process.current_page + delta) % (num_of_pages - 1)
         else:
@@ -131,12 +114,16 @@ def access_page(process, clock, page_table, page):
     '''
     global fifo_hits
     global fifo_total_accesses
+
     global lfu_hits
     global lfu_total_accesses
+
     global lru_hits
     global lru_total_accesses
+
     global mfu_hits
     global mfu_total_accesses
+
     global rp_hits
     global rp_total_accesses
     # update the time of access for that page
@@ -146,36 +133,33 @@ def access_page(process, clock, page_table, page):
     # add the page to the page_table.memory
     page_table.touch(page)
 
-    ##################################################################
-    #######  PAGE REPLACEMENT EVENT - Use Page Replacement Algorithms
-    ##################################################################
+    # Page replacement event, use page replacement algorithms
     evicted_page = None
     page_process = None
     page_in_memory = "In Memory"
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if len(page_table.memory) > MAX_MEMORY_USED:
         print('##################################################################')
-        print('##################################################################')
         print('#### HOLD UP: LEN(PAGE_TABLE.MEMORY) SHOULD 98 RIGHT NOW #########')
         print('#### LEN(PAGE_TABLE.MEMORY):  ' + str(len(page_table.memory)) + ' #################################')
 
         if main_count <= 5:
             evicted_page = algorithms.first_in_first_out(page_table)
-        elif main_count > 5 and main_count <= 10:
+        elif 5 < main_count <= 10:
             evicted_page = algorithms.least_frequently_used(page_table)
-        elif main_count > 10 and main_count <= 15:
+        elif 10 < main_count <= 15:
             evicted_page = algorithms.least_recently_used(page_table)
-        elif main_count > 15 and main_count <= 20:
+        elif 15 < main_count <= 20:
             evicted_page = algorithms.most_frequently_used(page_table)
         else:
             evicted_page = algorithms.pick(page_table)
 
-    #determine if a page was evicted on this reference
+    # Determine if a page was evicted on this reference
     if evicted_page is not None:
         page_in_memory = "Not In Memory"
         page_process = page.process_id
 
-    #Calculate Total accesses and hits for each algorithms
+    # Calculate Total accesses and hits for each algorithms
     if main_count <= 5:
         fifo_total_accesses += 1
         if evicted_page is None:
@@ -207,7 +191,7 @@ def access_page(process, clock, page_table, page):
 
 def main():
     '''
-    This is the main() function and entry point for the Paging Simulator application
+    Entry point for the Paging Simulator application
     '''
     global main_count
     global fifo_total_processes
@@ -215,9 +199,8 @@ def main():
     global lru_total_processes
     global mfu_total_processes
     global rp_total_processes
-    #BEGINNING OF MAIN LOOP
+
     while main_count <= 25:
-        # Makes the processes, populate them with pages
         active_process_list = OrderedDict()
         page_table = PageTable()
         process_list = generate_processes(
@@ -227,7 +210,6 @@ def main():
             MAX_DURATION,
             PROCESS_SIZE)
 
-        # Title for each algorithm that will be printed
         hash_border = 20*'#'
         if main_count == 1:
             print('%s FIRST IN FIRST OUT %s' % (hash_border, hash_border))
@@ -239,9 +221,8 @@ def main():
             print('%s MOST FREQUENTLY USED %s' % (hash_border, hash_border))
         elif main_count == 21:
             print('%s RANDOM PICK %s' % (hash_border, hash_border))
-        # BEGINNING OF MASTER CLOCK LOOP
+
         clock = 0
-        # for 60000 cycles
         for x in range(EXECUTION_TIME):
             # check if the process_list is empty; if it has processes in there, then they have to be loaded into memory
             for p in process_list:
