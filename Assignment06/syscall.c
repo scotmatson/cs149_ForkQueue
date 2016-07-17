@@ -1,25 +1,10 @@
 #define _POSIX_C_SOURCE 200809L
 #include <stdio.h>    /* for printf() */
 #include <unistd.h>   /* for pipe(), fork(), and close() */
-#include <stdlib.h>   /* for exit() */
+#include <stdlib.h>   /* for exit(), srand(), rand() */
+#include <time.h>     /* For seeing srand() */
 #include <mach/mach_time.h>
-/*
- * TODO: (1) Main must read from multiple files.
- *       (2) Main must read from the terminal.
- *
- * Definitions:
- *    (1) Pipe: A system call that creates a unidirecitonal
- *        communication link between two file descriptors.
- *    (2) Multiplexing: A way of sending multiple signals over
- *        a communications link at the same time. 
- *
- * References:
- *    (1) Creating Pipes in C 
- *        http://tldp.org/LDP/lpg/node11.html
- *    (2) C Tutorial: Pipes
- *        https://www.cs.rutgers.edu/~pxk/416/notes/c-tutorials/pipes.html
- *
- */
+
 int main(int argc, char **argv) {
     printf("*** Executing syscall.c ***\n\n");
     fflush(stdout);
@@ -35,11 +20,13 @@ int main(int argc, char **argv) {
      *       2. All data travelling through the pipe moves 
      *          through the kernel.
     */
-    int      i;           /* Counter */
-    int      fd[2];       /* File Descripter for the pipes */
-    pid_t    pid;         /* Process ID for the forks */
-    char     data;        /* Data to pass between pipes */
-    FILE     *fh;         /* File Handler */
+    int      i;               /* Counter */
+    int      fd[2];           /* File Descripter for the pipes */
+    pid_t    pid;             /* Process ID for all forks */ 
+    pid_t    ppid, cpid;      /* Process ID for parent & 5th child */
+    char     data;            /* Data to pass between pipes */
+    FILE     *fh;             /* File Handler */
+
 
     /* Time Management */
     static mach_timebase_info_data_t tb;
@@ -76,12 +63,15 @@ int main(int argc, char **argv) {
             exit(1);
         } 
         else if (pid == 0) {
-            printf("I am the child, my pid is %d\n", getpid());
+            if (i == 4) {cpid = getpid();}
+            printf("I am child #%d, my pid is %d\n", i, getpid());
             fflush(stdout);
             close(fd[0]); /* [0] to send, [1] to recieve */
+            break;
         } 
         else {
             /* TODO:Uses select() to determine if pipe has input */
+            ppid = getpid();
             fprintf(fh, "I am the parent, my pid is %d", getpid());
             printf("I am the parent. my pid is %d\n", getpid());
             fflush(stdout);
@@ -89,10 +79,18 @@ int main(int argc, char **argv) {
         }
     }
 
+    if (getpid() == ppid) { printf("I'm the parent, pid %d\n", getpid());}
+    if (getpid() == cpid) { printf("I'm child 5, pid %d\n", getpid());}
+
+
+
+    srand(time(NULL)); /* Seed after fork to ensure randomness */
     /*
     For 30 seconds, read user input,
     while () {
 
+        sleep(rand() % 3);
+        printf("Process %d waking back up\n", getpid());
     }
     */
 
@@ -100,7 +98,7 @@ int main(int argc, char **argv) {
     stop = mach_absolute_time();
     elapsed = (float)(stop-start) * tb.numer/tb.denom;
     elapsed /= 1000000000;
-    printf("Elapsed time for process 00:%d: %.4f\n", getpid(), elapsed);
+    printf("Elapsed time for process %d: 00:%.4f\n", getpid(), elapsed);
     fflush(stdout);
     fclose(fh);
     exit(0);
