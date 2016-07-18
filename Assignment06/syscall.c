@@ -21,22 +21,24 @@ int main(int argc, char **argv) {
      *       2. All data travelling through the pipe moves 
      *          through the kernel.
     */
-    int           i;              /* Reusable counter */
-    int           m1,m2,m3,m4,m5; /* Message counters */
-    FILE          *fh;            /* File Handler to write piped message */
-    char          data[20];       /* To store user input */
-    pid_t         pid;            /* Temp Process ID for control filter */
-    pid_t         p_pid;          /* Process ID for parent fork */ 
-    pid_t         c_pid[5];       /* Process ID for child forks */
+    int            i,rv;           /* Reusable counters/return values */
+    int            m1,m2,m3,m4,m5; /* Message counters */
+    FILE           *fh;            /* File Handler to write piped message */
+    char           data[20];       /* To store user input */
+    pid_t          pid;            /* Temp Process ID for control filter */
+    pid_t          p_pid;          /* Process ID for parent fork */ 
+    pid_t          c_pid[5];       /* Process ID for child forks */
 
     /* Time Management */
     static mach_timebase_info_data_t tb;
-    uint64_t start, stop;
-    float    elapsed; 
+    uint64_t       start, stop;
+    float          elapsed; 
+    struct timeval timeout;        /* To timeout running processes */
 
-    /* Start the clock */
+    /* Start/Set the clocks */
     mach_timebase_info(&tb);
     start = mach_absolute_time();
+    timeout.tv_sec = 30;           /* 30 Seconds */
 
     /* Prepare the File Descriptors for piping */
     struct fd_set fds;
@@ -82,39 +84,55 @@ int main(int argc, char **argv) {
         }
     }
 
+    m1=m2=m3=m4=m5=0;
     /*while (30 seconds) {*/
     srand(time(NULL));
     if (getpid() == c_pid[0]) {
         sprintf(data, "I am child %d\n", getpid());
+        m1++;
         //write(fds[0], data,sizeof(data));
     }    
     else 
     if (getpid() == c_pid[1]) {
         printf("I am child %d\n", getpid());
         fflush(stdout);
+        m2++;
     }
     else
     if (getpid() == c_pid[2]) {
         printf("I am child %d\n", getpid());
         fflush(stdout);
+        m3++;
     }
     else
     if (getpid() == c_pid[3]) {
         printf("I am child %d\n", getpid());
         fflush(stdout);
+        m4++;
     }
     else
     if (getpid() == c_pid[4]) {
         printf("I am child %d\n", getpid());
         printf("Awaiting input... ");
         fflush(stdout);
+        m5++;
         //scanf("%[^\n]%*c", &data);
     }
     else {
         // Parent
         printf("I am parent %d\n", getpid());
-        //fprintf(fh, "I am the parent, my pid is %d", getpid());
-        wait(NULL);
+        rv = select(5+1, &fds, NULL, NULL, &timeout): /* Think this goes here */
+        switch(rv) {
+            case -1:
+                fprintf(stderr, "ERROR; Unable to select file descriptor\n");
+                break;
+            case 1:
+                /* Select, read, print out */
+                //fprintf(fh, "I am the parent, my pid is %d", getpid());
+                break;
+            default:
+                printf("No data to be written\n");
+                break;
     }
     sleep(rand() % 3);
     //printf("Process %d waking back up\n", getpid());
