@@ -20,14 +20,13 @@ int main(int argc, char **argv) {
      *       2. All data travelling through the pipe moves 
      *          through the kernel.
     */
-    int      i;            /* Counter */
-    //int      fd[2];      /* File Descripter for the pipes */
-    pid_t    pid;          /* Temp Process ID for control filter */
-    pid_t    ppid;         /* Process ID for parent fork */ 
-    pid_t    cpid[5];      /* Process ID for child forks */
-    char     data;         /* Data to pass between pipes */
-    FILE     *fh;          /* File Handler */
-
+    int      i;              /* Reusable counter */
+    int      m1,m2,m3,m4,m5; /* Message counters */
+    FILE     *fh;            /* File Handler to write piped message */
+    char     data[20];       /* To store user input */
+    pid_t    pid;            /* Temp Process ID for control filter */
+    pid_t    p_pid;          /* Process ID for parent fork */ 
+    pid_t    c_pid[5];       /* Process ID for child forks */
 
     /* Time Management */
     static mach_timebase_info_data_t tb;
@@ -38,75 +37,80 @@ int main(int argc, char **argv) {
     mach_timebase_info(&tb);
     start = mach_absolute_time();
 
-    /* Accepting user input */
-    printf("Awaiting input... ");
-    scanf("%[^\n]%*c", &data);
-    printf("\n%s\n", &data);
-    fflush(stdout);
-
-    //pipe(fd); /* fd is equivilent to &fd[0] */
-
+    /* IO for parent process */
     fh = fopen("out/output.txt", "w");
     if (fh == NULL) {
         fprintf(stderr, "ERROR; Unable to open file\n");
         exit(1);
     }
 
+    /* Fork processes */
     for (i = 0; i < 5; i++) {
         if ((pid = fork()) < 0) {
             perror("ERROR; Unable to fork this process");
             exit(1);
         } 
         else if (pid == 0) {
-            printf("I am child #%d, my pid is %d\n", i, getpid());
-            fflush(stdout);
-            cpid[i] = getpid();
+            c_pid[i] = getpid();
             int fd[2]; /* File Descripter for the pipes */
             pipe(fd);
             close(fd[0]); /* [0] to send, [1] to recieve */
             break;
         } 
         else {
-            /* TODO:Uses select() to determine if pipe has input */
-            printf("I am the parent. my pid is %d\n", getpid());
-            fflush(stdout);
-            //fprintf(fh, "I am the parent, my pid is %d", getpid());
-            
-            /* Doing this 5 times is a little redundant.... */
-            ppid = getpid();
+            /* Doing this 5 times is a little redundant.... meh */
+            p_pid = getpid();
             int fd[2];
             pipe(fd);
             close(fd[1]); /* [0] to send, [1] to receive */
         }
     }
 
-    /* Test to see if we can access processes in the array */
-    for (i = 0; i < 5; i++) {
-        if (cpid[i] == getpid()) {
-            printf("I am %d, it is my turn to speak!\n", getpid());
-        }
+    /*while (30 seconds) {*/
+    srand(time(NULL));
+    if (getpid() == c_pid[0]) {
+        sprintf(data, "I am child %d\n", getpid());
+        write(fd[0], data,sizeof(data));
+    }    
+    else 
+    if (getpid() == c_pid[1]) {
+        printf("I am child %d\n", getpid());
+        fflush(stdout);
     }
-    if (ppid == getpid()) {
-        printf("I am %d, the almighty creator!\n", getpid());
+    else
+    if (getpid() == c_pid[2]) {
+        printf("I am child %d\n", getpid());
+        fflush(stdout);
     }
-
-
-    srand(time(NULL)); /* Seed after fork to ensure randomness */
-    /*
-    For 30 seconds, read user input,
-    while () {
-
-        sleep(rand() % 3);
-        printf("Process %d waking back up\n", getpid());
+    else
+    if (getpid() == c_pid[3]) {
+        printf("I am child %d\n", getpid());
+        fflush(stdout);
     }
-    */
+    else
+    if (getpid() == c_pid[4]) {
+        printf("I am child %d\n", getpid());
+        printf("Awaiting input... ");
+        fflush(stdout);
+        //scanf("%[^\n]%*c", &data);
+    }
+    else {
+        // Parent
+        printf("I am parent %d\n", getpid());
+        //fprintf(fh, "I am the parent, my pid is %d", getpid());
+        wait(NULL);
+    }
+    sleep(rand() % 3);
+    //printf("Process %d waking back up\n", getpid());
+    /*}*/
 
     /* Calculate elapsed time and format */
     stop = mach_absolute_time();
     elapsed = (float)(stop-start) * tb.numer/tb.denom;
     elapsed /= 1000000000;
-    //printf("Elapsed time for process %d: 00:%.4f\n", getpid(), elapsed);
-    //fflush(stdout);
+    printf("Elapsed time for process %d: 00:%.4f\n", getpid(), elapsed);
+    fflush(stdout);
+
     fclose(fh);
     exit(0);
 }
