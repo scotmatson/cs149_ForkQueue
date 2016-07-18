@@ -23,6 +23,12 @@ class Page(object):
         self.last_accessed = last_accessed
         self.order_assigned = 0
         self.frequency = 0
+        
+    def __str__(self):
+        '''
+        Python toString for page printing
+        '''
+        return '%s :: %s' % (self.name, self.process_id)
 
     def store(self, data):
         '''

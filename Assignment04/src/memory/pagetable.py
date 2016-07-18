@@ -25,62 +25,37 @@ class PageTable(object):
         for p in orderedDict:
             if p == process_id:
                 return orderedDict[process_id]
+                
 
     def print_memory_map(self):
         '''
+        Used to print all pages currently in memory
+        or on the disk
         '''
-        counter = 0
-        output_string = "\n\tPages in Memory Map:\n"
-        entry = "     "
-        line_counter = 2
-        map_line_string = "Count" + str(line_counter) + "\t\t"
-
+        memory_output = '\n\tPages in Memory:'
         for key in self.memory:
-            counter += 1
-
-            if counter < 3:
-                map_line_string += (key + " :: " + self.memory[key].process_id + entry)
-            else:
-                output_string += (map_line_string + "\n")
-                counter = 0
-                line_counter += 2
-                map_line_string = "Count" + str(line_counter) + "\t\t"
-
-        print(output_string)
-
-    def print_disk(self):
-        '''
-        '''
-        counter = 0
-        output_string = "\n\tPages in Disk:\n"
-        entry = "     "
-        line_counter = 2
-        map_line_string = "Count" + str(line_counter) + "\t\t"
-
+            memory_output += '\n\t' + str(self.memory[key])
+            
+        disk_output = '\n\n\tPages on Disk:'
         for key in self.disk:
-            counter += 1
+            disk_output += '\n\t' + str(self.disk[key])
 
-            if counter < 3:
-                map_line_string += (key + " :: " + self.disk[key].process_id + entry)
-            else:
-                output_string += (map_line_string + "\n")
-                counter = 0
-                line_counter += 2
-                map_line_string = "Count" + str(line_counter) + "\t\t"
-        print(output_string)
+        output = memory_output + disk_output
+        return output
 
-    def touch(self, page):
+
+    def touch(self, page, clock):
         '''
-        Adds or relocates a page to the front of the memory
-
-        Arguments:
-            page (Page): The page that will be added to memory
+        Touch is called any time a page is accessed
         '''
-        if page.name in self.memory.keys():
-            del self.memory[page.name]
-            self.memory.update({page.name: page})
-        elif page.name in self.disk.keys():
+        # update the time of access for that page
+        page.last_accessed = clock
+        # increase that page's frequency
+        page.frequency += 1
+        # if page in memory, update page stats
+        if page.name not in self.memory.keys():
+            self.memory[page.name] = page
+        # if page had been evicted to disk and is currently there
+        if page.name in self.disk.keys():
             del self.disk[page.name]
-            self.memory.update({page.name: page})
-        else:
-            self.memory.update({page.name: page})
+

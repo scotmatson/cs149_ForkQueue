@@ -45,26 +45,38 @@ def generate_processes(number_of_processes, max_arrival, min_duration, max_durat
     '''
     Creates processes and randomly assigns them pages
     '''
+    page_set = set([])
+    page_name_index = 0
     out = list()
     process_name_index = 0
+
+    # While loop to add page_names to set to avoid duplicates
+    while len(page_set) < MAX_PAGES_NEEDED:
+        page_name_num = random.randint(1000, 9999)
+        page_name_string = ''.join(random.sample(string.ascii_lowercase, 4))
+        page_name = page_name_string + str(page_name_num)
+        page_set.add(page_name)
+
+    # Create all of the processes
     for x in range(number_of_processes):
         name = "P" + str(process_name_index)
         arrival_time = random.randint(0, max_arrival)
         duration = random.randint(min_duration, max_duration)
         number_of_pages = random.choice(process_size)
-
         process = Process(name, arrival_time, duration, 0)
 
+        # Add pages to all of the processes
         for x in range(number_of_pages):
-            page_name_num = random.randint(0, 1000)
-            page_name_string = ''.join(random.sample(string.ascii_lowercase, 5))
-            page_name = page_name_string + str(page_name_num)
             last_accessed = 0
-
-            new_page = Page(page_name, process.name, last_accessed)
+            this_page_name = page_set.pop()
+            #double check to make sure all instances are definitely gone
+            if this_page_name in page_set:
+                page_set.remove(this_page_name)
+            new_page = Page(this_page_name, process.name, last_accessed)
+            new_page.order_assigned = page_name_index
             process.pages.append(new_page)
+            page_name_index += 1
 
-        # Must test pages, new creation, this will break
         out.append(process)
         process_name_index += 1
     return out
@@ -126,12 +138,9 @@ def access_page(process, clock, page_table, page):
 
     global rp_hits
     global rp_total_accesses
-    # update the time of access for that page
-    page.last_accessed = clock
-    # increase that page's frequency
-    page.frequency += 1
-    # add the page to the page_table.memory
-    page_table.touch(page)
+    
+    # Touch this page now
+    page_table.touch(page, clock)
 
     # Page replacement event, use page replacement algorithms
     evicted_page = None
@@ -140,13 +149,6 @@ def access_page(process, clock, page_table, page):
     page_in_memory = "In Memory"
     # if there are less than 4 slots left in page_table.memory, replace a page using an algo
     if len(page_table.memory) > MAX_MEMORY_USED:
-        # Only print stats and memory map for 1 run of each algorithm
-        run = [1, 6, 11, 16, 21]
-        if main_count in run:
-            print('##################################################################')
-            print('#### HOLD UP: LEN(PAGE_TABLE.MEMORY) SHOULD 98 RIGHT NOW #########')
-            print('#### LEN(PAGE_TABLE.MEMORY):  ' + str(len(page_table.memory)) + ' #################################')
-
         if main_count <= 5:
             evicted_page = algorithms.first_in_first_out(page_table)
         elif 5 < main_count <= 10:
@@ -186,13 +188,12 @@ def access_page(process, clock, page_table, page):
         if evicted_page is None:
             rp_hits += 1
 
-    # Only print stats and memory map for 1 run of each algorithm
+    # Only print stats for 1 run of each algorithm
     run = [1, 6, 11, 16, 21]
     if main_count in run:
-        print('Time Stamp: ', clock/1000, '  Process Name: ', process.name, '  Page Referenced: ', page.name, '  Page: ', page_in_memory, '  Evicted Page: ', evicted_page_process, ':', evicted_page_name)
-        # print memory map at this time
-        page_table.print_memory_map()
-        page_table.print_disk()
+        print('------------------ PAGE REFERENCE EVENT --------------------------')
+        print('Time Stamp: ', clock/1000, '  Process Name: ', process.name, '  Page Referenced: ', page.name)
+        print('  Page: ', page_in_memory, '  Evicted Page: ', evicted_page_process, '::', evicted_page_name)
 
 def main():
     '''
@@ -215,18 +216,18 @@ def main():
             MAX_DURATION,
             PROCESS_SIZE)
 
-        hash_border = 20*'#'
+        hash_border = 30*'#'
         # Only print title at the begining of each algorithms run
         if main_count == 1:
-            print('%s FIRST IN FIRST OUT %s' % (hash_border, hash_border))
+            print('\n\n\n%s FIRST IN FIRST OUT %s' % (hash_border, hash_border))
         elif main_count == 6:
-            print('%s LEAST FREQUENTLY USED %s' % (hash_border, hash_border))
+            print('\n\n\n%s LEAST FREQUENTLY USED %s' % (hash_border, hash_border))
         elif main_count == 11:
-            print('%s LEAST RECENTLY USED %s' % (hash_border, hash_border))
+            print('\n\n\n%s LEAST RECENTLY USED %s' % (hash_border, hash_border))
         elif main_count == 16:
-            print('%s MOST FREQUENTLY USED %s' % (hash_border, hash_border))
+            print('\n\n\n%s MOST FREQUENTLY USED %s' % (hash_border, hash_border))
         elif main_count == 21:
-            print('%s RANDOM PICK %s' % (hash_border, hash_border))
+            print('\n\n\n%s RANDOM PICK %s' % (hash_border, hash_border))
 
         clock = 0
         for x in range(EXECUTION_TIME):
@@ -234,12 +235,6 @@ def main():
             for p in process_list:
                 # peek at the process_list, check if the next arrival_time == clock
                 if p.arrival_time == clock:
-
-                    # Only print stats and memory map for 1 run of each algorithm
-                    run = [1, 6, 11, 16, 21]
-                    if main_count in run:
-                        print("######### New Process Arrival Event: ", p.name, " ############")
-
                     # If so, capture that process and remove it from the process_list
                     new_process = p
                     process_list.remove(p)
@@ -257,10 +252,6 @@ def main():
 
                     # Add the new_process to the active_process_list
                     active_process_list[new_process.name] = new_process
-
-                    # Decrement that process's duration
-                    new_process.duration = new_process.duration - 1
-
                     ######################################################################################
                     #  PAGE REPLACE EVENT (1): ADDING PAGES OF A NEW PROCESS
                     #   Newly arrived processes will have all of their pages added into memory using the 
@@ -269,15 +260,35 @@ def main():
                     # add all of that process's pages, one by one, into memory using touch
                     for page in new_process.pages:
                         access_page(p, clock, page_table, page)
+                    
+                    # Only print stats and memory map for 1 run of each algorithm
+                    run = [1, 6, 11, 16, 21]
+                    if main_count in run:
+                        print('\n$$$$$$$$$$$$$$$$$$ NEW PROCESS ARRIVAL EVENT $$$$$$$$$$$$$$$$$$$$$')
+                        print('\t\tTime Stamp: ', clock/1000, '  Process Name: ', new_process.name)
+                        print('\t\t  Size: ', len(new_process.pages), 'MB', '  Duration: ', new_process.duration)
+                        print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+                        # Print the memory map at this time
+                        print(page_table.print_memory_map())
 
+                    # Decrement that process's duration
+                    new_process.duration = new_process.duration - 1
 
                     # if the process's duration is 0, remove all of its pages from memory
                     if new_process.duration <= 0:
-                        if main_count == 1 or main_count == 6 or main_count == 11 or main_count == 16 or main_count == 21:
-                            print("########### Process Exit Event: ", new_process.name, " #############")
                         new_process.exit_time = clock
                         new_process.clear(page_table)
                         del active_process_list[new_process.name]
+                        
+                        # Only print stats and memory map for 1 run of each algorithm
+                        run = [1, 6, 11, 16, 21]
+                        if main_count in run:
+                            print('\n$$$$$$$$$$$$$$$$$$ NEW PROCESS EXIT EVENT $$$$$$$$$$$$$$$$$$$$$')
+                            print('\t\tTime Stamp: ', clock/1000, '  Process Name: ', new_process.name)
+                            print('\t\t  Size: ', len(new_process.pages), 'MB', '  Duration:  0')
+                            print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+                            # Print the memory map at this time
+                            print(page_table.print_memory_map())
             # end of for p in process_list: loop
 
             # increment the master clock counter
@@ -288,11 +299,10 @@ def main():
                 # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF RUNNING PROCESSES
                 #   The assignment HW4 requires that at every 100ms, the OS selects a page from a process; 
                 #   this process will try to access a single random page from its own page list in 
-                #   process.pages. To fetch this page for the process, the OS will again call touch on 
+                #   process.pages. To fetch this page for the process, the OS will call touch on 
                 #   that page, resulting in another opportunity to replace a page.
                 ######################################################################################
                 #get the correct page using locality_of_reference
-                #for key, active_process in active_process_list.items():
                 for key in list(active_process_list.keys()):
                     active_process = active_process_list[key]
                     # decrement the duration counter for the current process
