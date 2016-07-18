@@ -88,27 +88,35 @@ int main(int argc, char **argv) {
     /*while (30 seconds) {*/
     srand(time(NULL));
     if (getpid() == c_pid[0]) {
-        sprintf(data, "I am child %d\n", getpid());
         m1++;
-        //write(fds[0], data,sizeof(data));
+        stop = mach_absolute_time();
+        elapsed = (float)(stop-start) * tb.numer/tb.denom;
+        elapsed /= 1000000000;
+        // Send through pipe
     }    
     else 
     if (getpid() == c_pid[1]) {
-        printf("I am child %d\n", getpid());
-        fflush(stdout);
         m2++;
+        stop = mach_absolute_time();
+        elapsed = (float)(stop-start) * tb.numer/tb.denom;
+        elapsed /= 1000000000;
+        // Send through pipe
     }
     else
     if (getpid() == c_pid[2]) {
-        printf("I am child %d\n", getpid());
-        fflush(stdout);
         m3++;
+        stop = mach_absolute_time();
+        elapsed = (float)(stop-start) * tb.numer/tb.denom;
+        elapsed /= 1000000000;
+        // Send through pipe
     }
     else
     if (getpid() == c_pid[3]) {
-        printf("I am child %d\n", getpid());
-        fflush(stdout);
         m4++;
+        stop = mach_absolute_time();
+        elapsed = (float)(stop-start) * tb.numer/tb.denom;
+        elapsed /= 1000000000;
+        // Send through pipe
     }
     else
     if (getpid() == c_pid[4]) {
@@ -117,6 +125,7 @@ int main(int argc, char **argv) {
         fflush(stdout);
         m5++;
         //scanf("%[^\n]%*c", &data);
+        // Send through pipe
     }
     else {
         // Parent
@@ -137,13 +146,6 @@ int main(int argc, char **argv) {
     sleep(rand() % 3);
     //printf("Process %d waking back up\n", getpid());
     /*}*/
-
-    /* Calculate elapsed time and format */
-    stop = mach_absolute_time();
-    elapsed = (float)(stop-start) * tb.numer/tb.denom;
-    elapsed /= 1000000000;
-    printf("Elapsed time for process %d: 00:%.4f\n", getpid(), elapsed);
-    fflush(stdout);
 
     fclose(fh);
     exit(0);
