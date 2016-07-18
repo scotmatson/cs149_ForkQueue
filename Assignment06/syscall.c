@@ -134,7 +134,7 @@ int main(int argc, char **argv) {
         else {
             // Parent
             printf("I am parent %d\n", getpid());
-            rv = select(5+1, &fds, NULL, NULL, &timeout): /* Think this goes here */
+            rv = select(5+1, &fds, NULL, NULL, &timeout); /* Think this goes here */
             switch(rv) {
                 case -1:
                     fprintf(stderr, "ERROR; Unable to select file descriptor\n");
@@ -149,6 +149,7 @@ int main(int argc, char **argv) {
                 default:
                     printf("No data to be written\n");
                     break;
+            }
         }
         sleep(rand() % 3);
         printf("Process %d waking back up\n", getpid());
