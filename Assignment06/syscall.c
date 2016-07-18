@@ -35,12 +35,10 @@ int main(int argc, char **argv) {
     static mach_timebase_info_data_t tb;
     uint64_t       start, stop;
     float          elapsed; 
-    struct timeval timeout;        /* To timeout running processes */
 
     /* Start/Set the clocks */
     mach_timebase_info(&tb);
     start = mach_absolute_time();
-    timeout.tv_sec = 30;           /* 30 Seconds */
 
     /* Prepare the File Descriptors for piping */
     struct fd_set fds;
@@ -122,7 +120,7 @@ int main(int argc, char **argv) {
         }
         else
         if (getpid() == c_pid[4]) {
-            printf("Awaiting input... ");
+            printf("Process %d is awaiting input... ", getpid());
             fflush(stdout);
             m5++;
             stop = mach_absolute_time();
@@ -134,7 +132,7 @@ int main(int argc, char **argv) {
         else {
             // Parent
             printf("I am parent %d\n", getpid());
-            rv = select(5+1, &fds, NULL, NULL, &timeout); /* Think this goes here */
+            rv = select(6, &fds, NULL, NULL, NULL); /* Think this goes here */
             switch(rv) {
                 case -1:
                     fprintf(stderr, "ERROR; Unable to select file descriptor\n");
