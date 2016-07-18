@@ -4,6 +4,7 @@
 #include <stdlib.h>   /* for exit(), srand(), rand() */
 #include <time.h>     /* For seeing srand() */
 #include <mach/mach_time.h> 
+#include <sys/select.h>
 
 int main(int argc, char **argv) {
     printf("*** Executing syscall.c ***\n\n");
@@ -20,13 +21,13 @@ int main(int argc, char **argv) {
      *       2. All data travelling through the pipe moves 
      *          through the kernel.
     */
-    int      i;              /* Reusable counter */
-    int      m1,m2,m3,m4,m5; /* Message counters */
-    FILE     *fh;            /* File Handler to write piped message */
-    char     data[20];       /* To store user input */
-    pid_t    pid;            /* Temp Process ID for control filter */
-    pid_t    p_pid;          /* Process ID for parent fork */ 
-    pid_t    c_pid[5];       /* Process ID for child forks */
+    int           i;              /* Reusable counter */
+    int           m1,m2,m3,m4,m5; /* Message counters */
+    FILE          *fh;            /* File Handler to write piped message */
+    char          data[20];       /* To store user input */
+    pid_t         pid;            /* Temp Process ID for control filter */
+    pid_t         p_pid;          /* Process ID for parent fork */ 
+    pid_t         c_pid[5];       /* Process ID for child forks */
 
     /* Time Management */
     static mach_timebase_info_data_t tb;
@@ -36,6 +37,16 @@ int main(int argc, char **argv) {
     /* Start the clock */
     mach_timebase_info(&tb);
     start = mach_absolute_time();
+
+    /* Prepare the File Descriptors for piping */
+    struct fd_set fds;
+    int           fd1,fd2,fd3,fd4,fd5;
+    FD_ZERO(&fds);
+    FD_SET(fd1, &fds);
+    FD_SET(fd2, &fds);
+    FD_SET(fd3, &fds);
+    FD_SET(fd4, &fds);
+    FD_SET(fd5, &fds);
 
     /* IO for parent process */
     fh = fopen("out/output.txt", "w");
@@ -53,6 +64,7 @@ int main(int argc, char **argv) {
         else if (pid == 0) {
             c_pid[i] = getpid();
             int fd[2]; /* File Descripter for the pipes */
+            //fds[0] = *fd;
             pipe(fd);
             close(fd[0]); /* [0] to send, [1] to recieve */
             break;
@@ -70,7 +82,7 @@ int main(int argc, char **argv) {
     srand(time(NULL));
     if (getpid() == c_pid[0]) {
         sprintf(data, "I am child %d\n", getpid());
-        write(fd[0], data,sizeof(data));
+        //write(fds[0], data,sizeof(data));
     }    
     else 
     if (getpid() == c_pid[1]) {
