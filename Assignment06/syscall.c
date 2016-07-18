@@ -40,13 +40,17 @@ int main(int argc, char **argv) {
 
     /* Prepare the File Descriptors for piping */
     struct fd_set fds;
-    int           fd1,fd2,fd3,fd4,fd5;
+    int           fd1[2],
+                  fd2[2],
+                  fd3[2],
+                  fd4[2],
+                  fd5[2];
     FD_ZERO(&fds);
-    FD_SET(fd1, &fds);
-    FD_SET(fd2, &fds);
-    FD_SET(fd3, &fds);
-    FD_SET(fd4, &fds);
-    FD_SET(fd5, &fds);
+    FD_SET(*fd1, &fds);
+    FD_SET(*fd2, &fds);
+    FD_SET(*fd3, &fds);
+    FD_SET(*fd4, &fds);
+    FD_SET(*fd5, &fds);
 
     /* IO for parent process */
     fh = fopen("out/output.txt", "w");
