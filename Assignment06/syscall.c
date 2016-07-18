@@ -120,10 +120,12 @@ int main(int argc, char **argv) {
     }
     else
     if (getpid() == c_pid[4]) {
-        printf("I am child %d\n", getpid());
         printf("Awaiting input... ");
         fflush(stdout);
         m5++;
+        stop = mach_absolute_time();
+        elapsed = (float)(stop-start) * tb.numer/tb.denom;
+        elapsed /= 1000000000;
         //scanf("%[^\n]%*c", &data);
         // Send through pipe
     }
@@ -136,7 +138,10 @@ int main(int argc, char **argv) {
                 fprintf(stderr, "ERROR; Unable to select file descriptor\n");
                 break;
             case 1:
-                /* Select, read, print out */
+                stop = mach_absolute_time();
+                elapsed = (float)(stop-start) * tb.numer/tb.denom;
+                elapsed /= 1000000000;
+                /* read proc data */
                 //fprintf(fh, "I am the parent, my pid is %d", getpid());
                 break;
             default:
