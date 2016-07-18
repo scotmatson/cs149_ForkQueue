@@ -128,8 +128,8 @@ int main(int argc, char **argv) {
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= 1000000000;
-        //scanf("%[^\n]%*c", &data);
-        // Send through pipe
+            //scanf("%[^\n]%*c", &data);
+            // Send through pipe
         }
         else {
             // Parent
