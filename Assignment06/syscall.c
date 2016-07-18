@@ -1,10 +1,12 @@
 #define _POSIX_C_SOURCE 200809L
+#define PROCS 5
 #include <stdio.h>    /* for printf() */
 #include <unistd.h>   /* for pipe(), fork(), and close() */
 #include <stdlib.h>   /* for exit(), srand(), rand() */
 #include <time.h>     /* For seeing srand() */
 #include <mach/mach_time.h> 
 #include <sys/select.h>
+
 
 int main(int argc, char **argv) {
     printf("*** Executing syscall.c ***\n\n");
@@ -27,7 +29,7 @@ int main(int argc, char **argv) {
     char           data[20];       /* To store user input */
     pid_t          pid;            /* Temp Process ID for control filter */
     pid_t          p_pid;          /* Process ID for parent fork */ 
-    pid_t          c_pid[5];       /* Process ID for child forks */
+    pid_t          c_pid[PROCS];       /* Process ID for child forks */
 
     /* Time Management */
     static mach_timebase_info_data_t tb;
@@ -62,7 +64,7 @@ int main(int argc, char **argv) {
     }
 
     /* Fork processes */
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < PROCS; i++) {
         if ((pid = fork()) < 0) {
             perror("ERROR; Unable to fork this process");
             exit(1);
@@ -85,73 +87,73 @@ int main(int argc, char **argv) {
     }
 
     m1=m2=m3=m4=m5=0;
-    /*while (30 seconds) {*/
-    srand(time(NULL));
-    if (getpid() == c_pid[0]) {
-        m1++;
-        stop = mach_absolute_time();
-        elapsed = (float)(stop-start) * tb.numer/tb.denom;
-        elapsed /= 1000000000;
-        // Send through pipe
-    }    
-    else 
-    if (getpid() == c_pid[1]) {
-        m2++;
-        stop = mach_absolute_time();
-        elapsed = (float)(stop-start) * tb.numer/tb.denom;
-        elapsed /= 1000000000;
-        // Send through pipe
-    }
-    else
-    if (getpid() == c_pid[2]) {
-        m3++;
-        stop = mach_absolute_time();
-        elapsed = (float)(stop-start) * tb.numer/tb.denom;
-        elapsed /= 1000000000;
-        // Send through pipe
-    }
-    else
-    if (getpid() == c_pid[3]) {
-        m4++;
-        stop = mach_absolute_time();
-        elapsed = (float)(stop-start) * tb.numer/tb.denom;
-        elapsed /= 1000000000;
-        // Send through pipe
-    }
-    else
-    if (getpid() == c_pid[4]) {
-        printf("Awaiting input... ");
-        fflush(stdout);
-        m5++;
-        stop = mach_absolute_time();
-        elapsed = (float)(stop-start) * tb.numer/tb.denom;
-        elapsed /= 1000000000;
+    /* do { */
+        srand(time(NULL));
+        if (getpid() == c_pid[0]) {
+            m1++;
+            stop = mach_absolute_time();
+            elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            elapsed /= 1000000000;
+            // Send through pipe
+        }    
+        else 
+        if (getpid() == c_pid[1]) {
+            m2++;
+            stop = mach_absolute_time();
+            elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            elapsed /= 1000000000;
+            // Send through pipe
+        }
+        else
+        if (getpid() == c_pid[2]) {
+            m3++;
+            stop = mach_absolute_time();
+            elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            elapsed /= 1000000000;
+            // Send through pipe
+        }
+        else
+        if (getpid() == c_pid[3]) {
+            m4++;
+            stop = mach_absolute_time();
+            elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            elapsed /= 1000000000;
+            // Send through pipe
+        }
+        else
+        if (getpid() == c_pid[4]) {
+            printf("Awaiting input... ");
+            fflush(stdout);
+            m5++;
+            stop = mach_absolute_time();
+            elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            elapsed /= 1000000000;
         //scanf("%[^\n]%*c", &data);
         // Send through pipe
-    }
-    else {
-        // Parent
-        printf("I am parent %d\n", getpid());
-        rv = select(5+1, &fds, NULL, NULL, &timeout): /* Think this goes here */
-        switch(rv) {
-            case -1:
-                fprintf(stderr, "ERROR; Unable to select file descriptor\n");
-                break;
-            case 1:
-                stop = mach_absolute_time();
-                elapsed = (float)(stop-start) * tb.numer/tb.denom;
-                elapsed /= 1000000000;
-                /* read proc data */
-                //fprintf(fh, "I am the parent, my pid is %d", getpid());
-                break;
-            default:
-                printf("No data to be written\n");
-                break;
-    }
-    sleep(rand() % 3);
-    //printf("Process %d waking back up\n", getpid());
-    /*}*/
+        }
+        else {
+            // Parent
+            printf("I am parent %d\n", getpid());
+            rv = select(5+1, &fds, NULL, NULL, &timeout): /* Think this goes here */
+            switch(rv) {
+                case -1:
+                    fprintf(stderr, "ERROR; Unable to select file descriptor\n");
+                    break;
+                case 1:
+                    stop = mach_absolute_time();
+                    elapsed = (float)(stop-start) * tb.numer/tb.denom;
+                    elapsed /= 1000000000;
+                    /* read proc data */
+                    //fprintf(fh, "I am the parent, my pid is %d", getpid());
+                    break;
+                default:
+                    printf("No data to be written\n");
+                    break;
+        }
+        sleep(rand() % 3);
+        printf("Process %d waking back up\n", getpid());
+    /*} while(30 second counter); */
 
-    fclose(fh);
+    fclose(fh); 
     exit(0);
 }
