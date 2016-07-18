@@ -93,6 +93,7 @@ int main(int argc, char **argv) {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= 1000000000;
             // Send through pipe
+
         }    
         else 
         if (getpid() == c_pid[1]) {
@@ -120,7 +121,7 @@ int main(int argc, char **argv) {
         }
         else
         if (getpid() == c_pid[4]) {
-            printf("Process %d is awaiting input... ", getpid());
+            printf("Process %d is awaiting input...\n>> ", getpid());
             fflush(stdout);
             m5++;
             stop = mach_absolute_time();
@@ -138,6 +139,7 @@ int main(int argc, char **argv) {
                     fprintf(stderr, "ERROR; Unable to select file descriptor\n");
                     break;
                 case 1:
+                    printf("Parent is going to read from the pipe\n");
                     stop = mach_absolute_time();
                     elapsed = (float)(stop-start) * tb.numer/tb.denom;
                     elapsed /= 1000000000;
@@ -145,7 +147,7 @@ int main(int argc, char **argv) {
                     //fprintf(fh, "I am the parent, my pid is %d", getpid());
                     break;
                 default:
-                    printf("No data to be written\n");
+                    printf("No data to be read from the pipe\n");
                     break;
             }
         }
