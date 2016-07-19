@@ -238,6 +238,15 @@ def main():
                     # If so, capture that process and remove it from the process_list
                     new_process = p
                     process_list.remove(p)
+
+                    # Only print stats and memory map for 1 run of each algorithm
+                    run = [1, 6, 11, 16, 21]
+                    if main_count in run:
+                        print('\n$$$$$$$$$$$$$$$$$$ NEW PROCESS ARRIVAL EVENT $$$$$$$$$$$$$$$$$$$$$')
+                        print('\t\tTime Stamp: ', clock/1000, '  Process Name: ', new_process.name)
+                        print('\t\t  Size: ', len(new_process.pages), 'MB', '  Duration: ', new_process.duration)
+                        print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+
                     # Add to total_processes counts
                     if main_count <= 5:
                         fifo_total_processes += 1
@@ -261,13 +270,9 @@ def main():
                     for page in new_process.pages:
                         access_page(p, clock, page_table, page)
                     
-                    # Only print stats and memory map for 1 run of each algorithm
+                    # Only print memory map for 1 run of each algorithm after pages have been accessed
                     run = [1, 6, 11, 16, 21]
                     if main_count in run:
-                        print('\n$$$$$$$$$$$$$$$$$$ NEW PROCESS ARRIVAL EVENT $$$$$$$$$$$$$$$$$$$$$')
-                        print('\t\tTime Stamp: ', clock/1000, '  Process Name: ', new_process.name)
-                        print('\t\t  Size: ', len(new_process.pages), 'MB', '  Duration: ', new_process.duration)
-                        print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
                         # Print the memory map at this time
                         print(page_table.print_memory_map())
 
@@ -287,7 +292,7 @@ def main():
                             print('\t\tTime Stamp: ', clock/1000, '  Process Name: ', new_process.name)
                             print('\t\t  Size: ', len(new_process.pages), 'MB', '  Duration:  0')
                             print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-                            # Print the memory map at this time
+                            # Print the memory map at this time after process is removed
                             print(page_table.print_memory_map())
             # end of for p in process_list: loop
 
