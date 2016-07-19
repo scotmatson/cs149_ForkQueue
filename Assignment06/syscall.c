@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     fflush(stdout);
  
     int            i, retval;      /* Reusable counters/return values */
-    int            m1,m2,m3,m4,m5; /* Message counters */
+    int            m0,m1,m2,m3,m4; /* Message counters */
     char           readBuffer[20]; /* Buffer for parent to read from pipe */
     FILE           *fh;            /* File Handler to write piped message */
 
@@ -74,50 +74,59 @@ int main(int argc, char **argv) {
     }
 
     /* Last chance to initialize any variables */
-    m1=m2=m3=m4=m5=0;
-    /* do { */
+    m0=m1=m2=m3=m4=0;
+    /*do {*/
         /* Loop runs for 30 seconds (real time) */
         srand(time(NULL));
         if (getpid() == c_pid[0]) {
-            m1++;
+            m0++;
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= 1000000000;
 
             /* Sending through pipe */
-            //char msg[] = "Message from child.\n";
-            //printf("Child: Sending my message\n");
-            //write(fd1[0], msg, sizeof(msg));
-            //printf("Child: Message has been sent\n");
+            char buf0[30];
+            snprintf(buf0, sizeof(buf0), "0:%02f: Child 1 message %d\n", elapsed, m0);
+            write(*fds[0], buf0, sizeof(buf0));
         }    
         else 
         if (getpid() == c_pid[1]) {
+            m1++;
+            stop = mach_absolute_time();
+            elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            elapsed /= 1000000000;
+            // Send through pipe
+            char buf1[30];
+            snprintf(buf1, sizeof(buf1), "0:%02f: Child 2 message %d\n", elapsed, m1);
+            write(*fds[1], buf1, sizeof(buf1));
+        }
+        else
+        if (getpid() == c_pid[2]) {
             m2++;
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= 1000000000;
             // Send through pipe
+            char buf2[30];
+            snprintf(buf2, sizeof(buf2), "0:%02f: Child 3 message %d\n", elapsed, m2);
+            write(*fds[2], buf2, sizeof(buf2));
         }
         else
-        if (getpid() == c_pid[2]) {
+        if (getpid() == c_pid[3]) {
             m3++;
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= 1000000000;
             // Send through pipe
-        }
-        else
-        if (getpid() == c_pid[3]) {
-            m4++;
-            stop = mach_absolute_time();
-            elapsed = (float)(stop-start) * tb.numer/tb.denom;
-            elapsed /= 1000000000;
-            // Send through pipe
+            char buf3[30];
+            snprintf(buf3, sizeof(buf3), "0:%02f: Child 4 message %d\n", elapsed, m3);
+            printf("%s\n", buf3);
+            write(*fds[3], buf3, sizeof(buf3));
         }
         else
         if (getpid() == c_pid[4]) {
             //printf("Process %d is awaiting input...\n>> ", getpid());
-            m5++;
+            m4++;
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= 1000000000;
@@ -129,6 +138,7 @@ int main(int argc, char **argv) {
         }
         else {
             // Parent
+            i++;
             retval = select(6, &socket, NULL, NULL, &timeout); /* Think this goes here */
             switch(retval) {
                 case -1:
@@ -140,11 +150,8 @@ int main(int argc, char **argv) {
                     elapsed = (float)(stop-start) * tb.numer/tb.denom;
                     elapsed /= 1000000000;
                     /* read proc data */
-                    printf("Parent: Reading from the pipe!\n");
                     read(p_fd[0], readBuffer, sizeof(readBuffer));
-                    printf("Parent: %s\n", readBuffer);
-                    printf("Parent: The pipe has been read!\n");
-                    //fprintf(fh, "I am the parent, my pid is %d", getpid());
+                    fprintf(fh, "%s\n", readBuffer);
                     break;
                 default:
                     printf("No data to be read from the pipe\n");
@@ -152,8 +159,7 @@ int main(int argc, char **argv) {
             }
         }
         sleep(rand() % 3);
-        //printf("Process %d waking back up\n", getpid());
-    /*} while(30 second counter); */
+    /*} while(i<10);*/
 
     fclose(fh); 
     exit(0);
