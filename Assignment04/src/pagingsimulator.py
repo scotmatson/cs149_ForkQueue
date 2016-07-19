@@ -41,7 +41,7 @@ lru_hits = lru_total_accesses = lru_total_processes = 0
 mfu_hits = mfu_total_accesses = mfu_total_processes = 0
 rp_hits = rp_total_accesses = rp_total_processes = 0
 
-def generate_processes(number_of_processes, max_arrival, min_duration, max_duration, process_size):
+def generate_processes(number_of_processes, max_arrival, duration, process_size):
     '''
     Creates processes and randomly assigns them pages
     '''
@@ -61,9 +61,9 @@ def generate_processes(number_of_processes, max_arrival, min_duration, max_durat
     for x in range(number_of_processes):
         name = "P" + str(process_name_index)
         arrival_time = random.randint(0, max_arrival)
-        duration = random.randint(min_duration, max_duration)
+        this_duration = random.choice(duration)
         number_of_pages = random.choice(process_size)
-        process = Process(name, arrival_time, duration, 0)
+        process = Process(name, arrival_time, this_duration, 0)
 
         # Add pages to all of the processes
         for x in range(number_of_pages):
@@ -209,14 +209,14 @@ def main():
     while main_count <= 25:
         active_process_list = OrderedDict()
         page_table = PageTable()
+        # Generate all of the processes ahead of time
         process_list = generate_processes(
             NUMBER_OF_PROCESSES,
             MAX_ARRIVAL_TIME,
-            MIN_DURATION,
-            MAX_DURATION,
+            DURATION,
             PROCESS_SIZE)
 
-        hash_border = 30*'#'
+        hash_border = 50*'#'
         # Only print title at the begining of each algorithms run
         if main_count == 1:
             print('\n\n\n%s FIRST IN FIRST OUT %s' % (hash_border, hash_border))
@@ -238,8 +238,10 @@ def main():
                     # If so, capture that process and remove it from the process_list
                     new_process = p
                     process_list.remove(p)
+                    # Add the new_process to the active_process_list
+                    active_process_list[new_process.name] = new_process
 
-                    # Only print stats and memory map for 1 run of each algorithm
+                    # Only print stats for 1 run of each algorithm
                     run = [1, 6, 11, 16, 21]
                     if main_count in run:
                         print('\n$$$$$$$$$$$$$$$$$$ NEW PROCESS ARRIVAL EVENT $$$$$$$$$$$$$$$$$$$$$')
@@ -259,32 +261,36 @@ def main():
                     else:
                         rp_total_processes += 1
 
-                    # Add the new_process to the active_process_list
-                    active_process_list[new_process.name] = new_process
-                    ######################################################################################
-                    #  PAGE REPLACE EVENT (1): ADDING PAGES OF A NEW PROCESS
-                    #   Newly arrived processes will have all of their pages added into memory using the 
-                    #   "touch" method. Any or all of the adds may require a page replacement.
-                    ######################################################################################
-                    # add all of that process's pages, one by one, into memory using touch
+                    # add all of that process's pages, one by one, into memory using access_page
                     for page in new_process.pages:
                         access_page(p, clock, page_table, page)
-                    
+
                     # Only print memory map for 1 run of each algorithm after pages have been accessed
                     run = [1, 6, 11, 16, 21]
                     if main_count in run:
                         # Print the memory map at this time
                         print(page_table.print_memory_map())
+                # end of for p in process_list: loop
 
-                    # Decrement that process's duration
-                    new_process.duration = new_process.duration - 1
+            # increment the master clock counter
+            clock += 1
+            # check if the clock is at a 100ms interval and there are still processes in the list
+            if (clock % 100 == 0) and active_process_list:
+
+                # access correct page of every active_process
+                for key in list(active_process_list.keys()):
+                    active_process = active_process_list[key]
+
+                    # use locality of reference to determine next page to be accessed
+                    locality_page = locality_of_reference_select(active_process)
+                    access_page(p, clock, page_table, locality_page)
+                    
+                    # decrease the process's duration by 1 for this run
+                    active_process.duration = active_process.duration - 100
 
                     # if the process's duration is 0, remove all of its pages from memory
-                    if new_process.duration <= 0:
-                        new_process.exit_time = clock
-                        new_process.clear(page_table)
-                        del active_process_list[new_process.name]
-                        
+                    if active_process.duration <= 0:
+                        active_process.exit_time = clock
                         # Only print stats and memory map for 1 run of each algorithm
                         run = [1, 6, 11, 16, 21]
                         if main_count in run:
@@ -294,31 +300,10 @@ def main():
                             print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
                             # Print the memory map at this time after process is removed
                             print(page_table.print_memory_map())
-            # end of for p in process_list: loop
-
-            # increment the master clock counter
-            clock += 1
-            # check if the clock is at a 100ms interval and there are still processes in the list
-            if (clock % 100 == 0) and active_process_list:
-                ######################################################################################
-                # PAGE REPLACE EVENT (2): TOUCHING A RANDOM PAGE OF RUNNING PROCESSES
-                #   The assignment HW4 requires that at every 100ms, the OS selects a page from a process; 
-                #   this process will try to access a single random page from its own page list in 
-                #   process.pages. To fetch this page for the process, the OS will call touch on 
-                #   that page, resulting in another opportunity to replace a page.
-                ######################################################################################
-                #get the correct page using locality_of_reference
-                for key in list(active_process_list.keys()):
-                    active_process = active_process_list[key]
-                    # decrement the duration counter for the current process
-                    active_process.duration = active_process.duration - 1
-
-                    if active_process.duration <= 0:
+                        # Delete process data
                         active_process.clear(page_table)
                         del active_process_list[active_process.name]
-                    # use locality of reference to determine next page to be accessed
-                    locality_page = locality_of_reference_select(active_process)
-                    access_page(p, clock, page_table, locality_page)
+
             # end for x in range(EXECUTION_TIME): loop
         main_count += 1
     # end while COUNT <= 25: loop
