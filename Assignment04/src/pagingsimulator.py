@@ -88,7 +88,7 @@ def locality_of_reference_select(process):
     num_of_pages = len(process.pages)
     #if the page hasnt been referenced yet...
     if process.current_page == -1:
-        current_page = random.randint(0, num_of_pages - 1)  #random index for this process's pages
+        current_page = random.randint(0, num_of_pages - 1)  #random index for page
     else:
         r = random.randint(0, num_of_pages - 1)
         if r <= num_of_pages * LOCATION_REFERENCE_PROBABILITY:
@@ -147,7 +147,7 @@ def access_page(process, clock, page_table, page, new_page):
     evicted_page_name = None
     evicted_page_process = None
     page_in_memory = "In Memory"
-    # if there are less than 4 slots left in page_table.memory, replace a page using an algo
+    # less than 4 slots left in page_table.memory, replace page using an algo
     if len(page_table.memory) > MAX_MEMORY_USED:
         if main_count <= 5:
             evicted_page = algorithms.first_in_first_out(page_table)
@@ -196,9 +196,11 @@ def access_page(process, clock, page_table, page, new_page):
         # Only print stats for 1 run of each algorithm
         run = [1, 6, 11, 16, 21]
         if main_count in run:
-            print('------------------ PAGE REFERENCE EVENT --------------------------')
-            print('Time Stamp: ', clock/1000, '  Process Name: ', process.name, '  Page Referenced: ', page.name)
-            print('  Page: ', page_in_memory, '  Evicted Page: ', evicted_page_process, '::', evicted_page_name)
+            dash_border = 45*'-'
+            print('%s PAGE REFERENCE EVENT %s' % (dash_border, dash_border))
+            print('Time Stamp:',clock/1000,'  Process Name:',process.name,
+                '  Page Referenced:',page.name,'  Page:',page_in_memory,
+                '  Evicted Page:',evicted_page_process,'::',evicted_page_name)
 
 def main():
     '''
@@ -220,25 +222,35 @@ def main():
             MAX_ARRIVAL_TIME,
             DURATION,
             PROCESS_SIZE)
-
-        hash_border = 50*'#'
+        outer_hash_boarder = 100*'#'
+        hash_border = 40*'#'
         # Only print title at the begining of each algorithms run
         if main_count == 1:
-            print('\n\n\n%s FIRST IN FIRST OUT %s' % (hash_border, hash_border))
+            print('\n\n\n'+outer_hash_boarder)
+            print('%s FIRST IN FIRST OUT %s' % (hash_border, hash_border))
+            print(outer_hash_boarder)
         elif main_count == 6:
+            print('\n\n\n'+outer_hash_boarder)
             print('\n\n\n%s LEAST FREQUENTLY USED %s' % (hash_border, hash_border))
+            print(outer_hash_boarder)
         elif main_count == 11:
+            print('\n\n\n'+outer_hash_boarder)
             print('\n\n\n%s LEAST RECENTLY USED %s' % (hash_border, hash_border))
+            print(outer_hash_boarder)
         elif main_count == 16:
+            print('\n\n\n'+outer_hash_boarder)
             print('\n\n\n%s MOST FREQUENTLY USED %s' % (hash_border, hash_border))
+            print(outer_hash_boarder)
         elif main_count == 21:
+            print('\n\n\n'+outer_hash_boarder)
             print('\n\n\n%s RANDOM PICK %s' % (hash_border, hash_border))
+            print(outer_hash_boarder)
 
         clock = 0
         for x in range(EXECUTION_TIME):
-            # check if the process_list is empty; if it has processes in there, then they have to be loaded into memory
+            # iterate process list to get arrived processes
             for p in process_list:
-                # peek at the process_list, check if the next arrival_time == clock
+                # get the process if the arrival_time == clock
                 if p.arrival_time == clock:
                     # If so, capture that process and remove it from the process_list
                     new_process = p
@@ -249,10 +261,12 @@ def main():
                     # Only print stats for 1 run of each algorithm
                     run = [1, 6, 11, 16, 21]
                     if main_count in run:
-                        print('\n$$$$$$$$$$$$$$$$$$ NEW PROCESS ARRIVAL EVENT $$$$$$$$$$$$$$$$$$$$$')
-                        print('\t\tTime Stamp: ', clock/1000, '  Process Name: ', new_process.name)
-                        print('\t\t  Size: ', len(new_process.pages), 'MB', '  Duration: ', new_process.duration/1000)
-                        print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+                        dollar_border = 20*'$'
+                        outer_dollar_border = 67*'$'
+                        print('\n%s NEW PROCESS ARRIVAL EVENT %s' % (dollar_border, dollar_border))
+                        print('Time Stamp:',clock/1000,'  Process Name:',new_process.name,'  Size:',
+                            len(new_process.pages),'MB  Duration:',new_process.duration/1000)
+                        print(outer_dollar_border)
 
                     # Add to total_processes counts
                     if main_count <= 5:
@@ -299,10 +313,12 @@ def main():
                         # Only print stats and memory map for 1 run of each algorithm
                         run = [1, 6, 11, 16, 21]
                         if main_count in run:
-                            print('\n$$$$$$$$$$$$$$$$$$ NEW PROCESS EXIT EVENT $$$$$$$$$$$$$$$$$$$$$')
-                            print('\t\tTime Stamp: ', clock/1000, '  Process Name: ', active_process.name)
-                            print('\t\t  Size: ', len(active_process.pages), 'MB', '  Duration:  0')
-                            print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+                            x_border = 20*'X'
+                            outer_x_border = 64*'X'
+                            print('\n%s NEW PROCESS EXIT EVENT %s' % (x_border, x_border))
+                            print('Time Stamp:',clock/1000,'  Process Name:',active_process.name,
+                                '  Size:',len(active_process.pages),'MB  Duration: 0')
+                            print(outer_x_border)
                             # Print the memory map at this time after process is removed
                             print(page_table.print_memory_map())
                         # Delete process data
@@ -330,7 +346,8 @@ def main():
     ave_rp_processes = rp_total_processes / 5
 
     #Print Final Stats
-    print ('--------------------------------------------------------------------------------------------')
+    dash_border = 115*'-'
+    print (dash_border)
     print ('Average Hit Ratios for each algorithm over 5 runs:')
     print ('    First In First Out: ', ave_hit_fifo)
     print ('    Least Frequently Used: ', ave_hit_lfu)
