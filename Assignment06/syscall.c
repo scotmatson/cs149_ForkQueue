@@ -11,24 +11,15 @@ int main(int argc, char **argv) {
     printf("*** Executing syscall.c ***\n\n");
     fflush(stdout);
 
-    /*
-     * To create a simple pipe, we use the pip() system call which
-     * takes a single argument - an Array with two integers.
-     *
-     * The first integer (element 0) is for reading.
-     * The second integer (element 1) is for writing.
-     *
-     * Note: 1. The output for fd[1] becomes the input for fd[0].
-     *       2. All data travelling through the pipe moves 
-     *          through the kernel.
-    */
     int            i,rv;           /* Reusable counters/return values */
     int            m1,m2,m3,m4,m5; /* Message counters */
     FILE           *fh;            /* File Handler to write piped message */
-    char           data[20];       /* To store user input */
-    pid_t          pid;            /* Temp Process ID for control filter */
-    pid_t          p_pid;          /* Process ID for parent fork */ 
-    pid_t          c_pid[PROCS];       /* Process ID for child forks */
+    char           data[20];       /* To store proc 5 input from stdin */
+
+    /* Process IDs */
+    pid_t          pid;            /* Control  filter for fork() */
+    pid_t          p_pid;          /* Parent proc */ 
+    pid_t          c_pid[PROCS];   /* Child procs */
 
     /* Time Management */
     static mach_timebase_info_data_t tb;
