@@ -268,7 +268,7 @@ def main():
 
                     # add all of that process's pages, one by one, into memory using access_page
                     for page in new_process.pages:
-                        access_page(p, clock, page_table, page, True)
+                        access_page(new_process, clock, page_table, page, True)
 
                     # Only print memory map for 1 run of each algorithm after pages have been accessed
                     run = [1, 6, 11, 16, 21]
@@ -288,7 +288,7 @@ def main():
 
                     # use locality of reference to determine next page to be accessed
                     locality_page = locality_of_reference_select(active_process)
-                    access_page(p, clock, page_table, locality_page, False)
+                    access_page(active_process, clock, page_table, locality_page, False)
                     
                     # decrease the process's duration by 100ms for this run
                     active_process.duration = active_process.duration - 100
@@ -300,8 +300,8 @@ def main():
                         run = [1, 6, 11, 16, 21]
                         if main_count in run:
                             print('\n$$$$$$$$$$$$$$$$$$ NEW PROCESS EXIT EVENT $$$$$$$$$$$$$$$$$$$$$')
-                            print('\t\tTime Stamp: ', clock/1000, '  Process Name: ', new_process.name)
-                            print('\t\t  Size: ', len(new_process.pages), 'MB', '  Duration:  0')
+                            print('\t\tTime Stamp: ', clock/1000, '  Process Name: ', active_process.name)
+                            print('\t\t  Size: ', len(active_process.pages), 'MB', '  Duration:  0')
                             print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
                             # Print the memory map at this time after process is removed
                             print(page_table.print_memory_map())
