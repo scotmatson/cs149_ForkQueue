@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
     int            i,rv;           /* Reusable counters/return values */
     int            m1,m2,m3,m4,m5; /* Message counters */
     FILE           *fh;            /* File Handler to write piped message */
-    char           data[20];       /* To store proc 5 input from stdin */
+    char           data;       /* To store proc 5 input from stdin */
 
     /* Process IDs */
     pid_t          pid;            /* Control  filter for fork() */
@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
             int fd[2]; /* File Descripter for the pipes */
             //fds[0] = *fd;
             pipe(fd);
-            close(fd[0]); /* [0] to send, [1] to recieve */
+            close(fd[0]); /* Close read side */
             break;
         } 
         else {
@@ -70,12 +70,14 @@ int main(int argc, char **argv) {
             p_pid = getpid();
             int fd[2];
             pipe(fd);
-            close(fd[1]); /* [0] to send, [1] to receive */
+            close(fd[1]); /* Close write side */
         }
     }
 
+    /* Last chance to initialize any variables */
     m1=m2=m3=m4=m5=0;
     /* do { */
+        /* Loop runs for 30 seconds (real time) */
         srand(time(NULL));
         if (getpid() == c_pid[0]) {
             m1++;
@@ -112,24 +114,25 @@ int main(int argc, char **argv) {
         else
         if (getpid() == c_pid[4]) {
             printf("Process %d is awaiting input...\n>> ", getpid());
-            fflush(stdout);
             m5++;
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= 1000000000;
             //scanf("%[^\n]%*c", &data);
+            //printf("%s", &data);
             // Send through pipe
         }
         else {
             // Parent
-            printf("I am parent %d\n", getpid());
+            //printf("I am parent %d\n", getpid());
             rv = select(6, &fds, NULL, NULL, NULL); /* Think this goes here */
             switch(rv) {
                 case -1:
                     fprintf(stderr, "ERROR; Unable to select file descriptor\n");
+                    exit(1);
                     break;
                 case 1:
-                    printf("Parent is going to read from the pipe\n");
+                    //printf("Parent is going to read from the pipe\n");
                     stop = mach_absolute_time();
                     elapsed = (float)(stop-start) * tb.numer/tb.denom;
                     elapsed /= 1000000000;
@@ -142,7 +145,7 @@ int main(int argc, char **argv) {
             }
         }
         sleep(rand() % 3);
-        printf("Process %d waking back up\n", getpid());
+        //printf("Process %d waking back up\n", getpid());
     /*} while(30 second counter); */
 
     fclose(fh); 
