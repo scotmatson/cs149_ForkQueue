@@ -75,7 +75,9 @@ int main(int argc, char **argv) {
 
     /* Last chance to initialize any variables */
     m0=m1=m2=m3=m4=0;
-    /*do {*/
+    i = 0;
+    while (i < 10) {
+        i++;
         /* Loop runs for 30 seconds (real time) */
         srand(time(NULL));
         if (getpid() == c_pid[0]) {
@@ -87,6 +89,7 @@ int main(int argc, char **argv) {
             /* Sending through pipe */
             char buf0[30];
             snprintf(buf0, sizeof(buf0), "0:%02f: Child 1 message %d\n", elapsed, m0);
+            printf("%s\n", buf0);
             write(*fds[0], buf0, sizeof(buf0));
         }    
         else 
@@ -98,6 +101,7 @@ int main(int argc, char **argv) {
             // Send through pipe
             char buf1[30];
             snprintf(buf1, sizeof(buf1), "0:%02f: Child 2 message %d\n", elapsed, m1);
+            printf("%s\n", buf1);
             write(*fds[1], buf1, sizeof(buf1));
         }
         else
@@ -109,6 +113,7 @@ int main(int argc, char **argv) {
             // Send through pipe
             char buf2[30];
             snprintf(buf2, sizeof(buf2), "0:%02f: Child 3 message %d\n", elapsed, m2);
+            printf("%s\n", buf2);
             write(*fds[2], buf2, sizeof(buf2));
         }
         else
@@ -138,7 +143,7 @@ int main(int argc, char **argv) {
         }
         else {
             // Parent
-            i++;
+            printf("Parent Process is %d\n", getpid());
             retval = select(6, &socket, NULL, NULL, &timeout); /* Think this goes here */
             switch(retval) {
                 case -1:
@@ -159,7 +164,8 @@ int main(int argc, char **argv) {
             }
         }
         sleep(rand() % 3);
-    /*} while(i<10);*/
+        printf("Process %d waking up\n", getpid());
+    }
 
     fclose(fh); 
     exit(0);
