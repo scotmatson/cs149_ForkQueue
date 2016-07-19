@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
     int            i,rv;           /* Reusable counters/return values */
     int            m1,m2,m3,m4,m5; /* Message counters */
     FILE           *fh;            /* File Handler to write piped message */
-    char           data[20];       /* To store user input */
+    char           data[50];       /* To store user input */
     pid_t          pid;            /* Temp Process ID for control filter */
     pid_t          p_pid;          /* Process ID for parent fork */ 
     pid_t          c_pid[PROCS];       /* Process ID for child forks */
@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
             int fd[2]; /* File Descripter for the pipes */
             //fds[0] = *fd;
             pipe(fd);
-            close(fd[0]); /* [0] to send, [1] to recieve */
+            //close(fd[0]); /* [0] to send, [1] to recieve */
             break;
         } 
         else {
@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
             p_pid = getpid();
             int fd[2];
             pipe(fd);
-            close(fd[1]); /* [0] to send, [1] to receive */
+            //close(fd[1]); /* [0] to send, [1] to receive */
         }
     }
 
@@ -88,20 +88,36 @@ int main(int argc, char **argv) {
     /* do { */
         srand(time(NULL));
         if (getpid() == c_pid[0]) {
-            m1++;
-            stop = mach_absolute_time();
-            elapsed = (float)(stop-start) * tb.numer/tb.denom;
-            elapsed /= 1000000000;
             // Send through pipe
+            while (elapsed < 30){
+                stop = mach_absolute_time();
+                elapsed = (float)(stop-start) * tb.numer/tb.denom;
+                elapsed /= 1000000000;
+                
+                sprintf(data, "Time: %.4f, I am child 1, ID: %d with message %d\n", elapsed, getpid(), m1);
+                //read(fd1[0], data, 50);
+                write(fd1[1], data, 50);
+                m1++;
+            }
 
         }    
         else 
         if (getpid() == c_pid[1]) {
-            m2++;
-            stop = mach_absolute_time();
-            elapsed = (float)(stop-start) * tb.numer/tb.denom;
-            elapsed /= 1000000000;
-            // Send through pipe
+             // Send through pipe
+            while (elapsed < 30){
+                stop = mach_absolute_time();
+                elapsed = (float)(stop-start) * tb.numer/tb.denom;
+                elapsed /= 1000000000;
+                
+                sprintf(data, "Time: %.4f, I am child 2, ID: %d with message %d\n", elapsed, getpid(), m2);
+                //read(fd2[0], data, 50);
+                write(fd2[1], data, 50);
+                read(fd2[0], data, 50);
+                m2++;
+
+            }
+
+
         }
         else
         if (getpid() == c_pid[2]) {
@@ -144,7 +160,8 @@ int main(int argc, char **argv) {
                     elapsed = (float)(stop-start) * tb.numer/tb.denom;
                     elapsed /= 1000000000;
                     /* read proc data */
-                    //fprintf(fh, "I am the parent, my pid is %d", getpid());
+                    read(fd2[0], data, 50);
+                    printf("returned: %s\n", data);
                     break;
                 default:
                     printf("No data to be read from the pipe\n");
