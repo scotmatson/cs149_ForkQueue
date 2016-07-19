@@ -1,5 +1,5 @@
 #define _POSIX_C_SOURCE 200809L
-#define PROCS 6             /* Number of processes (including parent)*/
+#define PROCS 5             /* Number of processes (including parent)*/
 #define PIPES 2             /* Pipes per process(read/write) */
 #include <stdio.h>          /* for printf() */
 #include <unistd.h>         /* for pipe(), fork(), and close() */
@@ -8,35 +8,62 @@
 #include <mach/mach_time.h> /* For OSX Time Keeping */ 
 #include <sys/select.h>     /* For select() */
 #include <string.h>         /* For strcpy() */
+#include <fcntl.h>          /* To disable blocking */
 
 int main(int argc, char **argv) {
     printf("*** Executing syscall.c ***\n\n");
     fflush(stdout);
-
+ 
     int            i, retval;      /* Reusable counters/return values */
     int            m1,m2,m3,m4,m5; /* Message counters */
+    char           readBuffer[20]; /* Buffer for parent to read from pipe */
     FILE           *fh;            /* File Handler to write piped message */
 
     /* Process IDs */
     pid_t          pid;            /* Control  filter for fork() */
     pid_t          p_pid;          /* Parent proc */ 
-    pid_t          c_pid[PROCS-1];   /* Child procs */
+    pid_t          c_pid[PROCS];   /* Child procs */
 
     /* Time Management */
     static mach_timebase_info_data_t tb;
     uint64_t       start, stop;
     float          elapsed; 
+    struct timeval timeout;
 
     /* Start/Set the clocks */
     mach_timebase_info(&tb);
     start = mach_absolute_time();
+    timeout.tv_sec  = 3;
+    timeout.tv_usec = 0;
 
-    /* Prepare the File Descriptors for piping */
+    /* Prepare parent File Descriptor for piping */
+    int p_fd[2];
+    close(p_fd[1]);
+    fcntl(*p_fd, F_SETFL, O_NONBLOCK);
+    pipe(p_fd);
+
+    /* Fork processes and setup child file descriptors */
     struct fd_set socket;
     int fds[PROCS][PIPES];
     FD_ZERO(&socket);
     for (i = 0; i < PROCS; i++) {
-        FD_SET(*fds[i], &socket);
+        if ((pid = fork()) < 0) {
+            fflush(stdout);
+            perror("ERROR; Unable to fork this process");
+            fflush(stdout);
+            exit(1);
+        } 
+        else if (pid == 0) {
+            c_pid[i] = getpid();                 /* Store child process ID */
+            FD_SET(*fds[i], &socket);            /* Set FIFO File Descriptor control */
+            close(fds[i][0]);                    /* Close read side */
+            //fcntl(*fds[i], F_SETFL, O_NONBLOCK); /* Prevent blocking behavior */
+            pipe(fds[i]);                        /* Add File Descriptor to the pipe */
+            break;
+        } 
+        else {
+            p_pid = getpid();
+        }
     }
 
     /* IO for parent process */
@@ -44,27 +71,6 @@ int main(int argc, char **argv) {
     if (fh == NULL) {
         fprintf(stderr, "ERROR; Unable to open file\n");
         exit(1);
-    }
-
-    /* Fork processes */
-    for (i = 0; i < PROCS-1; i++) {
-        if ((pid = fork()) < 0) {
-            perror("ERROR; Unable to fork this process");
-            exit(1);
-        } 
-        else if (pid == 0) {
-            c_pid[i] = getpid();
-            int fd[2]; /* File Descripter for the pipes */
-            close(fds[i][0]); /* Close read side */
-            pipe(fds[i]);
-            break;
-        } 
-        else {
-            /* Doing this 5 times is a little redundant.... meh */
-            p_pid = getpid();
-            close(fds[5][1]); /* Close write side */
-            pipe(fds[5]);
-        }
     }
 
     /* Last chance to initialize any variables */
@@ -116,46 +122,28 @@ int main(int argc, char **argv) {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= 1000000000;
 
-            char msg5[20];
+            //char msg5[20];
             //scanf("%[^\n]%*c", msg5);
             // Send through pipe
             //write(fd5[0], msg5, sizeof(msg5));
         }
         else {
             // Parent
-            //printf("I am parent %d\n", getpid());
-            printf("Parent: Selecting pipe from which to read\n");
-            fflush(stdout);
-            retval = select(6, &socket, NULL, NULL, NULL); /* Think this goes here */
-            printf("Parent: I have made my selection\n");
-            fflush(stdout);
+            retval = select(6, &socket, NULL, NULL, &timeout); /* Think this goes here */
             switch(retval) {
                 case -1:
                     fprintf(stderr, "ERROR; Unable to select file descriptor\n");
                     exit(1);
                     break;
                 case 1:
-                    printf("\nfd0w is %d\n", FD_ISSET(fds[0][0], &socket));
-                    printf("fd1w is %d\n", FD_ISSET(fds[1][0], &socket));
-                    printf("fd2w is %d\n", FD_ISSET(fds[2][0], &socket));
-                    printf("fd3w is %d\n", FD_ISSET(fds[3][0], &socket));
-                    printf("fd4w is %d\n", FD_ISSET(fds[4][0], &socket));
-                    printf("fd5w is %d\n", FD_ISSET(fds[5][0], &socket));
-                    fflush(stdout);
-
-                    printf("\nfd0r is %d\n", FD_ISSET(fds[0][1], &socket));
-                    printf("fd1r is %d\n", FD_ISSET(fds[1][1], &socket));
-                    printf("fd2r is %d\n", FD_ISSET(fds[2][1], &socket));
-                    printf("fd3r is %d\n", FD_ISSET(fds[3][1], &socket));
-                    printf("fd4r is %d\n", FD_ISSET(fds[4][1], &socket));
-                    printf("fd5r is %d\n", FD_ISSET(fds[5][1], &socket));
-                    fflush(stdout);
-
-                    //printf("Parent is going to read from the pipe\n");
                     stop = mach_absolute_time();
                     elapsed = (float)(stop-start) * tb.numer/tb.denom;
                     elapsed /= 1000000000;
                     /* read proc data */
+                    printf("Parent: Reading from the pipe!\n");
+                    read(p_fd[0], readBuffer, sizeof(readBuffer));
+                    printf("Parent: %s\n", readBuffer);
+                    printf("Parent: The pipe has been read!\n");
                     //fprintf(fh, "I am the parent, my pid is %d", getpid());
                     break;
                 default:
