@@ -2,6 +2,8 @@
 #define PROCS 5             /* Number of processes (including parent)*/
 #define PIPES 2             /* Pipes per process(read/write) */
 #define MILLI 1000000000    /* Division needed to convert time to milliseconds */
+#define READ  0             /* Read side for File Descriptors */
+#define WRITE 1             /* Write side for File Descriptors */
 #include <stdio.h>          /* for printf() */
 #include <unistd.h>         /* for pipe(), fork(), and close() */
 #include <stdlib.h>         /* for exit(), srand(), rand() */
@@ -37,16 +39,16 @@ int main(int argc, char **argv) {
     timeout.tv_sec  = 3;
     timeout.tv_usec = 0;
 
-    /* Prepare parent File Descriptor for piping */
-    int p_fd[2];
-    close(p_fd[1]);
-    fcntl(*p_fd, F_SETFL, O_NONBLOCK);
-    pipe(p_fd);
-
-    /* Fork parent process and setup child file descriptors */
+    /* Setup file descriptors */
     struct fd_set socket;
     int fds[PROCS][PIPES];
     FD_ZERO(&socket);
+    for (i = 0; i < PROCS; i++) {
+        FD_SET(*fds[i], &socket);
+        pipe(fds[i]);
+    }
+
+    /* Fork parent process */
     for (i = 0; i < PROCS; i++) {
         if ((pid = fork()) < 0) {
             fflush(stdout);
@@ -56,13 +58,12 @@ int main(int argc, char **argv) {
         } 
         else if (pid == 0) {
             c_pid[i] = getpid();      /* Store child process ID */
-            FD_SET(*fds[i], &socket); /* Set FIFO File Descriptor control */
-            close(fds[i][0]);         /* Close read side */
-            pipe(fds[i]);             /* Add File Descriptor to the pipe */
+            close(fds[i][READ]);      /* Close read side */
             break;                    /* Break here, we don't want children looping */
         } 
         else {
             p_pid = getpid();
+            close(fds[i][WRITE]);
         }
     }
 
@@ -89,7 +90,7 @@ int main(int argc, char **argv) {
             /* Sending through pipe */
             char buf0[30];
             snprintf(buf0, sizeof(buf0), "0:%02f: Child 1 message %d\n", elapsed, m0);
-            write(*fds[0], buf0, sizeof(buf0));
+            write(fds[0][WRITE], &buf0, sizeof(buf0));
         }    
         else 
         if (getpid() == c_pid[1]) {
@@ -101,7 +102,7 @@ int main(int argc, char **argv) {
             // Send through pipe
             char buf1[30];
             snprintf(buf1, sizeof(buf1), "0:%02f: Child 2 message %d\n", elapsed, m1);
-            write(*fds[1], buf1, sizeof(buf1));
+            write(fds[1][WRITE], &buf1, sizeof(buf1));
         }
         else
         if (getpid() == c_pid[2]) {
@@ -113,7 +114,7 @@ int main(int argc, char **argv) {
             // Send through pipe
             char buf2[30];
             snprintf(buf2, sizeof(buf2), "0:%02f: Child 3 message %d\n", elapsed, m2);
-            write(*fds[2], buf2, sizeof(buf2));
+            write(fds[2][WRITE], &buf2, sizeof(buf2));
         }
         else
         if (getpid() == c_pid[3]) {
@@ -125,7 +126,7 @@ int main(int argc, char **argv) {
             // Send through pipe
             char buf3[30];
             snprintf(buf3, sizeof(buf3), "0:%02f: Child 4 message %d\n", elapsed, m3);
-            write(*fds[3], buf3, sizeof(buf3));
+            write(fds[3][WRITE], &buf3, sizeof(buf3));
         }
         else
         if (getpid() == c_pid[4]) {
@@ -149,6 +150,27 @@ int main(int argc, char **argv) {
                     exit(1);
                     break;
                 case 1:
+                    printf("Parent: I have chosen a pipe!!\n");
+                    if (FD_ISSET(fds[0][READ], &fds)) {
+                        read(fds[0][READ], readBuffer, sizeof(readBuffer));
+                        printf("RB: %s\n", readBuffer);
+                    }
+                    else
+                    if (FD_ISSET(fds[1], &fds)) {
+                        read(fds[1][READ], readBuffer, sizeof(readBuffer));
+                        printf("RB: %s\n", readBuffer);
+                    }
+                    else
+                    if (FD_ISSET(fds[2], &fds)) {
+                        read(fds[2][READ], readBuffer, sizeof(readBuffer));
+                        printf("RB: %s\n", readBuffer);
+                    }
+                    else
+                    if (FD_ISSET(fds[3], &fds)) {
+                        read(fds[3][READ], readBuffer, sizeof(readBuffer));
+                        printf("RB: %s\n", readBuffer);
+                    }
+
                     stop = mach_absolute_time();
                     elapsed = (float)(stop-start) * tb.numer/tb.denom;
                     elapsed /= MILLI;
@@ -159,9 +181,9 @@ int main(int argc, char **argv) {
                           time - child message ...
                     */
                     /* read proc data */
-                    read(p_fd[0], readBuffer, sizeof(readBuffer)); /* Not getting child message :( */
-                    printf("RB: %s\n", readBuffer);
-                    fprintf(fh, "%s\n", readBuffer); 
+                    //read(p_fd[0], readBuffer, sizeof(readBuffer)); /* Not getting child message :( */
+                    //printf("RB: %s\n", readBuffer);
+                    //fprintf(fh, "%s\n", readBuffer); 
                     break;
                 default:
                     printf("No data to be read from the pipe\n");
