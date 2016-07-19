@@ -1,12 +1,11 @@
 #define _POSIX_C_SOURCE 200809L
 #define PROCS 5
-#include <stdio.h>    /* for printf() */
-#include <unistd.h>   /* for pipe(), fork(), and close() */
-#include <stdlib.h>   /* for exit(), srand(), rand() */
-#include <time.h>     /* For seeing srand() */
-#include <mach/mach_time.h> 
-#include <sys/select.h>
-
+#include <stdio.h>          /* for printf() */
+#include <unistd.h>         /* for pipe(), fork(), and close() */
+#include <stdlib.h>         /* for exit(), srand(), rand() */
+#include <time.h>           /* For seeing srand() */
+#include <mach/mach_time.h> /* For OSX Time Keeping */ 
+#include <sys/select.h>     /* For select() */
 
 int main(int argc, char **argv) {
     printf("*** Executing syscall.c ***\n\n");
