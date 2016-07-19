@@ -48,11 +48,7 @@ class PageTable(object):
         '''
         Touch is called any time a page is accessed
         '''
-        # update the time of access for that page
-        page.last_accessed = clock
-        # increase that page's frequency
-        page.frequency += 1
-        # if page in memory, update page stats
+        # if page not in memory, add it
         if page.name not in self.memory.keys():
             self.memory[page.name] = page
         # if page had been evicted to disk and is currently there
