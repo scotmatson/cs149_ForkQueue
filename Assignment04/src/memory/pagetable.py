@@ -34,11 +34,11 @@ class PageTable(object):
         '''
         memory_output = '\n\tPages in Memory:'
         for key in self.memory:
-            memory_output += '\n\t' + str(self.memory[key])
+            memory_output += '\n\t\t' + str(self.memory[key])
             
         disk_output = '\n\n\tPages on Disk:'
         for key in self.disk:
-            disk_output += '\n\t' + str(self.disk[key])
+            disk_output += '\n\t\t' + str(self.disk[key])
 
         output = memory_output + disk_output
         return output

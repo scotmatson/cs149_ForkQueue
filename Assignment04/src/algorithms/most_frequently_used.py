@@ -17,7 +17,8 @@ def most_frequently_used(page_table):
     #If page's frequency matches highest value
     for key, value in page_table.memory.items():
         if page_table.memory[key].frequency == highest_freq_value:
-            highest_freq_dict.update({key : value}) #Store all lowest frequency pages into highest_freq_dict
+            #Store all lowest frequency pages in highest_freq_dict
+            highest_freq_dict.update({key : value})
 
     oldest_last_accessed = 60000 #Max range of last_accessed
 
@@ -31,7 +32,8 @@ def most_frequently_used(page_table):
         if highest_freq_dict[key].last_accessed == oldest_last_accessed:
             eviction_page_name = key
 
-    page_table.memory[eviction_page_name].frequency = 0 #Reset the page's frequency count to 0 because it got evicted
+    #Reset the page's frequency count to 0 because it got evicted
+    page_table.memory[eviction_page_name].frequency = 0
     # Get the actual evicted page
     eviction_page = page_table.memory[eviction_page_name]
     # Add page to disk
