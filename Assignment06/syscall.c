@@ -7,7 +7,7 @@
 #include <stdio.h>          /* for printf() */
 #include <unistd.h>         /* for pipe(), fork(), and close() */
 #include <stdlib.h>         /* for exit(), srand(), rand() */
-#include <time.h>           /* For seeing srand() */
+#include <time.h>           /* For seeding srand() */
 #include <mach/mach_time.h> /* For OSX Time Keeping */ 
 #include <sys/select.h>     /* For select() */
 #include <string.h>         /* For strcpy() */
@@ -35,7 +35,7 @@ int main() {
     /* Start/Set the clocks */
     mach_timebase_info(&tb);
     start = mach_absolute_time();
-    timeout.tv_sec  = 5;
+    timeout.tv_sec  = 0;
     timeout.tv_usec = 0;
 
     /* Setup file descriptors */
@@ -79,9 +79,9 @@ int main() {
     /* Loop runs for 30 seconds (real time) */
     while (j < 10) {
         j++;
+        srand(time(NULL));
         /* Read that this has to happen inside the main loop, it seems to help, but needs work */
 
-        srand(time(NULL));
         if (getpid() == c_pid[0]) {
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
@@ -158,6 +158,7 @@ int main() {
                 printf("fds2 %d\n", FD_ISSET(fds[2][READ], &socket));
                 printf("fds3 %d\n", FD_ISSET(fds[3][READ], &socket));
                 printf("fds4 %d\n", FD_ISSET(fds[4][READ], &socket));
+                fflush(stdout);
 
                 if (FD_ISSET(fds[0][READ], &socket)) {
                     read(fds[0][READ], readBuffer, sizeof(readBuffer));
@@ -200,9 +201,12 @@ int main() {
             }
             else {
                printf("No data to be read from the pipe\n");
+               fflush(stdout);
             }
         }
         sleep(rand() % 3);
+        printf("Process %d waking back up\n", getpid());
+        fflush(stdout);
     }
 
     /* Close all IO */
