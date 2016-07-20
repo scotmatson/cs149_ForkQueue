@@ -1,6 +1,6 @@
 #define _POSIX_C_SOURCE 200809L
 #define PROCS 5             /* Number of processes (including parent)*/
-#define PIPES 2             /* Pipes per process(read/write) */
+#define IO    2             /* Pipes per process(read/write) */
 #define MILLI 1000000000    /* Division needed to convert time to milliseconds */
 #define READ  0             /* Read side for File Descriptors */
 #define WRITE 1             /* Write side for File Descriptors */
@@ -11,7 +11,6 @@
 #include <mach/mach_time.h> /* For OSX Time Keeping */ 
 #include <sys/select.h>     /* For select() */
 #include <string.h>         /* For strcpy() */
-#include <fcntl.h>          /* To disable blocking */
 
 int main() {
     printf("*** Executing syscall.c ***\n\n");
@@ -41,7 +40,7 @@ int main() {
 
     /* Setup file descriptors */
     struct fd_set socket;
-    int fds[PROCS][PIPES];
+    int fds[PROCS][IO];
     FD_ZERO(&socket);
     for (i = 0; i < PROCS; i++) {
         FD_SET(*fds[i], &socket);
@@ -76,16 +75,12 @@ int main() {
 
     /* Last chance to initialize any variables */
     m0=m1=m2=m3=m4=0;
-    i = 0;
-    while (i < 10) {
+    int j = 0;
+    /* Loop runs for 30 seconds (real time) */
+    while (j < 10) {
+        j++;
         /* Read that this has to happen inside the main loop, it seems to help, but needs work */
-        FD_ZERO(&socket);
-        for (i = 0; i < PROCS; i++) {
-            FD_SET(*fds[i], &socket);
-            pipe(fds[i]);
-        }
-        i++;
-        /* Loop runs for 30 seconds (real time) */
+
         srand(time(NULL));
         if (getpid() == c_pid[0]) {
             stop = mach_absolute_time();
@@ -96,8 +91,7 @@ int main() {
             /* Sending through pipe */
             char buf0[30];
             snprintf(buf0, sizeof(buf0), "0:%02f: Child 1 message %d\n", elapsed, m0);
-            int r = write(fds[0][WRITE], &buf0, sizeof(buf0));
-            printf("proc1 send: %d\n", r);
+            write(fds[0][WRITE], &buf0, sizeof(buf0));
         }    
         else 
         if (getpid() == c_pid[1]) {
@@ -150,9 +144,20 @@ int main() {
         }
         else {
             /* Parent process */
+            for (i = 0; i < PROCS; i++) {
+                FD_SET(*fds[i], &socket);
+                pipe(fds[i]);
+            }
             retval = select(PROCS+1, &socket, NULL, NULL, &timeout);
             if (retval > 0) {
                 printf("Parent: I have chosen a pipe!!\n");
+                printf("Retval: %d\n", retval);
+                printf("fds0 %d\n", FD_ISSET(fds[0][READ], &socket));
+                printf("fds1 %d\n", FD_ISSET(fds[1][READ], &socket));
+                printf("fds2 %d\n", FD_ISSET(fds[2][READ], &socket));
+                printf("fds3 %d\n", FD_ISSET(fds[3][READ], &socket));
+                printf("fds4 %d\n", FD_ISSET(fds[4][READ], &socket));
+
                 if (FD_ISSET(fds[0][READ], &socket)) {
                     read(fds[0][READ], readBuffer, sizeof(readBuffer));
                     printf("RB: %s\n", readBuffer);
@@ -172,6 +177,7 @@ int main() {
                     read(fds[3][READ], readBuffer, sizeof(readBuffer));
                     printf("RB: %s\n", readBuffer);
                 }
+                FD_ZERO(&socket);
 
                 stop = mach_absolute_time();
                 elapsed = (float)(stop-start) * tb.numer/tb.denom;
@@ -200,10 +206,12 @@ int main() {
     }
 
     /* Close all IO */
+    /*
     for (i = 0; i < PROCS; i++) {
         close(fds[i][READ]);
         close(fds[i][WRITE]);
     }
+    */
     fclose(fh); 
     exit(0);
 }
