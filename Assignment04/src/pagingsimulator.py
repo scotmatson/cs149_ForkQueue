@@ -92,7 +92,7 @@ def locality_of_reference_select(process):
     else:
         r = random.randint(0, num_of_pages - 1)
         if r <= num_of_pages * LOCATION_REFERENCE_PROBABILITY:
-            delta = random.choice([-1, 1])
+            delta = random.choice([-1, 0, 1])
         else:
             if (num_of_pages - 1) - (process.current_page + 2) <= 0:
                 top_rand = num_of_pages - 1
