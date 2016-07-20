@@ -144,6 +144,7 @@ int main() {
         }
         else {
             /* Parent process */
+            FD_ZERO(&socket);
             for (i = 0; i < PROCS; i++) {
                 FD_SET(*fds[i], &socket);
                 pipe(fds[i]);
@@ -177,7 +178,6 @@ int main() {
                     read(fds[3][READ], readBuffer, sizeof(readBuffer));
                     printf("RB: %s\n", readBuffer);
                 }
-                FD_ZERO(&socket);
 
                 stop = mach_absolute_time();
                 elapsed = (float)(stop-start) * tb.numer/tb.denom;
