@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
         } 
         else {
             p_pid = getpid();
-            close(fds[i][WRITE]);
+            //close(fds[i][WRITE]);
         }
     }
 
@@ -151,22 +151,22 @@ int main(int argc, char **argv) {
                     break;
                 case 1:
                     printf("Parent: I have chosen a pipe!!\n");
-                    if (FD_ISSET(fds[0][READ], &fds)) {
+                    if (FD_ISSET(fds[0][READ], &socket)) {
                         read(fds[0][READ], readBuffer, sizeof(readBuffer));
                         printf("RB: %s\n", readBuffer);
                     }
                     else
-                    if (FD_ISSET(fds[1], &fds)) {
+                    if (FD_ISSET(fds[1][READ], &socket)) {
                         read(fds[1][READ], readBuffer, sizeof(readBuffer));
                         printf("RB: %s\n", readBuffer);
                     }
                     else
-                    if (FD_ISSET(fds[2], &fds)) {
+                    if (FD_ISSET(fds[2][READ], &socket)) {
                         read(fds[2][READ], readBuffer, sizeof(readBuffer));
                         printf("RB: %s\n", readBuffer);
                     }
                     else
-                    if (FD_ISSET(fds[3], &fds)) {
+                    if (FD_ISSET(fds[3][READ], &socket)) {
                         read(fds[3][READ], readBuffer, sizeof(readBuffer));
                         printf("RB: %s\n", readBuffer);
                     }
@@ -193,6 +193,11 @@ int main(int argc, char **argv) {
         sleep(rand() % 3);
     }
 
+    /* Close all IO */
+    for (i = 0; i < PROCS; i++) {
+        close(fds[i][READ]);
+        close(fds[i][WRITE]);
+    }
     fclose(fh); 
     exit(0);
 }
