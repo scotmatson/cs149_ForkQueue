@@ -20,11 +20,18 @@ int main() {
     int            m0,m1,m2,m3,m4; /* Message counters */
     char           readBuffer[20]; /* Buffer for parent to read from pipe */
     FILE           *fh;            /* File Handler to write piped message */
+<<<<<<< HEAD
 
     /* Process IDs */
     pid_t          pid;          /* Control  filter for fork() */
     pid_t          p_pid;        /* Parent proc */ 
     pid_t          c_pid[PROCS]; /* Child procs */
+=======
+    char           data[50];       /* To store user input */
+    pid_t          pid;            /* Temp Process ID for control filter */
+    pid_t          p_pid;          /* Process ID for parent fork */ 
+    pid_t          c_pid[PROCS];       /* Process ID for child forks */
+>>>>>>> c6b05484f67bdd6a33c0e3219c24439ced5237be
 
     /* Time Management */
     static mach_timebase_info_data_t tb;
@@ -56,13 +63,28 @@ int main() {
             exit(1);
         } 
         else if (pid == 0) {
+<<<<<<< HEAD
             c_pid[i] = getpid();      /* Store child process ID */
             close(fds[i][READ]);      /* Close read side */
             break;                    /* Break here, we don't want children looping */
+=======
+            c_pid[i] = getpid();
+            int fd[2]; /* File Descripter for the pipes */
+            //fds[0] = *fd;
+            pipe(fd);
+            //close(fd[0]); /* [0] to send, [1] to recieve */
+            break;
+>>>>>>> c6b05484f67bdd6a33c0e3219c24439ced5237be
         } 
         else {
             p_pid = getpid();
+<<<<<<< HEAD
             close(fds[i][WRITE]);
+=======
+            int fd[2];
+            pipe(fd);
+            //close(fd[1]); /* [0] to send, [1] to receive */
+>>>>>>> c6b05484f67bdd6a33c0e3219c24439ced5237be
         }
     }
 
@@ -83,10 +105,24 @@ int main() {
 
         srand(time(NULL));
         if (getpid() == c_pid[0]) {
+<<<<<<< HEAD
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
             m0++;
+=======
+            // Send through pipe
+            while (elapsed < 30){
+                stop = mach_absolute_time();
+                elapsed = (float)(stop-start) * tb.numer/tb.denom;
+                elapsed /= 1000000000;
+                
+                sprintf(data, "Time: %.4f, I am child 1, ID: %d with message %d\n", elapsed, getpid(), m1);
+                //read(fd1[0], data, 50);
+                write(fd1[1], data, 50);
+                m1++;
+            }
+>>>>>>> c6b05484f67bdd6a33c0e3219c24439ced5237be
 
             /* Sending through pipe */
             char buf0[30];
@@ -95,6 +131,7 @@ int main() {
         }    
         else 
         if (getpid() == c_pid[1]) {
+<<<<<<< HEAD
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
@@ -104,6 +141,23 @@ int main() {
             char buf1[30];
             snprintf(buf1, sizeof(buf1), "0:%02f: Child 2 message %d\n", elapsed, m1);
             write(fds[1][WRITE], &buf1, sizeof(buf1));
+=======
+             // Send through pipe
+            while (elapsed < 30){
+                stop = mach_absolute_time();
+                elapsed = (float)(stop-start) * tb.numer/tb.denom;
+                elapsed /= 1000000000;
+                
+                sprintf(data, "Time: %.4f, I am child 2, ID: %d with message %d\n", elapsed, getpid(), m2);
+                //read(fd2[0], data, 50);
+                write(fd2[1], data, 50);
+                read(fd2[0], data, 50);
+                m2++;
+
+            }
+
+
+>>>>>>> c6b05484f67bdd6a33c0e3219c24439ced5237be
         }
         else
         if (getpid() == c_pid[2]) {
@@ -143,6 +197,7 @@ int main() {
             //write(fd5[0], msg5, sizeof(msg5));
         }
         else {
+<<<<<<< HEAD
             /* Parent process */
             FD_ZERO(&socket);
             for (i = 0; i < PROCS; i++) {
@@ -200,6 +255,27 @@ int main() {
             }
             else {
                printf("No data to be read from the pipe\n");
+=======
+            // Parent
+            printf("I am parent %d\n", getpid());
+            rv = select(6, &fds, NULL, NULL, NULL); /* Think this goes here */
+            switch(rv) {
+                case -1:
+                    fprintf(stderr, "ERROR; Unable to select file descriptor\n");
+                    break;
+                case 1:
+                    printf("Parent is going to read from the pipe\n");
+                    stop = mach_absolute_time();
+                    elapsed = (float)(stop-start) * tb.numer/tb.denom;
+                    elapsed /= 1000000000;
+                    /* read proc data */
+                    read(fd2[0], data, 50);
+                    printf("returned: %s\n", data);
+                    break;
+                default:
+                    printf("No data to be read from the pipe\n");
+                    break;
+>>>>>>> c6b05484f67bdd6a33c0e3219c24439ced5237be
             }
         }
         sleep(rand() % 3);
