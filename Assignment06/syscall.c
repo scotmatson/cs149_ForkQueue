@@ -36,7 +36,7 @@ int main() {
     /* Start/Set the clocks */
     mach_timebase_info(&tb);
     start = mach_absolute_time();
-    timeout.tv_sec  = 3;
+    timeout.tv_sec  = 5;
     timeout.tv_usec = 0;
 
     /* Setup file descriptors */
@@ -63,7 +63,7 @@ int main() {
         } 
         else {
             p_pid = getpid();
-            //close(fds[i][WRITE]);
+            close(fds[i][WRITE]);
         }
     }
 
@@ -78,6 +78,12 @@ int main() {
     m0=m1=m2=m3=m4=0;
     i = 0;
     while (i < 10) {
+        /* Read that this has to happen inside the main loop, it seems to help, but needs work */
+        FD_ZERO(&socket);
+        for (i = 0; i < PROCS; i++) {
+            FD_SET(*fds[i], &socket);
+            pipe(fds[i]);
+        }
         i++;
         /* Loop runs for 30 seconds (real time) */
         srand(time(NULL));
@@ -90,7 +96,8 @@ int main() {
             /* Sending through pipe */
             char buf0[30];
             snprintf(buf0, sizeof(buf0), "0:%02f: Child 1 message %d\n", elapsed, m0);
-            write(fds[0][WRITE], &buf0, sizeof(buf0));
+            int r = write(fds[0][WRITE], &buf0, sizeof(buf0));
+            printf("proc1 send: %d\n", r);
         }    
         else 
         if (getpid() == c_pid[1]) {
@@ -143,52 +150,50 @@ int main() {
         }
         else {
             /* Parent process */
-            retval = select(6, &socket, NULL, NULL, &timeout);
-            switch(retval) {
-                case -1:
-                    fprintf(stderr, "ERROR; Unable to select file descriptor\n");
-                    exit(1);
-                    break;
-                case 1:
-                    printf("Parent: I have chosen a pipe!!\n");
-                    if (FD_ISSET(fds[0][READ], &socket)) {
-                        read(fds[0][READ], readBuffer, sizeof(readBuffer));
-                        printf("RB: %s\n", readBuffer);
-                    }
-                    else
-                    if (FD_ISSET(fds[1][READ], &socket)) {
-                        read(fds[1][READ], readBuffer, sizeof(readBuffer));
-                        printf("RB: %s\n", readBuffer);
-                    }
-                    else
-                    if (FD_ISSET(fds[2][READ], &socket)) {
-                        read(fds[2][READ], readBuffer, sizeof(readBuffer));
-                        printf("RB: %s\n", readBuffer);
-                    }
-                    else
-                    if (FD_ISSET(fds[3][READ], &socket)) {
-                        read(fds[3][READ], readBuffer, sizeof(readBuffer));
-                        printf("RB: %s\n", readBuffer);
-                    }
+            retval = select(PROCS+1, &socket, NULL, NULL, &timeout);
+            if (retval > 0) {
+                printf("Parent: I have chosen a pipe!!\n");
+                if (FD_ISSET(fds[0][READ], &socket)) {
+                    read(fds[0][READ], readBuffer, sizeof(readBuffer));
+                    printf("RB: %s\n", readBuffer);
+                }
 
-                    stop = mach_absolute_time();
-                    elapsed = (float)(stop-start) * tb.numer/tb.denom;
-                    elapsed /= MILLI;
+                if (FD_ISSET(fds[1][READ], &socket)) {
+                    read(fds[1][READ], readBuffer, sizeof(readBuffer));
+                    printf("RB: %s\n", readBuffer);
+                }
 
-                    /* SAVE FOR NOW */
-                    /* 
-                    Need to prefix message with parent time,
-                    i.e., time - child message
-                          time - child message ...
-                    */
-                    /* read proc data */
-                    //read(p_fd[0], readBuffer, sizeof(readBuffer)); /* Not getting child message :( */
-                    //printf("RB: %s\n", readBuffer);
-                    //fprintf(fh, "%s\n", readBuffer); 
-                    break;
-                default:
-                    printf("No data to be read from the pipe\n");
-                    break;
+                if (FD_ISSET(fds[2][READ], &socket)) {
+                    read(fds[2][READ], readBuffer, sizeof(readBuffer));
+                    printf("RB: %s\n", readBuffer);
+                }
+
+                if (FD_ISSET(fds[3][READ], &socket)) {
+                    read(fds[3][READ], readBuffer, sizeof(readBuffer));
+                    printf("RB: %s\n", readBuffer);
+                }
+
+                stop = mach_absolute_time();
+                elapsed = (float)(stop-start) * tb.numer/tb.denom;
+                elapsed /= MILLI;
+                /* SAVE FOR NOW */
+                /* 
+                Need to prefix message with parent time,
+                i.e., time - child message
+                      time - child message ...
+                */
+                /* read proc data */
+                //read(p_fd[0], readBuffer, sizeof(readBuffer)); /* Not getting child message :( */
+                //printf("RB: %s\n", readBuffer);
+                //fprintf(fh, "%s\n", readBuffer); 
+            }
+            else     
+            if (retval < 0) { 
+                fprintf(stderr, "ERROR; Unable to select file descriptor\n");
+                exit(1);
+            }
+            else {
+               printf("No data to be read from the pipe\n");
             }
         }
         sleep(rand() % 3);
