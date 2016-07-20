@@ -13,7 +13,7 @@
 #include <string.h>         /* For strcpy() */
 #include <fcntl.h>          /* To disable blocking */
 
-int main(int argc, char **argv) {
+int main() {
     printf("*** Executing syscall.c ***\n\n");
     fflush(stdout);
  
@@ -175,6 +175,7 @@ int main(int argc, char **argv) {
                     elapsed = (float)(stop-start) * tb.numer/tb.denom;
                     elapsed /= MILLI;
 
+                    /* SAVE FOR NOW */
                     /* 
                     Need to prefix message with parent time,
                     i.e., time - child message
