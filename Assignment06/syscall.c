@@ -49,6 +49,7 @@ int main() {
     }
 
     /* Last minute initialization prior to forking */
+    setbuf(stdin, NULL);
     messageNum = 0;
 
     /* Fork parent process */
