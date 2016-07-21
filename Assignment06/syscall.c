@@ -1,30 +1,33 @@
 #define _POSIX_C_SOURCE 200809L
-#define PROCS 5             /* Number of processes (including parent)*/
-#define IO    2             /* Pipes per process(read/write) */
-#define MILLI 1000000000    /* Division needed to convert time to milliseconds */
-#define READ  0             /* Read side for File Descriptors */
-#define WRITE 1             /* Write side for File Descriptors */
-#include <stdio.h>          /* for printf() */
-#include <unistd.h>         /* for pipe(), fork(), and close() */
-#include <stdlib.h>         /* for exit(), srand(), rand() */
-#include <time.h>           /* For seeding srand() */
-#include <mach/mach_time.h> /* For OSX Time Keeping */ 
-#include <sys/select.h>     /* For select() */
-#include <string.h>         /* For strcpy() */
+#define PROCS  5             /* Number of processes (including parent)*/
+#define IO     2             /* Pipes per process(read/write) */
+#define MILLI  1000000000    /* Division needed to convert time to milliseconds */
+#define READ   0             /* Read side for File Descriptors */
+#define WRITE  1             /* Write side for File Descriptors */
+#define BUFFER 60            /* Universal character output buffer */
+#include <stdio.h>           /* for printf() */
+#include <unistd.h>          /* for pipe(), fork(), and close() */
+#include <stdlib.h>          /* for exit(), srand(), rand() */
+#include <time.h>            /* For seeding srand() */
+#include <mach/mach_time.h>  /* For OSX Time Keeping */ 
+#include <sys/select.h>      /* For select() */
+#include <string.h>          /* For strcpy() */
 
 int main() {
     printf("*** Executing syscall.c ***\n\n");
     fflush(stdout);
  
-    int            i, retval;      /* Reusable counters/return values */
-    int            m0,m1,m2,m3,m4; /* Message counters */
-    char           readBuffer[60]; /* Buffer for parent to read from pipe */
-    FILE           *fh;            /* File Handler to write piped message */
+    int            i, retval;          /* Reusable counters/return values */
+    int            m0,m1,m2,m3,m4;     /* Message counters */
+    char           readBuffer[BUFFER]; /* Buffer for parent to read from pipe */
+    FILE           *fh;                /* File Handler to write piped message */
+    
+    //setbuf(stdin, NULL);               /* Prevent scanf from buffering */
 
     /* Process IDs */
-    pid_t          pid;          /* Control  filter for fork() */
-    pid_t          p_pid;        /* Parent proc */ 
-    pid_t          c_pid[PROCS]; /* Child procs */
+    pid_t          pid;                /* Control  filter for fork() */
+    pid_t          p_pid;              /* Parent proc */ 
+    pid_t          c_pid[PROCS];       /* Child procs */
 
     /* Time Management */
     static mach_timebase_info_data_t tb;
@@ -87,8 +90,8 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
             m0++;
-            char buf0[60];
-            snprintf(buf0, sizeof(buf0), "0:%02f: Child 1 message %d\n", elapsed, m0);
+            char buf0[BUFFER];
+            snprintf(buf0, sizeof(buf0), "0:%06.3f: Child 1 message %d\n", elapsed, m0);
             write(fds[0][WRITE], &buf0, sizeof(buf0));
         }    
         else 
@@ -97,8 +100,8 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
             m1++;
-            char buf1[60];
-            snprintf(buf1, sizeof(buf1), "0:%02f: Child 2 message %d\n", elapsed, m1);
+            char buf1[BUFFER];
+            snprintf(buf1, sizeof(buf1), "0:%06.3f: Child 2 message %d\n", elapsed, m1);
             write(fds[1][WRITE], &buf1, sizeof(buf1));
         }
         else
@@ -107,8 +110,8 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
             m2++;
-            char buf2[60];
-            snprintf(buf2, sizeof(buf2), "0:%02f: Child 3 message %d\n", elapsed, m2);
+            char buf2[BUFFER];
+            snprintf(buf2, sizeof(buf2), "0:%06.3f: Child 3 message %d\n", elapsed, m2);
             write(fds[2][WRITE], &buf2, sizeof(buf2));
         }
         else
@@ -117,8 +120,8 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
             m3++;
-            char buf3[60];
-            snprintf(buf3, sizeof(buf3), "0:%02f: Child 4 message %d\n", elapsed, m3);
+            char buf3[BUFFER];
+            snprintf(buf3, sizeof(buf3), "0:%06.3f: Child 4 message %d\n", elapsed, m3);
             write(fds[3][WRITE], &buf3, sizeof(buf3));
         }
         else
@@ -127,13 +130,11 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
             m4++;
-            /*
-            printf("Process %d is awaiting input...\n>> ", getpid());
-            char buf4[60];
+            printf("%d$ ", getpid());
+            char buf4[BUFFER];
             scanf("%[^\n]%*c", buf4);
-            snprintf(buf4, sizeof(buf4), "0:%02f: Child 5 message %d\n", elapsed, m4);
+            snprintf(buf4, sizeof(buf4), "0:%06.3f: Child 5 message %d\n", elapsed, m4);
             write(fds[4][WRITE], &buf4, sizeof(buf4));
-            */
         }
         else {
             /* Parent process */
@@ -147,7 +148,6 @@ int main() {
                 stop = mach_absolute_time();
                 elapsed = (float)(stop-start) * tb.numer/tb.denom;
                 elapsed /= MILLI;
-
                 if (FD_ISSET(fds[0][READ], &socket)) {
                     read(fds[0][READ], readBuffer, sizeof(readBuffer));
                     fprintf(fh, "%s", readBuffer); 
@@ -157,7 +157,6 @@ int main() {
                     read(fds[1][READ], readBuffer, sizeof(readBuffer));
                     fprintf(fh, "%s", readBuffer); 
                 }
-
                 if (FD_ISSET(fds[2][READ], &socket)) {
                     read(fds[2][READ], readBuffer, sizeof(readBuffer));
                     fprintf(fh, "%s", readBuffer); 
@@ -167,12 +166,10 @@ int main() {
                     read(fds[3][READ], readBuffer, sizeof(readBuffer));
                     fprintf(fh, "%s", readBuffer); 
                 }
-                /*
                 if (FD_ISSET(fds[4][READ], &socket)) {
-                    read(fds[4][READ], readBuffer, sizeof(readBuffer));
+                    fread(readBuffer, sizeof(readBuffer), fds[4][READ], stdin);
                     fprintf(fh, "%s", readBuffer); 
                 }
-                */
             }
             else     
             if (retval < 0) { 
