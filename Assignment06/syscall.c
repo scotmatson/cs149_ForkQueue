@@ -147,20 +147,10 @@ int main() {
             FD_ZERO(&socket);
             for (i = 0; i < PROCS; i++) {
                 FD_SET(*fds[i], &socket);
-                pipe(fds[i]);
             }
             //retval = select(PROCS+1, &socket, NULL, NULL, &timeout);
             retval = select(PROCS+1, &socket, NULL, NULL, &timeout);
             if (retval > 0) {
-                printf("Parent: I have chosen a pipe!!\n");
-                printf("Retval: %d\n", retval);
-                printf("fds0 %d\n", FD_ISSET(fds[0][READ], &socket));
-                printf("fds1 %d\n", FD_ISSET(fds[1][READ], &socket));
-                printf("fds2 %d\n", FD_ISSET(fds[2][READ], &socket));
-                printf("fds3 %d\n", FD_ISSET(fds[3][READ], &socket));
-                printf("fds4 %d\n", FD_ISSET(fds[4][READ], &socket));
-                fflush(stdout);
-
                 if (FD_ISSET(fds[0][READ], &socket)) {
                     read(fds[0][READ], readBuffer, sizeof(readBuffer));
                     printf("RB: %s\n", readBuffer);
@@ -206,8 +196,6 @@ int main() {
             }
         }
         sleep(rand() % 3);
-        printf("Process %d waking back up\n", getpid());
-        fflush(stdout);
     }
 
     /* Close all IO */
