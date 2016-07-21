@@ -149,6 +149,7 @@ int main() {
                 FD_SET(*fds[i], &socket);
                 pipe(fds[i]);
             }
+            //retval = select(PROCS+1, &socket, NULL, NULL, &timeout);
             retval = select(PROCS+1, &socket, NULL, NULL, &timeout);
             if (retval > 0) {
                 printf("Parent: I have chosen a pipe!!\n");
