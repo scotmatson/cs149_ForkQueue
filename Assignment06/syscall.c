@@ -148,27 +148,12 @@ int main() {
                 stop = mach_absolute_time();
                 elapsed = (float)(stop-start) * tb.numer/tb.denom;
                 elapsed /= MILLI;
-                if (FD_ISSET(fds[0][READ], &socket)) {
-                    read(fds[0][READ], readBuffer, sizeof(readBuffer));
-                    fprintf(fh, "%s", readBuffer); 
-                }
 
-                if (FD_ISSET(fds[1][READ], &socket)) {
-                    read(fds[1][READ], readBuffer, sizeof(readBuffer));
-                    fprintf(fh, "%s", readBuffer); 
-                }
-                if (FD_ISSET(fds[2][READ], &socket)) {
-                    read(fds[2][READ], readBuffer, sizeof(readBuffer));
-                    fprintf(fh, "%s", readBuffer); 
-                }
-
-                if (FD_ISSET(fds[3][READ], &socket)) {
-                    read(fds[3][READ], readBuffer, sizeof(readBuffer));
-                    fprintf(fh, "%s", readBuffer); 
-                }
-                if (FD_ISSET(fds[4][READ], &socket)) {
-                    fread(readBuffer, sizeof(readBuffer), fds[4][READ], stdin);
-                    fprintf(fh, "%s", readBuffer); 
+                for (i = 0; i < PROCS; i++) {
+                    if (FD_ISSET(fds[i][READ], &socket)) {
+                        read(fds[i][READ], readBuffer, sizeof(readBuffer));
+                        fprintf(fh, "%s", readBuffer); 
+                    }
                 }
             }
             else     
