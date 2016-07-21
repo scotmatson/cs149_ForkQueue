@@ -144,13 +144,12 @@ int main() {
             }
             retval = select(PROCS+1, &socket, NULL, NULL, &timeout);
             if (retval > 0) {
-                /* This needs to prefix the file output */
-                stop = mach_absolute_time();
-                elapsed = (float)(stop-start) * tb.numer/tb.denom;
-                elapsed /= MILLI;
-
                 for (i = 0; i < PROCS; i++) {
                     if (FD_ISSET(fds[i][READ], &socket)) {
+                        /* TODO: Prefix child output with parent time */
+                        stop = mach_absolute_time();
+                        elapsed = (float)(stop-start) * tb.numer/tb.denom;
+                        elapsed /= MILLI;
                         read(fds[i][READ], readBuffer, sizeof(readBuffer));
                         fprintf(fh, "%s", readBuffer); 
                     }
