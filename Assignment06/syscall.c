@@ -4,7 +4,7 @@
 #define MILLI  1000000000    /* Division needed to convert time to milliseconds */
 #define READ   0             /* Read side for File Descriptors */
 #define WRITE  1             /* Write side for File Descriptors */
-#define BUFFER 60            /* Universal character output buffer */
+#define BUFFER 255            /* Universal character output buffer */
 #include <stdio.h>           /* for printf() */
 #include <unistd.h>          /* for pipe(), fork(), and close() */
 #include <stdlib.h>          /* for exit(), srand(), rand() */
@@ -63,11 +63,13 @@ int main() {
         } 
         else if (pid == 0) {
             c_pid[i] = getpid();      /* Store child process ID */
+            //dup2(fds[i][READ], STDIN_FILENO);
             close(fds[i][READ]);      /* Close read side */
             break;                    /* Break here, we don't want children looping */
         } 
         else {
             p_pid = getpid();
+            //dup2(fds[i][WRITE], STDOUT_FILENO);
             close(fds[i][WRITE]);
         }
     }
@@ -79,14 +81,10 @@ int main() {
         exit(1);
     }
 
-    /* Last chance to initialize any variables */
-    int j = 0;
-    /* Loop runs for 30 seconds (real time) */
-    while (j < 10) {
-        j++;
+    int j = 0; /* Counter for testing only */
+    while (j < 10) { /* TODO: This should stop after 30 seconds (real time) */
+        j++; 
         srand(time(NULL));
-        /* Read that this has to happen inside the main loop, it seems to help, but needs work */
-
         if (getpid() == c_pid[0]) {
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
@@ -128,9 +126,11 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
             mNum++;
+            char str[30];
             printf("%d$ ", getpid());
-            scanf("%[^\n]%*c", wBuf);
-            snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 5 message %d\n", elapsed, mNum);
+            scanf("%[^\n]%*c", str);
+            snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 5 message %d : %s\n", 
+                elapsed, mNum, str);
             write(fds[4][WRITE], &wBuf, sizeof(wBuf));
         }
         else {
@@ -139,18 +139,16 @@ int main() {
             for (i = 0; i < PROCS; i++) {
                 FD_SET(*fds[i], &socket);
             }
-            retval = select(PROCS+1, &socket, NULL, NULL, &timeout);
+            retval = select(FD_SETSIZE, &socket, NULL, NULL, &timeout);
             if (retval > 0) {
                 for (i = 0; i < PROCS; i++) {
-                    printf("Is it set? %d = %d\n", i, FD_ISSET(fds[i][READ], &socket));
-                    fflush(stdin);
                     if (FD_ISSET(fds[i][READ], &socket)) {
                         /* TODO: Prefix child output with parent time */
                         stop = mach_absolute_time();
                         elapsed = (float)(stop-start) * tb.numer/tb.denom;
                         elapsed /= MILLI;
                         read(fds[i][READ], rBuf, sizeof(rBuf));
-                        fprintf(fh, "%s", rBuf); 
+                        fprintf(fh, "%f - %s", elapsed, rBuf); 
                     }
                 }
             }
@@ -160,7 +158,7 @@ int main() {
                 exit(1);
             }
             else {
-               printf("No data to be read from the pipe\n");
+               //printf("No data to be read from the pipe\n");
                fflush(stdout);
             }
         }

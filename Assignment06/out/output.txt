@@ -1,20 +1,44 @@
-0:00.000: Child 1 message 1
-0:00.000: Child 2 message 1
-0:01.002: Child 1 message 2
-0:01.002: Child 2 message 2
-0:03.003: Child 1 message 3
-0:03.003: Child 2 message 3
-0:04.004: Child 1 message 4
-0:04.004: Child 2 message 4
-0:06.005: Child 1 message 5
-0:06.005: Child 2 message 5
-0:07.005: Child 1 message 6
-0:07.005: Child 2 message 6
-0:09.006: Child 1 message 7
-0:09.006: Child 2 message 7
-0:10.008: Child 1 message 8
-0:10.008: Child 2 message 8
-0:12.008: Child 1 message 9
-0:12.008: Child 2 message 9
-0:13.010: Child 1 message 10
-0:13.010: Child 2 message 10
+0.000642 - 0:00.000: Child 1 message 1
+0.000671 - 0:00.001: Child 2 message 1
+0.000673 - 0:00.001: Child 3 message 1
+1.004527 - 0:01.002: Child 1 message 2
+1.004550 - 0:01.002: Child 2 message 2
+1.004555 - 0:01.002: Child 3 message 2
+1.004560 - 0:00.001: Child 4 message 1
+3.004811 - 0:03.003: Child 1 message 3
+3.004833 - 0:03.003: Child 2 message 3
+3.004838 - 0:03.003: Child 3 message 3
+3.004843 - 0:01.002: Child 4 message 2
+3.004847 - 0:00.001: Child 5 message 1 : test2
+4.010013 - 0:04.004: Child 1 message 4
+4.010036 - 0:04.004: Child 2 message 4
+4.010040 - 0:04.004: Child 3 message 4
+4.010045 - 0:03.003: Child 4 message 3
+4.010049 - 0:02.637: Child 5 message 2 : test3
+6.010109 - 0:06.004: Child 1 message 5
+6.010114 - 0:06.004: Child 2 message 5
+6.010115 - 0:06.004: Child 3 message 5
+6.010115 - 0:04.004: Child 4 message 4
+6.010116 - 0:04.829: Child 5 message 3 : test5
+7.012724 - 0:07.005: Child 1 message 6
+7.012746 - 0:07.005: Child 2 message 6
+7.012751 - 0:07.005: Child 3 message 6
+7.012755 - 0:06.004: Child 4 message 5
+9.017920 - 0:09.006: Child 1 message 7
+9.017942 - 0:09.006: Child 2 message 7
+9.017947 - 0:09.006: Child 3 message 7
+9.017951 - 0:07.005: Child 4 message 6
+9.017956 - 0:05.964: Child 5 message 4 : skipping numbers
+10.022622 - 0:10.006: Child 1 message 8
+10.022646 - 0:10.006: Child 2 message 8
+10.022652 - 0:10.006: Child 3 message 8
+10.022656 - 0:09.006: Child 4 message 7
+12.027824 - 0:12.006: Child 1 message 9
+12.027845 - 0:12.006: Child 2 message 9
+12.027852 - 0:12.006: Child 3 message 9
+12.027856 - 0:10.006: Child 4 message 8
+12.027860 - 0:09.533: Child 5 message 5 : idiot
+13.032919 - 0:13.008: Child 1 message 10
+13.032924 - 0:13.008: Child 2 message 10
+13.032924 - 0:13.008: Child 3 message 10
+13.032926 - 0:12.006: Child 4 message 9
