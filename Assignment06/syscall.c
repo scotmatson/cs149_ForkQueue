@@ -87,8 +87,6 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
             m0++;
-
-            /* Sending through pipe */
             char buf0[60];
             snprintf(buf0, sizeof(buf0), "0:%02f: Child 1 message %d\n", elapsed, m0);
             write(fds[0][WRITE], &buf0, sizeof(buf0));
@@ -99,8 +97,6 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
             m1++;
-
-            // Send through pipe
             char buf1[60];
             snprintf(buf1, sizeof(buf1), "0:%02f: Child 2 message %d\n", elapsed, m1);
             write(fds[1][WRITE], &buf1, sizeof(buf1));
@@ -111,8 +107,6 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
             m2++;
-            
-            // Send through pipe
             char buf2[60];
             snprintf(buf2, sizeof(buf2), "0:%02f: Child 3 message %d\n", elapsed, m2);
             write(fds[2][WRITE], &buf2, sizeof(buf2));
@@ -123,24 +117,23 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
             m3++;
-
-            // Send through pipe
             char buf3[60];
             snprintf(buf3, sizeof(buf3), "0:%02f: Child 4 message %d\n", elapsed, m3);
             write(fds[3][WRITE], &buf3, sizeof(buf3));
         }
         else
         if (getpid() == c_pid[4]) {
-            //printf("Process %d is awaiting input...\n>> ", getpid());
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             elapsed /= MILLI;
             m4++;
-
-            // Send through pipe
-            //char msg5[30];
-            //scanf("%[^\n]%*c", msg5);
-            //write(fd5[0], msg5, sizeof(msg5));
+            /*
+            printf("Process %d is awaiting input...\n>> ", getpid());
+            char buf4[60];
+            scanf("%[^\n]%*c", buf4);
+            snprintf(buf4, sizeof(buf4), "0:%02f: Child 5 message %d\n", elapsed, m4);
+            write(fds[4][WRITE], &buf4, sizeof(buf4));
+            */
         }
         else {
             /* Parent process */
@@ -150,39 +143,36 @@ int main() {
             }
             retval = select(PROCS+1, &socket, NULL, NULL, &timeout);
             if (retval > 0) {
+                /* This needs to prefix the file output */
+                stop = mach_absolute_time();
+                elapsed = (float)(stop-start) * tb.numer/tb.denom;
+                elapsed /= MILLI;
+
                 if (FD_ISSET(fds[0][READ], &socket)) {
                     read(fds[0][READ], readBuffer, sizeof(readBuffer));
-                    printf("RB: %s", readBuffer);
+                    fprintf(fh, "%s", readBuffer); 
                 }
 
                 if (FD_ISSET(fds[1][READ], &socket)) {
                     read(fds[1][READ], readBuffer, sizeof(readBuffer));
-                    printf("RB: %s", readBuffer);
+                    fprintf(fh, "%s", readBuffer); 
                 }
 
                 if (FD_ISSET(fds[2][READ], &socket)) {
                     read(fds[2][READ], readBuffer, sizeof(readBuffer));
-                    printf("RB: %s", readBuffer);
+                    fprintf(fh, "%s", readBuffer); 
                 }
 
                 if (FD_ISSET(fds[3][READ], &socket)) {
                     read(fds[3][READ], readBuffer, sizeof(readBuffer));
-                    printf("RB: %s", readBuffer);
+                    fprintf(fh, "%s", readBuffer); 
                 }
-
-                stop = mach_absolute_time();
-                elapsed = (float)(stop-start) * tb.numer/tb.denom;
-                elapsed /= MILLI;
-                /* SAVE FOR NOW */
-                /* 
-                Need to prefix message with parent time,
-                i.e., time - child message
-                      time - child message ...
+                /*
+                if (FD_ISSET(fds[4][READ], &socket)) {
+                    read(fds[4][READ], readBuffer, sizeof(readBuffer));
+                    fprintf(fh, "%s", readBuffer); 
+                }
                 */
-                /* read proc data */
-                //read(p_fd[0], readBuffer, sizeof(readBuffer)); /* Not getting child message :( */
-                //printf("RB: %s\n", readBuffer);
-                //fprintf(fh, "%s\n", readBuffer); 
             }
             else     
             if (retval < 0) { 
