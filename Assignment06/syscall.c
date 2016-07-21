@@ -18,7 +18,7 @@ int main() {
  
     int            i, retval;      /* Reusable counters/return values */
     int            m0,m1,m2,m3,m4; /* Message counters */
-    char           readBuffer[20]; /* Buffer for parent to read from pipe */
+    char           readBuffer[60]; /* Buffer for parent to read from pipe */
     FILE           *fh;            /* File Handler to write piped message */
 
     /* Process IDs */
@@ -89,7 +89,7 @@ int main() {
             m0++;
 
             /* Sending through pipe */
-            char buf0[30];
+            char buf0[60];
             snprintf(buf0, sizeof(buf0), "0:%02f: Child 1 message %d\n", elapsed, m0);
             write(fds[0][WRITE], &buf0, sizeof(buf0));
         }    
@@ -101,7 +101,7 @@ int main() {
             m1++;
 
             // Send through pipe
-            char buf1[30];
+            char buf1[60];
             snprintf(buf1, sizeof(buf1), "0:%02f: Child 2 message %d\n", elapsed, m1);
             write(fds[1][WRITE], &buf1, sizeof(buf1));
         }
@@ -113,7 +113,7 @@ int main() {
             m2++;
             
             // Send through pipe
-            char buf2[30];
+            char buf2[60];
             snprintf(buf2, sizeof(buf2), "0:%02f: Child 3 message %d\n", elapsed, m2);
             write(fds[2][WRITE], &buf2, sizeof(buf2));
         }
@@ -125,7 +125,7 @@ int main() {
             m3++;
 
             // Send through pipe
-            char buf3[30];
+            char buf3[60];
             snprintf(buf3, sizeof(buf3), "0:%02f: Child 4 message %d\n", elapsed, m3);
             write(fds[3][WRITE], &buf3, sizeof(buf3));
         }
@@ -148,27 +148,26 @@ int main() {
             for (i = 0; i < PROCS; i++) {
                 FD_SET(*fds[i], &socket);
             }
-            //retval = select(PROCS+1, &socket, NULL, NULL, &timeout);
             retval = select(PROCS+1, &socket, NULL, NULL, &timeout);
             if (retval > 0) {
                 if (FD_ISSET(fds[0][READ], &socket)) {
                     read(fds[0][READ], readBuffer, sizeof(readBuffer));
-                    printf("RB: %s\n", readBuffer);
+                    printf("RB: %s", readBuffer);
                 }
 
                 if (FD_ISSET(fds[1][READ], &socket)) {
                     read(fds[1][READ], readBuffer, sizeof(readBuffer));
-                    printf("RB: %s\n", readBuffer);
+                    printf("RB: %s", readBuffer);
                 }
 
                 if (FD_ISSET(fds[2][READ], &socket)) {
                     read(fds[2][READ], readBuffer, sizeof(readBuffer));
-                    printf("RB: %s\n", readBuffer);
+                    printf("RB: %s", readBuffer);
                 }
 
                 if (FD_ISSET(fds[3][READ], &socket)) {
                     read(fds[3][READ], readBuffer, sizeof(readBuffer));
-                    printf("RB: %s\n", readBuffer);
+                    printf("RB: %s", readBuffer);
                 }
 
                 stop = mach_absolute_time();
