@@ -30,15 +30,19 @@ int main() {
 
     /* Time Management */
     static mach_timebase_info_data_t tb;
+    struct timeval timeout;
     uint64_t       start, stop;
     float          elapsed; 
-    struct timeval timeout;
+    float          runtime;
+    float          maxtime;
+
 
     /* Start/Set the clocks */
     mach_timebase_info(&tb);
     start = mach_absolute_time();
     timeout.tv_sec  = 0;
     timeout.tv_usec = 0;
+    maxtime         = 30.0f;
 
     /* Setup file descriptors */
     struct fd_set socket;
@@ -81,14 +85,13 @@ int main() {
         exit(1);
     }
 
-    int j = 0; /* Counter for testing only */
-    while (j < 10) { /* TODO: This should stop after 30 seconds (real time) */
-        j++; 
+    runtime = 0.0f;
+    while (runtime < maxtime) {
         srand(time(NULL));
         if (getpid() == c_pid[0]) {
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
-            elapsed /= MILLI;
+            runtime=elapsed /= MILLI;
             mNum++;
             snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 1 message %d\n", elapsed, mNum);
             write(fds[0][WRITE], &wBuf, sizeof(wBuf));
@@ -97,7 +100,7 @@ int main() {
         if (getpid() == c_pid[1]) {
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
-            elapsed /= MILLI;
+            runtime=elapsed /= MILLI;
             mNum++;
             snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 2 message %d\n", elapsed, mNum);
             write(fds[1][WRITE], &wBuf, sizeof(wBuf));
@@ -106,7 +109,7 @@ int main() {
         if (getpid() == c_pid[2]) {
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
-            elapsed /= MILLI;
+            runtime=elapsed /= MILLI;
             mNum++;
             snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 3 message %d\n", elapsed, mNum);
             write(fds[2][WRITE], &wBuf, sizeof(wBuf));
@@ -115,7 +118,7 @@ int main() {
         if (getpid() == c_pid[3]) {
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
-            elapsed /= MILLI;
+            runtime=elapsed /= MILLI;
             mNum++;
             snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 4 message %d\n", elapsed, mNum);
             write(fds[3][WRITE], &wBuf, sizeof(wBuf));
@@ -124,7 +127,7 @@ int main() {
         if (getpid() == c_pid[4]) {
             stop = mach_absolute_time();
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
-            elapsed /= MILLI;
+            runtime=elapsed /= MILLI;
             mNum++;
             char str[30];
             printf("%d$ ", getpid());
@@ -135,6 +138,9 @@ int main() {
         }
         else {
             /* Parent process */
+            
+
+
             FD_ZERO(&socket);
             for (i = 0; i < PROCS; i++) {
                 FD_SET(*fds[i], &socket);
@@ -143,10 +149,9 @@ int main() {
             if (retval > 0) {
                 for (i = 0; i < PROCS; i++) {
                     if (FD_ISSET(fds[i][READ], &socket)) {
-                        /* TODO: Prefix child output with parent time */
                         stop = mach_absolute_time();
                         elapsed = (float)(stop-start) * tb.numer/tb.denom;
-                        elapsed /= MILLI;
+                        runtime=elapsed /= MILLI;
                         read(fds[i][READ], rBuf, sizeof(rBuf));
                         fprintf(fh, "%f - %s", elapsed, rBuf); 
                     }
@@ -165,13 +170,11 @@ int main() {
         sleep(rand() % 3);
     }
 
-    /* Close all IO */
-    /*
+    /* Close up File Descriptors and Handlers */
     for (i = 0; i < PROCS; i++) {
         close(fds[i][READ]);
         close(fds[i][WRITE]);
     }
-    */
     fclose(fh); 
     exit(0);
 }
