@@ -10,11 +10,7 @@
 #include <stdlib.h>          /* for exit(), srand(), rand() */
 #include <time.h>            /* For seeding srand() */
 //#include <mach/mach_time.h>  /* For OSX Time Keeping */ 
-
 #include <sys/types.h>
-#undef _FD_SETSIZE
-#define _FD_SETSIZE 40960
-
 #include <sys/select.h>      /* For select() */
 #include <string.h>          /* For strcpy() */
 #include "tictoc.h"
@@ -46,23 +42,21 @@ int main() {
     /* Start/Set the clocks */
     //mach_timebase_info(&tb);
     //start = mach_absolute_time();
-    TicTocTimer clock = tic();
+    TicTocTimer clock = tic(); // Start the clock
     timeout.tv_sec  = 0;
     timeout.tv_usec = 0;
     maxtime         = 30.0f;
 
     /* Setup file descriptors */
     fd_set *socket = malloc(sizeof(fd_set));
-    if (socket == NULL) {
-        printf("Couldn't allocate a new fd_set");
-        fflush(stdout);
-        return 0;
-    }
     int fds[PROCS][IO];
     FD_ZERO(socket);
     for (i = 0; i < PROCS; i++) {
+        // a couple of test prints remove later
+        printf("toc = %f\n",toc(&clock));
         printf("fds[%d] = %d\n", i, *fds[i]);
         fflush(stdout);
+        
         FD_SET(*fds[i], socket);
         pipe(fds[i]);
     }
