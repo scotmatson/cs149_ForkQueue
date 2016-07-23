@@ -9,9 +9,15 @@
 #include <unistd.h>          /* for pipe(), fork(), and close() */
 #include <stdlib.h>          /* for exit(), srand(), rand() */
 #include <time.h>            /* For seeding srand() */
-#include <mach/mach_time.h>  /* For OSX Time Keeping */ 
+//#include <mach/mach_time.h>  /* For OSX Time Keeping */ 
+
+#include <sys/types.h>
+#undef _FD_SETSIZE
+#define _FD_SETSIZE 40960
+
 #include <sys/select.h>      /* For select() */
 #include <string.h>          /* For strcpy() */
+#include "tictoc.h"
 
 int main() {
     printf("*** Executing syscall.c ***\n\n");
@@ -29,27 +35,35 @@ int main() {
     pid_t          c_pid[PROCS];       /* Child procs */
 
     /* Time Management */
-    static mach_timebase_info_data_t tb;
+    //static mach_timebase_info_data_t tb;
     struct timeval timeout;
-    uint64_t       start, stop;
+    //uint64_t       start, stop;
     float          elapsed; 
     float          runtime;
     float          maxtime;
 
 
     /* Start/Set the clocks */
-    mach_timebase_info(&tb);
-    start = mach_absolute_time();
+    //mach_timebase_info(&tb);
+    //start = mach_absolute_time();
+    TicTocTimer clock = tic();
     timeout.tv_sec  = 0;
     timeout.tv_usec = 0;
     maxtime         = 30.0f;
 
     /* Setup file descriptors */
-    struct fd_set socket;
+    fd_set *socket = malloc(sizeof(fd_set));
+    if (socket == NULL) {
+        printf("Couldn't allocate a new fd_set");
+        fflush(stdout);
+        return 0;
+    }
     int fds[PROCS][IO];
-    FD_ZERO(&socket);
+    FD_ZERO(socket);
     for (i = 0; i < PROCS; i++) {
-        FD_SET(*fds[i], &socket);
+        printf("fds[%d] = %d\n", i, *fds[i]);
+        fflush(stdout);
+        FD_SET(*fds[i], socket);
         pipe(fds[i]);
     }
 
@@ -89,8 +103,9 @@ int main() {
     while (runtime < maxtime) {
         srand(time(NULL));
         if (getpid() == c_pid[0]) {
-            stop = mach_absolute_time();
-            elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            //stop = mach_absolute_time();
+            //elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            elapsed = toc(&clock);
             runtime=elapsed /= MILLI;
             mNum++;
             snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 1 message %d\n", elapsed, mNum);
@@ -98,8 +113,9 @@ int main() {
         }    
         else 
         if (getpid() == c_pid[1]) {
-            stop = mach_absolute_time();
-            elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            //stop = mach_absolute_time();
+            //elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            elapsed = toc(&clock);
             runtime=elapsed /= MILLI;
             mNum++;
             snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 2 message %d\n", elapsed, mNum);
@@ -107,8 +123,9 @@ int main() {
         }
         else
         if (getpid() == c_pid[2]) {
-            stop = mach_absolute_time();
-            elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            //stop = mach_absolute_time();
+            //elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            elapsed = toc(&clock);
             runtime=elapsed /= MILLI;
             mNum++;
             snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 3 message %d\n", elapsed, mNum);
@@ -116,8 +133,9 @@ int main() {
         }
         else
         if (getpid() == c_pid[3]) {
-            stop = mach_absolute_time();
-            elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            //stop = mach_absolute_time();
+            //elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            elapsed = toc(&clock);
             runtime=elapsed /= MILLI;
             mNum++;
             snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 4 message %d\n", elapsed, mNum);
@@ -125,8 +143,9 @@ int main() {
         }
         else
         if (getpid() == c_pid[4]) {
-            stop = mach_absolute_time();
-            elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            //stop = mach_absolute_time();
+            //elapsed = (float)(stop-start) * tb.numer/tb.denom;
+            elapsed = toc(&clock);
             runtime=elapsed /= MILLI;
             mNum++;
             char str[30];
@@ -141,16 +160,17 @@ int main() {
             
 
 
-            FD_ZERO(&socket);
+            FD_ZERO(socket);
             for (i = 0; i < PROCS; i++) {
-                FD_SET(*fds[i], &socket);
+                FD_SET(*fds[i], socket);
             }
-            retval = select(FD_SETSIZE, &socket, NULL, NULL, &timeout);
+            retval = select(FD_SETSIZE, socket, NULL, NULL, &timeout);
             if (retval > 0) {
                 for (i = 0; i < PROCS; i++) {
-                    if (FD_ISSET(fds[i][READ], &socket)) {
-                        stop = mach_absolute_time();
-                        elapsed = (float)(stop-start) * tb.numer/tb.denom;
+                    if (FD_ISSET(fds[i][READ], socket)) {
+                        //stop = mach_absolute_time();
+                        //elapsed = (float)(stop-start) * tb.numer/tb.denom;
+                        elapsed = toc(&clock);
                         runtime=elapsed /= MILLI;
                         read(fds[i][READ], rBuf, sizeof(rBuf));
                         fprintf(fh, "%f - %s", elapsed, rBuf); 
