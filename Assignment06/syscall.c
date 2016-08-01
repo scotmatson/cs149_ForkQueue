@@ -4,7 +4,7 @@
 #define MILLI  1000000000    /* Division needed to convert time to milliseconds */
 #define READ   0             /* Read side for File Descriptors */
 #define WRITE  1             /* Write side for File Descriptors */
-#define BUFFER 255            /* Universal character output buffer */
+#define BUFFER 255           /* Universal character output buffer */
 #include <stdio.h>           /* for printf() */
 #include <unistd.h>          /* for pipe(), fork(), and close() */
 #include <stdlib.h>          /* for exit(), srand(), rand() */
@@ -20,7 +20,7 @@ int main() {
     int            i, retval;          /* Reusable counters/return values */
     int            mNum;               /* Message counter */
     char           rBuf[BUFFER];       /* Buffer for parent to read from pipe */
-    char           wBuf[BUFFER];
+    char           wBuf[BUFFER];       /* Buffer for children to write to pipe */
     FILE           *fh;                /* File Handler to write piped message */
     
     /* Process IDs */
@@ -35,7 +35,6 @@ int main() {
     float          elapsed; 
     float          runtime;
     float          maxtime;
-
 
     /* Start/Set the clocks */
     mach_timebase_info(&tb);
@@ -67,13 +66,11 @@ int main() {
         } 
         else if (pid == 0) {
             c_pid[i] = getpid();      /* Store child process ID */
-            //dup2(fds[i][READ], STDIN_FILENO);
             close(fds[i][READ]);      /* Close read side */
             break;                    /* Break here, we don't want children looping */
         } 
         else {
             p_pid = getpid();
-            //dup2(fds[i][WRITE], STDOUT_FILENO);
             close(fds[i][WRITE]);
         }
     }
@@ -85,6 +82,7 @@ int main() {
         exit(1);
     }
 
+    /* Message passing loop */
     runtime = 0.0f;
     while (runtime < maxtime) {
         srand(time(NULL));
@@ -138,9 +136,6 @@ int main() {
         }
         else {
             /* Parent process */
-            
-
-
             FD_ZERO(&socket);
             for (i = 0; i < PROCS; i++) {
                 FD_SET(*fds[i], &socket);
@@ -161,10 +156,6 @@ int main() {
             if (retval < 0) { 
                 fprintf(stderr, "ERROR; Unable to select file descriptor\n");
                 exit(1);
-            }
-            else {
-               //printf("No data to be read from the pipe\n");
-               fflush(stdout);
             }
         }
         sleep(rand() % 3);
