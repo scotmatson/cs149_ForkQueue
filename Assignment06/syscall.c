@@ -161,6 +161,9 @@ int main() {
         sleep(rand() % 3);
     }
 
+    /* Wait for all procs to catch up */
+    wait(NULL);
+
     /* Close up File Descriptors and Handlers */
     for (i = 0; i < PROCS; i++) {
         close(fds[i][READ]);

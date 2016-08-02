@@ -1,99 +1,99 @@
-0.000645 - 0:00.000: Child 1 message 1
-0.000673 - 0:00.001: Child 2 message 1
-0.000675 - 0:00.001: Child 3 message 1
-1.001725 - 0:01.002: Child 1 message 2
-1.001740 - 0:01.002: Child 2 message 2
-1.001744 - 0:01.002: Child 3 message 2
-1.001747 - 0:00.001: Child 4 message 1
-1.001750 - 0:00.001: Child 5 message 1 : test
-3.002854 - 0:03.003: Child 1 message 3
-3.002875 - 0:03.003: Child 2 message 3
-3.002881 - 0:03.003: Child 3 message 3
-3.002886 - 0:01.002: Child 4 message 2
-3.002891 - 0:01.725: Child 5 message 2 : test
-4.004039 - 0:04.004: Child 1 message 4
-4.004058 - 0:04.004: Child 2 message 4
-4.004064 - 0:04.004: Child 3 message 4
-4.004069 - 0:03.003: Child 4 message 3
-4.004075 - 0:02.332: Child 5 message 3 : test
-6.005202 - 0:06.005: Child 1 message 5
-6.005222 - 0:06.005: Child 2 message 5
-6.005227 - 0:06.005: Child 3 message 5
-6.005230 - 0:04.004: Child 4 message 4
-6.005234 - 0:03.140: Child 5 message 4 : test
-7.006380 - 0:07.006: Child 2 message 6
-7.006390 - 0:07.006: Child 3 message 6
-7.006393 - 0:06.005: Child 4 message 5
-7.006395 - 0:04.877: Child 5 message 5 : test
-9.008275 - 0:07.006: Child 1 message 6
-9.008299 - 0:09.008: Child 2 message 7
-9.008303 - 0:09.008: Child 3 message 7
-9.008307 - 0:07.006: Child 4 message 6
-9.008310 - 0:05.508: Child 5 message 6 : test
-10.008438 - 0:09.008: Child 1 message 7
-10.008458 - 0:10.008: Child 3 message 8
-10.008463 - 0:09.008: Child 4 message 7
-10.008468 - 0:06.220: Child 5 message 7 : test
-12.008679 - 0:10.008: Child 1 message 8
-12.008739 - 0:10.008: Child 2 message 8
-12.008742 - 0:12.009: Child 3 message 9
-12.008743 - 0:10.008: Child 4 message 8
-12.008745 - 0:07.933: Child 5 message 8 : test
-13.008899 - 0:12.009: Child 1 message 9
-13.008906 - 0:12.009: Child 2 message 9
-13.008908 - 0:13.009: Child 3 message 10
-13.008909 - 0:12.009: Child 4 message 9
-13.008911 - 0:08.556: Child 5 message 9 : test
-15.009118 - 0:13.009: Child 1 message 10
-15.009140 - 0:13.009: Child 2 message 10
-15.009147 - 0:15.009: Child 3 message 11
-15.009153 - 0:13.009: Child 4 message 10
-15.009161 - 0:09.236: Child 5 message 10 : test
-16.009306 - 0:15.009: Child 1 message 11
-16.009321 - 0:15.009: Child 2 message 11
-16.009325 - 0:16.009: Child 3 message 12
-16.009327 - 0:15.009: Child 4 message 11
-16.009331 - 0:10.829: Child 5 message 11 : test
-18.009506 - 0:16.009: Child 1 message 12
-18.009527 - 0:16.009: Child 2 message 12
-18.009533 - 0:18.009: Child 3 message 13
-18.009537 - 0:16.009: Child 4 message 12
-18.009541 - 0:11.372: Child 5 message 12 : test
-19.009701 - 0:18.009: Child 1 message 13
-19.009714 - 0:18.009: Child 2 message 13
-19.009739 - 0:19.010: Child 3 message 14
-19.009743 - 0:18.009: Child 4 message 13
-19.009745 - 0:11.924: Child 5 message 13 : test
-21.009947 - 0:19.010: Child 1 message 14
-21.009966 - 0:19.010: Child 2 message 14
-21.009972 - 0:19.010: Child 4 message 14
-21.009975 - 0:13.637: Child 5 message 14 : test
-22.010130 - 0:21.010: Child 1 message 15
-22.010143 - 0:21.010: Child 2 message 15
-22.010147 - 0:21.010: Child 3 message 15
-22.010151 - 0:21.010: Child 4 message 15
-22.010153 - 0:16.261: Child 5 message 15 : test
-24.010340 - 0:22.010: Child 1 message 16
-24.010361 - 0:22.010: Child 2 message 16
-24.010366 - 0:22.010: Child 3 message 16
-24.010370 - 0:22.010: Child 4 message 16
-24.010374 - 0:18.925: Child 5 message 16 : test
-25.010509 - 0:24.010: Child 1 message 17
-25.010523 - 0:24.010: Child 2 message 17
-25.010527 - 0:24.010: Child 3 message 17
-25.010530 - 0:24.010: Child 4 message 17
-25.010534 - 0:21.581: Child 5 message 17 : test
-27.014862 - 0:25.010: Child 1 message 18
-27.014887 - 0:25.010: Child 2 message 18
-27.014891 - 0:25.010: Child 3 message 18
-27.014896 - 0:25.010: Child 4 message 18
-27.014900 - 0:23.237: Child 5 message 18 : test
-28.020073 - 0:27.011: Child 1 message 19
-28.020096 - 0:27.011: Child 2 message 19
-28.020100 - 0:27.011: Child 3 message 19
-28.020103 - 0:27.011: Child 4 message 19
-28.020107 - 0:23.876: Child 5 message 19 : test
-30.025276 - 0:28.012: Child 1 message 20
-30.025297 - 0:28.012: Child 2 message 20
-30.025303 - 0:28.012: Child 3 message 20
-30.025307 - 0:28.012: 
+0.000631 - 0:00.000: Child 1 message 1
+0.000659 - 0:00.000: Child 2 message 1
+0.000661 - 0:00.001: Child 3 message 1
+2.001572 - 0:02.002: Child 1 message 2
+2.001587 - 0:02.002: Child 2 message 2
+2.001590 - 0:02.002: Child 3 message 2
+2.001594 - 0:00.001: Child 4 message 1
+2.001598 - 0:00.001: Child 5 message 1 : test
+3.002115 - 0:03.002: Child 2 message 3
+3.002123 - 0:03.002: Child 3 message 3
+3.002125 - 0:02.002: Child 4 message 2
+5.006464 - 0:03.002: Child 1 message 3
+5.006479 - 0:05.002: Child 2 message 4
+5.006481 - 0:05.002: Child 3 message 4
+5.006483 - 0:03.002: Child 4 message 3
+5.006485 - 0:02.685: Child 5 message 2 : test
+6.008038 - 0:05.002: Child 1 message 4
+6.008049 - 0:06.002: Child 2 message 5
+6.008051 - 0:06.002: Child 3 message 5
+6.008052 - 0:05.002: Child 4 message 4
+6.008053 - 0:05.350: Child 5 message 3 : test
+8.009423 - 0:06.002: Child 1 message 5
+8.009433 - 0:08.003: Child 2 message 6
+8.009434 - 0:08.003: Child 3 message 6
+8.009435 - 0:06.002: Child 4 message 5
+9.013812 - 0:08.003: Child 1 message 6
+9.013823 - 0:09.003: Child 2 message 7
+9.013824 - 0:09.003: Child 3 message 7
+9.013825 - 0:08.003: Child 4 message 6
+9.013826 - 0:07.975: Child 5 message 4 : test
+11.018049 - 0:09.003: Child 1 message 7
+11.018072 - 0:11.004: Child 2 message 8
+11.018076 - 0:11.004: Child 3 message 8
+11.018079 - 0:09.003: Child 4 message 7
+11.018084 - 0:09.518: Child 5 message 5 : test
+12.022150 - 0:11.004: Child 1 message 8
+12.022173 - 0:12.005: Child 2 message 9
+12.022177 - 0:12.005: Child 3 message 9
+12.022180 - 0:11.004: Child 4 message 8
+12.022184 - 0:10.110: Child 5 message 6 : test
+14.026052 - 0:12.005: Child 1 message 9
+14.026075 - 0:14.006: Child 2 message 10
+14.026079 - 0:14.006: Child 3 message 10
+14.026082 - 0:12.005: Child 4 message 9
+14.026087 - 0:10.830: Child 5 message 7 : test
+15.028659 - 0:14.006: Child 1 message 10
+15.028671 - 0:15.007: Child 2 message 11
+15.028673 - 0:15.007: Child 3 message 11
+15.028676 - 0:14.006: Child 4 message 10
+15.028678 - 0:12.525: Child 5 message 8 : test
+17.031610 - 0:15.007: Child 1 message 11
+17.031622 - 0:17.008: Child 2 message 12
+17.031624 - 0:17.008: Child 3 message 12
+17.031624 - 0:15.007: Child 4 message 11
+17.031628 - 0:13.014: Child 5 message 9 : test
+18.036781 - 0:17.008: Child 1 message 12
+18.036791 - 0:18.009: Child 2 message 13
+18.036793 - 0:18.009: Child 3 message 13
+18.036793 - 0:17.008: Child 4 message 12
+18.036795 - 0:13.670: Child 5 message 10 : test
+20.037836 - 0:18.009: Child 1 message 13
+20.037853 - 0:20.010: Child 2 message 14
+20.037855 - 0:20.010: Child 3 message 14
+20.037857 - 0:18.009: Child 4 message 13
+20.037859 - 0:15.382: Child 5 message 11 : tes
+21.041798 - 0:20.010: Child 1 message 14
+21.041807 - 0:21.010: Child 2 message 15
+21.041807 - 0:21.010: Child 3 message 15
+21.041809 - 0:20.010: Child 4 message 14
+21.041809 - 0:15.845: Child 5 message 12 : ttes
+23.042986 - 0:21.010: Child 1 message 15
+23.042995 - 0:23.012: Child 2 message 16
+23.042997 - 0:23.012: Child 3 message 16
+23.042997 - 0:21.010: Child 4 message 15
+23.043001 - 0:16.701: Child 5 message 13 : test
+24.047848 - 0:23.012: Child 1 message 16
+24.047873 - 0:24.012: Child 2 message 17
+24.047874 - 0:24.012: Child 3 message 17
+24.047876 - 0:23.012: Child 4 message 16
+24.047878 - 0:18.390: Child 5 message 14 : test
+26.051838 - 0:24.012: Child 1 message 17
+26.051861 - 0:26.013: Child 2 message 18
+26.051867 - 0:26.013: Child 3 message 18
+26.051868 - 0:24.012: Child 4 message 17
+26.051872 - 0:18.941: Child 5 message 15 : test
+27.052639 - 0:26.013: Child 1 message 18
+27.052649 - 0:27.014: Child 2 message 19
+27.052649 - 0:27.014: Child 3 message 19
+27.052650 - 0:26.013: Child 4 message 18
+27.052652 - 0:19.422: Child 5 message 16 : test
+29.055906 - 0:27.014: Child 1 message 19
+29.055920 - 0:29.015: Child 2 message 20
+29.055922 - 0:29.015: Child 3 message 20
+29.055923 - 0:27.014: Child 4 message 19
+29.055925 - 0:20.974: Child 5 message 17 : test
+30.057835 - 0:29.015: Child 1 message 20
+30.057863 - 0:30.017: Child 2 message 21
+30.057867 - 0:30.016: Child 3 message 21
+30.057871 - 0:29.015: Child 4 messa
