@@ -67,13 +67,11 @@ int main() {
         else if (pid == 0) {
             c_pid[i] = getpid();      /* Store child process ID */
             close(fds[i][READ]);      /* Close read side */
-            printf("Child proc %d\n", getpid());
             break;                    /* Break here, we don't want children looping */
         } 
         else {
             p_pid = getpid();
             close(fds[i][WRITE]);
-            printf("Parent proc %d\n", getpid());
         }
     }
 
