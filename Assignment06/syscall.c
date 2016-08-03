@@ -67,19 +67,23 @@ int main() {
         else if (pid == 0) {
             c_pid[i] = getpid();      /* Store child process ID */
             close(fds[i][READ]);      /* Close read side */
+            printf("Child proc %d\n", getpid());
             break;                    /* Break here, we don't want children looping */
         } 
         else {
             p_pid = getpid();
             close(fds[i][WRITE]);
+            printf("Parent proc %d\n", getpid());
         }
     }
 
-    /* IO for parent process */
-    fh = fopen("out/output.txt", "w");
-    if (fh == NULL) {
-        fprintf(stderr, "ERROR; Unable to open file\n");
-        exit(1);
+    if (getpid() == p_pid) {
+        /* IO for parent process */
+        fh = fopen("out/output.txt", "w");
+        if (fh == NULL) {
+            fprintf(stderr, "ERROR; Unable to open file\n");
+            exit(1);
+        }
     }
 
     /* Message passing loop */
@@ -91,7 +95,8 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             runtime=elapsed /= MILLI;
             mNum++;
-            snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 1 message %d\n", elapsed, mNum);
+            snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 1 message %d\n", 
+                elapsed, mNum);
             write(fds[0][WRITE], &wBuf, sizeof(wBuf));
         }    
         else 
@@ -100,7 +105,8 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             runtime=elapsed /= MILLI;
             mNum++;
-            snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 2 message %d\n", elapsed, mNum);
+            snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 2 message %d\n", 
+                elapsed, mNum);
             write(fds[1][WRITE], &wBuf, sizeof(wBuf));
         }
         else
@@ -109,7 +115,8 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             runtime=elapsed /= MILLI;
             mNum++;
-            snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 3 message %d\n", elapsed, mNum);
+            snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 3 message %d\n", 
+                elapsed, mNum);
             write(fds[2][WRITE], &wBuf, sizeof(wBuf));
         }
         else
@@ -118,7 +125,8 @@ int main() {
             elapsed = (float)(stop-start) * tb.numer/tb.denom;
             runtime=elapsed /= MILLI;
             mNum++;
-            snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 4 message %d\n", elapsed, mNum);
+            snprintf(wBuf, sizeof(wBuf), "0:%06.3f: Child 4 message %d\n", 
+                elapsed, mNum);
             write(fds[3][WRITE], &wBuf, sizeof(wBuf));
         }
         else
@@ -161,7 +169,7 @@ int main() {
         sleep(rand() % 3);
     }
 
-    /* Wait for all procs to catch up */
+    /* Wait for procs to catch up */
     wait(NULL);
 
     /* Close up File Descriptors and Handlers */
@@ -169,6 +177,8 @@ int main() {
         close(fds[i][READ]);
         close(fds[i][WRITE]);
     }
-    fclose(fh); 
+    if (getpid() == p_pid) {
+        fclose(fh); 
+    }
     exit(0);
 }
